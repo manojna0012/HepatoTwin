@@ -1,6 +1,9 @@
-data/
+# Ignore raw NHANES downloads
+data/raw/
+
+# Ignore SAS files
 *.XPT
-*.csv
-__pycache__/
+
+_pycache_/
 .venv/
 venv/
