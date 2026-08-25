@@ -1,6 +1,6 @@
 import pandas as pd
 from pathlib import Path
-
+import matplotlib.pyplot as plt
 RAW_DIR = Path("data/raw")
 
 
@@ -40,3 +40,29 @@ if __name__ == "__main__":
 
     print("\nMissing values in some key columns:")
     print(df.isnull().sum().sort_values(ascending=False).head(10))
+    lux = pd.read_sas("data/raw/P_LUX.XPT")
+
+    cap_cols = [c for c in lux.columns if "CAP" in c.upper()]
+
+    print(cap_cols)
+    print(lux.shape)
+    # Inspect CAP (Controlled Attenuation Parameter)
+    cap = lux["LUXCAPM"]
+
+    print("\nCAP summary:")
+    print(cap.describe())
+
+    print("\nMissing CAP values:")
+    print(cap.isna().sum())
+
+    print("\nCAP percentiles:")
+    print(cap.quantile([0, 0.25, 0.5, 0.75, 0.90, 0.95, 1.0]))
+
+
+    cap = lux["LUXCAPM"].dropna()
+
+    plt.hist(cap, bins=30)
+    plt.xlabel("CAP (dB/m)")
+    plt.ylabel("Number of participants")
+    plt.title("NHANES CAP Distribution")
+    plt.show()
