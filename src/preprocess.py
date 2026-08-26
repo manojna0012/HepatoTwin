@@ -22,6 +22,21 @@ df = pd.read_csv(INPUT_FILE)
 print(f"Original Shape: {df.shape}")
 
 # =====================================================
+# Keep only complete elastography examinations
+# =====================================================
+
+if "LUAXSTAT" not in df.columns:
+    raise ValueError("LUAXSTAT column not found in merged dataset.")
+
+print("\nLUAXSTAT value counts before filtering:")
+print(df["LUAXSTAT"].value_counts(dropna=False).sort_index())
+
+# Keep only complete elastography exams
+df = df[df["LUAXSTAT"] == 1].copy()
+
+print(f"\nAfter LUAXSTAT == 1 filter: {df.shape}")
+
+# =====================================================
 # Features for Risk Model
 # =====================================================
 

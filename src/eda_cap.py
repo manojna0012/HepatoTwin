@@ -3,131 +3,189 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
 
-# -------------------------------------------------
+
+# =====================================================
 # Load merged dataset
-# -------------------------------------------------
+# =====================================================
 
 DATA = Path("data/processed/nhanes_merged.csv")
 
 df = pd.read_csv(DATA)
 
-print("="*60)
-print("NHANES Exploratory Analysis")
-print("="*60)
+print("=" * 60)
+print("NHANES EXPLORATORY ANALYSIS")
+print("=" * 60)
 
-print("\nDataset shape:", df.shape)
+print(f"\nOriginal dataset shape: {df.shape}")
 
-# -------------------------------------------------
-# Candidate variables
-# -------------------------------------------------
+
+# =====================================================
+# Keep only complete elastography examinations
+# =====================================================
+
+if "LUAXSTAT" not in df.columns:
+    raise ValueError("LUAXSTAT column not found.")
+
+df = df[df["LUAXSTAT"] == 1].copy()
+
+print(f"After LUAXSTAT == 1 filter: {df.shape}")
+
+
+# =====================================================
+# Candidate features for risk model
+# =====================================================
 
 candidate_features = [
     "RIDAGEYR",      # Age
     "RIAGENDR",      # Sex
-    "RIDRETH3",      # Race
+    "RIDRETH3",      # Race/Ethnicity
     "BMXBMI",        # BMI
-    "BMXWAIST",      # Waist Circumference
+    "BMXWAIST",      # Waist circumference
     "LBXSATSI",      # ALT
     "LBXSASSI",      # AST
     "LBXGH",         # HbA1c
-    "LBXTC",         # Total Cholesterol
-    "LBDHDD",        # HDL (change if your file uses another name)
-    "LBXTR",         # Triglycerides
+    "LBXTC",         # Total cholesterol
+    "LBDHDD",        # HDL
     "DR1TKCAL",      # Calories
     "DR1TPROT",      # Protein
     "DR1TCARB",      # Carbohydrates
-    "DR1TTFAT",      # Total Fat
-    "LUXCAPM"        # CAP (Target)
+    "DR1TTFAT",      # Total fat
+    "LUXCAPM"        # CAP target
 ]
 
+# Keep only columns that actually exist
 candidate_features = [
-    c for c in candidate_features
-    if c in df.columns
+    col for col in candidate_features
+    if col in df.columns
 ]
 
-print("\nCandidate Features")
+print("\nCandidate Features:")
 print(candidate_features)
 
-# -------------------------------------------------
-# Missing values
-# -------------------------------------------------
 
-print("\nMissing Values")
+# =====================================================
+# Remove missing CAP for CAP-based analysis
+# =====================================================
+
+df_cap = df.dropna(subset=["LUXCAPM"]).copy()
+
+print(f"\nParticipants with valid CAP: {len(df_cap)}")
+
+
+# =====================================================
+# Missing values
+# =====================================================
+
+print("\nMissing Values:")
 
 missing = (
-    df[candidate_features]
+    df_cap[candidate_features]
     .isnull()
     .sum()
     .to_frame("Missing")
 )
 
 missing["Missing_%"] = (
-    missing["Missing"] / len(df) * 100
+    missing["Missing"] / len(df_cap) * 100
 ).round(2)
 
 print(missing)
 
-# -------------------------------------------------
-# Summary statistics
-# -------------------------------------------------
 
-print("\nSummary Statistics")
+# =====================================================
+# Summary statistics
+# =====================================================
+
+print("\nSummary Statistics:")
 
 print(
-    df[candidate_features]
+    df_cap[candidate_features]
     .describe()
 )
 
-# -------------------------------------------------
+
+# =====================================================
 # CAP Distribution
-# -------------------------------------------------
+# =====================================================
 
-cap = df["LUXCAPM"].dropna()
+cap = df_cap["LUXCAPM"]
 
-print("\nParticipants with CAP:", len(cap))
-print("Mean CAP:", cap.mean())
-print("Median CAP:", cap.median())
-print("Std:", cap.std())
+print("\nCAP Summary:")
+print(f"Participants with CAP: {len(cap)}")
+print(f"Mean CAP: {cap.mean():.2f}")
+print(f"Median CAP: {cap.median():.2f}")
+print(f"Std CAP: {cap.std():.2f}")
 
-plt.figure(figsize=(8,5))
+pct_at_ceiling = (cap == 400).mean() * 100
 
-sns.histplot(cap, bins=40)
+print(
+    f"Participants at CAP ceiling "
+    f"(400 dB/m): {pct_at_ceiling:.2f}%"
+)
 
-plt.title("Controlled Attenuation Parameter (CAP)")
+print(
+    "Note: CAP values are capped at 400 dB/m; "
+    "values at the ceiling may be right-censored."
+)
+
+plt.figure(figsize=(8, 5))
+
+sns.histplot(
+    cap,
+    bins=40
+)
+
+plt.title("Controlled Attenuation Parameter (CAP) Distribution")
 plt.xlabel("CAP (dB/m)")
 plt.ylabel("Participants")
 
 plt.tight_layout()
 plt.savefig("cap_distribution.png")
+plt.close()
 
-# -------------------------------------------------
+
+# =====================================================
 # BMI Distribution
-# -------------------------------------------------
+# =====================================================
 
-if "BMXBMI" in df.columns:
+if "BMXBMI" in df_cap.columns:
 
-    plt.figure(figsize=(8,5))
+    plt.figure(figsize=(8, 5))
 
     sns.histplot(
-        df["BMXBMI"].dropna(),
+        df_cap["BMXBMI"].dropna(),
         bins=35
     )
 
     plt.title("BMI Distribution")
+    plt.xlabel("BMI")
+    plt.ylabel("Participants")
 
     plt.tight_layout()
-
     plt.savefig("bmi_distribution.png")
+    plt.close()
 
-# -------------------------------------------------
+
+# =====================================================
 # Correlation Matrix
-# -------------------------------------------------
+# =====================================================
 
-numeric = df[candidate_features].select_dtypes("number")
+# Exclude RIDRETH3 because it is a nominal category.
+# Its numeric codes should not be interpreted as continuous.
+
+corr_features = [
+    feature
+    for feature in candidate_features
+    if feature != "RIDRETH3"
+]
+
+numeric = df_cap[corr_features].select_dtypes(
+    include="number"
+)
 
 corr = numeric.corr()
 
-plt.figure(figsize=(10,8))
+plt.figure(figsize=(12, 10))
 
 sns.heatmap(
     corr,
@@ -135,36 +193,47 @@ sns.heatmap(
     center=0
 )
 
-plt.title("Correlation Matrix")
+plt.title("Correlation Matrix of Candidate Numeric Features")
 
 plt.tight_layout()
-
 plt.savefig("correlation_matrix.png")
+plt.close()
 
-# -------------------------------------------------
+
+# =====================================================
 # CAP vs BMI
-# -------------------------------------------------
+# =====================================================
 
 if (
-    "BMXBMI" in df.columns and
-    "LUXCAPM" in df.columns
+    "BMXBMI" in df_cap.columns
+    and "LUXCAPM" in df_cap.columns
 ):
 
-    plt.figure(figsize=(6,5))
+    plot_df = df_cap[
+        ["BMXBMI", "LUXCAPM"]
+    ].dropna()
+
+    plt.figure(figsize=(7, 5))
 
     sns.scatterplot(
         x="BMXBMI",
         y="LUXCAPM",
-        data=df
+        data=plot_df,
+        alpha=0.5
     )
 
+    plt.title("CAP vs BMI")
+    plt.xlabel("BMI")
+    plt.ylabel("CAP (dB/m)")
+
     plt.tight_layout()
-
     plt.savefig("cap_vs_bmi.png")
+    plt.close()
 
-# -------------------------------------------------
-# Candidate feature list
-# -------------------------------------------------
+
+# =====================================================
+# Save candidate feature list
+# =====================================================
 
 feature_df = pd.DataFrame({
     "Feature": candidate_features
@@ -175,6 +244,11 @@ feature_df.to_csv(
     index=False
 )
 
+
+# =====================================================
+# Completed
+# =====================================================
+
 print("\nSaved:")
 print("cap_distribution.png")
 print("bmi_distribution.png")
@@ -182,20 +256,4 @@ print("correlation_matrix.png")
 print("cap_vs_bmi.png")
 print("candidate_features.csv")
 
-print("\nMeeting 2 Completed ✓")
-import pandas as pd
-
-demo = pd.read_sas("data/raw/P_DEMO.XPT")
-bmx = pd.read_sas("data/raw/P_BMX.XPT")
-
-print("DEMO columns:")
-print(demo.columns.tolist())
-
-print("\nBMX columns:")
-print(bmx.columns.tolist())
-
-print("\nFirst 5 SEQN in DEMO:")
-print(demo["SEQN"].head())
-
-print("\nFirst 5 SEQN in BMX:")
-print(bmx["SEQN"].head())
+print("\nEDA Completed")

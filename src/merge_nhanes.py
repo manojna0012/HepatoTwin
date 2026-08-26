@@ -110,6 +110,26 @@ for name, df in datasets:
 merged = merged.loc[:, ~merged.columns.duplicated()]
 
 # ---------------------------------------------------
+# Merge validation
+# ---------------------------------------------------
+
+expected_rows = lux["SEQN"].nunique()
+
+assert len(merged) == expected_rows, (
+    f"Row count exploded: {len(merged)} rows "
+    f"vs {expected_rows} unique LUX participants"
+)
+
+assert merged["SEQN"].duplicated().sum() == 0, (
+    "Duplicate SEQN values found in final merged dataset"
+)
+
+print("\n Merge validation passed")
+print(f"Expected participants: {expected_rows}")
+print(f"Final rows: {len(merged)}")
+print(f"Duplicate SEQN: {merged['SEQN'].duplicated().sum()}")
+
+# ---------------------------------------------------
 # Check important variables
 # ---------------------------------------------------
 
