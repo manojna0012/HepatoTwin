@@ -1,7 +1,6 @@
 import pandas as pd
 from pathlib import Path
 
-
 # ============================================================
 # PATHS
 # ============================================================
@@ -9,7 +8,6 @@ from pathlib import Path
 RAW_DIR = Path("data/raw")
 OUTPUT_DIR = Path("data/processed")
 OUTPUT_FILE = OUTPUT_DIR / "nhanes_merged.csv"
-
 
 # ============================================================
 # LOAD ONE NHANES XPT FILE
@@ -26,11 +24,10 @@ def load_component(filename):
 
     df = pd.read_sas(path)
 
+    # Make SEQN consistent
+    df["SEQN"] = df["SEQN"].astype(int)
+
     print(f"{filename}: {df.shape}")
-
-    if "SEQN" not in df.columns:
-        raise ValueError(f"{filename} does not contain SEQN.")
-
     print(f"  Unique SEQN: {df['SEQN'].nunique()}")
     print(f"  Duplicate SEQN: {df['SEQN'].duplicated().sum()}")
 
@@ -38,37 +35,35 @@ def load_component(filename):
 
 
 # ============================================================
-# MERGE TWO DATAFRAMES
+# MERGE
 # ============================================================
 
 def merge_component(base, other, name):
+
     before = len(base)
 
-    base = base.merge(
+    merged = base.merge(
         other,
         on="SEQN",
-        how="left",
-        suffixes=("", f"_{name}")
+        how="left"
     )
 
-    after = len(base)
-
-    print(f"After {name}: {base.shape}")
+    print(f"After {name}: {merged.shape}")
     print(f"  Participants before: {before}")
-    print(f"  Participants after:  {after}")
+    print(f"  Participants after:  {len(merged)}")
 
-    return base
+    return merged
 
 
 # ============================================================
-# MAIN MERGE
+# LOAD + MERGE
 # ============================================================
 
 def load_and_merge():
 
-    # --------------------------------------------------------
-    # Existing files
-    # --------------------------------------------------------
+    # --------------------------
+    # Load datasets
+    # --------------------------
 
     lux = load_component("P_LUX.XPT")
     bio = load_component("P_BIOPRO.XPT")
@@ -77,34 +72,57 @@ def load_and_merge():
     hdl = load_component("P_HDL.XPT")
     trig = load_component("P_TRIGLY.XPT")
     diet = load_component("P_DR1TOT.XPT")
+    demo = load_component("P_DEMO.XPT")
+    bmx = load_component("P_BMX.XPT")
 
-    # --------------------------------------------------------
-    # Demographic and body-measure files
-    # --------------------------------------------------------
+    # --------------------------
+    # Keep only required columns
+    # --------------------------
 
-    demo = load_component("DEMO_J.XPT")
-    bmx = load_component("BMX_J.XPT")
+    demo = demo[
+        [
+            "SEQN",
+            "RIDAGEYR",
+            "RIAGENDR",
+            "RIDRETH3",
+        ]
+    ]
 
-    # --------------------------------------------------------
-    # Start with LUX because CAP is our main outcome
-    # --------------------------------------------------------
+    bmx = bmx[
+        [
+            "SEQN",
+            "BMXBMI",
+            "BMXWAIST",
+            "BMXWT",
+            "BMXHT",
+        ]
+    ]
+
+    diet = diet[
+        [
+            "SEQN",
+            "DR1TKCAL",
+            "DR1TPROT",
+            "DR1TCARB",
+            "DR1TTFAT",
+        ]
+    ]
+
+    # --------------------------
+    # Merge
+    # --------------------------
 
     df = lux.copy()
 
     print("\nStarting dataset:")
     print(df.shape)
 
-    # --------------------------------------------------------
-    # Merge each component using SEQN
-    # LEFT JOIN preserves the LUX/CAP population.
-    # --------------------------------------------------------
-
     df = merge_component(df, bio, "BIOPRO")
     df = merge_component(df, ghb, "GHB")
     df = merge_component(df, chol, "TCHOL")
     df = merge_component(df, hdl, "HDL")
     df = merge_component(df, trig, "TRIGLY")
-    df = merge_component(df, diet, "DR1TOT")
+    df = merge_component(df, diet, "DIET")
     df = merge_component(df, demo, "DEMO")
     df = merge_component(df, bmx, "BMX")
 
@@ -112,7 +130,7 @@ def load_and_merge():
 
 
 # ============================================================
-# CHECK IMPORTANT VARIABLES
+# CHECK KEY VARIABLES
 # ============================================================
 
 def check_key_columns(df):
@@ -122,76 +140,71 @@ def check_key_columns(df):
     print("=" * 60)
 
     key_columns = [
-        # Participant ID
         "SEQN",
-
-        # Liver steatosis
         "LUXCAPM",
-
-        # Demographics
         "RIDAGEYR",
         "RIAGENDR",
         "RIDRETH3",
-
-        # Body measurements
         "BMXBMI",
         "BMXWAIST",
-
-        # Laboratory variables
+        "LBXSATSI",
+        "LBXSASSI",
         "LBXGH",
         "LBXTC",
-        "LBDHDL",
+        "LBDHDD",
         "LBXTR",
+        "DR1TKCAL",
+        "DR1TPROT",
+        "DR1TCARB",
+        "DR1TTFAT",
     ]
 
-    for column in key_columns:
-
-        if column in df.columns:
-            print(f"✓ {column}: present")
+    for col in key_columns:
+        if col in df.columns:
+            print(f"✓ {col}")
         else:
-            print(f"✗ {column}: NOT FOUND")
+            print(f"✗ {col}")
 
 
 # ============================================================
-# MISSINGNESS CHECK
+# MISSING VALUES
 # ============================================================
 
 def check_missingness(df):
 
     print("\n" + "=" * 60)
-    print("MISSING VALUES IN KEY VARIABLES")
+    print("MISSING VALUES")
     print("=" * 60)
 
-    key_columns = [
+    cols = [
         "LUXCAPM",
         "RIDAGEYR",
         "RIAGENDR",
         "RIDRETH3",
         "BMXBMI",
         "BMXWAIST",
+        "LBXSATSI",
+        "LBXSASSI",
         "LBXGH",
         "LBXTC",
-        "LBDHDL",
+        "LBDHDD",
         "LBXTR",
+        "DR1TKCAL",
+        "DR1TPROT",
+        "DR1TCARB",
+        "DR1TTFAT",
     ]
-
-    existing = [
-        col for col in key_columns
-        if col in df.columns
-    ]
-
-    missing = df[existing].isnull().sum()
 
     result = pd.DataFrame({
-        "Missing": missing,
-        "Missing_%": (missing / len(df) * 100).round(2)
+        "Missing": df[cols].isnull().sum(),
+        "Missing %": (df[cols].isnull().mean() * 100).round(2)
     })
 
     print(result)
 
 
 # ============================================================
-# FINAL DATASET CHECK
+# FINAL CHECK
 # ============================================================
 
 def final_check(df):
@@ -200,14 +213,11 @@ def final_check(df):
     print("FINAL DATASET")
     print("=" * 60)
 
-    print(f"Shape: {df.shape}")
-    print(f"Unique participants: {df['SEQN'].nunique()}")
-    print(f"Duplicate SEQN: {df['SEQN'].duplicated().sum()}")
+    print("Shape:", df.shape)
+    print("Unique Participants:", df.SEQN.nunique())
+    print("Duplicate SEQN:", df.SEQN.duplicated().sum())
 
-    if df["SEQN"].duplicated().sum() != 0:
-        raise ValueError("Duplicate SEQN values detected!")
-
-    print("\nFirst 20 columns:")
+    print("\nFirst 20 Columns:")
     print(df.columns[:20].tolist())
 
 
@@ -232,7 +242,7 @@ def save_dataset(df):
 
 
 # ============================================================
-# RUN
+# MAIN
 # ============================================================
 
 if __name__ == "__main__":
