@@ -2,6 +2,7 @@ import os
 
 import requests
 from dotenv import load_dotenv
+from recipe_parser import parse_recipe
 
 
 load_dotenv()
@@ -34,7 +35,21 @@ def get_recipe(recipe_id):
 if __name__ == "__main__":
     recipe = get_recipe("00000001")
 
-    print("Recipe ID:", recipe.get("Recipe_ID"))
-    print("Title:", recipe.get("Recipe_Title"))
-    print("Cuisine:", recipe.get("Cuisine"))
-    print("Category:", recipe.get("Category"))
+    parsed = parse_recipe(recipe)
+
+    print("\n--- METADATA ---")
+    print(parsed["metadata"])
+
+    print("\n--- PREPARATION ---")
+    print(parsed["preparation"])
+
+    print("\n--- NUTRITION ---")
+    print(parsed["nutrition"])
+
+    print("\n--- INGREDIENTS ---")
+    for ingredient in parsed["ingredients"]:
+        print(ingredient)
+
+    print("\n--- INSTRUCTIONS ---")
+    for number, instruction in enumerate(parsed["instructions"], start=1):
+        print(f"{number}. {instruction}")
