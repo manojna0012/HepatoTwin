@@ -7,3 +7,6 @@ data/raw/
 _pycache_/
 .venv/
 venv/
+
+# Environment variables and secrets
+.env

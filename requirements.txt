@@ -3,3 +3,5 @@ pyreadstat
 scikit-learn
 seaborn
 matplotlib
+requests
+python-dotenv
