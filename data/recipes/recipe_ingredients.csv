@@ -1,0 +1,295 @@
+recipe_id,ingredient_id,name,name_lc,quantity,unit,state,temperature,ingredient_phrase,flavordb_category,predicted_category
+00000001,00000011,flour,flour,1/3,cup,,,1/3 cup flour,,Cereal
+00000001,00000091,canola oil,canola oil,1/4,cup,,,1/4 cup canola oil,,Plant Derivative
+00000001,00000031,celery,celery,1/3,cup,chopped,,"1/3 cup celery, chopped",,Herb
+00000001,00000184,bell pepper,bell pepper,1/3,cup,chopped,,"1/3 cup bell pepper, chopped",,Vegetable Fruit
+00000001,00000130,yellow onion,yellow onion,1/2,cup,chopped,,"1/2 cup yellow onion, chopped",Vegetable-Bulb,Vegetable
+00000001,00000004,garlic,garlic,3,cloves,chopped,,"3 cloves garlic, chopped fine",,Herb
+00000001,00000101,tomatoes,tomatoes,1,ounce|can,chopped,,1 (16 ounce) can chopped tomatoes,,Vegetable
+00000001,00000038,chicken broth,chicken broth,3,cups,,,3 cups chicken broth,,Meat
+00000001,00000042,thyme,thyme,1/2,teaspoon,,,1/2 teaspoon thyme,,Herb
+00000001,00000044,basil,basil,1/2,teaspoon,,,1/2 teaspoon basil,,Herb
+00000001,00000133,bay leaves,bay leaves,2,,,,2 bay leaves,,Plant
+00000001,00000055,worcestershire sauce,worcestershire sauce,2,tablespoons,,,2 tablespoons Worcestershire sauce,Condiment-Sauce,Additive
+00000001,00000267,pepper sauce,pepper sauce,1/2,teaspoon,,hot,1/2 - 1 teaspoon hot pepper sauce (Tabasco or cayenne pepper or to your taste.),Condiment-Sauce,Condiment
+00000001,00000001,salt,salt,1/2,teaspoon,,,1/2 teaspoon salt,,Additive
+00000001,00000105,corn,corn,1/2,cup,canned,,1/2 cup canned corn or 1/2 cup frozen corn,,Maize
+00000001,00000035,cumin,cumin,1/4|1/2,teaspoon,,,1/4 - 1/2 teaspoon cumin,,Spice
+00000001,00000012,black pepper,black pepper,1/2,teaspoon,,,1/2 teaspoon black pepper,,Spice
+00000001,00000670,okra,okra,2,cups,sliced,frozen,"2 cups okra, sliced (fresh or frozen)",Vegetable-Fruit,Vegetable
+00000001,00000090,shrimp,shrimp,1/2,lb,,,"1/2 - 1 lb shrimp, cleaned & shells off",,Seafood
+00000001,00000065,rice,rice,,,,,rice,,Cereal
+00000002,00000051,bacon,bacon,6,,cut,,"6 slices bacon, cut into 1/2 inch pieces",,Meat
+00000002,00005560,beef blade roast,beef blade roast,4,lbs,,,4 lbs beef blade roast or 4 lbs cross - rib roasts,,Meat
+00000002,00000016,brown sugar,brown sugar,1/2,cup,packed,,"1/2 cup brown sugar, packed",,Additive
+00000002,00000001,salt,salt,2,teaspoons,,,2 teaspoons salt,,Additive
+00000002,00000039,garlic powder,garlic powder,1,teaspoon,,,1 teaspoon garlic powder,,Herb
+00000002,00000008,pepper,pepper,1,teaspoon,,,1 teaspoon pepper,,Spice
+00000002,00000301,thyme leaves,thyme leaves,1,teaspoon,,,1 teaspoon dried thyme leaves,,Herb
+00000002,00000006,water,water,1,cup,,,1 cup water,,Additive
+00000002,00000280,beer,beer,12,ounces,,,12 ounces beer,,Beverage
+00000002,00005963,stew vegetables,stew vegetables,2,ounce|packages,,frozen,2 (20 ounce) packages frozen stew vegetables,,Meat
+00000002,00000006,water,water,1,cup,,cold,1 cup cold water,,Additive
+00000002,00000000,all - purpose flour,all - purpose flour,1/2,cup,,,1/2 cup all - purpose flour,,
+00000003,00000406,chicken breasts,chicken breasts,2,lbs,boneless|cut,,"2 lbs boneless chicken breasts, cut into bite - size pieces",,Meat
+00000003,00000010,olive oil,olive oil,1,tablespoon,,,1 - 2 tablespoon olive oil,,Plant Derivative
+00000003,00000004,garlic,garlic,1,clove,crushed,,"1 garlic clove, crushed",,Herb
+00000003,00000026,ginger,ginger,1/4,teaspoon,,,1/4 teaspoon ginger,,Spice
+00000003,00000076,red pepper flakes,red pepper flakes,3/4,teaspoon,crushed,,3/4 teaspoon crushed red pepper flakes,,Spice
+00000003,00000295,apple juice,apple juice,1/4,cup,,,1/4 cup apple juice,,Fruit
+00000003,00000016,brown sugar,brown sugar,1/3,cup,,,1/3 cup light brown sugar,,Additive
+00000003,00000109,ketchup,ketchup,2,tablespoons,,,2 tablespoons ketchup,,Additive
+00000003,00000164,cider vinegar,cider vinegar,1,tablespoon,,,1 tablespoon cider vinegar,,Plant
+00000003,00000006,water,water,1/2,cup,,,1/2 cup water,,Additive
+00000003,00000032,soy sauce,soy sauce,1/3,cup,,,1/3 cup soy sauce,Condiment-Sauce,Condiment
+00000004,00000002,butter,butter,1/2,cup,softened,,"1/2 cup butter, softened",,Dairy
+00000004,00000003,sugar,sugar,1,cup,granulated,,1 cup granulated sugar,,Additive
+00000004,00000189,eggs,eggs,2,,beaten,,"2 eggs, beaten",,Vegetable
+00000004,00000707,bananas,bananas,3,,crushed,,"3 bananas, finely crushed (for serious and extreme moist and delicious, try 4 bananas)",,Vegetable
+00000004,00000000,all -,all -,1 1/2,cups,,,1 1/2 cups all - purpose flour,,
+00000004,00000025,baking soda,baking soda,1,teaspoon,,,1 teaspoon baking soda,,Additive
+00000004,00000001,salt,salt,1/2,teaspoon,,,1/2 teaspoon salt,,Additive
+00000004,00000024,vanilla,vanilla,1/2,teaspoon,,,1/2 teaspoon vanilla (optional),,Legume
+00000005,00000970,beef roast,beef roast,1,lb,,,"1 (4 - 5 lb) beef roast, any kind",,Meat
+00000005,00000619,brown,brown,1,ounce|package,,,"1 (1 1/4 ounce) package brown gravy mix, dry",,Additive-Sugar
+00000005,00000952,italian salad dressing mix,italian salad dressing mix,1,ounce|package,,,1 (1 1/4 ounce) package dried Italian salad dressing mix,,Additive
+00000005,00000529,ranch dressing mix,ranch dressing mix,1,ounce|package,,,"1 (1 1/4 ounce) package ranch dressing mix, dry",,Condiment
+00000005,00000006,water,water,1/2,cup,,,1/2 cup water,,Additive
+00000006,00000406,chicken breasts,chicken breasts,4,,boneless,frozen,"4 - 5 boneless chicken breasts, frozen",,Meat
+00000006,00000701,black beans,black beans,1,ounce|can,,,1 (15 1/2 ounce) can black beans,,Spice
+00000006,00000105,corn,corn,1,ounce|can,,,1 (15 ounce) can corn,,Maize
+00000006,00000141,salsa,salsa,1,ounce|jar,,,"1 (15 ounce) jar salsa, any kind",,Condiment
+00000006,00000029,cream cheese,cream cheese,1,ounce|package,,,1 (8 ounce) package cream cheese,,Dairy
+00000007,00000185,chicken breast halves,chicken breast halves,2,,boneless skinless|cut,,"2 boneless skinless chicken breast halves, cut into thin strips",,Meat
+00000007,00000407,linguine,linguine,4,ounces,cooked|dente,,"4 ounces linguine, cooked al dente",,Cereal
+00000007,00000414,cajun seasoning,cajun seasoning,2,teaspoons,,,"2 teaspoons cajun seasoning (your recipe, Cajun Seasoning Mix or store - bought)",,Plant Derivative
+00000007,00000002,butter,butter,2,tablespoons,,,2 tablespoons butter,,Dairy
+00000007,00000034,green onion,green onion,1,,sliced,,1 thinly sliced green onion,,Vegetable
+00000007,00000299,heavy whipping cream,heavy whipping cream,1/2,cup,,,1/2 cup heavy whipping cream,,Dairy
+00000007,00000101,tomatoes,tomatoes,2,tablespoons,chopped,,2 tablespoons chopped sun - dried tomatoes,,Vegetable
+00000007,00000001,salt,salt,1/4,teaspoon,,,1/4 teaspoon salt,,Additive
+00000007,00000044,basil,basil,1/4,teaspoon,,,1/4 teaspoon dried basil,,Herb
+00000007,00000012,black pepper,black pepper,1/8,teaspoon,ground,,1/8 teaspoon ground black pepper,,Spice
+00000007,00000039,garlic powder,garlic powder,1/8,teaspoon,,,1/8 teaspoon garlic powder,,Herb
+00000007,00000023,parmesan cheese,parmesan cheese,1/4,cup,grated,,1/4 cup grated parmesan cheese,,Dairy
+00000008,00000000,all - purpose flour,all - purpose flour,2,cups,,,2 cups all - purpose flour,,
+00000008,00000025,baking soda,baking soda,1,teaspoon,,,1 teaspoon baking soda,,Additive
+00000008,00000018,baking powder,baking powder,1,teaspoon,,,1 teaspoon baking powder,,Spice
+00000008,00000057,kosher salt,kosher salt,1,teaspoon,,,1 teaspoon kosher salt,,Additive-Salt
+00000008,00000002,butter,butter,1,cup,unsalted|softened,,"1 cup unsalted butter, softened",,Dairy
+00000008,00000003,sugar,sugar,1,cup,,,1 cup sugar,,Additive
+00000008,00000230,dark brown sugar,dark brown sugar,1,cup,packed,,"1 cup dark brown sugar, firmly packed",,Additive-Sugar
+00000008,00000189,eggs,eggs,2,,,,2 large eggs,,Vegetable
+00000008,00000024,vanilla,vanilla,2,teaspoons,,,2 teaspoons vanilla,,Legume
+00000008,00001386,oats,oats,3,cups,,,3 cups oats (not instant),,Vegetable
+00000008,00000909,raisins,raisins,1 1/2,cups,,,1 1/2 cups raisins,,Vegetable
+00000009,00000707,bananas,bananas,1 1/2,cups,mashed|ripe,,"1 1/2 cups bananas, mashed, ripe",,Vegetable
+00000009,00000017,lemon juice,lemon juice,2,teaspoons,,,2 teaspoons lemon juice,,Beverage
+00000009,00000011,flour,flour,3,cups,,,3 cups flour,,Cereal
+00000009,00000025,baking soda,baking soda,1 1/2,teaspoons,,,1 1/2 teaspoons baking soda,,Additive
+00000009,00000001,salt,salt,1/4,teaspoon,,,1/4 teaspoon salt,,Additive
+00000009,00000002,butter,butter,3/4,cup,softened,,"3/4 cup butter, softened",,Dairy
+00000009,00000003,sugar,sugar,2 1/8,cups,,,2 1/8 cups sugar,,Additive
+00000009,00000189,eggs,eggs,3,,,,3 large eggs,,Vegetable
+00000009,00000024,vanilla,vanilla,2,teaspoons,,,2 teaspoons vanilla,,Legume
+00000009,00000087,buttermilk,buttermilk,1 1/2,cups,,,1 1/2 cups buttermilk,,Dairy
+00000009,00000002,butter,butter,1/2,cup,softened,,"1/2 cup butter, softened",,Dairy
+00000009,00000029,cream cheese,cream cheese,1,ounce|package,softened,,"1 (8 ounce) package cream cheese, softened",,Dairy
+00000009,00000024,vanilla,vanilla,1,teaspoon,,,1 teaspoon vanilla,,Legume
+00000009,00000176,icing sugar,icing sugar,3 1/2,cups,,,3 1/2 cups icing sugar,,Additive-Sugar
+00000009,00000598,walnuts,walnuts,,,chopped,,chopped walnuts,,Vegetable
+00000010,00000030,beef,beef,1 1/2,lbs,ground,,1 1/2 lbs ground beef (ground shoulder roast is good),,Meat
+00000010,00000193,bread,bread,1,slice,chopped,,1 slice bread (broken or chopped finely),,Bakery
+00000010,00000005,egg,egg,1,,,,1 egg,Egg,Meat
+00000010,00004132,vidalia onions,vidalia onions,1|1,,chopped,,"1 small vidalia onions or 1 small type sweet onion, finely chopped",,Vegetable
+00000010,00000464,table salt,table salt,1,teaspoon,,,1 teaspoon table salt,,Additive
+00000010,00000012,black pepper,black pepper,1/4,teaspoon,,,1/4 teaspoon black pepper,,Spice
+00000010,00000109,ketchup,ketchup,4,tablespoons,,,4 tablespoons ketchup,,Additive
+00000010,00000009,milk,milk,1/2,cup whole,,,1/2 - 2/3 cup whole milk or 1/2 - 2/3 cup half - and - half,,Dairy
+00000010,00000236,apple cider vinegar,apple cider vinegar,4,tablespoons,,,4 tablespoons apple cider vinegar,,Plant
+00000010,00000230,dark brown sugar,dark brown sugar,2,tablespoons,packed firm,,"2 - 4 tablespoons dark brown sugar, packed firm (to taste)",,Additive-Sugar
+00000010,00000109,ketchup,ketchup,1/2,cup,,,1/2 cup ketchup,,Additive
+00000011,00000342,italian sausage,italian sausage,2,lbs,,hot,"2 lbs Italian sausage, casings removed (mild or hot)",,Meat
+00000011,00000007,onion,onion,1,,chopped,,"1 small onion, chopped (optional)",Vegetable-Bulb,Vegetable
+00000011,00000004,garlic,garlic,3,cloves,minced,,"3 - 4 garlic cloves, minced",,Herb
+00000011,00000101,tomatoes,tomatoes,1,ounce|can,diced,,1 (28 ounce) can diced tomatoes,,Vegetable
+00000011,00000084,tomato paste,tomato paste,2,ounce|cans,,,2 (6 ounce) cans tomato paste,Vegetable-Fruit,Vegetable
+00000011,00000085,tomato sauce,tomato sauce,2,ounce|cans,,,2 (15 ounce) cans tomato sauce,Condiment-Sauce,Condiment
+00000011,00000006,water,water,2,cups,,,"2 cups water (for a long period of simmering for flavors to meld. If you don't want to simmer it as long, add less)",,Additive
+00000011,00000044,basil,basil,3,teaspoons,,,3 teaspoons basil,,Herb
+00000011,00000328,parsley flakes,parsley flakes,2,teaspoons,,,2 teaspoons dried parsley flakes,,Spice
+00000011,00000016,brown sugar,brown sugar,1 1/2,teaspoons,,,1 1/2 teaspoons brown sugar,,Additive
+00000011,00000001,salt,salt,1,teaspoon,,,1 teaspoon salt,,Additive
+00000011,00000076,red pepper flakes,red pepper flakes,1/4,teaspoon,crushed,,1/4 - 1/2 teaspoon crushed red pepper flakes,,Spice
+00000011,00000012,black pepper,black pepper,1/4,teaspoon,ground,,1/4 teaspoon fresh coarse ground black pepper,,Spice
+00000011,00000143,red wine,red wine,1/4,cup,,,1/4 cup red wine (a good Cabernet!),,Beverage-Alcoholic
+00000011,00000240,spaghetti,spaghetti,1,lb,,,1 lb thin spaghetti,,Cereal
+00000011,00000023,parmesan cheese,parmesan cheese,,,,,parmesan cheese,,Dairy
+00000012,00000002,butter,butter,1/2,cup,melted,,"1/2 cup butter, melted",,Dairy
+00000012,00000153,cocoa,cocoa,1/2,cup,unsweetened,,1/2 cup unsweetened cocoa,Nuts and Seeds,Seed
+00000012,00000003,sugar,sugar,1,cup,,,1 cup sugar,,Additive
+00000012,00000189,eggs,eggs,2,,,,2 eggs,,Vegetable
+00000012,00000024,vanilla,vanilla,2,teaspoons,,,2 teaspoons vanilla,,Legume
+00000012,00000011,flour,flour,1/2,cup,,,1/2 cup flour,,Cereal
+00000012,00000001,salt,salt,1/4,teaspoon,,,1/4 teaspoon salt,,Additive
+00000012,00001052,chocolate chips,chocolate chips,1,cup,,,"1 - 2 cup chocolate chips (semisweet, white, butterscotch, peanut butter)",,Plant Derivative
+00000012,00000909,raisins,raisins,1,cup,,,1 - 2 cup raisins,,Vegetable
+00000012,00000589,maraschino cherry,maraschino cherry,1,cup,chopped,,1 - 2 cup chopped maraschino cherry,,Additive
+00000012,00000948,nuts,nuts,1,cup,chopped,,1 - 2 cup chopped nuts,,Vegetable
+00000012,00000000,m&m',m&m',1,cup,,,1 - 2 cup M&M',,
+00000012,00000000,reese's pieces,reese's pieces,1,cup,,,1 - 2 cup Reese's pieces,,
+00000012,00000451,miniature marshmallow,miniature marshmallow,1,cup,,,1 - 2 cup miniature marshmallow,,Bakery
+00000013,00000006,water,water,2,cups,,,2 cups water (approximately),,Additive
+00000013,00000006,water,water,2,tablespoons,,,2 tablespoons water (additional if needed),,Additive
+00000014,00000005,egg,egg,1,,,,1 egg,Egg,Meat
+00000014,00000009,milk,milk,3/4,cup,,,3/4 cup milk,,Dairy
+00000014,00000002,butter,butter,2,tablespoons,melted,,"2 tablespoons butter or 2 tablespoons margarine, melted",,Dairy
+00000014,00000011,flour,flour,1,cup,,,1 cup flour,,Cereal
+00000014,00000003,sugar,sugar,1,tablespoon,,,1 tablespoon sugar (or 1/2 teaspoon honey or molasses),,Additive
+00000014,00000018,baking powder,baking powder,1,teaspoon,,,1 teaspoon baking powder,,Spice
+00000014,00000001,salt,salt,1/2,teaspoon,,,1/2 teaspoon salt,,Additive
+00000015,00000011,flour,flour,3,cups,,,3 cups flour (sifted),,Cereal
+00000015,00000018,baking powder,baking powder,3,teaspoons,,,3 teaspoons baking powder (omit if using Self - Rising Flour),,Spice
+00000015,00000001,salt,salt,1,teaspoon,,,1 teaspoon salt (omit if using Self - Rising Flour),,Additive
+00000015,00000003,sugar,sugar,1/4,cup,,,1/4 cup sugar,,Additive
+00000015,00000280,beer,beer,1,ounce|can,,,1 (12 ounce) can beer,,Beverage
+00000015,00000002,butter,butter,1/2,cup,melted,,1/2 cup melted butter (1/4 cup will do just fine),,Dairy
+00000016,00000030,beef,beef,1 1/2,lbs,ground,,1 1/2 lbs ground beef (a mixture of 1 pound ground beef and 1/2 pound ground pork will work well also),,Meat
+00000016,00000005,egg,egg,1,,beaten,,"1 large egg, slightly beaten",Egg,Meat
+00000016,00000023,parmesan cheese,parmesan cheese,1/2,cup,grated,,1/2 cup grated parmesan cheese,,Dairy
+00000016,00000776,breadcrumbs,breadcrumbs,1/3,cup,,,1/3 cup breadcrumbs (or use enough to hold the meat together (no dry breadcrumbs? just soak 3 slices of bread in the 1/3 ),,Vegetable
+00000016,00000004,garlic,garlic,1|1,tablespoon|teaspoon,minced,,1 - 2 tablespoon fresh minced garlic (or use 1 teaspoon garlic powder or to taste),,Herb
+00000016,00000001,salt,salt,1,teaspoon,,,"1 - 2 teaspoon salt (or to taste, I use 2 teaspoons seasoned salt)",,Additive
+00000016,00000012,black pepper,black pepper,1,teaspoon,ground,,1 teaspoon fresh ground black pepper,,Spice
+00000016,00000009,milk,milk,1/3,cup,,,1/3 cup milk (can use up to 1/2 cup milk),,Dairy
+00000016,00000040,oregano,oregano,1/2,teaspoon,,,"1/2 teaspoon dried oregano (optional, or to taste)",,Spice
+00000016,00000020,parsley,parsley,1/4,cup,chopped,,1/4 cup chopped fresh parsley (or 2 tablespoons dried parsley),,Spice
+00000017,00000054,chicken,chicken,8,,,,"8 chicken drumsticks, skin on (the skin is important for flavour, and is so tasty to eat!)",,Meat
+00000017,00000006,water,water,1,cup,,,1 cup water,,Additive
+00000017,00000106,balsamic vinegar,balsamic vinegar,1/2,cup,,,1/2 cup balsamic vinegar,,Plant Derivative
+00000017,00000032,soy sauce,soy sauce,1/3,cup,,,1/3 cup soy sauce,Condiment-Sauce,Condiment
+00000017,00000003,sugar,sugar,2 1/2,tablespoons,,,2 1/2 tablespoons sugar,,Additive
+00000017,00000004,garlic,garlic,1,clove,peeled|bruised,,"1 garlic clove, peeled and bruised",,Herb
+00000017,00000520,chili pepper,chili pepper,1,,slit,hot,"1 small hot chili pepper, slit open, seeds removed",,Spice
+00000018,00000030,beef,beef,1,lb,ground,,1 lb ground beef or 1 lb ground turkey,,Meat
+00000018,00000130,yellow onion,yellow onion,1/2,,chopped,,"1/2 medium yellow onion, chopped",Vegetable-Bulb,Vegetable
+00000018,00000324,taco seasoning,taco seasoning,1,ounce|package,,,1 (1 1/4 ounce) package taco seasoning,,Spice
+00000018,00001212,flour tortillas,flour tortillas,6,,,,6 large flour tortillas,,Cereal
+00000018,00000933,beans,beans,1,ounce|can,refried,,1 (16 ounce) can refried beans,,Vegetable
+00000018,00003017,taco cheese,taco cheese,2|2|3,cups,shredded,,2 - 3 cups shredded taco cheese or 2 - 3 cups cheddar cheese,,Dairy
+00000018,00000013,cream,cream,1,ounce|can,,,1 (10 3/4 ounce) can cream of mushroom soup,,Dairy
+00000018,00000013,cream,cream,4,ounces,sour,,4 ounces sour cream,,Dairy
+00000018,00000134,sauce,sauce,,,,hot,"jarred hot sauce, if desired to spice it up",Condiment-Sauce,Additive
+00000019,00000002,butter,butter,1/3,cup,melted,,"1/3 cup butter, melted",,Dairy
+00000019,00000004,garlic,garlic,2,tablespoons,minced,,2 tablespoons minced garlic (can use more or less),,Herb
+00000019,00000039,garlic powder,garlic powder,2,teaspoons,divided,,"2 teaspoons garlic powder, divided (garlic lovers can use more)",,Herb
+00000019,00000213,seasoning salt,seasoning salt,1/2,teaspoon,,,1/2 teaspoon seasoning salt (or can use white salt),,Additive-Salt
+00000019,00000385,bread crumb,bread crumb,3/4,cup,seasoned,,3/4 cup seasoned dry bread crumb (seasoned or plain),,Bakery
+00000019,00000028,cheddar cheese,cheddar cheese,1/2,cup,grated,,1/2 cup finely grated cheddar cheese,,Dairy
+00000019,00000023,parmesan cheese,parmesan cheese,1/4,cup,grated,,1/4 cup freshly grated parmesan cheese,,Dairy
+00000019,00000012,black pepper,black pepper,1/2,teaspoon,ground,,1/2 teaspoon ground black pepper (or to taste),,Spice
+00000019,00000406,chicken breasts,chicken breasts,4,,boneless skinless,,4 boneless skinless chicken breasts,,Meat
+00000019,00000028,cheddar cheese,cheddar cheese,,,shredded|shredded,,"shredded cheddar cheese (optional and use any amount desired, or can use shredded mozzarella cheese)",,Dairy
+00000020,00000000,all - purpose flour,all - purpose flour,2,cups,,,2 cups all - purpose flour,,
+00000020,00000025,baking soda,baking soda,1,teaspoon,,,1 teaspoon baking soda,,Additive
+00000020,00000001,salt,salt,1/4,teaspoon,,,1/4 teaspoon salt,,Additive
+00000020,00000002,butter,butter,1/2,cup,,,1/2 cup butter,,Dairy
+00000020,00000016,brown sugar,brown sugar,3/4,cup,,,3/4 cup brown sugar,,Additive
+00000020,00000189,eggs,eggs,2,,beaten,,"2 large eggs, beaten",,Vegetable
+00000020,00010648,overripe bananas,overripe bananas,2 1/3,cups,mashed,,2 1/3 cups mashed very overripe bananas,,Fruit
+00000021,00000224,potatoes,potatoes,4,cups,sliced,,4 cups thinly sliced potatoes,,Vegetable
+00000021,00000002,butter,butter,3,tablespoons,,,3 tablespoons butter,,Dairy
+00000021,00000011,flour,flour,3,tablespoons,,,3 tablespoons flour,,Cereal
+00000021,00000009,milk,milk,1 1/2,cups,,,1 1/2 cups milk,,Dairy
+00000021,00000001,salt,salt,1,teaspoon,,,1 teaspoon salt,,Additive
+00000021,00000061,cayenne pepper,cayenne pepper,1,dash,,,1 dash cayenne pepper,,Spice
+00000021,00000028,cheddar cheese,cheddar cheese,1,cup,grated,,1 cup grated sharp cheddar cheese,,Dairy
+00000021,00000097,cheese,cheese,1/2,cup,grated,,"1/2 cup grated cheese, to sprinkle on top",,Dairy
+00000021,00000048,paprika,paprika,,,,,paprika,,Vegetable
+00000022,00000056,cornstarch,cornstarch,3,tablespoons,divided,,"3 tablespoons cornstarch, divided",,Maize
+00000022,00000006,water,water,1/2,cup,,,"1/2 cup water, plus",,Additive
+00000022,00000006,water,water,2,tablespoons,divided,,"2 tablespoons water, divided",,Additive
+00000022,00000039,garlic powder,garlic powder,1/2,teaspoon,,,1/2 teaspoon garlic powder,,Herb
+00000022,00000795,round steak,round steak,1,lb,boneless,,"1 lb boneless round steak or 1 lb charcoal chuck steak, cut into thin 3 - inch strips",,Fish
+00000022,00000021,vegetable oil,vegetable oil,2,tablespoons,divided,,"2 tablespoons vegetable oil, divided",MISC-Oil,Plant Derivative
+00000022,00002044,broccoli florets,broccoli florets,4,cups,,,4 cups broccoli florets,,Flower
+00000022,00000007,onion,onion,1,,cut,,"1 small onion, cut into wedges",Vegetable-Bulb,Vegetable
+00000022,00000032,soy sauce,soy sauce,1/3,cup,reduced sodium,,1/3 cup reduced sodium soy sauce,Condiment-Sauce,Condiment
+00000022,00000016,brown sugar,brown sugar,2,tablespoons,,,2 tablespoons brown sugar,,Additive
+00000022,00000026,ginger,ginger,1,teaspoon,ground,,1 teaspoon ground ginger,,Spice
+00000022,00000065,rice,rice,,,cooked,hot,"hot cooked rice, for serving",,Cereal
+00000022,00001438,sesame seeds,sesame seeds,,,toasted,,"toasted sesame seeds, for serving (optional)",,Cereal
+00000023,00000847,picante sauce,picante sauce,2/3|2/3,cup,,,2/3 cup picante sauce or 2/3 cup your favorite salsa,,Condiment
+00000023,00000035,cumin,cumin,1,teaspoon,ground,,1 teaspoon ground cumin,,Spice
+00000023,00000040,oregano,oregano,1/2,teaspoon,crushed,,"1/2 teaspoon dried oregano leaves, crushed",,Spice
+00000023,00000054,chicken,chicken,1 1/2,cups,cooked|chopped,,"1 1/2 cups cooked chicken, chopped",,Meat
+00000023,00000028,cheddar cheese,cheddar cheese,1,cup,shredded,,1 cup shredded cheddar cheese,,Dairy
+00000023,00000350,green onions,green onions,2,,chopped,,"2 green onions, chopped with some tops (about 1/4 cup)",,Vegetable
+00000023,00001212,flour tortillas,flour tortillas,6,inch,,,6 (8 inch) flour tortillas,,Cereal
+00000023,00000064,margarine,margarine,2,tablespoons,melted,,"2 tablespoons margarine, melted",,Additive
+00000023,00000028,cheddar cheese,cheddar cheese,,,shredded,,"shredded cheddar cheese, for serving",,Dairy
+00000023,00000034,green onion,green onion,,,chopped,,"chopped green onion, for serving",,Vegetable
+00000023,00000847,picante sauce,picante sauce,,,,,"picante sauce, for serving",,Condiment
+00000024,00000045,chicken breast,chicken breast,1,lb,diced,,"1 lb chicken breast, diced",,Meat
+00000024,00000007,onion,onion,1,,minced,,"1 medium onion, minced",Vegetable-Bulb,Vegetable
+00000024,00000021,vegetable oil,vegetable oil,1,tablespoon,,,1 tablespoon vegetable oil,MISC-Oil,Plant Derivative
+00000024,00001212,flour tortillas,flour tortillas,8,inch,softened,,"8 (8 inch) flour tortillas, softened",,Cereal
+00000024,00000148,monterey jack cheese,monterey jack cheese,1 1/2,cups,grated,,"1 1/2 cups grated monterey jack cheese or 1 1/2 cups Mexican blend cheese, divided",,Dairy
+00000024,00000002,butter,butter,1/4,cup,,,1/4 cup butter,,Dairy
+00000024,00000011,flour,flour,1/4,cup,,,1/4 cup flour,,Cereal
+00000024,00000038,chicken broth,chicken broth,1,ounce|can,,,1 (15 ounce) can chicken broth,,Meat
+00000024,00000013,cream,cream,1,cup,sour,,1 cup sour cream,,Dairy
+00000024,00000131,green chilies,green chilies,1,ounce|can,chopped|minced,,"1 (4 ounce) can chopped green chilies or 2 fresh chili peppers, minced",,Vegetable
+00000025,00000401,macaroni,macaroni,1,ounce|package,,,1 (8 ounce) package macaroni,,Plant
+00000025,00000002,butter,butter,4,tablespoons,,,4 tablespoons butter,,Dairy
+00000025,00000011,flour,flour,4,tablespoons,,,4 tablespoons flour,,Cereal
+00000025,00000009,milk,milk,1,cup,,,1 cup milk,,Dairy
+00000025,00000013,cream,cream,1,cup,,,1 cup cream,,Dairy
+00000025,00000001,salt,salt,1/2,teaspoon,,,1/2 teaspoon salt,,Additive
+00000025,00000012,black pepper,black pepper,,,ground,,"fresh ground black pepper, to taste",,Spice
+00000025,00000028,cheddar cheese,cheddar cheese,2,cups,shredded,,"2 cups cheddar cheese, shredded good quality",,Dairy
+00000025,00000776,breadcrumbs,breadcrumbs,1/2,cup,buttered,,"1/2 cup breadcrumbs, buttered",,Vegetable
+00000026,00000000,all -,all -,2,cups,unbleached,,"2 cups unbleached all - purpose flour, plus more for dusting the board (if you can get White Lily flour, your biscuits will be even better)",,
+00000026,00000025,baking soda,baking soda,1/4,teaspoon,,,1/4 teaspoon baking soda,,Additive
+00000026,00000018,baking powder,baking powder,1,tablespoon,,,1 tablespoon baking powder (use one without aluminum),,Spice
+00000026,00000057,kosher salt,kosher salt,1,teaspoon,,,1 teaspoon kosher salt or 1 teaspoon salt,,Additive-Salt
+00000026,00000002,butter,butter,6,tablespoons,unsalted,cold,"6 tablespoons unsalted butter, very cold",,Dairy
+00000026,00000087,buttermilk,buttermilk,1,cup,,,1 cup buttermilk (approx),,Dairy
+00000027,00000002,butter,butter,1,cup,softened,,"1 cup butter, softened",,Dairy
+00000027,00000003,sugar,sugar,1 1/2,cups,,,1 1/2 cups sugar,,Additive
+00000027,00000189,eggs,eggs,2,,,,2 large eggs,,Vegetable
+00000027,00000011,flour,flour,2 3/4,cups,,,2 3/4 cups flour,,Cereal
+00000027,00000013,cream,cream,2,teaspoons,,,2 teaspoons cream of tartar,,Dairy
+00000027,00000025,baking soda,baking soda,1,teaspoon,,,1 teaspoon baking soda,,Additive
+00000027,00000001,salt,salt,1/4,teaspoon,,,1/4 teaspoon salt,,Additive
+00000027,00000003,sugar,sugar,3,tablespoons,,,3 tablespoons sugar,,Additive
+00000027,00000014,cinnamon,cinnamon,3,teaspoons,,,3 teaspoons cinnamon,,Additive
+00000027,00000027,vanilla extract,vanilla extract,1,teaspoon,,,1 teaspoon vanilla extract,,Additive
+00000028,00000038,chicken broth,chicken broth,4,cups,,,4 cups chicken broth,,Meat
+00000028,00000224,potatoes,potatoes,4,cups,peeled|cubed,,4 cups peeled and cubed potatoes,,Vegetable
+00000028,00000213,seasoning salt,seasoning salt,1/2,teaspoon,,,1/2 teaspoon seasoning salt,,Additive-Salt
+00000028,00000135,white pepper,white pepper,1/4,teaspoon,,,1/4 teaspoon white pepper,,Spice
+00000028,00000086,red pepper,red pepper,1/4,teaspoon,ground,,1/4 teaspoon ground red pepper,,Spice
+00000028,00000029,cream cheese,cream cheese,1,ounce|package,cut,,"1 (8 ounce) package cream cheese, cut into chunks",,Dairy
+00000029,00000001,salt,salt,4,teaspoons,,,"4 teaspoons salt (per recipe reviews, 2 tsp is better)",,Additive
+00000029,00000048,paprika,paprika,2,teaspoons,,,2 teaspoons paprika,,Vegetable
+00000029,00000061,cayenne pepper,cayenne pepper,1,teaspoon,,,1 teaspoon cayenne pepper,,Spice
+00000029,00000118,onion powder,onion powder,1,teaspoon,,,1 teaspoon onion powder,,Vegetable
+00000029,00000042,thyme,thyme,1,teaspoon,,,1 teaspoon thyme,,Herb
+00000029,00000135,white pepper,white pepper,1,teaspoon,,,1 teaspoon white pepper,,Spice
+00000029,00000039,garlic powder,garlic powder,1/2,teaspoon,,,1/2 teaspoon garlic powder,,Herb
+00000029,00000012,black pepper,black pepper,1/2,teaspoon,,,1/2 teaspoon black pepper,,Spice
+00000029,00000687,roasting chicken,roasting chicken,1,,,,1 large roasting chicken (with pop - up timer if possible),,Meat
+00000029,00000007,onion,onion,1,cup,chopped,,1 cup chopped onion (optional),Vegetable-Bulb,Vegetable
+00000030,00000047,potato,potato,1,cup,diced,,"1 cup potato, diced",,Vegetable Tuber
+00000030,00000007,onion,onion,1,cup,diced,,"1 cup onion, diced",Vegetable-Bulb,Vegetable
+00000030,00000031,celery,celery,1,cup,diced,,"1 cup celery, diced",,Herb
+00000030,00000022,carrot,carrot,1,cup,diced,,"1 cup carrot, diced",,Vegetable
+00000030,00000064,margarine,margarine,1/3,cup,melted,,1/3 cup melted margarine,,Additive
+00000030,00000000,all - purpose flour,all - purpose flour,1/2,cup,,,1/2 cup all - purpose flour,,
+00000030,00000038,chicken broth,chicken broth,2,cups,,,2 cups chicken broth,,Meat
+00000030,00002587,,,1,cup,,,1 cup half - and - half,,Vegetable
+00000030,00000001,salt,salt,1,teaspoon,,,1 teaspoon salt,,Additive
+00000030,00000008,pepper,pepper,1/4,teaspoon,,,1/4 teaspoon pepper,,Spice
+00000030,00000054,chicken,chicken,4,cups,cooked|chopped,,"4 cups chicken, cooked and chopped",,Meat
+00000030,00000377,pie,pie,2,,,,2 pie crusts (either store bought or your own recipe),,Dish
