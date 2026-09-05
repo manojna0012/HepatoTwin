@@ -8,7 +8,7 @@ import pandas as pd
 # ============================================================
 
 MODEL_FILE = Path(
-    "data/results/xgboost_cap_baseline.joblib"
+    "data/results/selected_patient_state_model.joblib"
 )
 
 DATA_FILE = Path(
@@ -60,7 +60,7 @@ TARGET = "LUXCAPM"
 
 
 # ============================================================
-# EVIDENCE LAYER
+# EVIDENCE LAYER WILL IMPLEMENTED LATER (THIS IS ONLY A PLACEHOLDER, NEED TO IMPLEMENT THE ACTUAL LATER)
 # ============================================================
 
 EVIDENCE = {
@@ -85,12 +85,12 @@ EVIDENCE = {
 
 
 # ============================================================
-# RECIPE LAYER
+# RECIPE LAYER WILL IMPLEMENTED LATER (THIS IS ONLY A PLACEHOLDER, NEED TO IMPLEMENT THE ACTUAL LATER)
 # ============================================================
 
-# Temporary Week 4 real recipe/substitution entry.
-# Replace these values with the actual recipe record
-# and substitution from your recipe dataset.
+# Temporary placeholder for the future recipe layer.
+# These values will be replaced with actual recipe data
+# when the NutriTwin recipe evaluation layer is implemented.
 RECIPE = {
     "name": "Real recipe from recipe dataset",
     "original_ingredient": "Original ingredient",
@@ -295,7 +295,7 @@ def predict_cap(patient):
 
 
 # ============================================================
-# EVIDENCE LOOKUP
+# EVIDENCE LOOKUP- THIS IS ALSO PLACEHOLDER CODE, NEED TO IMPLEMENT THE ACTUAL LATER
 # ============================================================
 
 def lookup_evidence(predicted_cap):
@@ -371,7 +371,7 @@ def main():
     )
 
     # --------------------------------------------------------
-    # EVIDENCE
+    # EVIDENCE- GETS OUTPUT FROM PLACEHOLDER CODE GETS OUTPUT FROM PLACEHOLDER CODE NEED TO IMPLEMENT THE ACTUAL LATER
     # --------------------------------------------------------
 
     evidence = lookup_evidence(
@@ -397,21 +397,15 @@ def main():
     )
 
     # --------------------------------------------------------
-    # RECIPE
+    # RECIPE-GETS OUTPUT FROM PLACEHOLDER CODE NEED TO IMPLEMENT THE ACTUAL LATER
     # --------------------------------------------------------
 
     print("\nNUTRITWIN")
     print("-" * 60)
 
-    print(
-        f"Recipe: "
-        f"{RECIPE['name']}"
-    )
+    print(f"Recipe: " f"{RECIPE['name']}")
 
-    print(
-        f"Original ingredient: "
-        f"{RECIPE['original_ingredient']}"
-    )
+    print(f"Original ingredient: "f"{RECIPE['original_ingredient']}")
 
     print(
         f"Substitution: "
