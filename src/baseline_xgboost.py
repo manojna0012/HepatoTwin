@@ -12,6 +12,10 @@ from sklearn.metrics import (
 
 from xgboost import XGBRegressor
 
+import joblib
+from pathlib import Path
+MODEL_DIR = Path("data/results")
+MODEL_DIR.mkdir(parents=True, exist_ok=True)
 
 # ============================================================
 # PATHS
@@ -155,6 +159,11 @@ model.fit(
 
 print("Training complete.")
 
+MODEL_FILE = MODEL_DIR / "xgboost_cap_baseline.joblib"
+
+joblib.dump(model, MODEL_FILE)
+
+print(f"Saved model: {MODEL_FILE}")
 
 # ============================================================
 # PREDICTION
