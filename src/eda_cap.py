@@ -60,7 +60,8 @@ candidate_features = [
 ]
 
 print("\nCandidate Features:")
-print(candidate_features)
+for feature in candidate_features:
+    print(" ", feature)
 
 
 # =====================================================
@@ -76,7 +77,9 @@ print(f"\nParticipants with valid CAP: {len(df_cap)}")
 # Missing values
 # =====================================================
 
-print("\nMissing Values:")
+print("\n" + "=" * 60)
+print("MISSING VALUES")
+print("=" * 60)
 
 missing = (
     df_cap[candidate_features]
@@ -96,7 +99,9 @@ print(missing)
 # Summary statistics
 # =====================================================
 
-print("\nSummary Statistics:")
+print("\n" + "=" * 60)
+print("SUMMARY STATISTICS")
+print("=" * 60)
 
 print(
     df_cap[candidate_features]
@@ -108,13 +113,18 @@ print(
 # CAP Distribution
 # =====================================================
 
+print("\n" + "=" * 60)
+print("CAP DISTRIBUTION")
+print("=" * 60)
+
 cap = df_cap["LUXCAPM"]
 
-print("\nCAP Summary:")
 print(f"Participants with CAP: {len(cap)}")
 print(f"Mean CAP: {cap.mean():.2f}")
 print(f"Median CAP: {cap.median():.2f}")
 print(f"Std CAP: {cap.std():.2f}")
+print(f"Minimum CAP: {cap.min():.2f}")
+print(f"Maximum CAP: {cap.max():.2f}")
 
 pct_at_ceiling = (cap == 400).mean() * 100
 
@@ -127,6 +137,7 @@ print(
     "Note: CAP values are capped at 400 dB/m; "
     "values at the ceiling may be right-censored."
 )
+
 
 plt.figure(figsize=(8, 5))
 
@@ -163,6 +174,111 @@ if "BMXBMI" in df_cap.columns:
 
     plt.tight_layout()
     plt.savefig("bmi_distribution.png")
+    plt.close()
+
+
+# =====================================================
+# Sex Distribution
+# =====================================================
+
+if "RIAGENDR" in df_cap.columns:
+
+    print("\n" + "=" * 60)
+    print("SEX DISTRIBUTION")
+    print("=" * 60)
+
+    sex_counts = (
+        df_cap["RIAGENDR"]
+        .value_counts()
+        .sort_index()
+    )
+
+    male_count = sex_counts.get(1, 0)
+    female_count = sex_counts.get(2, 0)
+
+    print(f"Male: {male_count}")
+    print(f"Female: {female_count}")
+
+    print(f"Total: {male_count + female_count}")
+
+    sex_labels = {
+        1: "Male",
+        2: "Female"
+    }
+
+    sex_plot = (
+        df_cap["RIAGENDR"]
+        .map(sex_labels)
+        .value_counts()
+        .reindex(["Male", "Female"])
+    )
+
+    plt.figure(figsize=(7, 5))
+
+    sex_plot.plot(
+        kind="bar"
+    )
+
+    plt.title("Sex Distribution")
+    plt.xlabel("Sex")
+    plt.ylabel("Number of Participants")
+
+    plt.xticks(rotation=0)
+
+    plt.tight_layout()
+    plt.savefig("sex_distribution.png")
+    plt.close()
+
+
+# =====================================================
+# Race/Ethnicity Distribution
+# =====================================================
+
+if "RIDRETH3" in df_cap.columns:
+
+    print("\n" + "=" * 60)
+    print("RACE/ETHNICITY DISTRIBUTION")
+    print("=" * 60)
+
+    race_labels = {
+        1: "Mexican American",
+        2: "Other Hispanic",
+        3: "Non-Hispanic White",
+        4: "Non-Hispanic Black",
+        6: "Non-Hispanic Asian",
+        7: "Other Race / Multiracial"
+    }
+
+    race_plot = (
+        df_cap["RIDRETH3"]
+        .map(race_labels)
+        .value_counts()
+    )
+
+    print("\nParticipant counts:")
+
+    for race, count in race_plot.items():
+        print(f"{race}: {count}")
+
+    print(f"Total: {race_plot.sum()}")
+
+    plt.figure(figsize=(10, 6))
+
+    race_plot.plot(
+        kind="bar"
+    )
+
+    plt.title("Race/Ethnicity Distribution")
+    plt.xlabel("Race/Ethnicity")
+    plt.ylabel("Number of Participants")
+
+    plt.xticks(
+        rotation=45,
+        ha="right"
+    )
+
+    plt.tight_layout()
+    plt.savefig("race_distribution.png")
     plt.close()
 
 
@@ -249,9 +365,14 @@ feature_df.to_csv(
 # Completed
 # =====================================================
 
-print("\nSaved:")
+print("\n" + "=" * 60)
+print("SAVED FILES")
+print("=" * 60)
+
 print("cap_distribution.png")
 print("bmi_distribution.png")
+print("sex_distribution.png")
+print("race_distribution.png")
 print("correlation_matrix.png")
 print("cap_vs_bmi.png")
 print("candidate_features.csv")
