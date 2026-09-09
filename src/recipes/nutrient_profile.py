@@ -3,6 +3,7 @@ def create_nutrient_profile(recipe):
 
     return {
         "recipe_id": recipe.recipe_id,
+        "title": recipe.title,
         "calories": nutrition.get("calories"),
         "fat": nutrition.get("fat"),
         "saturated_fat": nutrition.get("saturated_fat"),
