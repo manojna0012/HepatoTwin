@@ -1,0 +1,85 @@
+{
+  "selected_model": "Tuned XGBoost",
+  "target": "LUXCAPM",
+  "units": "dB/m",
+  "features": [
+    "RIDAGEYR",
+    "BMXBMI",
+    "BMXWAIST",
+    "LBXSATSI",
+    "LBXSASSI",
+    "LBXGH",
+    "LBXTC",
+    "LBDHDD",
+    "DR1TKCAL",
+    "DR1TPROT",
+    "DR1TCARB",
+    "DR1TTFAT",
+    "RIAGENDR",
+    "RIDRETH3"
+  ],
+  "selection_criterion": "lowest mean five-fold training CV RMSE",
+  "baseline_cv_rmse": 45.88740149280061,
+  "tuned_cv_rmse": 45.0291733709737,
+  "baseline_cv_fold_rmse": [
+    45.55923023893439,
+    45.7516741038038,
+    45.117987752700955,
+    46.73075678514011,
+    46.27735858342382
+  ],
+  "best_parameters": {
+    "model__subsample": 0.7,
+    "model__reg_lambda": 1,
+    "model__reg_alpha": 0,
+    "model__n_estimators": 350,
+    "model__min_child_weight": 10,
+    "model__max_depth": 4,
+    "model__learning_rate": 0.015,
+    "model__colsample_bytree": 0.85
+  },
+  "search_iterations": 40,
+  "seed": 42,
+  "n_train": 7216,
+  "n_test": 1805,
+  "data_sha256": "c1a1f9c74f231b515900e94206596e58edde2422f83e4b3750e908a55a3199e9",
+  "versions": {
+    "python": "3.10.11",
+    "sklearn": "1.7.2",
+    "xgboost": "3.2.0",
+    "numpy": "2.2.6",
+    "pandas": "2.3.3",
+    "joblib": "1.5.3"
+  },
+  "holdout_metrics": [
+    {
+      "Model": "Mean predictor",
+      "MAE": 51.494940222098016,
+      "RMSE": 62.52148983357133,
+      "R2": -0.003107011611920507
+    },
+    {
+      "Model": "Baseline XGBoost",
+      "MAE": 35.25979831515917,
+      "RMSE": 44.818216936273636,
+      "R2": 0.48453666620420444
+    },
+    {
+      "Model": "Tuned XGBoost",
+      "MAE": 34.71343841130053,
+      "RMSE": 43.86553471246618,
+      "R2": 0.506217738033512
+    }
+  ],
+  "rmse_improvement_bootstrap_95_percent_interval": [
+    0.5231640462175907,
+    1.381392884337067
+  ],
+  "limitations": [
+    "Original holdout was already used in earlier model development; this is not external validation.",
+    "Unweighted participant split; NHANES survey design and household/PSU clustering are not modeled.",
+    "Cross-sectional CAP prediction is not a diagnosis or a causal prediction of dietary response.",
+    "Eligible complete exams include ages 12 through 80 (age may be top-coded).",
+    "Bootstrap interval conditions on the fitted models and does not include tuning uncertainty."
+  ]
+}

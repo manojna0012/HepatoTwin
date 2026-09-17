@@ -1,19 +1,18 @@
 from pathlib import Path
-import joblib
+import argparse
 import pandas as pd
+
+try:
+    from .predict_cap import predict_patients, MODEL_FILE
+except ImportError:
+    from predict_cap import predict_patients, MODEL_FILE
 
 
 # ============================================================
 # CONFIG
 # ============================================================
 
-MODEL_FILE = Path(
-    "data/results/selected_patient_state_model.joblib"
-)
-
-DATA_FILE = Path(
-    "data/processed/nhanes_merged.csv"
-)
+DATA_FILE = Path(__file__).resolve().parents[1] / "data/processed/nhanes_merged.csv"
 
 
 # Raw patient features
@@ -32,28 +31,6 @@ RAW_FEATURES = [
     "DR1TPROT",
     "DR1TCARB",
     "DR1TTFAT",
-]
-
-# Exact features used by XGBoost
-MODEL_FEATURES = [
-    "RIDAGEYR",
-    "BMXBMI",
-    "BMXWAIST",
-    "LBXSATSI",
-    "LBXSASSI",
-    "LBXGH",
-    "LBXTC",
-    "LBDHDD",
-    "DR1TKCAL",
-    "DR1TPROT",
-    "DR1TCARB",
-    "DR1TTFAT",
-    "RIAGENDR_2.0",
-    "RIDRETH3_2.0",
-    "RIDRETH3_3.0",
-    "RIDRETH3_4.0",
-    "RIDRETH3_6.0",
-    "RIDRETH3_7.0",
 ]
 
 TARGET = "LUXCAPM"
@@ -103,9 +80,16 @@ RECIPE = {
 # LOAD PATIENT
 # ============================================================
 
-def load_patient():
+def load_patient(model_file=MODEL_FILE, seqn=None, random=False, data_file=DATA_FILE):
 
-    df = pd.read_csv(DATA_FILE)
+    df = pd.read_csv(data_file)
+    manifest = pd.read_csv(Path(model_file).parent / 'split_manifest.csv')
+    held_out = set(manifest.loc[manifest.partition.eq('test'), 'SEQN'])
+    if seqn is not None and seqn not in held_out:
+        raise ValueError(f'SEQN {seqn} is not in this model\'s held-out test set.')
+    df = df[df.SEQN.isin(held_out)]
+    if seqn is not None:
+        df = df[df.SEQN.eq(seqn)]
 
     # Same LUX eligibility filter as previous preprocessing
     df = df[
@@ -119,11 +103,10 @@ def load_patient():
 
     if df.empty:
         raise ValueError(
-            "No eligible NHANES participants found."
+            "No eligible held-out NHANES participants found."
         )
 
-    # Use one real NHANES participant
-    patient = df.iloc[0]
+    patient = df.sample(1).iloc[0] if random else df.iloc[0]
 
     return patient
 
@@ -132,166 +115,8 @@ def load_patient():
 # PREPARE MODEL INPUT
 # ============================================================
 
-def prepare_model_input(patient):
-
-    # Start with numeric features
-    model_input = {}
-
-    numeric_features = [
-        "RIDAGEYR",
-        "BMXBMI",
-        "BMXWAIST",
-        "LBXSATSI",
-        "LBXSASSI",
-        "LBXGH",
-        "LBXTC",
-        "LBDHD",
-        "DR1TKCAL",
-        "DR1TPROT",
-        "DR1TCARB",
-        "DR1TTFAT",
-    ]
-
-    # NOTE:
-    # Actual column is LBDHDD in the NHANES data.
-    numeric_features = [
-        "RIDAGEYR",
-        "BMXBMI",
-        "BMXWAIST",
-        "LBXSATSI",
-        "LBXSASSI",
-        "LBXGH",
-        "LBXTC",
-        "LBDHDD",
-        "DR1TKCAL",
-        "DR1TPROT",
-        "DR1TCARB",
-        "DR1TTFAT",
-    ]
-
-    for feature in numeric_features:
-
-        value = patient[feature]
-
-        # Median imputation will be handled below
-        model_input[feature] = value
-
-    # --------------------------------------------------------
-    # SEX
-    # --------------------------------------------------------
-
-    model_input["RIAGENDR_2.0"] = (
-        1.0
-        if patient["RIAGENDR"] == 2.0
-        else 0.0
-    )
-
-    # --------------------------------------------------------
-    # RACE / ETHNICITY
-    # --------------------------------------------------------
-
-    for category in [
-        2.0,
-        3.0,
-        4.0,
-        6.0,
-        7.0,
-    ]:
-
-        column = f"RIDRETH3_{category}"
-
-        model_input[column] = (
-            1.0
-            if patient["RIDRETH3"] == category
-            else 0.0
-        )
-
-    X = pd.DataFrame(
-        [model_input],
-        columns=MODEL_FEATURES
-    )
-
-    return X
-
-
-# ============================================================
-# IMPUTE MISSING VALUES
-# ============================================================
-
-def impute_missing_values(X):
-
-    # Load the complete preprocessed training dataset.
-    # Its medians reproduce the preprocessing used for
-    # the current baseline model.
-    preprocessed = pd.read_csv(
-        "data/processed/nhanes_preprocessed.csv"
-    )
-
-    numeric_features = [
-        "RIDAGEYR",
-        "BMXBMI",
-        "BMXWAIST",
-        "LBXSATSI",
-        "LBXSASSI",
-        "LBXGH",
-        "LBXTC",
-        "LBDHDD",
-        "DR1TKCAL",
-        "DR1TPROT",
-        "DR1TCARB",
-        "DR1TTFAT",
-    ]
-
-    for feature in numeric_features:
-
-        if X[feature].isna().any():
-
-            median_value = (
-                preprocessed[feature]
-                .median()
-            )
-
-            X[feature] = X[feature].fillna(
-                median_value
-            )
-
-    return X
-
-
-# ============================================================
-# PREDICTION
-# ============================================================
-
-def predict_cap(patient):
-
-    if not MODEL_FILE.exists():
-
-        raise FileNotFoundError(
-            f"Model not found: {MODEL_FILE}"
-        )
-
-    model = joblib.load(
-        MODEL_FILE
-    )
-
-    X = prepare_model_input(
-        patient
-    )
-
-    X = impute_missing_values(
-        X
-    )
-
-    # Make absolutely sure feature order matches training
-    X = X[
-        MODEL_FEATURES
-    ]
-
-    prediction = model.predict(
-        X
-    )[0]
-
-    return prediction
+def predict_cap(patient, model_file=MODEL_FILE):
+    return float(predict_patients(pd.DataFrame([patient]), model_file).iloc[0])
 
 
 # ============================================================
@@ -316,6 +141,11 @@ def lookup_evidence(predicted_cap):
 # ============================================================
 
 def main():
+    parser = argparse.ArgumentParser(description='Demonstrate CAP prediction on a held-out participant.')
+    parser.add_argument('--model', type=Path, default=MODEL_FILE)
+    parser.add_argument('--seqn', type=int)
+    parser.add_argument('--random', action='store_true')
+    args = parser.parse_args()
 
     print("=" * 60)
     print("HEPATOTWIN END-TO-END DEMO")
@@ -325,9 +155,10 @@ def main():
     # PATIENT
     # --------------------------------------------------------
 
-    patient = load_patient()
+    patient = load_patient(args.model, args.seqn, args.random)
 
-    print("\nPATIENT")
+    print("\nPATIENT (held-out test participant)")
+    print(f'Model: {args.model}')
     print("-" * 60)
 
     print(
@@ -349,7 +180,7 @@ def main():
     # --------------------------------------------------------
 
     predicted_cap = predict_cap(
-        patient
+        patient, args.model
     )
 
     print("\nTWIN STATE")
@@ -378,7 +209,7 @@ def main():
         predicted_cap
     )
 
-    print("\nEVIDENCE")
+    print("\nEVIDENCE [PLACEHOLDER - NOT IMPLEMENTED]")
     print("-" * 60)
 
     print(
@@ -400,7 +231,7 @@ def main():
     # RECIPE-GETS OUTPUT FROM PLACEHOLDER CODE NEED TO IMPLEMENT THE ACTUAL LATER
     # --------------------------------------------------------
 
-    print("\nNUTRITWIN")
+    print("\nNUTRITWIN [PLACEHOLDER - NOT IMPLEMENTED]")
     print("-" * 60)
 
     print(f"Recipe: " f"{RECIPE['name']}")

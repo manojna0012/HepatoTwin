@@ -1,0 +1,10 @@
+{
+  "rmse_improvement": 0.04018707213993622,
+  "paired_bootstrap_95_percent_interval": [
+    -0.30474308687400614,
+    0.38000405889794686
+  ],
+  "resamples": 2000,
+  "seed": 42,
+  "interpretation": "Conditional on fitted models; ignores tuning uncertainty, repeated holdout use, and survey clustering."
+}

@@ -1,0 +1,14 @@
+{
+  "supplied_source_sha256": "2b69d17c18204703e7b39779fffc21e183a39e91fe766367e2907b3af4147a5b",
+  "exact_supplied_original_split": {
+    "MAE": 34.356222965314444,
+    "RMSE": 43.638778163104284,
+    "R2": 0.5113096153102905
+  },
+  "previous_expanded_stratified_split": {
+    "MAE": 33.29141269166053,
+    "RMSE": 42.922286459821954,
+    "R2": 0.540836245268688
+  },
+  "interpretation": "Both models refitted on each split; stratified test is not a fresh validation set. No model selection used these results."
+}

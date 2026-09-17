@@ -1,0 +1,62 @@
+{
+  "selected_model": "equal_blend_top_two",
+  "features": [
+    "RIDAGEYR",
+    "BMXBMI",
+    "BMXWAIST",
+    "LBXSATSI",
+    "LBXSASSI",
+    "LBXGH",
+    "LBXTC",
+    "LBDHDD",
+    "DR1TKCAL",
+    "DR1TPROT",
+    "DR1TCARB",
+    "DR1TTFAT",
+    "BMXHT",
+    "BMXWT",
+    "LBXSGTSI",
+    "LBXSUA",
+    "LBXTR",
+    "LBXSAL",
+    "LBXSAPSI",
+    "LBXSCR",
+    "LBXSTB",
+    "LBXSTP",
+    "LBXSGB",
+    "LBXSIR",
+    "LBXSBU",
+    "LBXSLDSI",
+    "RIAGENDR",
+    "RIDRETH3"
+  ],
+  "blend_members": [
+    "expanded_xgb_missing_flags",
+    "expanded_xgb_d4_n700"
+  ],
+  "original_input_winner": "original_xgb_d4_n350",
+  "selection": "minimum pooled out-of-fold training RMSE",
+  "n_candidates": 24,
+  "seed": 42,
+  "n_train": 7216,
+  "n_test": 1805,
+  "data_sha256": "c1a1f9c74f231b515900e94206596e58edde2422f83e4b3750e908a55a3199e9",
+  "versions": {
+    "python": "3.10.11",
+    "sklearn": "1.7.2",
+    "xgboost": "3.2.0",
+    "numpy": "2.2.6",
+    "pandas": "2.3.3",
+    "joblib": "1.5.3"
+  },
+  "limitations": [
+    "Original holdout was already used in earlier model development; this is not external validation.",
+    "Unweighted participant split; NHANES survey design and household/PSU clustering are not modeled.",
+    "Cross-sectional CAP prediction is not a diagnosis or a causal prediction of dietary response.",
+    "Eligible complete exams include ages 12 through 80 (age may be top-coded).",
+    "Bootstrap interval conditions on the fitted models and does not include tuning uncertainty.",
+    "Repeated development on the same cohort adds selection optimism; external validation remains necessary.",
+    "Expanded models require additional measurements; they are not drop-in replacements for the 14-input model.",
+    "LBXTR is a fasting subsample measurement with substantial missingness; use only appropriate reference-assay inputs."
+  ]
+}
