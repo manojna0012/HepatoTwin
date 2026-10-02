@@ -1,0 +1,8 @@
+intervention,outcome_measured,reported_effect,source,evidence_strength
+"Weight loss >=5% of body weight","Hepatic steatosis (biopsy)","Reduction in steatosis observed at this threshold; dose-response with further loss","Vilar-Gomez et al., Gastroenterology, 2015","STRONG (n=293, biopsy-paired)"
+"Weight loss 7-10%","Liver inflammation / NASH activity","Improvement in NAFLD Activity Score at this threshold","Vilar-Gomez et al., Gastroenterology, 2015","STRONG (n=293, biopsy-paired)"
+"Weight loss >=10%","NASH resolution / fibrosis","90% NASH resolution and dose-dependent fibrosis regression at this threshold","Vilar-Gomez et al., Gastroenterology, 2015","STRONG (n=293, biopsy-paired)"
+"Mediterranean diet vs. control","AST, GGT","Small but statistically significant reduction","Haghighatdoost et al., meta-analysis of 10 RCTs, 2021","MODERATE (meta-analysis, n=705)"
+"Mediterranean diet vs. control","ALT","No statistically significant effect; CI crosses zero","Haghighatdoost et al., meta-analysis of 10 RCTs, 2021","WEAK / INCONCLUSIVE"
+"Mediterranean diet vs. low-fat diet","Liver enzymes, liver fat","No significant difference between the two diets","2024 meta-analysis of RCTs (PubMed 39076035)","MODERATE (meta-analysis)"
+"Structured exercise (independent of weight loss)","Liver fat content","Meaningful reduction reported vs. control","Meta-analysis of 14 RCTs, n=551","MODERATE (meta-analysis)"
