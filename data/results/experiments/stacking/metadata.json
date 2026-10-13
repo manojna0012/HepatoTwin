@@ -1,0 +1,16 @@
+{
+  "target": "LUXCAPM",
+  "units": "dB/m",
+  "train_n": 7216,
+  "holdout_n": 1805,
+  "outer_cv": "KFold(5, shuffle=True, random_state=42)",
+  "stack_cv": "KFold(5, shuffle=True, random_state=17)",
+  "meta_model": "Ridge(alpha=10.0)",
+  "base_models": [
+    "XGBoost",
+    "Extra Trees",
+    "Random Forest"
+  ],
+  "holdout_used_for_selection": false,
+  "note": "Stacked out-of-fold predictions; holdout not evaluated."
+}
