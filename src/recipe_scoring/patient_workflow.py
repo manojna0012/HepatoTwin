@@ -33,7 +33,7 @@ def run_patient_workflow(
             profile,
             extreme_limits=extreme_limits,
         )
-        scoring_status = "scored_using_validated_profile_objectives"
+        scoring_status = "scored_using_profile_objectives"
     else:
         ranked = []
         scoring_status = (
