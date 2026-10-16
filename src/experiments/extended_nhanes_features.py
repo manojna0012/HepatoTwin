@@ -41,8 +41,20 @@ OUTPUT_DIR = ROOT / 'data' / 'results' / 'experiments' / 'extended_nhanes_featur
 SEED = 42
 FOLDS = 5
 
-# NHANES "refused" / "don't know" codes per variable width.
-QUESTION_MISSING = {7, 9, 77, 99, 777, 999, 7777, 9999, 77777, 99999}
+# NHANES "refused" / "don't know" codes. Single-digit items use 7/9; items whose
+# valid answers reach 7 or 9 (counts, hours, frequency scales) use wider codes.
+WIDE_MISSING = {
+    'ALQ121': {77, 99}, 'ALQ130': {777, 999}, 'PAD680': {7777, 9999},
+    'WHD050': {7777, 9999}, 'WHD110': {7777, 9999}, 'WHD140': {7777, 9999},
+    'SLD012': set(), 'DMDBORN4': {77, 99},
+}
+
+
+def clean_missing_codes(data, columns):
+    for column in columns:
+        codes = WIDE_MISSING.get(column, {7, 9})
+        data[column] = data[column].where(~data[column].isin(codes))
+    return data
 
 BODY = ['BMXHIP', 'BMXARMC', 'BMXARML', 'BMXLEG']
 DEMOGRAPHIC = ['INDFMPIR', 'DMDEDUC2', 'DMDBORN4']
@@ -62,8 +74,6 @@ QUESTIONNAIRE = [
     'PAQ605', 'PAQ620', 'PAQ635', 'PAQ650', 'PAQ665', 'PAD680',
 ]
 QUESTION_FILES = ['P_DIQ', 'P_BPQ', 'P_MCQ', 'P_WHQ', 'P_HUQ', 'P_SLQ', 'P_SMQ', 'P_ALQ', 'P_PAQ']
-# Continuous questionnaire answers whose missing codes are 7777/9999-style only.
-QUESTION_CONTINUOUS = {'WHD050', 'WHD110', 'WHD140', 'SLD012', 'ALQ130', 'PAD680'}
 
 RX_PATTERNS = {
     'rx_statin': 'STATIN',
@@ -119,12 +129,7 @@ def build_extended():
     data = base
     for part in parts:
         data = data.merge(part, on='SEQN', how='left', validate='one_to_one')
-
-    for column in QUESTIONNAIRE:
-        data[column] = data[column].where(~data[column].isin(QUESTION_MISSING))
-    data['DMDEDUC2'] = data.DMDEDUC2.where(data.DMDEDUC2 <= 5)
-    data['DMDBORN4'] = data.DMDBORN4.where(data.DMDBORN4 <= 2)
-    return data
+    return clean_missing_codes(data, QUESTIONNAIRE + ['DMDEDUC2', 'DMDBORN4'])
 
 
 def add_derived(X):

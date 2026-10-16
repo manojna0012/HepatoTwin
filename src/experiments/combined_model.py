@@ -34,7 +34,7 @@ from xgboost import XGBRegressor
 from src.train_final_model import ROOT, TARGET
 from src.cap_features import CAPFeatures, RAW_FEATURES
 from src.experiments.extended_nhanes_features import (
-    BLOOD_PRESSURE, BODY, CBC, DEMOGRAPHIC, FASTING, QUESTION_MISSING, SEED,
+    BLOOD_PRESSURE, BODY, CBC, DEMOGRAPHIC, FASTING, SEED, clean_missing_codes,
     add_derived, build_extended, metrics)
 from src.experiments.more_data_experiment import RAW_2021, eligible, load_cycle
 
@@ -60,11 +60,7 @@ def load_2021_extended():
         part = pd.read_sas(RAW_2021 / f'{name}_L.xpt')
         keep = [c for c in part if c in COMMON_EXTRA and c not in data]
         data = data.merge(part[['SEQN'] + keep], on='SEQN', how='left', validate='one_to_one')
-    for column in QUESTIONNAIRE_COMMON:
-        data[column] = data[column].where(~data[column].isin(QUESTION_MISSING))
-    data['DMDEDUC2'] = data.DMDEDUC2.where(data.DMDEDUC2 <= 5)
-    data['DMDBORN4'] = data.DMDBORN4.where(data.DMDBORN4 <= 2)
-    return data
+    return clean_missing_codes(data, QUESTIONNAIRE_COMMON + ['DMDEDUC2', 'DMDBORN4'])
 
 
 def load_pooled():
