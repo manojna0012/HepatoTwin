@@ -1,0 +1,31 @@
+{
+  "target": "LUXCAPM",
+  "seed": 42,
+  "core_files": [
+    "LUX",
+    "DEMO",
+    "BMX",
+    "BIOPRO",
+    "GHB",
+    "HDL",
+    "TCHOL",
+    "DR1TOT"
+  ],
+  "dxa_columns": [
+    "DXXVFATM",
+    "DXXSATM",
+    "DXXTATM",
+    "DXXANFM",
+    "DXXGYFM",
+    "DXXAGRAT",
+    "DXXAPFAT",
+    "DXXGPFAT",
+    "DXDTOPF",
+    "DXDTOFAT",
+    "DXDTOLE"
+  ],
+  "participants_2017_2020": 9021,
+  "participants_2021_2023": 6279,
+  "participants_with_dxa": 3307,
+  "note": "Internal CV only. Hyperparameters match compare_catboost.py."
+}

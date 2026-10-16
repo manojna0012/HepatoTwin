@@ -1,0 +1,12 @@
+{
+  "cutoffs": {
+    "S1plus_cap248": 248,
+    "cap280": 280
+  },
+  "cutoff_status": "Provisional, matching the classification experiment",
+  "train": 12240,
+  "test": 3060,
+  "calibration": "Isotonic on 5-fold OOF",
+  "threshold": "Max F1 on training OOF",
+  "note": "Internal validation only."
+}

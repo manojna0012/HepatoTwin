@@ -1,0 +1,87 @@
+{
+  "target": "LUXCAPM",
+  "participants": 15300,
+  "train": 12240,
+  "test": 3060,
+  "participants_2021_2023": 6279,
+  "reliable_iqr_below": 40,
+  "extra_inputs": [
+    "BMXHIP",
+    "BMXARMC",
+    "BMXARML",
+    "BMXLEG",
+    "INDFMPIR",
+    "DMDEDUC2",
+    "DMDBORN4",
+    "LBXIN",
+    "LBXGLU",
+    "LBXWBCSI",
+    "LBXLYPCT",
+    "LBXNEPCT",
+    "LBXMOPCT",
+    "LBXHGB",
+    "LBXHCT",
+    "LBXMCVSI",
+    "LBXRDW",
+    "LBXPLTSI",
+    "LBXMPSI",
+    "LBXHSCRP",
+    "LBXFER",
+    "BPXOSY1",
+    "BPXOSY2",
+    "BPXOSY3",
+    "BPXODI1",
+    "BPXODI2",
+    "BPXODI3",
+    "BPXOPLS1",
+    "DIQ010",
+    "DIQ160",
+    "DIQ050",
+    "DIQ070",
+    "BPQ020",
+    "BPQ080",
+    "WHQ070",
+    "WHD050",
+    "HUQ010",
+    "SLD012",
+    "SMQ020",
+    "SMQ040",
+    "ALQ111",
+    "ALQ121",
+    "ALQ130",
+    "ALQ151",
+    "PAD680"
+  ],
+  "derived": [
+    "WHR",
+    "HOMA_IR",
+    "TyG",
+    "mean_SBP",
+    "mean_DBP",
+    "weight_change_1y"
+  ],
+  "configs": {
+    "xgb_baseline_params": {},
+    "xgb_slow_wide": {
+      "n_estimators": 1500,
+      "learning_rate": 0.01,
+      "colsample_bytree": 0.4
+    },
+    "xgb_deeper": {
+      "n_estimators": 2000,
+      "learning_rate": 0.01,
+      "max_depth": 5,
+      "min_child_weight": 20,
+      "colsample_bytree": 0.4
+    }
+  },
+  "selected_for_all_exams": {
+    "training": "quality_weighted",
+    "config": "xgb_slow_wide"
+  },
+  "selected_for_reliable_exams": {
+    "training": "quality_weighted",
+    "config": "xgb_deeper"
+  },
+  "note": "Selection used training-set CV only; the test set was scored once. Internal validation only. Reliable-exam R\u00b2 describes a quality-filtered subset and must be reported alongside full-test R\u00b2."
+}
