@@ -1,8 +1,11 @@
 # HepatoTwin
 
-Initial predictive model for NHANES controlled attenuation parameter (CAP,
-`LUXCAPM`, dB/m). The finalized training entry point is `src/train_final_model.py`.
-The demo and batch inference use `data/results/final/patient_state_model.joblib`.
+Predictive model for NHANES controlled attenuation parameter (CAP, `LUXCAPM`,
+dB/m) and calibrated steatosis probabilities. The demo and batch inference use
+the combined 2017-2023 model in `data/results/combined/` (see
+[Combined 2017-2023 model](#combined-2017-2023-model)). The earlier 14-input
+model, trained by `src/train_final_model.py`, remains at
+`data/results/final/patient_state_model.joblib` and works with `--model`.
 
 The supplied model ideas have also been evaluated and integrated as an optional
 36-input pipeline. See [the comparison and reproduction guide](docs/supplied_model_review.md).
@@ -10,7 +13,81 @@ The supplied R² 0.535 reproduces on its stratified split; the selected adapted
 candidate reaches 0.515 on the original split. Those scores are not directly
 comparable. The demo now always selects a held-out participant.
 
-## Run
+## Combined 2017-2023 model
+
+Pools both NHANES FibroScan cycles: 2017-March 2020 (9,021 eligible) and
+August 2021-August 2023 (6,279), 15,300 participants aged 12-80, nobody excluded
+by age. 2021-2023 is the last NHANES cycle with liver elastography. Inputs are
+the 36 raw columns of `src/cap_features.py` plus 45 more collected the same way
+in both cycles (`src/combined_features.py`):
+
+| Group | Columns |
+| --- | --- |
+| Body | BMXHIP, BMXARMC, BMXARML, BMXLEG |
+| Demographic | INDFMPIR, DMDEDUC2, DMDBORN4 |
+| Fasting labs | LBXIN (insulin), LBXGLU (glucose) |
+| Blood count | LBXWBCSI, LBXLYPCT, LBXNEPCT, LBXMOPCT, LBXHGB, LBXHCT, LBXMCVSI, LBXRDW, LBXPLTSI, LBXMPSI |
+| Inflammation | LBXHSCRP, LBXFER |
+| Blood pressure | BPXOSY1-3, BPXODI1-3, BPXOPLS1 |
+| Questionnaire | DIQ010, DIQ160, DIQ050, DIQ070, BPQ020, BPQ080, WHQ070, WHD050, HUQ010, SLD012, SMQ020, SMQ040, ALQ111, ALQ121, ALQ130, ALQ151, PAD680 |
+
+Every column must be present; blanks are allowed (XGBoost handles missing
+values). Pass raw NHANES coding: "refused"/"don't know" codes become missing
+per question, so valid answers such as 7 or 9 hours of sleep are kept.
+Derived inputs: waist-to-hip ratio, HOMA-IR, TyG index, mean blood pressure and
+1-year weight change. Fasting labs exist for about half of participants.
+
+```powershell
+.venv/Scripts/python.exe -m src.build_combined_dataset --download
+.venv/Scripts/python.exe -m src.train_combined_model
+.venv/Scripts/python.exe src/predict_cap.py --input patients.csv --output predictions.csv --steatosis
+.venv/Scripts/python.exe -m unittest src.test_cap_model src.test_combined_model -v
+```
+
+`--download` fetches any missing CDC files into `data/raw_extra/` (2017-2020)
+and `data/raw_2021/` (2021-2023); both are gitignored. Training holds out 20%
+(stratified by cycle, seed 42), then uses training-set 5-fold CV to choose the
+XGBoost settings and exam weighting. Exams with CAP IQR >= 40 dB/m can be
+down-weighted rather than dropped. The selected run down-weights them (CV R²
+0.520). Test results (3,060 participants, scored once), against the 36-input
+reference trained on the same rows:
+
+| Test group | n | Combined R² | 36-input R² |
+| --- | ---: | ---: | ---: |
+| All | 3,060 | **0.493** | 0.487 |
+| Reliable exams (IQR < 40) | 1,891 | 0.532 | 0.522 |
+| Age 12-17 | 400 | 0.376 | 0.366 |
+| Age 18-39 | 868 | 0.456 | 0.461 |
+| Age 40-59 | 772 | 0.490 | 0.486 |
+| Age 60+ | 1,020 | 0.418 | 0.400 |
+
+This held-out split is harder than average: CV R² on the training rows is
+0.520. Within-age R² is lower than overall partly because CAP varies less
+inside an age group; 60+ RMSE is about 46 dB/m against 42-44 dB/m for adults
+under 60.
+
+The calibrated classifiers (`steatosis_cap248.joblib`, `steatosis_cap280.joblib`)
+give P(CAP >= 248) and P(CAP >= 280) with isotonic calibration fitted on
+training out-of-fold predictions. The cutoffs are provisional.
+
+| Target | ROC-AUC | Brier | Calibration error | F1 | AUC, age 60+ |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| CAP >= 248 | 0.857 | 0.154 | 0.023 | 0.792 | 0.823 |
+| CAP >= 280 | 0.868 | 0.137 | 0.020 | 0.704 | 0.844 |
+
+`data/results/combined/` contains the regressor, both classifiers,
+`metadata.json` (selection, versions, data hash, limitations),
+`split_manifest.csv`, `cv_selection.csv`, test metrics by subgroup,
+`calibration_curve.csv`, `test_predictions.csv` and gain importances.
+
+Why R² stays near 0.5: on the `patient-model-experiments` branch, adding about
+80 more NHANES variables, the 2021-2023 participants, DXA visceral fat,
+CatBoost, MLP and stacking each moved R² by at most about 0.01. The learning
+curve is flat. CAP's within-exam noise is about 4% of its variance, so the
+remaining error reflects liver-fat variation that routine clinical measures do
+not capture. Internal validation only; survey weights are not modelled.
+
+## Run (earlier 14-input model)
 
 From the project root on Windows, using the existing virtual environment:
 

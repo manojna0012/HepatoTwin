@@ -2,17 +2,30 @@ from pathlib import Path
 import argparse
 import pandas as pd
 
+import json
+
 try:
-    from .predict_cap import predict_patients, MODEL_FILE
+    from .predict_cap import predict_patients, predict_steatosis, steatosis_classifiers, MODEL_FILE
 except ImportError:
-    from predict_cap import predict_patients, MODEL_FILE
+    from predict_cap import predict_patients, predict_steatosis, steatosis_classifiers, MODEL_FILE
 
 
 # ============================================================
 # CONFIG
 # ============================================================
 
-DATA_FILE = Path(__file__).resolve().parents[1] / "data/processed/nhanes_merged.csv"
+ROOT = Path(__file__).resolve().parents[1]
+DATA_FILE = ROOT / "data/processed/nhanes_merged.csv"
+
+
+def data_file_for(model_file):
+    """Dataset recorded in the model's metadata; older models used nhanes_merged.csv."""
+    metadata = Path(model_file).parent / "metadata.json"
+    if metadata.exists():
+        recorded = json.loads(metadata.read_text(encoding="utf-8")).get("data_file")
+        if recorded:
+            return ROOT / recorded
+    return DATA_FILE
 
 
 # Raw patient features
@@ -80,9 +93,9 @@ RECIPE = {
 # LOAD PATIENT
 # ============================================================
 
-def load_patient(model_file=MODEL_FILE, seqn=None, random=False, data_file=DATA_FILE):
+def load_patient(model_file=MODEL_FILE, seqn=None, random=False, data_file=None):
 
-    df = pd.read_csv(data_file)
+    df = pd.read_csv(data_file or data_file_for(model_file))
     manifest = pd.read_csv(Path(model_file).parent / 'split_manifest.csv')
     held_out = set(manifest.loc[manifest.partition.eq('test'), 'SEQN'])
     if seqn is not None and seqn not in held_out:
@@ -200,6 +213,11 @@ def main():
         f"Absolute error: "
         f"{abs(actual_cap - predicted_cap):.2f} dB/m"
     )
+
+    patient_frame = pd.DataFrame([patient])
+    for classifier_file in steatosis_classifiers(args.model):
+        probability = predict_steatosis(patient_frame, classifier_file)
+        print(f"{probability.name}: {probability.iloc[0]:.1%} (calibrated, research estimate)")
 
     # --------------------------------------------------------
     # EVIDENCE- GETS OUTPUT FROM PLACEHOLDER CODE GETS OUTPUT FROM PLACEHOLDER CODE NEED TO IMPLEMENT THE ACTUAL LATER
