@@ -1,0 +1,20 @@
+{
+  "target": "LUXCAPM",
+  "eligible_participants": 9021,
+  "outer_folds": 5,
+  "inner_folds": 5,
+  "random_seed": 42,
+  "provisional_cutoffs": [
+    248,
+    268,
+    280
+  ],
+  "cutoffs_clinically_verified": false,
+  "evaluation": "Nested outer-fold OOF predictions",
+  "models": [
+    "baseline_xgboost",
+    "binary_hybrid",
+    "four_class_hybrid"
+  ],
+  "note": "Internal cross-validation only; not external validation. Classification probabilities are not calibrated clinical risks. The class cutoffs are exploratory and require verification."
+}

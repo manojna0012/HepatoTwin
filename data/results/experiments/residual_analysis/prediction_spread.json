@@ -1,0 +1,5 @@
+{
+  "prediction_vs_actual_slope": 0.5145094585234196,
+  "prediction_vs_actual_intercept": 124.66284025834209,
+  "interpretation": "A slope below 1 is consistent with predictions varying less than actual values, but does not by itself establish the cause."
+}

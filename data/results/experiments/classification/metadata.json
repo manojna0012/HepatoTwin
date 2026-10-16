@@ -1,0 +1,100 @@
+{
+  "dataset": "C:\\Users\\subas\\OneDrive\\Desktop\\HepatoTwin\\data\\processed\\nhanes_merged.csv",
+  "target": "LUXCAPM",
+  "n_samples": 9021,
+  "raw_features": [
+    "RIDAGEYR",
+    "BMXBMI",
+    "BMXWAIST",
+    "LBXSATSI",
+    "LBXSASSI",
+    "LBXGH",
+    "LBXTC",
+    "LBDHDD",
+    "DR1TKCAL",
+    "DR1TPROT",
+    "DR1TCARB",
+    "DR1TTFAT",
+    "BMXWT",
+    "BMXHT",
+    "LBXSGTSI",
+    "LBXSTR",
+    "LBXSGL",
+    "LBXSUA",
+    "LBXSAL",
+    "LBXSTP",
+    "LBXSGB",
+    "LBXSAPSI",
+    "LBXSTB",
+    "LBXSCR",
+    "LBXSBU",
+    "LBXSCA",
+    "LBXSPH",
+    "LBXSKSI",
+    "LBXSNASI",
+    "LBXSCLSI",
+    "LBXSC3SI",
+    "LBXSIR",
+    "LBXSLDSI",
+    "LBXSCK",
+    "RIAGENDR",
+    "RIDRETH3"
+  ],
+  "engineered_features": [
+    "WHtR",
+    "AST_ALT",
+    "TG_HDL",
+    "TC_HDL",
+    "HSI_partial",
+    "FLI_proxy",
+    "energy_fraction_protein",
+    "energy_fraction_carb",
+    "energy_fraction_fat",
+    "kcal_per_kg"
+  ],
+  "binary_definition": "S0 vs S1-S3",
+  "multiclass_labels": [
+    "S0",
+    "S1",
+    "S2",
+    "S3"
+  ],
+  "provisional_cutoffs": [
+    248,
+    268,
+    280
+  ],
+  "cutoff_status": "Exploratory only; clinical reference not yet verified",
+  "cv": {
+    "method": "StratifiedKFold",
+    "n_splits": 5,
+    "shuffle": true,
+    "random_state": 42
+  },
+  "class_weighting": "balanced sample weights within each training fold",
+  "xgboost_parameters": {
+    "n_estimators": 600,
+    "learning_rate": 0.02,
+    "max_depth": 4,
+    "min_child_weight": 8,
+    "subsample": 0.8,
+    "colsample_bytree": 0.6,
+    "reg_lambda": 3.0,
+    "reg_alpha": 0.5,
+    "random_state": 42,
+    "n_jobs": 2,
+    "verbosity": 0
+  },
+  "versions": {
+    "xgboost": "3.2.0",
+    "pandas": "2.3.3",
+    "numpy": "2.2.6"
+  },
+  "limitations": [
+    "CAP categories use provisional thresholds and are not validated diagnoses.",
+    "Probability calibration has not yet been performed.",
+    "NHANES survey weights and complex survey design are not modeled.",
+    "Out-of-fold predictions are internal validation, not external validation.",
+    "Classification performance does not directly measure continuous CAP R2."
+  ]
+}

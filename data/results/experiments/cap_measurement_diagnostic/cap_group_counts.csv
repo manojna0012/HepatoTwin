@@ -1,0 +1,3 @@
+cap_group,participants,mean_CAP,median_CAP,exactly_400,pct_exactly_400
+exactly_400,163,400.0,400.0,163,100.0
+not_400,9535,255.15353959098059,252.0,0,0.0

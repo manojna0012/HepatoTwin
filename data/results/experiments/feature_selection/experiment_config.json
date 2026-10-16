@@ -1,0 +1,29 @@
+{
+  "target": "LUXCAPM",
+  "n_rows": 7216,
+  "cv": {
+    "type": "KFold",
+    "n_splits": 5,
+    "shuffle": true,
+    "random_state": 42
+  },
+  "selection_is_fold_local": true,
+  "feature_selection": {
+    "lasso": "StandardScaler + LassoCV(cv=3), SelectFromModel threshold=median",
+    "rfe": "ExtraTreesRegressor, 40 transformed features, step=0.2"
+  },
+  "xgb_params": {
+    "n_estimators": 600,
+    "learning_rate": 0.02,
+    "max_depth": 4,
+    "min_child_weight": 8,
+    "subsample": 0.8,
+    "colsample_bytree": 0.6,
+    "reg_lambda": 3.0,
+    "reg_alpha": 0.5,
+    "objective": "reg:squarederror",
+    "random_state": 42,
+    "n_jobs": 2
+  },
+  "note": "Exploratory CV comparison. Feature selection is fitted within each fold. Do not replace the selected model based on a small CV difference alone."
+}

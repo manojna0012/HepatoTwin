@@ -1,0 +1,10 @@
+{
+  "valid_measurements": 9021,
+  "exactly_400": 129,
+  "above_390": 201,
+  "above_395": 167,
+  "at_or_above_399": 137,
+  "max_value": 400.0,
+  "percent_exactly_400": 1.4299966744263386,
+  "percent_above_390": 2.228134353175923
+}

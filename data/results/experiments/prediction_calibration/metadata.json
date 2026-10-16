@@ -1,0 +1,9 @@
+{
+  "target": "LUXCAPM",
+  "participants": 9021,
+  "calibration": "Linear regression fit on other folds' OOF predictions",
+  "folds": 5,
+  "random_seed": 42,
+  "source_predictions": "C:\\Users\\subas\\OneDrive\\Desktop\\HepatoTwin\\data\\results\\experiments\\catboost_comparison\\oof_predictions.csv",
+  "note": "This evaluates a cross-fitted calibration layer on existing OOF predictions. It does not retrain the underlying XGBoost model in each calibration fold. Treat this as a calibration diagnostic; final validation should repeat the full procedure inside outer training folds."
+}

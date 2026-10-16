@@ -1,0 +1,24 @@
+{
+  "n_rows": 7216,
+  "nominal_interval_coverage": 0.8,
+  "empirical_q10_q90_coverage": 0.7472283813747228,
+  "mean_q10_q90_interval_width": 98.13432664828925,
+  "q10_pinball_loss": 8.214579901409785,
+  "q50_pinball_loss": 17.20065104934963,
+  "q90_pinball_loss": 7.701102993705056,
+  "q10_q50_crossing_count": 0,
+  "q50_q90_crossing_count": 0,
+  "xgboost_version": "3.2.0",
+  "seed": 42,
+  "folds": 5,
+  "params": {
+    "n_estimators": 600,
+    "learning_rate": 0.02,
+    "max_depth": 4,
+    "min_child_weight": 8,
+    "subsample": 0.8,
+    "colsample_bytree": 0.6,
+    "reg_lambda": 3.0,
+    "reg_alpha": 0.5
+  }
+}

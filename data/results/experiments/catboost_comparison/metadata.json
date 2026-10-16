@@ -1,0 +1,13 @@
+{
+  "target": "LUXCAPM",
+  "eligible_participants": 9021,
+  "outer_folds": 5,
+  "random_seed": 42,
+  "models": [
+    "xgboost_baseline",
+    "catboost"
+  ],
+  "features": "Same raw inputs and CAPFeatures engineering",
+  "evaluation": "Pooled out-of-fold predictions from identical folds",
+  "note": "Internal cross-validation, not external validation. CatBoost and XGBoost use the same outer folds and feature set."
+}
