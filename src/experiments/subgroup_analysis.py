@@ -13,7 +13,7 @@ model inputs (see combined_model.py). Three questions:
 
 Findings (2026-10-16): 60+ R² 0.405 with RMSE 46.0 vs 42-44 dB/m for younger
 adults; reliable exams (IQR < 40) and age 12-59 reach R² 0.584 (stable across
-seeds and age cutoffs 50-65); no 60+ variant beat 0.406. Run:
+seeds and age cutoffs 50-65); the best 60+ variant (deeper trees) reached 0.408. Run:
 
     .venv/Scripts/python.exe -m src.experiments.subgroup_analysis
 """
