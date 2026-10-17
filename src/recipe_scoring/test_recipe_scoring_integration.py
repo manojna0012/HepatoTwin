@@ -2,9 +2,9 @@
 import json
 from pathlib import Path
 
-from practical_feasibility import practical_feasibility_score
-from cuisine_compatibility import cuisine_compatibility_score
-from health_alignment import health_alignment_score
+from src.recipe_scoring.practical_feasibility import practical_feasibility_score
+from src.recipe_scoring.cuisine_compatibility import cuisine_compatibility_score
+from src.recipe_scoring.health_alignment import health_alignment_score
 
 
 DATA_FILE = Path("data/processed/recipe_objects.json")

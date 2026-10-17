@@ -1,5 +1,5 @@
 
-from practical_feasibility import practical_feasibility_score
+from src.recipe_scoring.practical_feasibility import practical_feasibility_score
 
 
 def test_quick_recipe():

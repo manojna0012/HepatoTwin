@@ -91,6 +91,22 @@ Separate calibration per age group did not improve calibration, so the global
 calibration stays. The 60+ calibration error (0.037/0.050 on 1,020 people) is
 0.030/0.029 on the larger temporal test, so it is mostly small-sample noise.
 
+`src/thesis_figures.py` writes ROC, calibration, SHAP and learning-curve figures
+to `data/results/combined/figures/`, and benchmarks the classifiers against the
+Fatty Liver Index and Hepatic Steatosis Index on the same 2,703 test participants:
+AUC 0.860 against 0.842 (FLI) and 0.813 (HSI) for CAP >= 248; every paired
+interval excludes zero.
+
+## Layer 3: patient state to nutritional priorities
+
+`src/recipe_scoring/patient_state.py` turns calibrated steatosis probabilities and
+routine measurements (BMI, waist, HbA1c, triglycerides, HDL) into the 0/1 flags
+that `evidence_rules.py` uses, with WHO, NCEP ATP III and ADA thresholds. Each
+rule has a base priority and optional `priority_levels` that raise it, and cites
+rows of `data/evidence/intervention_evidence.csv` by `evidence_id`; the strength
+labels come from that table. Priorities never carry numeric targets. Run the
+tests with `.venv/Scripts/python.exe -m pytest src/recipe_scoring src/recipes/test_nutrition_quality.py`.
+
 `data/results/combined/` contains the regressor, both classifiers,
 `metadata.json` (selection, versions, data hash, limitations),
 `split_manifest.csv`, `cv_selection.csv`, test metrics by subgroup,

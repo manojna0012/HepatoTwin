@@ -42,6 +42,7 @@ def health_alignment_score(recipe, objectives, extreme_limits=None):
     components = {}
     weighted_scores = []
     total_weight = 0.0
+    needs_review = False
 
     if not isinstance(objectives, list) or not objectives:
         return {
@@ -83,9 +84,12 @@ def health_alignment_score(recipe, objectives, extreme_limits=None):
 
         if extreme_limits and nutrient in extreme_limits:
             if value > extreme_limits[nutrient]:
+                # Skipping only this nutrient would let an extreme recipe
+                # score higher, so the whole recipe is held for review.
                 warnings.append(
                     f"{nutrient} exceeds the configured review limit."
                 )
+                needs_review = True
                 continue
 
         distance = (
@@ -102,7 +106,7 @@ def health_alignment_score(recipe, objectives, extreme_limits=None):
 
     score = (
         round(sum(weighted_scores) / total_weight, 2)
-        if total_weight > 0
+        if total_weight > 0 and not needs_review
         else None
     )
 
@@ -113,7 +117,9 @@ def health_alignment_score(recipe, objectives, extreme_limits=None):
         if objectives else 0.0
     )
 
-    if score is None:
+    if needs_review:
+        warnings.append("Recipe held for review; no score assigned.")
+    elif score is None:
         warnings.append("Insufficient valid nutritional data to score.")
 
     return {

@@ -1,5 +1,5 @@
 
-from cuisine_compatibility import cuisine_compatibility_score
+from src.recipe_scoring.cuisine_compatibility import cuisine_compatibility_score
 
 
 def test_exact_match():

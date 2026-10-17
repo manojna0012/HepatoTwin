@@ -1,5 +1,5 @@
 
-from health_alignment import health_alignment_score
+from src.recipe_scoring.health_alignment import health_alignment_score
 
 
 def test_objectives_are_scored():
@@ -73,6 +73,26 @@ def test_extreme_value_is_flagged():
 
     assert result["score"] is None
     assert any("review limit" in warning for warning in result["warnings"])
+
+def test_extreme_value_is_not_rewarded_with_other_objectives():
+    objectives = [
+        {"nutrient": "saturated_fat", "direction": "lower",
+         "target": 5, "tolerance": 10, "weight": 3},
+        {"nutrient": "fiber", "direction": "higher",
+         "target": 8, "tolerance": 8, "weight": 1},
+    ]
+    limits = {"saturated_fat": 40}
+
+    moderate = health_alignment_score(
+        {"nutrition": {"saturated_fat": 12, "fiber": 8}}, objectives, limits
+    )
+    extreme = health_alignment_score(
+        {"nutrition": {"saturated_fat": 60, "fiber": 8}}, objectives, limits
+    )
+
+    assert moderate["score"] is not None
+    assert extreme["score"] is None
+    assert any("held for review" in warning for warning in extreme["warnings"])
 
 def test_repeated_nutrient_objectives_coverage():
     recipe = {"nutrition": {"sodium": 500}}
