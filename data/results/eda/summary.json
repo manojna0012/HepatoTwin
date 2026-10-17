@@ -1,0 +1,311 @@
+{
+ "cohort": {
+  "participants": 15300,
+  "by_cycle": {
+   "2017-2020": 9021,
+   "2021-2023": 6279
+  },
+  "age": {
+   "count": 15300.0,
+   "mean": 45.5,
+   "std": 20.9,
+   "min": 12.0,
+   "25%": 27.0,
+   "50%": 47.0,
+   "75%": 63.0,
+   "max": 80.0
+  },
+  "female": 0.5138562091503268,
+  "bmi_median": 27.6,
+  "obese": 0.36359477124183004,
+  "cap": {
+   "count": 15300.0,
+   "mean": 256.1,
+   "std": 63.0,
+   "min": 100.0,
+   "25%": 210.0,
+   "50%": 251.0,
+   "75%": 300.0,
+   "max": 400.0
+  },
+  "cap248": 0.5208496732026143,
+  "cap280": 0.3447058823529412,
+  "cap302": 0.24281045751633987,
+  "cap_at_400": 0.015032679738562092,
+  "cap_iqr_reliable": 0.6191503267973856,
+  "by_cycle_cap248": {
+   "2017-2020": 0.5281010974393083,
+   "2021-2023": 0.5104315973881192
+  },
+  "by_group": {
+   "sex": [
+    {
+     "group": "Female",
+     "n": 7862,
+     "mean": 250.968,
+     "cap248": 0.494
+    },
+    {
+     "group": "Male",
+     "n": 7438,
+     "mean": 261.449,
+     "cap248": 0.549
+    }
+   ],
+   "age": [
+    {
+     "group": "12–17",
+     "n": 2008,
+     "mean": 218.978,
+     "cap248": 0.258
+    },
+    {
+     "group": "18–39",
+     "n": 4267,
+     "mean": 243.65,
+     "cap248": 0.43
+    },
+    {
+     "group": "40–59",
+     "n": 4020,
+     "mean": 272.179,
+     "cap248": 0.625
+    },
+    {
+     "group": "60+",
+     "n": 5005,
+     "mean": 268.581,
+     "cap248": 0.62
+    }
+   ],
+   "ethnicity": [
+    {
+     "group": "Mexican American",
+     "n": 1649,
+     "mean": 268.68,
+     "cap248": 0.614
+    },
+    {
+     "group": "Non-Hispanic Asian",
+     "n": 1438,
+     "mean": 252.341,
+     "cap248": 0.497
+    },
+    {
+     "group": "Non-Hispanic Black",
+     "n": 3121,
+     "mean": 246.286,
+     "cap248": 0.459
+    },
+    {
+     "group": "Non-Hispanic White",
+     "n": 6545,
+     "mean": 258.504,
+     "cap248": 0.53
+    },
+    {
+     "group": "Other Hispanic",
+     "n": 1609,
+     "mean": 257.191,
+     "cap248": 0.545
+    },
+    {
+     "group": "Other or multiracial",
+     "n": 938,
+     "mean": 253.156,
+     "cap248": 0.491
+    }
+   ]
+  }
+ },
+ "correlations": {
+  "BMXWAIST": 0.66,
+  "BMXBMI": 0.615,
+  "BMXWT": 0.567,
+  "BMXARMC": 0.552,
+  "BMXHIP": 0.525,
+  "LBXIN": 0.496,
+  "WHD050": 0.474,
+  "LBXSTR": 0.437,
+  "LBXGLU": 0.424,
+  "LBXSGTSI": 0.392,
+  "LBXHSCRP": 0.373,
+  "LBXSATSI": 0.363,
+  "LBXGH": 0.349,
+  "LBXSGL": 0.348,
+  "LBDHDD": -0.317
+ },
+ "missing": {
+  "inputs": 81,
+  "complete_inputs": 6,
+  "inputs_over_20pct": 10,
+  "median_missing": 0.08915032679738562,
+  "top": [
+   {
+    "input": "DIQ050",
+    "label": "Taking insulin",
+    "share": 0.883,
+    "reason": "asked if diabetic"
+   },
+   {
+    "input": "DIQ070",
+    "label": "Taking diabetes pills",
+    "share": 0.763,
+    "reason": "asked if diabetic"
+   },
+   {
+    "input": "SMQ040",
+    "label": "Smokes now",
+    "share": 0.656,
+    "reason": "asked if ever smoked"
+   },
+   {
+    "input": "LBXIN",
+    "label": "Fasting insulin",
+    "share": 0.528,
+    "reason": "fasting subsample"
+   },
+   {
+    "input": "LBXGLU",
+    "label": "Fasting glucose",
+    "share": 0.512,
+    "reason": "fasting subsample"
+   },
+   {
+    "input": "ALQ130",
+    "label": "Drinks per drinking day",
+    "share": 0.421,
+    "reason": "asked if drinks"
+   },
+   {
+    "input": "LBXFER",
+    "label": "Ferritin",
+    "share": 0.353,
+    "reason": "subsample"
+   },
+   {
+    "input": "ALQ151",
+    "label": "Ever 4-5+ drinks almost daily",
+    "share": 0.283,
+    "reason": "adults only"
+   },
+   {
+    "input": "ALQ121",
+    "label": "Drinking frequency, past year",
+    "share": 0.281,
+    "reason": "adults only"
+   },
+   {
+    "input": "ALQ111",
+    "label": "Ever had alcohol",
+    "share": 0.2,
+    "reason": "adults only"
+   },
+   {
+    "input": "LBXSLDSI",
+    "label": "LDH",
+    "share": 0.195,
+    "reason": ""
+   },
+   {
+    "input": "DMDEDUC2",
+    "label": "Education",
+    "share": 0.172,
+    "reason": "adults 20+"
+   }
+  ]
+ },
+ "diet": {
+  "participants": 15300,
+  "with_recall": 13250,
+  "reliable": 9391,
+  "excluded": {
+   "no usable recall": 2050,
+   "not a usual day": 3218,
+   "implausible energy": 641
+  },
+  "fped_source": {
+   "USDA": 9021,
+   "derived from 2017-2020 food-level FPED": 4789,
+   "insufficient food-code coverage": 102
+  },
+  "medians": {
+   "2017-2020": {
+    "DR1TKCAL": 1927.5,
+    "saturated_fat_pct_energy": 11.3,
+    "added_sugar_pct_energy": 10.4,
+    "sugar_pct_energy": 18.8,
+    "fiber_per_1000kcal": 7.1,
+    "hei2020": 48.5
+   },
+   "2021-2023": {
+    "DR1TKCAL": 1865.0,
+    "saturated_fat_pct_energy": 11.7,
+    "added_sugar_pct_energy": 8.9,
+    "sugar_pct_energy": 18.2,
+    "fiber_per_1000kcal": 7.8,
+    "hei2020": 52.0
+   }
+  },
+  "miss_reference": {
+   "saturated fat > 10% of energy": 0.6515813012458737,
+   "added sugars > 10% of energy": 0.49355670103092786,
+   "fibre < 14 g per 1,000 kcal": 0.8947928868065169
+  }
+ },
+ "recipes": {
+  "corpus": 20000,
+  "candidates": 10108,
+  "not_candidates": 9892,
+  "status": {
+   "ranked": 9844,
+   "held_for_review": 264
+  },
+  "meet_every_reference": 565,
+  "meet_by_cuisine": {
+   "Other": 324,
+   "European": 78,
+   "Asian": 50,
+   "Mexican": 33,
+   "American": 26,
+   "African": 19,
+   "Canadian": 15,
+   "Cajun And Creole": 6
+  },
+  "cuisines": {
+   "Other": 14694,
+   "European": 2016,
+   "Asian": 1091,
+   "Canadian": 540,
+   "Mexican": 496,
+   "American": 404,
+   "Australian": 186,
+   "African": 165,
+   "Cajun And Creole": 126,
+   "Caribbean": 120,
+   "New Zealander": 27,
+   "Cuban": 20
+  },
+  "indian": 19,
+  "other_share": 0.7347,
+  "candidate_medians": {
+   "saturated_fat_pct_energy": 15.3,
+   "sugar_pct_energy": 4.6,
+   "fiber_per_1000kcal": 5.9,
+   "calories": 404.6
+  },
+  "candidate_meets": {
+   "energy <= 600 kcal": 0.7528690146418678,
+   "saturated fat <= 10% of energy": 0.3168777206173328,
+   "sugars <= 10% of energy": 0.7330827067669173,
+   "fibre >= 14 g per 1,000 kcal": 0.1780767708745548
+  },
+  "ratings": {
+   "median": 5.0,
+   "p25": 5.0,
+   "below_4_5": 0.0191,
+   "count_median": 20.0,
+   "count_p90": 66.0
+  }
+ }
+}
