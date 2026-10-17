@@ -104,8 +104,43 @@ routine measurements (BMI, waist, HbA1c, triglycerides, HDL) into the 0/1 flags
 that `evidence_rules.py` uses, with WHO, NCEP ATP III and ADA thresholds. Each
 rule has a base priority and optional `priority_levels` that raise it, and cites
 rows of `data/evidence/intervention_evidence.csv` by `evidence_id`; the strength
-labels come from that table. Priorities never carry numeric targets. Run the
-tests with `.venv/Scripts/python.exe -m pytest src/recipe_scoring src/recipes/test_nutrition_quality.py`.
+labels come from that table. Priorities never carry numeric targets.
+
+## Layer 4: NutriTwin recipe ranking
+
+`src/recipe_scoring/recipe_criteria.py` links each priority to one recipe
+measure with a public reference value (energy <= 600 kcal per serving, saturated
+fat <= 10% of energy, sugars <= 10% of energy, fibre >= 14 g/1,000 kcal); these
+describe recipe composition, not a patient target. `multi_criteria.py` screens
+candidates (main meals of at least 200 kcal, plausible nutrition, diet tags that
+all agree with the requested diet), scores health, cuisine and feasibility
+(0-100), and combines them with explicit weights (0.6/0.2/0.2). Recipes meeting
+every reference value rank first (`health_gate`). Each result explains its
+criterion values, references and evidence rows. `src/twin_pipeline.py` runs
+Layers 2-4 for one patient:
+
+```powershell
+.venv/Scripts/python.exe src/demo.py --seqn 109349 --cuisine Asian --diet vegetarian
+.venv/Scripts/python.exe -m src.evaluate_ranking
+.venv/Scripts/python.exe -m pytest src/recipe_scoring src/recipes/test_nutrition_quality.py
+```
+
+`evaluate_ranking.py` follows proposal section 12.2 on 300 held-out participants
+with priorities (cuisine preferences simulated; NHANES has none). Share of each
+top 10 meeting the criteria (`data/results/layer4/`):
+
+| Method | Health | Cuisine | Feasibility | All three |
+| --- | ---: | ---: | ---: | ---: |
+| Multi-criteria, health-gated (default) | 1.000 | 1.000 | 0.899 | **0.899** |
+| Multi-criteria, weighted only | 0.749 | 1.000 | 0.982 | 0.749 |
+| Health score only | 1.000 | 0.057 | 0.400 | 0.017 |
+| Nutrition only (non-personalised) | 1.000 | 0.057 | 0.400 | 0.017 |
+| Random | 0.057 | 0.053 | 0.596 | 0.003 |
+
+Across a grid of weights the default top 10 is unchanged whenever cuisine has
+weight >= 0.2 (mean overlap 0.90 over the grid). Health-only and nutrition-only
+coincide because 565 candidates meet every reference value, so both choose among
+tied recipes.
 
 `data/results/combined/` contains the regressor, both classifiers,
 `metadata.json` (selection, versions, data hash, limitations),

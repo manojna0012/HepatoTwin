@@ -9,6 +9,10 @@ DEFAULT_NUTRIENTS = {
     "fiber",
     "sugar",
     "sodium",
+    # Energy-relative measures from recipe_criteria.derived_metrics.
+    "saturated_fat_pct_energy",
+    "sugar_pct_energy",
+    "fiber_per_1000kcal",
 }
 
 

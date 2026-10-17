@@ -4,10 +4,12 @@ import pandas as pd
 
 import json
 
-try:
-    from .predict_cap import predict_patients, predict_steatosis, steatosis_classifiers, MODEL_FILE
-except ImportError:
-    from predict_cap import predict_patients, predict_steatosis, steatosis_classifiers, MODEL_FILE
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from src.predict_cap import predict_patients, predict_steatosis, steatosis_classifiers, MODEL_FILE
+from src.recipe_scoring.multi_criteria import explain
+from src.twin_pipeline import run_twin
 
 
 # ============================================================
@@ -47,46 +49,6 @@ RAW_FEATURES = [
 ]
 
 TARGET = "LUXCAPM"
-
-
-# ============================================================
-# EVIDENCE LAYER WILL IMPLEMENTED LATER (THIS IS ONLY A PLACEHOLDER, NEED TO IMPLEMENT THE ACTUAL LATER)
-# ============================================================
-
-EVIDENCE = {
-    "higher_cap": {
-        "finding": "Higher predicted CAP",
-        "statement": (
-            "The predicted CAP value indicates a higher "
-            "level of hepatic fat accumulation."
-        ),
-        "source": "Hardcoded Week 4 evidence entry",
-    },
-
-    "lower_cap": {
-        "finding": "Lower predicted CAP",
-        "statement": (
-            "The predicted CAP value is lower and does not "
-            "indicate the same level of hepatic fat accumulation."
-        ),
-        "source": "Hardcoded Week 4 evidence entry",
-    },
-}
-
-
-# ============================================================
-# RECIPE LAYER WILL IMPLEMENTED LATER (THIS IS ONLY A PLACEHOLDER, NEED TO IMPLEMENT THE ACTUAL LATER)
-# ============================================================
-
-# Temporary placeholder for the future recipe layer.
-# These values will be replaced with actual recipe data
-# when the NutriTwin recipe evaluation layer is implemented.
-RECIPE = {
-    "name": "Real recipe from recipe dataset",
-    "original_ingredient": "Original ingredient",
-    "substitution": "Real substitution",
-    "reason": "Reason for making the substitution",
-}
 
 
 # ============================================================
@@ -133,23 +95,6 @@ def predict_cap(patient, model_file=MODEL_FILE):
 
 
 # ============================================================
-# EVIDENCE LOOKUP- THIS IS ALSO PLACEHOLDER CODE, NEED TO IMPLEMENT THE ACTUAL LATER
-# ============================================================
-
-def lookup_evidence(predicted_cap):
-
-    if predicted_cap >= 280:
-
-        return EVIDENCE[
-            "higher_cap"
-        ]
-
-    return EVIDENCE[
-        "lower_cap"
-    ]
-
-
-# ============================================================
 # DISPLAY
 # ============================================================
 
@@ -158,6 +103,9 @@ def main():
     parser.add_argument('--model', type=Path, default=MODEL_FILE)
     parser.add_argument('--seqn', type=int)
     parser.add_argument('--random', action='store_true')
+    parser.add_argument('--cuisine', help='Requested cuisine, e.g. Asian or European')
+    parser.add_argument('--diet', choices=['vegan', 'vegetarian', 'pescetarian'])
+    parser.add_argument('--top', type=int, default=3, help='Recipes to show')
     args = parser.parse_args()
 
     print("=" * 60)
@@ -220,51 +168,35 @@ def main():
         print(f"{probability.name}: {probability.iloc[0]:.1%} (calibrated, research estimate)")
 
     # --------------------------------------------------------
-    # EVIDENCE- GETS OUTPUT FROM PLACEHOLDER CODE GETS OUTPUT FROM PLACEHOLDER CODE NEED TO IMPLEMENT THE ACTUAL LATER
+    # LAYER 3: EVIDENCE-LINKED PRIORITIES
     # --------------------------------------------------------
 
-    evidence = lookup_evidence(
-        predicted_cap
-    )
+    preferences = {"requested_cuisine": args.cuisine, "diet": args.diet}
+    twin = run_twin(patient.to_dict(), model_file=args.model, preferences=preferences)
 
-    print("\nEVIDENCE [PLACEHOLDER - NOT IMPLEMENTED]")
+    print("\nNUTRITIONAL PRIORITIES (Layer 3; candidates, not prescriptions)")
     print("-" * 60)
-
-    print(
-        f"Finding: "
-        f"{evidence['finding']}"
-    )
-
-    print(
-        f"Statement: "
-        f"{evidence['statement']}"
-    )
-
-    print(
-        f"Source: "
-        f"{evidence['source']}"
-    )
+    if not twin["nutritional_priorities"]:
+        print("No liver-related priority: steatosis is unlikely at the model's thresholds.")
+    for item in twin["nutritional_priorities"]:
+        strengths = sorted({e["evidence_strength"] for e in item.get("supporting_evidence", [])})
+        print(f"[{item['priority'].upper()}] {item['title']}")
+        print(f"    basis: {item['priority_basis']}; evidence: {', '.join(strengths)}")
 
     # --------------------------------------------------------
-    # RECIPE-GETS OUTPUT FROM PLACEHOLDER CODE NEED TO IMPLEMENT THE ACTUAL LATER
+    # LAYER 4: NUTRITWIN RECIPE RANKING
     # --------------------------------------------------------
 
-    print("\nNUTRITWIN [PLACEHOLDER - NOT IMPLEMENTED]")
+    print("\nNUTRITWIN RECOMMENDATIONS (Layer 4)")
     print("-" * 60)
-
-    print(f"Recipe: " f"{RECIPE['name']}")
-
-    print(f"Original ingredient: "f"{RECIPE['original_ingredient']}")
-
-    print(
-        f"Substitution: "
-        f"{RECIPE['substitution']}"
-    )
-
-    print(
-        f"Reason: "
-        f"{RECIPE['reason']}"
-    )
+    print(f"Status: {twin['scoring_status']}")
+    ranked = twin["ranked_recipes"]
+    if ranked:
+        meeting = sum(item["meets_all_references"] for item in ranked)
+        print(f"{len(ranked)} candidate meals ranked; {meeting} meet every reference value; "
+              f"{len(twin['not_ranked'])} held for data review.")
+        for item in ranked[:args.top]:
+            print(explain(item))
 
     # --------------------------------------------------------
     # COMPLETE
