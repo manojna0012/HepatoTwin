@@ -23,5 +23,12 @@
     "ingredients": 15,
     "steps": 12
   },
+  "personalisation": {
+    "mean_pairwise_top10_overlap_same_cuisine": 0.9200581720550399,
+    "distinct_priority_profiles": 37,
+    "share_with_most_common_profile": 0.25333333333333335,
+    "distinct_top10_lists": 33,
+    "uses_24h_recall": true
+  },
   "note": "Cuisine preferences are simulated; NHANES does not record them."
 }

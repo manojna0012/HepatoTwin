@@ -14,7 +14,14 @@ measurements, using published thresholds:
   F1-selected threshold, saved with each Layer 2 classifier.
 
 Flags describe which evidence rules apply; they are not diagnoses.
+
+When the measurements include the day-1 24-hour recall (build_habitual_diet.py),
+the patient's own intake is added as intake_<measure> values, which the
+evidence rules use to raise or lower a priority by one level.
 """
+from src.recipe_scoring.habitual_diet import habitual_intake
+
+INTAKE_MEASURES = ("saturated_fat_pct_energy", "added_sugar_pct_energy", "fiber_per_1000kcal")
 
 ASIAN = 6        # RIDRETH3: non-Hispanic Asian
 MALE = 1         # RIAGENDR
@@ -48,7 +55,8 @@ def derive_patient_state(measurements, probabilities, thresholds):
     """Return 0/1 flags (None when unknown) plus the values they came from.
 
     measurements: raw NHANES-coded values (RIAGENDR, RIDRETH3, BMXBMI,
-        BMXWAIST, LBXGH, LBXTR or LBXSTR, LBDHDD).
+        BMXWAIST, LBXGH, LBXTR or LBXSTR, LBDHDD), optionally with the
+        DR1TOT and FPED recall columns.
     probabilities / thresholds: calibrated P(CAP >= 248) and P(CAP >= 280)
         keyed "cap248" and "cap280", and their decision thresholds.
     """
@@ -101,11 +109,16 @@ def derive_patient_state(measurements, probabilities, thresholds):
             None if steatosis is None or excess_weight is None else steatosis and excess_weight),
         "diet_quality_review_requested": _flag(steatosis),
     }
+    intake = habitual_intake(measurements)
+    state["recall_reliable"] = _flag(intake["recall_reliable"])
+    for name in INTAKE_MEASURES:
+        state[f"intake_{name}"] = intake[name]
     state["values"] = {
         "p_cap248": probabilities.get("cap248"),
         "p_cap280": probabilities.get("cap280"),
         "BMXBMI": bmi, "BMXWAIST": waist, "LBXGH": hba1c,
         "triglycerides": fasting_tg if fasting_tg is not None else any_tg,
         "LBDHDD": hdl,
+        "hei2020": intake["hei2020"],
     }
     return state

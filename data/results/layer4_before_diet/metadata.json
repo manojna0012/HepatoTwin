@@ -1,0 +1,34 @@
+{
+  "participants": 300,
+  "eligible_participants": 1902,
+  "test_participants": 3060,
+  "candidate_recipes": 10108,
+  "top_k": 10,
+  "default_weights": {
+    "health": 0.6,
+    "cuisine": 0.2,
+    "feasibility": 0.2
+  },
+  "simulated_cuisines": [
+    "American",
+    "Asian",
+    "Canadian",
+    "European",
+    "Mexican"
+  ],
+  "random_repeats": 20,
+  "seed": 42,
+  "feasibility_limits": {
+    "minutes": 60,
+    "ingredients": 15,
+    "steps": 12
+  },
+  "personalisation": {
+    "mean_pairwise_top10_overlap_same_cuisine": 0.9398814185031883,
+    "distinct_priority_profiles": 11,
+    "share_with_most_common_profile": 0.3433333333333333,
+    "distinct_top10_lists": 17,
+    "uses_24h_recall": false
+  },
+  "note": "Cuisine preferences are simulated; NHANES does not record them."
+}

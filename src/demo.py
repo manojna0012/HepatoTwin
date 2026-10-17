@@ -18,6 +18,7 @@ from src.twin_pipeline import run_twin
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_FILE = ROOT / "data/processed/nhanes_merged.csv"
+DIET_FILE = ROOT / "data/processed/nhanes_diet.csv"
 
 
 def data_file_for(model_file):
@@ -82,6 +83,14 @@ def load_patient(model_file=MODEL_FILE, seqn=None, random=False, data_file=None)
         )
 
     patient = df.sample(1).iloc[0] if random else df.iloc[0]
+
+    # 24-hour recall columns (build_habitual_diet.py) personalise Layer 3.
+    if DIET_FILE.exists():
+        diet = pd.read_csv(DIET_FILE)
+        row = diet[diet.SEQN.eq(patient["SEQN"])]
+        if not row.empty:
+            extra = row.iloc[0].drop(labels=[c for c in row.columns if c in patient.index])
+            patient = pd.concat([patient, extra])
 
     return patient
 

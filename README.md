@@ -106,6 +106,20 @@ rule has a base priority and optional `priority_levels` that raise it, and cites
 rows of `data/evidence/intervention_evidence.csv` by `evidence_id`; the strength
 labels come from that table. Priorities never carry numeric targets.
 
+The patient's day-1 24-hour recall then moves three priorities by one level
+(proposal section 17.1): up when their own intake misses the reference value used
+for recipes (saturated fat <= 10% of energy, added sugars <= 10%, fibre >= 14
+g/1,000 kcal), down when it meets it. Only reliable, typical-day recalls with
+plausible energy are used. `src/build_habitual_diet.py` builds
+`data/processed/nhanes_diet.csv` from DR1TOT (both cycles) and the USDA FPED
+day-1 totals (2017-March 2020 only; none exist yet for 2021-2023), with an
+HEI-2020 score (`habitual_diet.py`). `--download` fetches FPED and extracts it
+with `py7zr` without running the self-extracting archive.
+
+```powershell
+.venv/Scripts/python.exe -m src.build_habitual_diet --download
+```
+
 ## Layer 4: NutriTwin recipe ranking
 
 `src/recipe_scoring/recipe_criteria.py` links each priority to one recipe
@@ -115,13 +129,17 @@ describe recipe composition, not a patient target. `multi_criteria.py` screens
 candidates (main meals of at least 200 kcal, plausible nutrition, diet tags that
 all agree with the requested diet), scores health, cuisine and feasibility
 (0-100), and combines them with explicit weights (0.6/0.2/0.2). Recipes meeting
-every reference value rank first (`health_gate`). Each result explains its
+every reference value rank first (`health_gate`); inside that group half of the
+health score is the priority-weighted margin past the saturated-fat, sugar and
+fibre references (`MARGIN_SHARE = 0.5`), so priority levels still shape the
+order once every reference is met. Each result explains its
 criterion values, references and evidence rows. `src/twin_pipeline.py` runs
 Layers 2-4 for one patient:
 
 ```powershell
 .venv/Scripts/python.exe src/demo.py --seqn 109349 --cuisine Asian --diet vegetarian
-.venv/Scripts/python.exe -m src.evaluate_ranking
+.venv/Scripts/python.exe -m src.evaluate_ranking            # with 24-hour recall
+.venv/Scripts/python.exe -m src.evaluate_ranking --no-diet  # before run
 .venv/Scripts/python.exe -m pytest src/recipe_scoring src/recipes/test_nutrition_quality.py
 ```
 
@@ -131,16 +149,34 @@ top 10 meeting the criteria (`data/results/layer4/`):
 
 | Method | Health | Cuisine | Feasibility | All three |
 | --- | ---: | ---: | ---: | ---: |
-| Multi-criteria, health-gated (default) | 1.000 | 1.000 | 0.899 | **0.899** |
-| Multi-criteria, weighted only | 0.749 | 1.000 | 0.982 | 0.749 |
+| Multi-criteria, health-gated (default) | 1.000 | 0.995 | 0.806 | **0.802** |
+| Multi-criteria, weighted only | 0.752 | 1.000 | 0.982 | 0.752 |
 | Health score only | 1.000 | 0.057 | 0.400 | 0.017 |
 | Nutrition only (non-personalised) | 1.000 | 0.057 | 0.400 | 0.017 |
 | Random | 0.057 | 0.053 | 0.596 | 0.003 |
 
-Across a grid of weights the default top 10 is unchanged whenever cuisine has
-weight >= 0.2 (mean overlap 0.90 over the grid). Health-only and nutrition-only
+Only the gated ranking always meets every health reference. Across a grid of 36
+weight combinations the median top-10 overlap with the default is 0.77; it
+drops mainly when cuisine has weight 0.1. Health-only and nutrition-only
 coincide because 565 candidates meet every reference value, so both choose among
 tied recipes.
+
+Personalisation (section 12.4; `data/results/layer4_before_diet/` is the same
+engine without the recall):
+
+| | Without recall | With recall |
+| --- | ---: | ---: |
+| Distinct priority profiles | 11 | 37 |
+| Distinct top-10 lists | 17 | 33 |
+| Mean top-10 overlap, same cuisine | 0.94 | 0.92 |
+
+`priority_response.csv` checks the direction: with a high saturated-fat priority
+the top 10 averages 2.97% of energy from saturated fat against 3.44% with a low
+one, and 4.21% against 4.65% for sugars. Fibre does not differ, because almost
+every recommended recipe already exceeds the fibre margin's cap. Before the margin
+was added, priority levels did not affect the top 10 at all (8 distinct lists,
+overlap 0.99), and 0.899 of top-10 recipes met all three criteria;
+`MARGIN_SHARE` 1.0 gave 40 lists but 0.69.
 
 `data/results/combined/` contains the regressor, both classifiers,
 `metadata.json` (selection, versions, data hash, limitations),

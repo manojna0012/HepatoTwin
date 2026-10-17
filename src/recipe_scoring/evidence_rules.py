@@ -6,6 +6,12 @@ them from Layer 2 outputs with src.recipe_scoring.patient_state. Every
 evidence_ids entry is a row of data/evidence/intervention_evidence.csv.
 Priority levels rank which objective matters more for this patient; they are
 not dietary prescriptions and carry no numeric target.
+
+An optional "intake" entry compares the patient's 24-hour recall with the
+same reference value used for recipes (recipe_criteria.py; added sugars
+rather than total sugars for the patient, as in the WHO and DGA guidance).
+The priority moves up one level when the intake misses the reference and
+down one level when it meets it; without a reliable recall it is unchanged.
 """
 
 
@@ -41,6 +47,8 @@ EVIDENCE_RULES = [
             {"when": [_is("steatosis_moderate_severe_likely")], "priority": "high",
              "basis": "Probable moderate-to-severe steatosis (CAP >= 280 dB/m)"},
         ],
+        "intake": {"measure": "fiber_per_1000kcal", "direction": "higher", "reference": 14,
+                   "label": "fibre", "unit": "g per 1,000 kcal"},
         "candidate": {
             "id": "diet_quality",
             "title": "Consider overall dietary quality",
@@ -68,6 +76,8 @@ EVIDENCE_RULES = [
             {"when": [_is("dyslipidaemia")], "priority": "high",
              "basis": "Raised triglycerides or low HDL"},
         ],
+        "intake": {"measure": "saturated_fat_pct_energy", "direction": "lower", "reference": 10,
+                   "label": "saturated fat", "unit": "% of energy"},
         "candidate": {
             "id": "limit_saturated_fat",
             "title": "Prefer recipes lower in saturated fat",
@@ -90,6 +100,8 @@ EVIDENCE_RULES = [
             {"when": [_is("weight_management_appropriate")], "priority": "medium",
              "basis": "Excess weight, where surplus energy from sugar matters most"},
         ],
+        "intake": {"measure": "added_sugar_pct_energy", "direction": "lower", "reference": 10,
+                   "label": "added sugars", "unit": "% of energy"},
         "candidate": {
             "id": "limit_excess_sugar",
             "title": "Prefer recipes lower in added sugars",

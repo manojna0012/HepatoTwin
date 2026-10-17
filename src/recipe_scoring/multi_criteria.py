@@ -11,10 +11,19 @@ criterion scores, nutrient values, reference values and evidence rows.
 
 With health_gate (the default), recipes that meet every evidence-linked
 reference value rank ahead of those that do not, and the weighted score
-orders recipes within each group. Without it, a recipe could trade health
-for cuisine or convenience: on 300 held-out participants the weighted-only
-top 10 met all three criteria 75% of the time, the gated top 10 90%
-(src/evaluate_ranking.py).
+orders recipes within each group. Inside the gated group every health score
+is 100, so the patient's priority levels would no longer matter; there half
+of the health component is instead the priority-weighted margin past the
+reference values (recipe_criteria.margin_score), so a patient whose
+saturated-fat priority is high is offered recipes further below the
+saturated-fat reference. MARGIN_SHARE trades personalisation for
+practicality: on the evaluation, a share of 0 gave 8 distinct top-10 lists
+for 300 participants with 90% meeting all three criteria, 0.5 gave 33 lists
+with 80%, and 1 gave 40 lists with 69% (src/evaluate_ranking.py).
+
+Without the gate, a recipe could trade health for cuisine or convenience: the
+weighted-only top 10 met every health reference 75% of the time, the gated
+top 10 always did.
 """
 
 import re
@@ -22,10 +31,11 @@ import re
 from src.recipe_scoring.cuisine_compatibility import cuisine_compatibility_score
 from src.recipe_scoring.health_alignment import health_alignment_score
 from src.recipe_scoring.practical_feasibility import practical_feasibility_score
-from src.recipe_scoring.recipe_criteria import derived_metrics
+from src.recipe_scoring.recipe_criteria import derived_metrics, margin_score
 from src.recipes.nutrition_quality import nutrition_issues
 
 DEFAULT_WEIGHTS = {"health": 0.6, "cuisine": 0.2, "feasibility": 0.2}
+MARGIN_SHARE = 0.5
 
 # Categories that are not main meals (or not food); matched as lower-case substrings.
 NON_MEAL_KEYWORDS = ("dessert", "beverage", "sauce", "dressing", "spread", "smoothie",
@@ -113,9 +123,16 @@ def score_components(recipe, objectives, requested_cuisine=None, related_cuisine
         "score": health["components"].get(o["nutrient"]),
         "evidence": [f'{e["evidence_id"]} [{e["evidence_strength"]}]' for e in o.get("evidence", [])],
     } for o in objectives]
+    meets_all = all(c["score"] == 100 for c in criteria)
     return {**result, "status": "ranked", "scores": scores, "health_coverage": health["coverage"],
-            "meets_all_references": all(c["score"] == 100 for c in criteria),
+            "meets_all_references": meets_all,
+            "health_margin": margin_score(nutrition, objectives) if meets_all else None,
             "criteria": criteria, "warnings": health["warnings"] + feasibility["warnings"]}
+
+
+def gated_health(margin):
+    """Health component for a recipe meeting every reference (see module docstring)."""
+    return 100 - MARGIN_SHARE * (100 - margin)
 
 
 def overall_score(scores, weights=DEFAULT_WEIGHTS):
@@ -142,7 +159,10 @@ def rank_recipes(recipes, objectives, weights=DEFAULT_WEIGHTS, requested_cuisine
         if item["status"] != "ranked":
             not_ranked.append(item)
             continue
-        item["overall"] = overall_score(item["scores"], weights)
+        scores = item["scores"]
+        if health_gate and item["health_margin"] is not None:
+            scores = {**scores, "health": gated_health(item["health_margin"])}
+        item["overall"] = overall_score(scores, weights)
         item["weights_used"] = {k: w for k, w in weights.items() if k in item["scores"]}
         ranked.append(item)
     ranked.sort(key=lambda item: (-(health_gate and item["meets_all_references"]), -item["overall"],
@@ -157,7 +177,9 @@ def explain(item):
     met = "meets every reference value" if item["meets_all_references"] else "misses a reference value"
     lines = [f'#{item["rank"]} {item["title"]} ({item["cuisine"]}; {item["category"]}) '
              f'- overall {item["overall"]:.1f}/100; {met}',
-             '   ' + ', '.join(f'{k} {v:.0f}' for k, v in item["scores"].items())]
+             '   ' + ', '.join(f'{k} {v:.0f}' for k, v in item["scores"].items())
+             + ('' if item.get("health_margin") is None
+                else f'; margin past references {item["health_margin"]:.0f}')]
     for c in item["criteria"]:
         value = "n/a" if c["value"] is None else c["value"]
         score = "not scored" if c["score"] is None else f'{c["score"]:.0f}/100'

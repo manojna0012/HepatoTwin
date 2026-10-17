@@ -17,10 +17,19 @@ the same candidate pool. A weight-sensitivity analysis reruns the proposed
 ranking over a grid of weights and compares each top 10 with the default.
 
 NHANES records no cuisine preference, so each participant is assigned one at
-random (seeded) from the cuisines with at least 100 candidate recipes. Run
-from the project root after train_combined_model.py:
+random (seeded) from the cuisines with at least 100 candidate recipes.
+
+Priorities use each participant's 24-hour recall (build_habitual_diet.py,
+proposal section 17.1); --no-diet reproduces the evaluation without it and
+writes to data/results/layer4_before_diet. Personalisation (section 12.4) is
+the mean top-10 overlap between pairs of participants given the same
+cuisine: lower means recommendations differ more between patients.
+priority_response.csv checks that they differ in the right direction: the
+mean composition of each top 10 by the level of that priority. Run from
+the project root after train_combined_model.py and build_habitual_diet.py:
 
     .venv/Scripts/python.exe -m src.evaluate_ranking
+    .venv/Scripts/python.exe -m src.evaluate_ranking --no-diet
 """
 import argparse
 import itertools
@@ -35,15 +44,18 @@ import pandas as pd
 from src.train_final_model import ROOT
 from src.combined_features import COMBINED_FEATURES
 from src.build_combined_dataset import OUTPUT as DATA_FILE
+from src.build_habitual_diet import OUTPUT as DIET_FILE
 from src.predict_cap import MODEL_FILE
 from src.recipe_scoring.evidence_rules import EVIDENCE_RULES
-from src.recipe_scoring.multi_criteria import DEFAULT_WEIGHTS, is_candidate, rank_recipes, score_components
+from src.recipe_scoring.multi_criteria import (DEFAULT_WEIGHTS, gated_health, is_candidate, rank_recipes,
+                                               score_components)
 from src.recipe_scoring.patient_objective_generator import generate_patient_objectives
 from src.recipe_scoring.patient_state import derive_patient_state
-from src.recipe_scoring.recipe_criteria import CRITERIA, criteria_for
+from src.recipe_scoring.recipe_criteria import CRITERIA, criteria_for, derived_metrics
 from src.twin_pipeline import CLASSIFIERS, _classifier, load_recipes
 
 OUTPUT_DIR = ROOT / 'data' / 'results' / 'layer4'
+BEFORE_DIET_DIR = ROOT / 'data' / 'results' / 'layer4_before_diet'
 SEED = 42
 TOP_K = 10
 MAX_TIME, MAX_INGREDIENTS, MAX_STEPS = 60, 15, 12
@@ -83,21 +95,23 @@ def signature(priorities):
 
 def components_table(candidates, objectives, cuisine):
     """Arrays of criterion scores for every candidate, scored by the engine itself."""
-    health, cuisine_score, feasibility, meets_health, ranked = [], [], [], [], []
+    health, cuisine_score, feasibility, meets_health, ranked, margin = [], [], [], [], [], []
     for recipe in candidates:
         item = score_components(recipe, objectives, requested_cuisine=cuisine)
         if item['status'] != 'ranked':
             ranked.append(False)
             health.append(np.nan), cuisine_score.append(np.nan), feasibility.append(np.nan)
-            meets_health.append(False)
+            meets_health.append(False), margin.append(np.nan)
             continue
         ranked.append(True)
         health.append(item['scores']['health'])
         cuisine_score.append(item['scores'].get('cuisine', np.nan))
         feasibility.append(item['scores'].get('feasibility', np.nan))
-        meets_health.append(all(c['score'] == 100 for c in item['criteria']))
+        meets_health.append(item['meets_all_references'])
+        margin.append(np.nan if item['health_margin'] is None else item['health_margin'])
     return {k: np.array(v) for k, v in dict(health=health, cuisine=cuisine_score, feasibility=feasibility,
-                                             meets_health=meets_health, ranked=ranked).items()}
+                                             meets_health=meets_health, ranked=ranked,
+                                             margin=margin).items()}
 
 
 def weighted(table, weights):
@@ -109,14 +123,19 @@ def weighted(table, weights):
         total[present] += weight * values[present]
         norm[present] += weight
     with np.errstate(invalid='ignore', divide='ignore'):
-        score = total / norm
+        score = np.round(total / norm, 2)  # as overall_score
     score[~table['ranked']] = np.nan
     return score
 
 
 def gated(table, weights):
-    """Weighted score with recipes meeting every health reference ranked first (rank_recipes default)."""
-    return weighted(table, weights) + 1000 * table['meets_health']
+    """Weighted score with recipes meeting every health reference ranked first (rank_recipes default).
+
+    Within that group part of the health component is the margin past the references.
+    """
+    margin = table['margin']
+    with_margin = dict(table, health=np.where(np.isnan(margin), table['health'], gated_health(margin)))
+    return weighted(with_margin, weights) + 1000 * table['meets_health']
 
 
 def top_k(score, health, ids):
@@ -126,10 +145,47 @@ def top_k(score, health, ids):
     return valid[order[:TOP_K]]
 
 
+def with_diet(test):
+    """Add the recall columns that the cohort file does not already hold."""
+    diet = pd.read_csv(DIET_FILE)
+    diet = diet[['SEQN'] + [c for c in diet.columns if c not in test.columns]]
+    return test.merge(diet, on='SEQN', how='left', validate='one_to_one')
+
+
+def priority_response(assignments, top_lists, candidates):
+    """Mean composition of each participant's top 10, by that criterion's priority level."""
+    index = {str(r['recipe_id']): derived_metrics(r['nutrition']) for r in candidates}
+    rows = []
+    for name, criterion in CRITERIA.items():
+        if not criterion.get('margin'):
+            continue
+        for a, top in zip(assignments, top_lists):
+            level = dict(p.split(':') for p in a['priorities'].split(';')).get(name)
+            if level:
+                values = [index[i][criterion['nutrient']] for i in top]
+                rows.append(dict(priority=name, level=level, measure=criterion['nutrient'],
+                                 value=np.nanmean(np.array(values, dtype=float))))
+    return (pd.DataFrame(rows).groupby(['priority', 'measure', 'level']).value
+            .agg(participants='count', mean_top10='mean').reset_index())
+
+
+def personalisation(top_lists, cuisines_by_patient):
+    """Mean top-10 overlap between pairs of participants sharing a cuisine."""
+    overlaps = []
+    for cuisine in set(cuisines_by_patient):
+        lists = [set(t) for t, c in zip(top_lists, cuisines_by_patient) if c == cuisine]
+        overlaps += [len(a & b) / TOP_K for a, b in itertools.combinations(lists, 2)]
+    return float(np.mean(overlaps))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--patients', type=int, default=300, help='Test participants to evaluate')
+    parser.add_argument('--no-diet', action='store_true', help='Ignore the 24-hour recall (before run)')
     args = parser.parse_args()
+    global OUTPUT_DIR
+    if args.no_diet:
+        OUTPUT_DIR = BEFORE_DIET_DIR
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     rng = np.random.default_rng(SEED)
     plt.rcParams.update({'font.family': 'serif', 'font.serif': ['Times New Roman', 'DejaVu Serif'],
@@ -138,6 +194,8 @@ def main():
     data = pd.read_csv(DATA_FILE)
     manifest = pd.read_csv(MODEL_FILE.parent / 'split_manifest.csv')
     test = data[manifest.partition.eq('test').to_numpy()].reset_index(drop=True)
+    if not args.no_diet:
+        test = with_diet(test)
     priorities = patient_priorities(test)
     with_priority = [i for i, p in enumerate(priorities) if signature(p)]
     chosen = sorted(rng.choice(with_priority, size=min(args.patients, len(with_priority)), replace=False))
@@ -157,7 +215,7 @@ def main():
     tables, generic_tables = {}, {}
     grid = [dict(health=h / 10, cuisine=c / 10, feasibility=(10 - h - c) / 10)
             for h, c in itertools.product(range(1, 9), repeat=2) if h + c <= 9]
-    method_rows, sensitivity_rows, assignments = [], [], []
+    method_rows, sensitivity_rows, assignments, top_lists = [], [], [], []
 
     for n, i in enumerate(chosen, 1):
         cuisine = cuisines[rng.integers(len(cuisines))]
@@ -183,6 +241,8 @@ def main():
 
         base = top_k(gated(table, DEFAULT_WEIGHTS), table['health'], ids)
         record('Multi-criteria, health-gated (proposed)', base)
+        top_lists.append(list(ids[base]))
+        assignments[-1]['top10'] = ';'.join(ids[base])
         record('Multi-criteria, weighted only',
                top_k(weighted(table, DEFAULT_WEIGHTS), table['health'], ids))
         record('Health score only', top_k(weighted(table, {'health': 1}), table['health'], ids))
@@ -223,6 +283,17 @@ def main():
     summary.to_csv(OUTPUT_DIR / 'method_comparison.csv')
     grid_summary.to_csv(OUTPUT_DIR / 'weight_sensitivity.csv', index=False)
     pd.DataFrame(assignments).to_csv(OUTPUT_DIR / 'simulated_preferences.csv', index=False)
+    profiles = pd.Series([a['priorities'] for a in assignments])
+    personal = dict(mean_pairwise_top10_overlap_same_cuisine=personalisation(
+                        top_lists, [a['cuisine'] for a in assignments]),
+                    distinct_priority_profiles=int(profiles.nunique()),
+                    share_with_most_common_profile=float(profiles.value_counts(normalize=True).iloc[0]),
+                    distinct_top10_lists=len({tuple(sorted(t)) for t in top_lists}),
+                    uses_24h_recall=not args.no_diet)
+    profiles.value_counts().rename_axis('priorities').rename('participants').to_csv(
+        OUTPUT_DIR / 'priority_profiles.csv')
+    response = priority_response(assignments, top_lists, candidates)
+    response.to_csv(OUTPUT_DIR / 'priority_response.csv', index=False)
 
     fig, axes = plt.subplots(1, 2, figsize=(11, 4), gridspec_kw={'wspace': 0.35})
     for ax, column, title in [(axes[0], 'overlap_with_default', '(a) Top-10 overlap with default weights'),
@@ -248,6 +319,7 @@ def main():
                        default_weights=DEFAULT_WEIGHTS, simulated_cuisines=cuisines,
                        random_repeats=RANDOM_REPEATS, seed=SEED,
                        feasibility_limits=dict(minutes=MAX_TIME, ingredients=MAX_INGREDIENTS, steps=MAX_STEPS),
+                       personalisation=personal,
                        note='Cuisine preferences are simulated; NHANES does not record them.'), f, indent=2)
     print('\nTop-10 criteria satisfaction (mean over participants):')
     print(summary.to_string(float_format=lambda v: f'{v:.3f}'))
@@ -255,6 +327,9 @@ def main():
     print('\nWeight sensitivity: mean top-10 overlap with default over the grid '
           f'{grid_summary.overlap_with_default.mean():.2f}; default all-three '
           f'{default.all_three.iloc[0]:.3f}')
+    print('\nPersonalisation:', json.dumps(personal, indent=2))
+    print('Top-10 composition by priority level:')
+    print(response.to_string(index=False, float_format=lambda v: f'{v:.2f}'))
     print(f'Saved to {OUTPUT_DIR}')
 
 

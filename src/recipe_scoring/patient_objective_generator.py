@@ -50,12 +50,35 @@ def _matches_all(patient_state, conditions):
     return all(_matches_condition(patient_state, c) for c in conditions)
 
 
+def _apply_intake(result, intake, patient_state):
+    """Move the priority one level using the patient's recall (evidence_rules.py)."""
+    value = patient_state.get(f"intake_{intake['measure']}")
+    if not isinstance(value, (int, float)) or isinstance(value, bool) or value != value:
+        result["intake"] = None
+        return
+    reference = intake["reference"]
+    lower = intake["direction"] == "lower"
+    meets = value <= reference if lower else value >= reference
+    level = PRIORITIES.index(result["priority"])
+    new = PRIORITIES[max(level - 1, 0) if meets else min(level + 1, len(PRIORITIES) - 1)]
+    verb = ("lowered" if meets else "raised") if new != result["priority"] else "kept"
+    result["priority_basis"] = (
+        f"{result['priority_basis']}; {verb}: {intake['label']} {value:.1f}"
+        f"{'' if intake['unit'].startswith('%') else ' '}{intake['unit']} "
+        f"in the 24-hour recall {'meets' if meets else 'misses'} the reference "
+        f"{'<=' if lower else '>='} {reference}")
+    result["priority"] = new
+    result["intake"] = {"measure": intake["measure"], "value": round(float(value), 1),
+                        "reference": reference, "direction": intake["direction"], "meets_reference": meets}
+
+
 def generate_patient_objectives(patient_state, evidence_rules):
     """Return documented candidate priorities; do not invent nutrient targets.
 
     A rule applies when its "condition" (or every entry of "conditions")
     holds. Optional "priority_levels" are checked in order; the first whose
-    "when" conditions all hold replaces the candidate's base priority.
+    "when" conditions all hold replaces the candidate's base priority. An
+    optional "intake" entry then moves it one level using the 24-hour recall.
     """
 
     if not isinstance(patient_state, dict):
@@ -93,6 +116,8 @@ def generate_patient_objectives(patient_state, evidence_rules):
                 result["priority"] = level["priority"]
                 result["priority_basis"] = level["basis"]
                 break
+        if rule.get("intake"):
+            _apply_intake(result, rule["intake"], patient_state)
         if result.get("evidence_ids"):
             result["supporting_evidence"] = cite(result["evidence_ids"])
         result["status"] = "candidate_not_clinical_prescription"

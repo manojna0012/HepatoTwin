@@ -9,3 +9,4 @@ xgboost
 python-dotenv
 shap==0.49.1
 pytest
+py7zr
