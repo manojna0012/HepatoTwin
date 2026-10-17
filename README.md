@@ -111,13 +111,19 @@ The patient's day-1 24-hour recall then moves three priorities by one level
 for recipes (saturated fat <= 10% of energy, added sugars <= 10%, fibre >= 14
 g/1,000 kcal), down when it meets it. Only reliable, typical-day recalls with
 plausible energy are used. `src/build_habitual_diet.py` builds
-`data/processed/nhanes_diet.csv` from DR1TOT (both cycles) and the USDA FPED
-day-1 totals (2017-March 2020 only; none exist yet for 2021-2023), with an
-HEI-2020 score (`habitual_diet.py`). `--download` fetches FPED and extracts it
-with `py7zr` without running the self-extracting archive.
+`data/processed/nhanes_diet.csv` from DR1TOT (both cycles) and USDA FPED day-1
+totals, with an HEI-2020 score (`habitual_diet.py`). USDA has released FPED only
+for 2017-March 2020, so for 2021-2023 the totals are derived with USDA's method:
+individual foods (DR1IFF_L) times the 2017-2020 food-level FPED per 100 g, kept
+when matched foods supply at least 95% of energy (4,789 participants; 102
+excluded). `--validate` applies the same derivation to 2017-2020 and compares it
+with USDA's totals: r = 1.000 for added sugars and HEI-2020, HEI within one point
+for 100% (`data/results/diet/fped_validation.csv`). `--download` fetches the CDC
+and USDA files; FPED archives are extracted with `py7zr` without running them.
 
 ```powershell
 .venv/Scripts/python.exe -m src.build_habitual_diet --download
+.venv/Scripts/python.exe -m src.build_habitual_diet --validate
 ```
 
 ## Layer 4: NutriTwin recipe ranking
@@ -151,18 +157,18 @@ top 10 meeting the criteria (`data/results/layer4/`):
 
 | Method | Health | Cuisine | Feasibility | All three |
 | --- | ---: | ---: | ---: | ---: |
-| Multi-criteria, health-gated (default) | 1.000 | 0.998 | 0.833 | **0.831** |
-| Same, without acceptability | 1.000 | 0.995 | 0.806 | 0.802 |
-| Same, with diversity re-ranking (MMR) | 1.000 | 0.990 | 0.816 | 0.807 |
-| Multi-criteria, weighted only | 0.742 | 1.000 | 0.968 | 0.730 |
+| Multi-criteria, health-gated (default) | 1.000 | 0.998 | 0.832 | **0.830** |
+| Same, without acceptability | 1.000 | 0.993 | 0.802 | 0.795 |
+| Same, with diversity re-ranking (MMR) | 1.000 | 0.989 | 0.819 | 0.808 |
+| Multi-criteria, weighted only | 0.736 | 1.000 | 0.971 | 0.727 |
 | Health score only | 1.000 | 0.057 | 0.400 | 0.017 |
 | Nutrition only (non-personalised) | 1.000 | 0.057 | 0.400 | 0.017 |
 | Random | 0.057 | 0.053 | 0.596 | 0.003 |
 
 Only the gated ranking always meets every health reference. Across a grid of 36
 weight combinations (acceptability held at 0.1) the median top-10 overlap with
-the default is 0.79; it drops mainly when cuisine has weight 0.1. Diversity
-re-ranking raised intra-list diversity only from 0.947 to 0.957 (mean pairwise
+the default is 0.78; it drops mainly when cuisine has weight 0.1. Diversity
+re-ranking raised intra-list diversity only from 0.947 to 0.956 (mean pairwise
 1 - Jaccard of ingredient sets without seasonings), so it is not the default. Health-only and nutrition-only
 coincide because 565 candidates meet every reference value, so both choose among
 tied recipes.
@@ -172,15 +178,15 @@ engine without the recall):
 
 | | Without recall | With recall |
 | --- | ---: | ---: |
-| Distinct priority profiles | 11 | 37 |
-| Distinct top-10 lists | 16 | 28 |
-| Mean top-10 overlap, same cuisine | 0.95 | 0.93 |
+| Distinct priority profiles | 11 | 35 |
+| Most common profile (share of patients) | 0.34 | 0.15 |
+| Distinct top-10 lists | 16 | 29 |
+| Mean top-10 overlap, same cuisine | 0.95 | 0.92 |
 
-Acceptability makes lists a little more alike (without it: 33 lists with the
-recall), because well-rated recipes are shared. `priority_response.csv` checks
-the direction: with a high saturated-fat priority the top 10 averages 3.20% of
-energy from saturated fat against 3.63% with a low one, and 4.19% against 4.66%
-for sugars. Fibre does not differ, because almost
+Acceptability makes lists a little more alike, because well-rated recipes are
+shared. `priority_response.csv` checks the direction: with a high saturated-fat
+priority the top 10 averages 3.20% of energy from saturated fat against 3.66%
+with a low one, and 4.17% against 4.62% for sugars. Fibre does not differ, because almost
 every recommended recipe already exceeds the fibre margin's cap. Before the margin
 was added, priority levels did not affect the top 10 at all (8 distinct lists,
 overlap 0.99), and 0.899 of top-10 recipes met all three criteria;

@@ -199,7 +199,7 @@ SEQN,cuisine,complete,every_meal_meets_references,every_day_meets_references,rep
 131630,American,True,True,True,True,True,True,True,False,True,True,2,0,,14,6,0.6428571428571429
 131729,Canadian,True,True,True,True,True,True,True,False,False,True,3,1,European,14,5,0.6428571428571429
 131756,Canadian,True,True,True,True,True,True,True,False,False,True,3,1,European,14,5,0.6428571428571429
-131833,Asian,True,True,True,True,True,True,True,True,True,True,0,0,,14,6,0.9285714285714286
+131833,Asian,True,True,True,True,True,True,True,True,True,True,0,0,,14,7,0.9285714285714286
 131851,European,True,True,True,True,True,True,True,True,True,True,0,0,,14,6,1.0
 131903,European,True,True,True,True,True,True,True,True,True,True,0,0,,14,6,1.0
 131928,Asian,True,True,True,True,True,True,True,True,True,True,0,0,,14,6,0.9285714285714286
@@ -267,11 +267,11 @@ SEQN,cuisine,complete,every_meal_meets_references,every_day_meets_references,rep
 137965,American,True,True,True,True,True,True,True,False,True,True,2,0,,14,6,0.6428571428571429
 138005,Canadian,True,True,True,True,True,True,True,False,False,True,3,1,European,14,5,0.6428571428571429
 138057,Mexican,True,True,True,True,True,True,True,True,True,True,0,0,,14,6,0.8571428571428571
-138341,Asian,True,True,True,True,True,True,True,True,True,True,0,0,,14,7,0.9285714285714286
+138341,Asian,True,True,True,True,True,True,True,True,True,True,0,0,,14,6,0.9285714285714286
 138533,Canadian,True,True,True,True,True,True,True,False,False,True,3,1,European,14,5,0.6428571428571429
 138596,Mexican,True,True,True,True,True,True,True,True,True,True,0,0,,14,6,0.8571428571428571
 138714,American,True,True,True,True,True,True,True,False,True,True,2,0,,14,6,0.6428571428571429
-138930,Asian,True,True,True,True,True,True,True,True,True,True,0,0,,14,6,0.9285714285714286
+138930,Asian,True,True,True,True,True,True,True,True,True,True,0,0,,14,7,0.9285714285714286
 139186,European,True,True,True,True,True,True,True,True,True,True,0,0,,14,6,1.0
 139333,Canadian,True,True,True,True,True,True,True,False,False,True,3,1,European,14,5,0.6428571428571429
 139559,Canadian,True,True,True,True,True,True,True,False,False,True,3,1,European,14,5,0.6428571428571429
@@ -279,7 +279,7 @@ SEQN,cuisine,complete,every_meal_meets_references,every_day_meets_references,rep
 139740,European,True,True,True,True,True,True,True,True,True,True,0,0,,14,6,1.0
 139754,American,True,True,True,True,True,True,True,False,True,True,2,0,,14,6,0.6428571428571429
 139816,Asian,True,True,True,True,True,True,True,True,True,True,0,0,,14,6,0.9285714285714286
-139817,Asian,True,True,True,True,True,True,True,True,True,True,0,0,,14,6,0.9285714285714286
+139817,Asian,True,True,True,True,True,True,True,True,True,True,0,0,,14,7,0.9285714285714286
 139874,American,True,True,True,True,True,True,True,False,True,True,2,0,,14,6,0.6428571428571429
 139951,Mexican,True,True,True,True,True,True,True,True,True,True,0,0,,14,6,0.8571428571428571
 140144,European,True,True,True,True,True,True,True,True,True,True,0,0,,14,6,1.0

@@ -79,3 +79,18 @@ def test_hei2020_bounds():
              "DR1TMFAT": 20, "DR1TPFAT": 10, "DR1TSODI": 5000}
     assert hei2020(worst)["total"] == pytest.approx(0)
     assert hei2020(recall()) is None
+
+
+def test_derived_fped_scales_by_grams_and_reports_coverage():
+    import pandas as pd
+    from src.build_habitual_diet import FPED_COLUMNS, derive_fped
+    per_100g = {c.removeprefix("DR1T_"): 0.0 for c in FPED_COLUMNS}
+    foods = pd.DataFrame([{"FOODCODE": 1, **per_100g, "ADD_SUGARS": 2.0, "F_TOTAL": 0.5},
+                          {"FOODCODE": 2, **per_100g, "ADD_SUGARS": 10.0}])
+    eaten = pd.DataFrame({"SEQN": [7, 7, 7, 8], "DR1IFDCD": [1, 2, 99, 1],
+                          "DR1IGRMS": [200, 50, 100, 100], "DR1IKCAL": [300, 100, 100, 150]})
+    day = derive_fped(eaten, foods).set_index("SEQN")
+    assert day.loc[7, "DR1T_ADD_SUGARS"] == pytest.approx(2.0 * 2 + 10.0 * 0.5)   # food 99 has no code
+    assert day.loc[7, "DR1T_F_TOTAL"] == pytest.approx(1.0)
+    assert day.loc[7, "fped_energy_matched"] == pytest.approx(0.8)
+    assert day.loc[8, "fped_energy_matched"] == pytest.approx(1.0)
