@@ -1,0 +1,39 @@
+{
+  "bootstraps": 1000,
+  "seed": 42,
+  "interval": "95% percentile, participant resampling of the test set",
+  "survey_weights": {
+    "2017-2020": {
+      "column": "WTMECPRP",
+      "years": 3.2
+    },
+    "2021-2023": {
+      "column": "WTMEC2YR",
+      "years": 2.0
+    }
+  },
+  "strict_cutoff": 302,
+  "strict_threshold": 0.3333333333333333,
+  "temporal": {
+    "train": "2017-2020",
+    "train_n": 9021,
+    "test": "2021-2023",
+    "test_n": 6279,
+    "settings": {
+      "exam_weighting": "quality_weighted",
+      "config": "slow_wide",
+      "params": {
+        "n_estimators": 1500,
+        "learning_rate": 0.01,
+        "max_depth": 4,
+        "min_child_weight": 8,
+        "subsample": 0.8,
+        "colsample_bytree": 0.4,
+        "reg_lambda": 3,
+        "reg_alpha": 0.5
+      },
+      "cv_r2": 0.5198233652900162
+    }
+  },
+  "limitations": "Survey strata and PSUs are not used, so intervals do not reflect the full design. Temporal validation uses the same survey programme, not an external population."
+}

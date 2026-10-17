@@ -75,6 +75,22 @@ training out-of-fold predictions. The cutoffs are provisional.
 | CAP >= 248 | 0.857 | 0.154 | 0.023 | 0.792 | 0.823 |
 | CAP >= 280 | 0.868 | 0.137 | 0.020 | 0.704 | 0.844 |
 
+`src/validate_combined_model.py` adds checks without changing the model; results
+go to `data/results/combined/validation/`. 95% intervals come from 1,000 bootstrap
+resamples of the test set:
+
+| Check | R² | AUC, CAP >= 248 | AUC, CAP >= 280 | Calibration error |
+| --- | ---: | ---: | ---: | ---: |
+| Test set, with intervals | 0.493 (0.461-0.521) | 0.857 (0.844-0.869) | 0.868 (0.855-0.881) | 0.023 / 0.020 |
+| Test set, survey-weighted | 0.507 | 0.863 | 0.875 | 0.027 / 0.022 |
+| Train 2017-2020, test 2021-2023 | 0.502 | 0.858 | 0.870 | 0.023 / 0.019 |
+
+Survey weights are WTMECPRP and WTMEC2YR scaled by cycle length (3.2 and 2
+years); strata and PSUs are not used. A CAP >= 302 classifier reaches AUC 0.872.
+Separate calibration per age group did not improve calibration, so the global
+calibration stays. The 60+ calibration error (0.037/0.050 on 1,020 people) is
+0.030/0.029 on the larger temporal test, so it is mostly small-sample noise.
+
 `data/results/combined/` contains the regressor, both classifiers,
 `metadata.json` (selection, versions, data hash, limitations),
 `split_manifest.csv`, `cv_selection.csv`, test metrics by subgroup,
