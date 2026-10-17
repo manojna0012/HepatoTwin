@@ -49,6 +49,14 @@ on an evidence base that includes multiple study designs. Therefore,
 "strong recommendation" in a clinical guideline should not
 automatically be converted into the project's STRONG evidence label.
 
+## OBSERVATIONAL ASSOCIATION
+
+An association reported by observational studies (cohort, case-control or
+cross-sectional), for example coffee consumption and lower odds of liver
+fibrosis. It is kept separate from intervention evidence: no rule raises a
+priority or changes a recipe score from it, and the scenario engine reports
+it as an association, not an effect.
+
 ## Evidence interpretation principles
 
 1. Evidence is recorded at the intervention and outcome level.

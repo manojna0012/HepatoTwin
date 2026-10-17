@@ -127,8 +127,10 @@ measure with a public reference value (energy <= 600 kcal per serving, saturated
 fat <= 10% of energy, sugars <= 10% of energy, fibre >= 14 g/1,000 kcal); these
 describe recipe composition, not a patient target. `multi_criteria.py` screens
 candidates (main meals of at least 200 kcal, plausible nutrition, diet tags that
-all agree with the requested diet), scores health, cuisine and feasibility
-(0-100), and combines them with explicit weights (0.6/0.2/0.2). Recipes meeting
+all agree with the requested diet), scores health, cuisine, feasibility and
+acceptability (0-100), and combines them with explicit weights (0.6/0.2/0.2/0.1,
+renormalised). Acceptability is the RecipeDB rating shrunk towards the corpus
+mean (pseudo-count 20), since ratings cluster at 5. Recipes meeting
 every reference value rank first (`health_gate`); inside that group half of the
 health score is the priority-weighted margin past the saturated-fat, sugar and
 fibre references (`MARGIN_SHARE = 0.5`), so priority levels still shape the
@@ -149,15 +151,19 @@ top 10 meeting the criteria (`data/results/layer4/`):
 
 | Method | Health | Cuisine | Feasibility | All three |
 | --- | ---: | ---: | ---: | ---: |
-| Multi-criteria, health-gated (default) | 1.000 | 0.995 | 0.806 | **0.802** |
-| Multi-criteria, weighted only | 0.752 | 1.000 | 0.982 | 0.752 |
+| Multi-criteria, health-gated (default) | 1.000 | 0.998 | 0.833 | **0.831** |
+| Same, without acceptability | 1.000 | 0.995 | 0.806 | 0.802 |
+| Same, with diversity re-ranking (MMR) | 1.000 | 0.990 | 0.816 | 0.807 |
+| Multi-criteria, weighted only | 0.742 | 1.000 | 0.968 | 0.730 |
 | Health score only | 1.000 | 0.057 | 0.400 | 0.017 |
 | Nutrition only (non-personalised) | 1.000 | 0.057 | 0.400 | 0.017 |
 | Random | 0.057 | 0.053 | 0.596 | 0.003 |
 
 Only the gated ranking always meets every health reference. Across a grid of 36
-weight combinations the median top-10 overlap with the default is 0.77; it
-drops mainly when cuisine has weight 0.1. Health-only and nutrition-only
+weight combinations (acceptability held at 0.1) the median top-10 overlap with
+the default is 0.79; it drops mainly when cuisine has weight 0.1. Diversity
+re-ranking raised intra-list diversity only from 0.947 to 0.957 (mean pairwise
+1 - Jaccard of ingredient sets without seasonings), so it is not the default. Health-only and nutrition-only
 coincide because 565 candidates meet every reference value, so both choose among
 tied recipes.
 
@@ -167,16 +173,66 @@ engine without the recall):
 | | Without recall | With recall |
 | --- | ---: | ---: |
 | Distinct priority profiles | 11 | 37 |
-| Distinct top-10 lists | 17 | 33 |
-| Mean top-10 overlap, same cuisine | 0.94 | 0.92 |
+| Distinct top-10 lists | 16 | 28 |
+| Mean top-10 overlap, same cuisine | 0.95 | 0.93 |
 
-`priority_response.csv` checks the direction: with a high saturated-fat priority
-the top 10 averages 2.97% of energy from saturated fat against 3.44% with a low
-one, and 4.21% against 4.65% for sugars. Fibre does not differ, because almost
+Acceptability makes lists a little more alike (without it: 33 lists with the
+recall), because well-rated recipes are shared. `priority_response.csv` checks
+the direction: with a high saturated-fat priority the top 10 averages 3.20% of
+energy from saturated fat against 3.63% with a low one, and 4.19% against 4.66%
+for sugars. Fibre does not differ, because almost
 every recommended recipe already exceeds the fibre margin's cap. Before the margin
 was added, priority levels did not affect the top 10 at all (8 distinct lists,
 overlap 0.99), and 0.899 of top-10 recipes met all three criteria;
-`MARGIN_SHARE` 1.0 gave 40 lists but 0.69.
+`MARGIN_SHARE` 1.0 gave 40 lists but 0.69 (both without acceptability).
+
+## Section 17.6: diversity and seven-day meal plans
+
+`src/recipe_scoring/meal_plan.py` re-ranks with maximal marginal relevance and
+builds two main meals a day for seven days from recipes that meet every
+reference value, practical recipes first. Each plan is checked for: every meal
+and every day meeting the references, a recipe at most twice and never on the
+same or consecutive days, different protein families within a day and at most
+three per week, and the requested cuisine. A patient may lack the ingredients,
+tools or taste for another cuisine, so the week is filled in steps: (1) own
+cuisine only; (2) a favourite may repeat; (3) only then, recipes from cuisines
+whose ingredient profile has cosine similarity >= 0.8 (American: Mexican 0.96;
+Canadian: Australian and European 0.90), labelled as borrowed.
+
+On 300 participants every plan was complete and met every check: 58% at step 1,
+81% by step 2, 100% by step 3, with 0.19 borrowed meals per plan on average
+(only Canadian plans borrow, about one meal). 82% of plan meals are within the
+practical limits (`meal_plan_summary.csv`, `meal_plan_by_cuisine.csv`).
+
+```powershell
+.venv/Scripts/python.exe src/demo.py --seqn 110006 --cuisine American --plan
+```
+
+## Layer 5: scenario engine
+
+`src/recipe_scoring/scenario_engine.py` compares Scenario A (most health-aligned
+recipes) with Scenario B (closest to the patient's usual diet from the recall).
+For each priority it reports whether the scenario improves, worsens or does not
+change the measure relative to the usual diet, with the evidence rows for that
+pathway; the scenario's label is the strongest among improving criteria. Sugar
+reductions are graded MODERATE only when energy also falls (CHI2014-HYPER vs
+CHI2014-ISO). Lower-energy meals cite calorie restriction (MODERATE), with
+weight loss of 5% or more (STRONG) shown as conditional. No CAP or probability
+is predicted for a scenario; the timeline for Layer 6 gives a direction per
+horizon, labelled "Simulated projection, not a clinical forecast".
+
+## Evidence table
+
+`data/evidence/intervention_evidence.csv` has 23 rows. Section 17.13 added
+coffee (Liu 2015; Ebadi 2021), fasting, and the null findings for
+low-carbohydrate high-fat diets and omega-3 (Stern 2026). The coffee rows are
+labelled OBSERVATIONAL ASSOCIATION; no rule cites them
+(`data/evidence/evidence_strengths.md`).
+
+RecipeDB coverage: the API we use reports 20,000 recipes in total (19 Indian),
+the same 20,000 already in `data/processed/recipe_objects.json`. The patient data
+are from the US population, so US cuisines are the focus; regional Indian
+cuisines are future work.
 
 `data/results/combined/` contains the regressor, both classifiers,
 `metadata.json` (selection, versions, data hash, limitations),

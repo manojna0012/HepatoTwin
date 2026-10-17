@@ -1,0 +1,16 @@
+,mean over participants
+complete,1.0
+every_meal_meets_references,1.0
+every_day_meets_references,1.0
+repeats_within_limits,1.0
+varied_protein,1.0
+within_cuisines,1.0
+all_constraints,1.0
+complete_step1,0.5833333333333334
+complete_by_step2,0.81
+complete_by_step3,1.0
+repeated_recipes,1.0333333333333334
+borrowed_meals,0.19
+meals,14.0
+protein_families,5.846666666666667
+feasible_meals,0.8147619047619048

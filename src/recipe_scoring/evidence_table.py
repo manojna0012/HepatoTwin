@@ -5,7 +5,8 @@ from functools import lru_cache
 from pathlib import Path
 
 EVIDENCE_FILE = Path(__file__).resolve().parents[2] / "data" / "evidence" / "intervention_evidence.csv"
-STRENGTHS = {"STRONG", "MODERATE", "WEAK / INCONCLUSIVE", "INSUFFICIENT", "GUIDELINE RECOMMENDATION"}
+STRENGTHS = {"STRONG", "MODERATE", "WEAK / INCONCLUSIVE", "INSUFFICIENT", "GUIDELINE RECOMMENDATION",
+             "OBSERVATIONAL ASSOCIATION"}
 
 
 @lru_cache(maxsize=None)

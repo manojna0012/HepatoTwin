@@ -1,0 +1,6 @@
+cuisine,complete_step1,complete_by_step2,complete_by_step3,borrowed_meals
+American,0.0,1.0,1.0,0.0
+Asian,1.0,1.0,1.0,0.0
+Canadian,0.0,0.05,1.0,0.95
+European,1.0,1.0,1.0,0.0
+Mexican,1.0,1.0,1.0,0.0

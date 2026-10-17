@@ -9,8 +9,9 @@ For held-out NHANES participants with at least one Layer 3 priority, the top
 - feasibility: total time <= 60 min, <= 15 ingredients and <= 12 steps (the
   practical_feasibility.py screening limits).
 
-Methods: the proposed multi-criteria ranking (default weights, health-gated as
-in rank_recipes); the same weights without the health gate; health score
+Methods: the proposed multi-criteria ranking (default weights including
+acceptability, health-gated as in rank_recipes); the same without
+acceptability; diversity re-ranking; the same weights without the health gate; health score
 only; nutrition only, a non-personalised score giving every recipe criterion
 equal weight whatever the patient's priorities; and random selection from
 the same candidate pool. A weight-sensitivity analysis reruns the proposed
@@ -47,6 +48,9 @@ from src.build_combined_dataset import OUTPUT as DATA_FILE
 from src.build_habitual_diet import OUTPUT as DIET_FILE
 from src.predict_cap import MODEL_FILE
 from src.recipe_scoring.evidence_rules import EVIDENCE_RULES
+from src.recipe_scoring.meal_plan import (MAX_INGREDIENTS, MAX_STEPS, MAX_TIME, cuisine_profiles, diversify,
+                                          intra_list_diversity, practical,
+                                          protein_family, similar_cuisines, weekly_plan)
 from src.recipe_scoring.multi_criteria import (DEFAULT_WEIGHTS, gated_health, is_candidate, rank_recipes,
                                                score_components)
 from src.recipe_scoring.patient_objective_generator import generate_patient_objectives
@@ -58,19 +62,11 @@ OUTPUT_DIR = ROOT / 'data' / 'results' / 'layer4'
 BEFORE_DIET_DIR = ROOT / 'data' / 'results' / 'layer4_before_diet'
 SEED = 42
 TOP_K = 10
-MAX_TIME, MAX_INGREDIENTS, MAX_STEPS = 60, 15, 12
 MIN_CUISINE_RECIPES = 100
 RANDOM_REPEATS = 20
-
-
-def feasible(recipe):
-    time = recipe.get('total_time')
-    try:
-        time = float(time)
-    except (TypeError, ValueError):
-        return False
-    return (time <= MAX_TIME and 0 < len(recipe.get('ingredients') or []) <= MAX_INGREDIENTS
-            and 0 < len(recipe.get('instructions') or []) <= MAX_STEPS)
+MMR_POOL, PLAN_POOL = 50, 150
+WITHOUT_ACCEPTABILITY = {k: w for k, w in DEFAULT_WEIGHTS.items() if k != 'acceptability'}
+feasible = practical          # 60 minutes, 15 ingredients, 12 steps (meal_plan.py)
 
 
 def patient_priorities(test):
@@ -95,13 +91,13 @@ def signature(priorities):
 
 def components_table(candidates, objectives, cuisine):
     """Arrays of criterion scores for every candidate, scored by the engine itself."""
-    health, cuisine_score, feasibility, meets_health, ranked, margin = [], [], [], [], [], []
+    health, cuisine_score, feasibility, meets_health, ranked, margin, accept = [], [], [], [], [], [], []
     for recipe in candidates:
         item = score_components(recipe, objectives, requested_cuisine=cuisine)
         if item['status'] != 'ranked':
             ranked.append(False)
             health.append(np.nan), cuisine_score.append(np.nan), feasibility.append(np.nan)
-            meets_health.append(False), margin.append(np.nan)
+            meets_health.append(False), margin.append(np.nan), accept.append(np.nan)
             continue
         ranked.append(True)
         health.append(item['scores']['health'])
@@ -109,9 +105,10 @@ def components_table(candidates, objectives, cuisine):
         feasibility.append(item['scores'].get('feasibility', np.nan))
         meets_health.append(item['meets_all_references'])
         margin.append(np.nan if item['health_margin'] is None else item['health_margin'])
+        accept.append(item['scores'].get('acceptability', np.nan))
     return {k: np.array(v) for k, v in dict(health=health, cuisine=cuisine_score, feasibility=feasibility,
                                              meets_health=meets_health, ranked=ranked,
-                                             margin=margin).items()}
+                                             margin=margin, acceptability=accept).items()}
 
 
 def weighted(table, weights):
@@ -138,11 +135,21 @@ def gated(table, weights):
     return weighted(with_margin, weights) + 1000 * table['meets_health']
 
 
-def top_k(score, health, ids):
+def top_k(score, health, ids, k=TOP_K):
     """Indices of the top k by score, ties broken by health then recipe ID (as rank_recipes)."""
     valid = np.flatnonzero(~np.isnan(score))
     order = np.lexsort((ids[valid], -health[valid], -score[valid]))
-    return valid[order[:TOP_K]]
+    return valid[order[:k]]
+
+
+def ranked_items(table, ids, k):
+    """The first k items of the default ranking, in rank_recipes' item format."""
+    score = gated(table, DEFAULT_WEIGHTS)
+    picks = top_k(score, table['health'], ids, k)
+    return picks, [dict(recipe_id=ids[j], overall=float(score[j] - 1000 * table['meets_health'][j]),
+                        meets_all_references=bool(table['meets_health'][j]),
+                        health_margin=None if np.isnan(table['margin'][j]) else float(table['margin'][j]))
+                   for j in picks]
 
 
 def with_diet(test):
@@ -215,7 +222,12 @@ def main():
     tables, generic_tables = {}, {}
     grid = [dict(health=h / 10, cuisine=c / 10, feasibility=(10 - h - c) / 10)
             for h, c in itertools.product(range(1, 9), repeat=2) if h + c <= 9]
-    method_rows, sensitivity_rows, assignments, top_lists = [], [], [], []
+    accept = DEFAULT_WEIGHTS.get('acceptability', 0)   # held fixed across the grid
+    profiles = cuisine_profiles(load_recipes())
+    similar = {c: similar_cuisines(c, profiles) for c in cuisines}
+    method_rows, sensitivity_rows, assignments, top_lists, plan_rows = [], [], [], [], []
+    position = {rid: j for j, rid in enumerate(ids)}
+    mmr_cache, plan_cache = {}, {}
 
     for n, i in enumerate(chosen, 1):
         cuisine = cuisines[rng.integers(len(cuisines))]
@@ -237,12 +249,37 @@ def main():
                                     feasibility=is_feasible[picks].mean(),
                                     all_three=(table['meets_health'][picks] & meets_cuisine[picks]
                                                & is_feasible[picks]).mean(),
-                                    mean_health_score=np.nanmean(table['health'][picks])))
+                                    mean_health_score=np.nanmean(table['health'][picks]),
+                                    diversity=intra_list_diversity([candidates[j] for j in picks]),
+                                    acceptability=np.nanmean(table['acceptability'][picks])))
 
         base = top_k(gated(table, DEFAULT_WEIGHTS), table['health'], ids)
         record('Multi-criteria, health-gated (proposed)', base)
         top_lists.append(list(ids[base]))
         assignments[-1]['top10'] = ';'.join(ids[base])
+        if key not in mmr_cache:
+            # Every recipe that meets the references can enter a plan (about 565).
+            picks, items = ranked_items(table, ids, 1000)
+            pool_recipes = [candidates[j] for j in picks]
+            mmr = [position[str(item['recipe_id'])] for item in
+                   diversify(items, pool_recipes, k=TOP_K, pool=MMR_POOL)]
+            mmr_cache[key] = np.array(mmr)
+            plan_cache[key] = weekly_plan(items, pool_recipes, objectives, cuisines=[cuisine],
+                                          similar=similar[cuisine], pool=PLAN_POOL)
+        record('Multi-criteria + diversity re-ranking (MMR)', mmr_cache[key])
+        record('Multi-criteria, without acceptability',
+               top_k(gated(table, WITHOUT_ACCEPTABILITY), table['health'], ids))
+        plan, checks, notes = plan_cache[key]
+        meals = [m for day in plan for m in day]
+        step = notes['step']
+        plan_rows.append(dict(SEQN=int(test.SEQN[i]), cuisine=cuisine, **checks,
+                              all_constraints=all(checks.values()),
+                              complete_step1=step == 1, complete_by_step2=step in (1, 2),
+                              complete_by_step3=step in (1, 2, 3),
+                              repeated_recipes=len(notes['repeated']), borrowed_meals=len(notes['borrowed']),
+                              borrowed_from=';'.join(sorted(set(notes['borrowed'].values()))),
+                              meals=len(meals), protein_families=len({protein_family(m) for m in meals}),
+                              feasible_meals=np.mean([feasible(m) for m in meals]) if meals else np.nan))
         record('Multi-criteria, weighted only',
                top_k(weighted(table, DEFAULT_WEIGHTS), table['health'], ids))
         record('Health score only', top_k(weighted(table, {'health': 1}), table['health'], ids))
@@ -254,7 +291,7 @@ def main():
 
         base_set = set(base)
         for weights in grid:
-            picks = top_k(gated(table, weights), table['health'], ids)
+            picks = top_k(gated(table, {**weights, 'acceptability': accept}), table['health'], ids)
             sensitivity_rows.append(dict(SEQN=int(test.SEQN[i]), **weights,
                                          overlap_with_default=len(base_set & set(picks)) / TOP_K,
                                          all_three=(table['meets_health'][picks] & meets_cuisine[picks]
@@ -274,7 +311,7 @@ def main():
 
     methods = pd.DataFrame(method_rows)
     summary = methods.groupby('method', sort=False)[['health', 'cuisine', 'feasibility', 'all_three',
-                                                     'mean_health_score']].mean()
+                                                     'mean_health_score', 'diversity', 'acceptability']].mean()
     summary.insert(0, 'participants', len(chosen))
     sensitivity = pd.DataFrame(sensitivity_rows)
     grid_summary = sensitivity.groupby(['health', 'cuisine', 'feasibility'])[
@@ -292,6 +329,13 @@ def main():
                     uses_24h_recall=not args.no_diet)
     profiles.value_counts().rename_axis('priorities').rename('participants').to_csv(
         OUTPUT_DIR / 'priority_profiles.csv')
+    plans = pd.DataFrame(plan_rows)
+    plans.to_csv(OUTPUT_DIR / 'meal_plans_by_patient.csv', index=False)
+    plan_summary = plans.drop(columns=['SEQN', 'cuisine', 'borrowed_from']).mean().rename(
+        'mean over participants')
+    plans.groupby('cuisine')[['complete_step1', 'complete_by_step2', 'complete_by_step3',
+                              'borrowed_meals']].mean().to_csv(OUTPUT_DIR / 'meal_plan_by_cuisine.csv')
+    plan_summary.to_csv(OUTPUT_DIR / 'meal_plan_summary.csv')
     response = priority_response(assignments, top_lists, candidates)
     response.to_csv(OUTPUT_DIR / 'priority_response.csv', index=False)
 
@@ -314,7 +358,7 @@ def main():
     plt.close(fig)
 
     with open(OUTPUT_DIR / 'metadata.json', 'w', encoding='utf-8') as f:
-        json.dump(dict(participants=len(chosen), eligible_participants=len(with_priority),
+        json.dump(dict(similar_cuisines=similar, participants=len(chosen), eligible_participants=len(with_priority),
                        test_participants=len(test), candidate_recipes=len(candidates), top_k=TOP_K,
                        default_weights=DEFAULT_WEIGHTS, simulated_cuisines=cuisines,
                        random_repeats=RANDOM_REPEATS, seed=SEED,
@@ -328,6 +372,8 @@ def main():
           f'{grid_summary.overlap_with_default.mean():.2f}; default all-three '
           f'{default.all_three.iloc[0]:.3f}')
     print('\nPersonalisation:', json.dumps(personal, indent=2))
+    print('Seven-day plans (share meeting each constraint):')
+    print(plan_summary.to_string(float_format=lambda v: f'{v:.3f}'))
     print('Top-10 composition by priority level:')
     print(response.to_string(index=False, float_format=lambda v: f'{v:.2f}'))
     print(f'Saved to {OUTPUT_DIR}')

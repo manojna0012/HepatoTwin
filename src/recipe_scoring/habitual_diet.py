@@ -111,7 +111,7 @@ def habitual_intake(row):
 
     Returns None for every measure when the recall is not reliable.
     """
-    keys = ("saturated_fat_pct_energy", "sugar_pct_energy", "added_sugar_pct_energy",
+    keys = ("energy_kcal", "saturated_fat_pct_energy", "sugar_pct_energy", "added_sugar_pct_energy",
             "fiber_per_1000kcal", "hei2020")
     if not recall_reliable(row):
         return {"recall_reliable": False, **{key: None for key in keys}}
@@ -121,6 +121,7 @@ def habitual_intake(row):
     hei = hei2020(row)
     return {
         "recall_reliable": True,
+        "energy_kcal": energy,
         "saturated_fat_pct_energy": None if saturated is None else 900 * saturated / energy,
         "sugar_pct_energy": None if sugar is None else 400 * sugar / energy,
         "added_sugar_pct_energy": None if added is None else 100 * KCAL_PER_TSP_SUGAR * added / energy,

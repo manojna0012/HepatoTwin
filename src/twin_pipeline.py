@@ -3,6 +3,8 @@
 Layer 2: predicted CAP and calibrated P(CAP >= 248) and P(CAP >= 280).
 Layer 3: patient-state flags, then evidence-linked priorities with levels.
 Layer 4: candidate recipes ranked on health, cuisine and feasibility.
+Layer 5: Scenario A (max health) and B (closer to usual recipes), each an
+evidence-graded projected direction with a timeline for Layer 6.
 
 The patient is a row of raw NHANES-coded inputs (src/combined_features.py).
 """
@@ -17,6 +19,7 @@ from src.predict_cap import MODEL_FILE, predict_patients, predict_steatosis
 from src.recipe_scoring.multi_criteria import DEFAULT_WEIGHTS
 from src.recipe_scoring.patient_state import derive_patient_state
 from src.recipe_scoring.patient_workflow import run_patient_workflow
+from src.recipe_scoring.scenario_engine import compare_scenarios, current_state, timeline
 
 ROOT = Path(__file__).resolve().parents[1]
 RECIPE_FILE = ROOT / 'data' / 'processed' / 'recipe_objects.json'
@@ -52,6 +55,14 @@ def run_twin(patient, recipes=None, model_file=MODEL_FILE, weights=DEFAULT_WEIGH
     patient = dict(patient)
     state_model = layer2(patient, model_file)
     state = derive_patient_state(patient, state_model['probabilities'], state_model['thresholds'])
-    workflow = run_patient_workflow(state, load_recipes() if recipes is None else recipes,
-                                    weights=weights, preferences=preferences)
-    return {'layer2': state_model, 'patient_state': state, **workflow}
+    recipes = load_recipes() if recipes is None else recipes
+    workflow = run_patient_workflow(state, recipes, weights=weights, preferences=preferences)
+    now = current_state(state_model)
+    scenarios = []
+    if workflow['ranked_recipes']:
+        scenarios = compare_scenarios(workflow['ranked_recipes'], recipes,
+                                      workflow['nutritional_priorities'], patient)
+        for scenario in scenarios:
+            scenario['timeline'] = timeline(now, scenario)
+    return {'layer2': state_model, 'patient_state': state, **workflow,
+            'current_state': now, 'scenarios': scenarios}

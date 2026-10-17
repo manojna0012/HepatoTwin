@@ -34,7 +34,16 @@ from src.recipe_scoring.practical_feasibility import practical_feasibility_score
 from src.recipe_scoring.recipe_criteria import derived_metrics, margin_score
 from src.recipes.nutrition_quality import nutrition_issues
 
-DEFAULT_WEIGHTS = {"health": 0.6, "cuisine": 0.2, "feasibility": 0.2}
+# Weights are renormalised over the criteria a recipe has, so these act as
+# 0.545 / 0.182 / 0.182 / 0.091.
+DEFAULT_WEIGHTS = {"health": 0.6, "cuisine": 0.2, "feasibility": 0.2, "acceptability": 0.1}
+# Acceptability (proposal section 17.12): RecipeDB ratings shrunk towards the
+# corpus mean by a pseudo-count, so 5 stars from 3 raters does not beat 4.9
+# from 3,000. Ratings cluster near 5, so 4.5-5.0 maps to 0-100. Weight 0.1
+# raised the top 10 meeting all three criteria from 0.80 to 0.83 on 300
+# held-out participants (src/evaluate_ranking.py).
+RATING_PRIOR_MEAN, RATING_PRIOR_COUNT = 4.91, 20
+ACCEPTABILITY_RANGE = (4.5, 5.0)
 MARGIN_SHARE = 0.5
 
 # Categories that are not main meals (or not food); matched as lower-case substrings.
@@ -91,6 +100,20 @@ def is_candidate(recipe, diet=None, meals_only=True):
     return True
 
 
+def acceptability_score(recipe):
+    """0-100 from the shrunk rating, or None without ratings."""
+    try:
+        rating = float(_get(recipe, "ratings"))
+        count = float(_get(recipe, "ratings_count"))
+    except (TypeError, ValueError):
+        return None
+    if count <= 0 or rating != rating:
+        return None
+    shrunk = (count * rating + RATING_PRIOR_COUNT * RATING_PRIOR_MEAN) / (count + RATING_PRIOR_COUNT)
+    low, high = ACCEPTABILITY_RANGE
+    return round(100 * min(max((shrunk - low) / (high - low), 0.0), 1.0), 2)
+
+
 def score_components(recipe, objectives, requested_cuisine=None, related_cuisines=None):
     """Criterion scores and the details needed to explain them."""
     nutrition = dict(_get(recipe, "nutrition") or {})
@@ -111,6 +134,9 @@ def score_components(recipe, objectives, requested_cuisine=None, related_cuisine
     feasibility = practical_feasibility_score(recipe)
     if feasibility["score"] is not None:
         scores["feasibility"] = feasibility["score"]
+    acceptability = acceptability_score(recipe)
+    if acceptability is not None:
+        scores["acceptability"] = acceptability
     if requested_cuisine:
         cuisine = cuisine_compatibility_score(recipe, requested_cuisine, related_cuisines)
         if cuisine["score"] is not None:

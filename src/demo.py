@@ -8,8 +8,10 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from src.predict_cap import predict_patients, predict_steatosis, steatosis_classifiers, MODEL_FILE
+from src.recipe_scoring.meal_plan import cuisine_profiles, protein_family, similar_cuisines, weekly_plan
 from src.recipe_scoring.multi_criteria import explain
-from src.twin_pipeline import run_twin
+from src.recipe_scoring.recipe_criteria import criteria_for
+from src.twin_pipeline import load_recipes, run_twin
 
 
 # ============================================================
@@ -108,6 +110,8 @@ def predict_cap(patient, model_file=MODEL_FILE):
 # ============================================================
 
 def main():
+    # Recipe titles include characters the Windows console code page cannot print.
+    sys.stdout.reconfigure(errors='replace')
     parser = argparse.ArgumentParser(description='Demonstrate CAP prediction on a held-out participant.')
     parser.add_argument('--model', type=Path, default=MODEL_FILE)
     parser.add_argument('--seqn', type=int)
@@ -115,6 +119,7 @@ def main():
     parser.add_argument('--cuisine', help='Requested cuisine, e.g. Asian or European')
     parser.add_argument('--diet', choices=['vegan', 'vegetarian', 'pescetarian'])
     parser.add_argument('--top', type=int, default=3, help='Recipes to show')
+    parser.add_argument('--plan', action='store_true', help='Show a seven-day meal plan (section 17.6)')
     args = parser.parse_args()
 
     print("=" * 60)
@@ -206,6 +211,49 @@ def main():
               f"{len(twin['not_ranked'])} held for data review.")
         for item in ranked[:args.top]:
             print(explain(item))
+
+    if ranked and args.plan:
+        objectives, _ = criteria_for(twin["nutritional_priorities"])
+        similar = similar_cuisines(args.cuisine, cuisine_profiles(load_recipes())) if args.cuisine else []
+        plan, checks, notes = weekly_plan(ranked, load_recipes(), objectives,
+                                          cuisines=[args.cuisine] if args.cuisine else None, similar=similar)
+        print("\nSEVEN-DAY PLAN (two main meals a day)")
+        print("-" * 60)
+        for day, meals in enumerate(plan, 1):
+            print(f"Day {day}: " + " | ".join(
+                f"{m['title']} ({protein_family(m)})"
+                + (f" [from a similar cuisine: {notes['borrowed'][str(m['recipe_id'])]}]"
+                   if str(m['recipe_id']) in notes['borrowed'] else "")
+                + (" [repeat]" if str(m['recipe_id']) in notes['repeated'] else "") for m in meals))
+        print("Constraints: " + ", ".join(f"{k} {'yes' if v else 'NO'}" for k, v in checks.items()))
+        step = {1: "own cuisine", 2: "own cuisine with repeats", 3: "similar cuisines added",
+                None: "incomplete"}[notes["step"]]
+        print(f"Filled by: {step}")
+
+    # --------------------------------------------------------
+    # LAYER 5: SCENARIOS
+    # --------------------------------------------------------
+
+    if twin["scenarios"]:
+        now = twin["current_state"]
+        print("\nSCENARIOS (Layer 5; evidence-graded directions, not forecasts)")
+        print("-" * 60)
+        print(f"Current state: predicted CAP {now['predicted_cap']} dB/m ({now['predicted_grade']}); "
+              f"P(CAP >= 248) {now['p_cap248']:.0%}")
+        for scenario in twin["scenarios"]:
+            shift = scenario["shift_from_usual"] or "n/a (no reliable recall)"
+            print(f"\n{scenario['name']}: {'; '.join(scenario['titles'])}")
+            print(f"  projected direction: {scenario['projected_direction']}; evidence: "
+                  f"{scenario['evidence_strength'] or 'none'}; shift from usual diet: {shift}")
+            for c in scenario["criteria"]:
+                if c["direction"] == "not assessed":
+                    continue
+                note = f" [{c['evidence_strength']}]" if c["evidence_strength"] else ""
+                print(f"  - {c['label']}: {c['baseline_value']} ({c['compared_with']}) -> "
+                      f"{c['scenario_value']}: {c['direction']}{note}")
+                if "conditional" in c:
+                    print(f"      STRONG {c['conditional']['condition']}")
+            print(f"  {scenario['label']}")
 
     # --------------------------------------------------------
     # COMPLETE
