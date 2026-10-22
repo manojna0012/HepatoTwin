@@ -6,7 +6,7 @@ do not fill the top 10. Each pick maximises
     LAMBDA * overall / 100 - (1 - LAMBDA) * max Jaccard similarity
 to recipes already picked, on ingredient sets without seasonings and
 pantry staples (salt, oil, spices, herbs and other additives). LAMBDA 0.9
-was chosen on 60 held-out participants: the default top 10 is already
+was chosen on 60 held-out participants of all ages (17 October): the default top 10 is already
 varied (mean diversity 0.94), and lower values traded practicality for
 little extra diversity (0.7: diversity 0.97, all-three criteria 0.75 vs
 0.83; 0.9: 0.96 and 0.80).

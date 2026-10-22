@@ -15,6 +15,8 @@ ROOT = Path(__file__).resolve().parents[1]
 MODEL_FILE = ROOT / 'data/results/combined/patient_state_model.joblib'
 # The earlier 14-input model trained on 2017-2020 only; still loadable with --model.
 LEGACY_MODEL_FILE = ROOT / 'data/results/final/patient_state_model.joblib'
+# The combined model is validated for ages 12-59; older patients are outside its scope.
+SCOPE_AGES = (12, 59)
 
 
 def _validated_inputs(patients, model):
@@ -61,6 +63,11 @@ def main():
     patients = pd.read_csv(args.input)
     result = patients[['SEQN']].copy() if 'SEQN' in patients else pd.DataFrame(index=patients.index)
     result['Predicted_CAP'] = predict_patients(patients, args.model)
+    age = pd.to_numeric(patients['RIDAGEYR'], errors='coerce')
+    result['In_scope'] = age.between(*SCOPE_AGES)
+    if not result.In_scope.all():
+        print(f'Warning: {int((~result.In_scope).sum())} patients are outside the validated age range '
+              f'{SCOPE_AGES[0]}-{SCOPE_AGES[1]}; their predictions are not validated.')
     if args.steatosis:
         classifiers = steatosis_classifiers(args.model)
         if not classifiers:

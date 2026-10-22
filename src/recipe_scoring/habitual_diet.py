@@ -7,9 +7,10 @@ patient's own intake misses the reference value and lowered when it is met.
 Sources, all raw NHANES coding:
 - DR1TOT nutrient totals (both FibroScan cycles): energy, saturated,
   monounsaturated and polyunsaturated fat, total sugars, fibre, sodium.
-- USDA Food Patterns Equivalents (FPED) day-1 totals, 2017-March 2020 only:
-  added sugars and food-group amounts. USDA has not released FPED for
-  2021-2023, so added sugars and HEI-2020 are missing for that cycle.
+- USDA Food Patterns Equivalents (FPED) day-1 totals: added sugars and
+  food-group amounts. USDA's totals for 2017-March 2020; for 2021-2023, which
+  USDA has not released, totals derived from the individual foods
+  (build_habitual_diet.py).
 
 A recall is used only when it is reliable (DR1DRSTZ == 1), the day was not
 much more or much less than usual (DR1_300 == 2), and energy is plausible

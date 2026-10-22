@@ -1,3 +1,10 @@
+"""Manual check against the live RecipeDB API: prints the Recipe object for one recipe.
+
+Not a pytest test (no assertions; needs RECIPEDB_BASE_URL in .env). Run from
+src/recipes so the sibling modules import:
+
+    ../../.venv/Scripts/python.exe check_live_recipe_model.py
+"""
 from recipedb_client import get_recipe
 from recipe_parser import parse_recipe
 from recipe_model import create_recipe

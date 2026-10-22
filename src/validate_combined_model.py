@@ -35,8 +35,8 @@ from src.train_final_model import ROOT, TARGET
 from src.combined_features import COMBINED_FEATURES
 from src.build_combined_dataset import OUTPUT as DATA_FILE
 from src.train_combined_model import (
-    AGE_GROUPS, CUTOFFS, SEED, classifier_pipeline, exam_weights, fit_weighted,
-    regressor_pipeline, train_classifier)
+    AGE_GROUPS, CUTOFFS, SCOPE_GROUP, SEED, classifier_pipeline, exam_weights, fit_weighted,
+    in_scope, regressor_pipeline, train_classifier)
 
 MODEL_DIR = ROOT / 'data' / 'results' / 'combined'
 DEMO_FILES = {'2017-2020': (ROOT / 'data/raw/P_DEMO.xpt', 'WTMECPRP', 3.2),
@@ -151,7 +151,7 @@ def main():
     X_tr, y_tr, X_te, y_te = X.iloc[train].reset_index(drop=True), y[train], X.iloc[test], y[test]
     age_tr, age_te = data.RIDAGEYR.to_numpy()[train], data.RIDAGEYR.to_numpy()[test]
     w_te = weight[test]
-    groups = age_groups(age_te)
+    groups = {SCOPE_GROUP: in_scope(data.iloc[test])} | age_groups(age_te)
     ones = np.ones(len(test))
     metadata = json.loads((MODEL_DIR / 'metadata.json').read_text(encoding='utf-8'))
 
@@ -216,7 +216,8 @@ def main():
     selected = metadata['selected']
     temporal_regressor = fit_weighted(regressor_pipeline(selected['config']), X_early, y_early,
                                       exam_weights(iqr[early], selected['exam_weighting']))
-    late_groups, late_ones = age_groups(age_late), np.ones(late.sum())
+    late_groups = {SCOPE_GROUP: in_scope(data[late])} | age_groups(age_late)
+    late_ones = np.ones(late.sum())
     temporal_rows = []
     for row in with_intervals(regression_scores, (y_late, temporal_regressor.predict(X_late)),
                               late_ones, late_groups, rng):
@@ -251,13 +252,13 @@ def main():
         ), f, indent=2)
 
     show = lambda frame: print(frame.to_string(index=False, float_format=lambda v: f'{v:.3f}'))
-    print('\nTest metrics with 95% intervals (all participants):')
-    show(intervals.query("group == 'all'")[['model', 'weighting', 'metric', 'estimate', 'ci_low', 'ci_high']])
+    print('\nTest metrics with 95% intervals (scope, then all participants):')
+    show(intervals[intervals.group.isin([SCOPE_GROUP, 'all'])][['group', 'model', 'weighting', 'metric', 'estimate', 'ci_low', 'ci_high']])
     print('\nCalibration error by age, global vs age-group isotonic:')
     show(calibration.pivot_table(index=['target', 'group'], columns='calibration',
                                  values='calibration_error').reset_index())
     print('\nTemporal validation (train 2017-2020, test 2021-2023):')
-    show(temporal.query("group == 'all'")[['model', 'metric', 'estimate', 'ci_low', 'ci_high']])
+    show(temporal[temporal.group.isin([SCOPE_GROUP, 'all'])][['group', 'model', 'metric', 'estimate', 'ci_low', 'ci_high']])
     print(f'\nSaved to {out}')
 
 

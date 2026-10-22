@@ -35,8 +35,12 @@
     ]
   },
   "participants": 300,
-  "eligible_participants": 1902,
-  "test_participants": 3060,
+  "eligible_participants": 1112,
+  "test_participants": 2040,
+  "scope_ages": [
+    12,
+    59
+  ],
   "candidate_recipes": 10108,
   "top_k": 10,
   "default_weights": {
@@ -60,10 +64,10 @@
     "steps": 12
   },
   "personalisation": {
-    "mean_pairwise_top10_overlap_same_cuisine": 0.9494574337174183,
-    "distinct_priority_profiles": 11,
-    "share_with_most_common_profile": 0.3433333333333333,
-    "distinct_top10_lists": 16,
+    "mean_pairwise_top10_overlap_same_cuisine": 0.9527016444792483,
+    "distinct_priority_profiles": 9,
+    "share_with_most_common_profile": 0.43,
+    "distinct_top10_lists": 15,
     "uses_24h_recall": false
   },
   "note": "Cuisine preferences are simulated; NHANES does not record them."

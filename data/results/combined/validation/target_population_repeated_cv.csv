@@ -1,0 +1,7 @@
+variant,seed,pooled_target_r2,rmse,fold_min,fold_max
+baseline,1,0.5911,,,
+baseline,2,0.5910,,,
+baseline,3,0.5900,,,
+deeper,1,0.5935,41.34,0.576,0.615
+deeper,2,0.5924,41.40,0.580,0.602
+deeper,3,0.5926,41.38,0.548,0.620

@@ -1,3 +1,10 @@
+"""Manual check against the live RecipeDB API: prints the parsed metadata of five recipes.
+
+Not a pytest test (no assertions; needs RECIPEDB_BASE_URL in .env). Run from
+src/recipes so the sibling modules import:
+
+    ../../.venv/Scripts/python.exe check_live_recipe_parser.py
+"""
 from recipedb_client import get_recipe
 from recipe_parser import parse_recipe
 

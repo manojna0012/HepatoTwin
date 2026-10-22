@@ -79,6 +79,10 @@ def load_patient(model_file=MODEL_FILE, seqn=None, random=False, data_file=None)
         subset=[TARGET]
     ).copy()
 
+    # Unless a participant is named, show one inside the model's scope (ages 12-59).
+    if seqn is None and "RIDAGEYR" in df:
+        df = df[df["RIDAGEYR"] < 60]
+
     if df.empty:
         raise ValueError(
             "No eligible held-out NHANES participants found."

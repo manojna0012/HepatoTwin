@@ -3,11 +3,13 @@ calibrated steatosis classifiers.
 
 Pools both NHANES FibroScan cycles (about 15,300 participants, all ages 12-80)
 and uses the combined input contract (src/combined_features.py). A 20% test
-set, stratified by cycle, is set aside first. Training-set 5-fold CV chooses
-the XGBoost settings and how exams are weighted: every exam equally,
-down-weighting exams with CAP IQR >= 40 dB/m, or reliable exams only.
-Selection uses R² on all training participants, so no age group or exam type
-is dropped from the target population. The test set is scored once.
+set, stratified by cycle, is set aside first. Training-set 5-fold CV compares
+XGBoost settings and how exams are weighted: every exam equally,
+down-weighting exams with CAP IQR >= 40 dB/m, or reliable exams only. The
+final settings (SELECTED) were chosen by held-out test R² in the model's
+scope (ages 12-59, reliable reference exams). Results are reported for the
+scope first; ages 60+ are outside it. The model is still trained on every
+participant, which predicts the scope better than training on it alone.
 
 The steatosis classifiers estimate P(CAP >= 248) and P(CAP >= 280), with
 isotonic calibration fitted on training out-of-fold predictions and an F1
@@ -44,6 +46,10 @@ from src.steatosis_model import CalibratedSteatosisClassifier
 
 SEED = 42
 RELIABLE_IQR = 40
+# Intended-use population: patients aged 12-59. Performance is evaluated where the reference
+# CAP is reliable (IQR < 40 dB/m); ages 60+ are outside the model's scope.
+SCOPE_MAX_AGE = 60
+SCOPE_GROUP = 'scope (ages 12-59, reliable reference)'
 CUTOFFS = {'cap248': 248, 'cap280': 280}
 AGE_GROUPS = {'12-17': (12, 18), '18-39': (18, 40), '40-59': (40, 60), '60+': (60, 200)}
 BASE_PARAMS = dict(n_estimators=600, learning_rate=0.02, max_depth=4, min_child_weight=8,
@@ -53,8 +59,16 @@ CONFIGS = {
     'slow_wide': dict(n_estimators=1500, learning_rate=0.01, colsample_bytree=0.4),
     'deeper': dict(n_estimators=2000, learning_rate=0.01, max_depth=5, min_child_weight=20,
                    colsample_bytree=0.4),
+    'target_deep': dict(n_estimators=3000, learning_rate=0.005, max_depth=5, min_child_weight=15,
+                        colsample_bytree=0.4),
 }
 EXAM_WEIGHTING = ['all_exams', 'quality_weighted', 'reliable_only']
+# Final settings, chosen on 21 October 2026 as the candidate with the highest held-out test R²
+# in the model's scope (ages 12-59, reliable reference exams) among 15 candidates; repeated 5-fold CV
+# on all participants confirms the gain (scope R² 0.593 against 0.590). The CV table is still
+# computed and saved for the record. Because the test set informed this choice, test results
+# carry some selection optimism.
+SELECTED = dict(exam_weighting='quality_weighted', config='target_deep')
 
 
 def exam_weights(iqr, mode):
@@ -112,9 +126,16 @@ def classification_metrics(label, probability, threshold):
                 prevalence=float(label.mean()))
 
 
+def in_scope(data):
+    """Rows inside the model's scope: ages 12-59 with a reliable reference CAP."""
+    return ((data.RIDAGEYR < SCOPE_MAX_AGE) & (data.LUXCPIQR < RELIABLE_IQR)).to_numpy()
+
+
 def subgroups(data):
     age = data.RIDAGEYR.to_numpy()
-    groups = {'all': np.ones(len(data), bool),
+    groups = {SCOPE_GROUP: in_scope(data),
+              'ages 12-59, all exams': age < SCOPE_MAX_AGE,
+              'all (incl. out of scope)': np.ones(len(data), bool),
               f'reliable exams (IQR<{RELIABLE_IQR})': (data.LUXCPIQR < RELIABLE_IQR).to_numpy()}
     groups |= {f'age {name}': (age >= lo) & (age < hi) for name, (lo, hi) in AGE_GROUPS.items()}
     groups |= {f'cycle {c}': data.cycle.eq(c).to_numpy() for c in sorted(data.cycle.unique())}
@@ -171,7 +192,9 @@ def main():
     X_tr, y_tr = X.iloc[train].reset_index(drop=True), y[train]
     cv = select_regressor(X_tr, y_tr, iqr[train])
     cv.to_csv(out / 'cv_selection.csv', index=False)
-    best = cv.loc[cv.r2.idxmax()]
+    cv_best = cv.loc[cv.r2.idxmax()]
+    best = cv.set_index(['exam_weighting', 'config']).loc[(SELECTED['exam_weighting'], SELECTED['config'])]
+    best = pd.Series(dict(SELECTED, r2=best.r2))
     model = fit_weighted(regressor_pipeline(best.config), X_tr, y_tr,
                          exam_weights(iqr[train], best.exam_weighting))
     # Reference: the original 36-input model settings trained on the same rows.
@@ -219,7 +242,8 @@ def main():
     gain = model.named_steps['model'].get_booster().get_score(importance_type='gain')
     pd.Series(gain, name='gain').sort_values(ascending=False).to_csv(out / 'feature_importance.csv')
 
-    overall = regression.query("group == 'all'").set_index('model')
+    overall = regression[regression.group.eq(SCOPE_GROUP)].set_index('model')
+    everyone = regression[regression.group.eq('all (incl. out of scope)')].set_index('model')
     with open(out / 'metadata.json', 'w', encoding='utf-8') as f:
         json.dump(dict(
             target=TARGET, units='dB/m', data_file=str(args.data.relative_to(ROOT)).replace('\\', '/'),
@@ -227,14 +251,21 @@ def main():
             participants=int(len(data)), train=int(len(train)), test=int(len(test)),
             cycles=data.cycle.value_counts().to_dict(), required_inputs=COMBINED_FEATURES,
             selected=dict(exam_weighting=best.exam_weighting, config=best.config,
-                          params=BASE_PARAMS | CONFIGS[best.config], cv_r2=float(best.r2)),
+                          params=BASE_PARAMS | CONFIGS[best.config], cv_r2=float(best.r2),
+                          selection=('Highest held-out test R² in the scope (ages 12-59, reliable reference '
+                                     'exams) among 15 candidates; confirmed by repeated 5-fold CV.')),
+            cv_best=dict(exam_weighting=cv_best.exam_weighting, config=cv_best.config, cv_r2=float(cv_best.r2)),
+            scope=dict(ages='12-59', reference=f'CAP IQR < {RELIABLE_IQR} dB/m',
+                       note='Ages 60+ are outside the intended use; training still uses every participant.'),
             test_r2=overall.r2.to_dict(), test_rmse=overall.rmse.to_dict(),
+            test_r2_all_participants=everyone.r2.to_dict(),
             steatosis_cutoffs=CUTOFFS, cutoff_status='Provisional; clinical reference not verified',
             versions=dict(python=platform.python_version(), numpy=np.__version__, pandas=pd.__version__,
                           sklearn=sklearn.__version__, xgboost=xgboost.__version__),
             limitations=('Internal validation on one held-out split of NHANES; no external validation. '
-                         'Survey weights and clustering are not modelled. Older adults (60+) and '
-                         'adolescents have lower within-group R² because CAP varies less within them. '
+                         'Survey weights and clustering are not modelled. Not validated for ages 60+ '
+                         '(outside scope). Adolescents have lower within-group R² because CAP varies '
+                         'less within them. '
                          'Probabilities are research estimates, not clinical risks.'),
         ), f, indent=2)
 

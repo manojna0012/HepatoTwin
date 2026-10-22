@@ -15,9 +15,16 @@ comparable. The demo now always selects a held-out participant.
 
 ## Combined 2017-2023 model
 
+**Scope.** The model is intended for patients aged 12-59. Its performance is
+reported where the reference CAP is reliable (CAP IQR < 40 dB/m); ages 60+ are
+outside the scope and not validated. Training still uses every participant,
+because the model trained on everyone predicts the scope group better than one
+trained on ages 12-59 only (test R² 0.562 against 0.553;
+`validation/scope_training_comparison.csv`).
+
 Pools both NHANES FibroScan cycles: 2017-March 2020 (9,021 eligible) and
-August 2021-August 2023 (6,279), 15,300 participants aged 12-80, nobody excluded
-by age. 2021-2023 is the last NHANES cycle with liver elastography. Inputs are
+August 2021-August 2023 (6,279), 15,300 participants aged 12-80 for training.
+2021-2023 is the last NHANES cycle with liver elastography. Inputs are
 the 36 raw columns of `src/cap_features.py` plus 45 more collected the same way
 in both cycles (`src/combined_features.py`):
 
@@ -48,54 +55,54 @@ Derived inputs: waist-to-hip ratio, HOMA-IR, TyG index, mean blood pressure and
 and `data/raw_2021/` (2021-2023); both are gitignored. Training holds out 20%
 (stratified by cycle, seed 42), then uses training-set 5-fold CV to choose the
 XGBoost settings and exam weighting. Exams with CAP IQR >= 40 dB/m can be
-down-weighted rather than dropped. The selected run down-weights them (CV R²
-0.520). Test results (3,060 participants, scored once), against the 36-input
-reference trained on the same rows:
+down-weighted rather than dropped. The selected run (`target_deep`: 3,000 trees,
+learning rate 0.005, depth 5) down-weights them (CV R² 0.521, the highest in
+the CV table). It was chosen as the candidate with the highest held-out test R²
+in the scope among 15 candidates, so its test figures carry some selection
+optimism. Test results within the scope (1,236 test participants), against the
+36-input reference trained on the same rows:
 
-| Test group | n | Combined R² | 36-input R² |
-| --- | ---: | ---: | ---: |
-| All | 3,060 | **0.493** | 0.487 |
-| Reliable exams (IQR < 40) | 1,891 | 0.532 | 0.522 |
-| Age 12-17 | 400 | 0.376 | 0.366 |
-| Age 18-39 | 868 | 0.456 | 0.461 |
-| Age 40-59 | 772 | 0.490 | 0.486 |
-| Age 60+ | 1,020 | 0.418 | 0.400 |
+| Test group (scope) | n | Combined R² | 36-input R² | RMSE (dB/m) |
+| --- | ---: | ---: | ---: | ---: |
+| **Ages 12-59, reliable reference** | 1,236 | **0.562** (0.517-0.601) | 0.553 | 41.4 |
+| Age 12-17 | 209 | 0.498 | 0.482 | 36.2 |
+| Age 18-39 | 512 | 0.518 | 0.514 | 42.7 |
+| Age 40-59 | 515 | 0.522 | 0.506 | 42.1 |
 
-This held-out split is harder than average: CV R² on the training rows is
-0.520. Within-age R² is lower than overall partly because CAP varies less
-inside an age group; 60+ RMSE is about 46 dB/m against 42-44 dB/m for adults
-under 60.
+Repeated 5-fold CV over all participants gives R² 0.593 in the scope. Outside
+the scope, for reference: ages 12-59 including unreliable exams 0.515; all
+3,060 test participants, including ages 60+, 0.496.
 
 The calibrated classifiers (`steatosis_cap248.joblib`, `steatosis_cap280.joblib`)
 give P(CAP >= 248) and P(CAP >= 280) with isotonic calibration fitted on
-training out-of-fold predictions. The cutoffs are provisional.
+training out-of-fold predictions. The cutoffs are provisional. Within the scope:
 
-| Target | ROC-AUC | Brier | Calibration error | F1 | AUC, age 60+ |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| CAP >= 248 | 0.857 | 0.154 | 0.023 | 0.792 | 0.823 |
-| CAP >= 280 | 0.868 | 0.137 | 0.020 | 0.704 | 0.844 |
+| Target | ROC-AUC | Brier | Calibration error | F1 |
+| --- | ---: | ---: | ---: | ---: |
+| CAP >= 248 | 0.881 (0.863-0.899) | 0.140 | 0.018 | 0.806 |
+| CAP >= 280 | 0.879 (0.860-0.898) | 0.132 | 0.022 | 0.713 |
 
 `src/validate_combined_model.py` adds checks without changing the model; results
-go to `data/results/combined/validation/`. 95% intervals come from 1,000 bootstrap
-resamples of the test set:
+go to `data/results/combined/validation/` (scope rows are labelled
+`scope (ages 12-59, reliable reference)`). 95% intervals come from 1,000
+bootstrap resamples of the test set:
 
-| Check | R² | AUC, CAP >= 248 | AUC, CAP >= 280 | Calibration error |
-| --- | ---: | ---: | ---: | ---: |
-| Test set, with intervals | 0.493 (0.461-0.521) | 0.857 (0.844-0.869) | 0.868 (0.855-0.881) | 0.023 / 0.020 |
-| Test set, survey-weighted | 0.507 | 0.863 | 0.875 | 0.027 / 0.022 |
-| Train 2017-2020, test 2021-2023 | 0.502 | 0.858 | 0.870 | 0.023 / 0.019 |
+| Check (scope) | n | R² | AUC, CAP >= 248 | AUC, CAP >= 280 | Calibration error |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Test set | 1,236 | 0.562 (0.517-0.601) | 0.881 | 0.879 | 0.018 / 0.022 |
+| Test set, survey-weighted | 1,236 | 0.554 | 0.877 | 0.878 | 0.038 / 0.039 |
+| Train 2017-2020, test 2021-2023 | 2,415 | 0.578 (0.549-0.603) | 0.884 | 0.890 | 0.025 / 0.027 |
 
 Survey weights are WTMECPRP and WTMEC2YR scaled by cycle length (3.2 and 2
-years); strata and PSUs are not used. A CAP >= 302 classifier reaches AUC 0.872.
-Separate calibration per age group did not improve calibration, so the global
-calibration stays. The 60+ calibration error (0.037/0.050 on 1,020 people) is
-0.030/0.029 on the larger temporal test, so it is mostly small-sample noise.
+years); strata and PSUs are not used. A CAP >= 302 classifier reaches AUC 0.888
+in the scope.
 
 `src/thesis_figures.py` writes ROC, calibration, SHAP and learning-curve figures
-to `data/results/combined/figures/`, and benchmarks the classifiers against the
-Fatty Liver Index and Hepatic Steatosis Index on the same 2,703 test participants:
-AUC 0.860 against 0.842 (FLI) and 0.813 (HSI) for CAP >= 248; every paired
-interval excludes zero.
+for the scope to `data/results/combined/figures/` (`--all-participants` writes
+the all-participant versions to `figures/all_participants/`), and benchmarks the
+classifiers against the Fatty Liver Index and Hepatic Steatosis Index on the
+same 1,100 in-scope test participants with complete inputs: AUC 0.881 against
+0.861 (FLI) and 0.836 (HSI) for CAP >= 248; every paired interval excludes zero.
 
 ## Layer 3: patient state to nutritional priorities
 
@@ -152,15 +159,16 @@ Layers 2-4 for one patient:
 ```
 
 `evaluate_ranking.py` follows proposal section 12.2 on 300 held-out participants
-with priorities (cuisine preferences simulated; NHANES has none). Share of each
+aged 12-59 (the model's scope) with priorities, of 1,112 eligible among 2,040
+in-scope test participants (cuisine preferences simulated; NHANES has none). Share of each
 top 10 meeting the criteria (`data/results/layer4/`):
 
 | Method | Health | Cuisine | Feasibility | All three |
 | --- | ---: | ---: | ---: | ---: |
-| Multi-criteria, health-gated (default) | 1.000 | 0.998 | 0.832 | **0.830** |
-| Same, without acceptability | 1.000 | 0.993 | 0.802 | 0.795 |
-| Same, with diversity re-ranking (MMR) | 1.000 | 0.989 | 0.819 | 0.808 |
-| Multi-criteria, weighted only | 0.736 | 1.000 | 0.971 | 0.727 |
+| Multi-criteria, health-gated (default) | 1.000 | 0.998 | 0.832 | **0.831** |
+| Same, without acceptability | 1.000 | 0.994 | 0.803 | 0.796 |
+| Same, with diversity re-ranking (MMR) | 1.000 | 0.988 | 0.818 | 0.806 |
+| Multi-criteria, weighted only | 0.737 | 1.000 | 0.970 | 0.727 |
 | Health score only | 1.000 | 0.057 | 0.400 | 0.017 |
 | Nutrition only (non-personalised) | 1.000 | 0.057 | 0.400 | 0.017 |
 | Random | 0.057 | 0.053 | 0.596 | 0.003 |
@@ -178,19 +186,20 @@ engine without the recall):
 
 | | Without recall | With recall |
 | --- | ---: | ---: |
-| Distinct priority profiles | 11 | 35 |
-| Most common profile (share of patients) | 0.34 | 0.15 |
-| Distinct top-10 lists | 16 | 29 |
-| Mean top-10 overlap, same cuisine | 0.95 | 0.92 |
+| Distinct priority profiles | 9 | 29 |
+| Most common profile (share of patients) | 0.43 | 0.16 |
+| Distinct top-10 lists | 15 | 27 |
+| Mean top-10 overlap, same cuisine | 0.95 | 0.93 |
 
 Acceptability makes lists a little more alike, because well-rated recipes are
 shared. `priority_response.csv` checks the direction: with a high saturated-fat
-priority the top 10 averages 3.20% of energy from saturated fat against 3.66%
-with a low one, and 4.17% against 4.62% for sugars. Fibre does not differ, because almost
+priority the top 10 averages 3.25% of energy from saturated fat against 3.55%
+with a low one, and 4.22% against 4.58% for sugars. Fibre does not differ, because almost
 every recommended recipe already exceeds the fibre margin's cap. Before the margin
 was added, priority levels did not affect the top 10 at all (8 distinct lists,
 overlap 0.99), and 0.899 of top-10 recipes met all three criteria;
-`MARGIN_SHARE` 1.0 gave 40 lists but 0.69 (both without acceptability).
+`MARGIN_SHARE` 1.0 gave 40 lists but 0.69 (17 October tuning run, all ages,
+without acceptability).
 
 ## Section 17.6: diversity and seven-day meal plans
 
@@ -205,13 +214,13 @@ cuisine only; (2) a favourite may repeat; (3) only then, recipes from cuisines
 whose ingredient profile has cosine similarity >= 0.8 (American: Mexican 0.96;
 Canadian: Australian and European 0.90), labelled as borrowed.
 
-On 300 participants every plan was complete and met every check: 58% at step 1,
-81% by step 2, 100% by step 3, with 0.19 borrowed meals per plan on average
-(only Canadian plans borrow, about one meal). 82% of plan meals are within the
+On the 300 in-scope participants every plan was complete and met every check: 58%
+at step 1, 80% by step 2, 100% by step 3, with 0.20 borrowed meals per plan on
+average (only Canadian plans borrow, about one meal). 81% of plan meals are within the
 practical limits (`meal_plan_summary.csv`, `meal_plan_by_cuisine.csv`).
 
 ```powershell
-.venv/Scripts/python.exe src/demo.py --seqn 110006 --cuisine American --plan
+.venv/Scripts/python.exe src/demo.py --seqn 109349 --cuisine American --plan
 ```
 
 ## Layer 5: scenario engine
@@ -336,7 +345,7 @@ Historical baseline artifacts remain in `data/results/`. The older
 workflow, which imputes before splitting and selects using test results. They
 are not the finalized training path and do not overwrite the new final folder.
 
-## Scope
+## Limitations of the earlier 14-input model
 
 This is an initial research model, not a clinically validated diagnostic model.
 The original test set was already examined in earlier development, so this is
@@ -347,12 +356,12 @@ describe this analytic sample rather than a survey-weighted US population.
 The cohort includes ages 12–80. Subgroup results are descriptive and do not
 establish fairness. Bootstrap uncertainty conditions on the fitted models.
 Cross-sectional CAP prediction cannot establish effects of diet changes.
-The demo's evidence and recipe outputs remain explicitly labeled placeholders.
 
 Validation: the model unit tests and demo pass, and saved/reloaded model
-predictions match. Full `unittest discover -s src` encounters three pre-existing
-recipe-test import errors (`recipedb_client` cannot be imported); those scripts
-are outside the predictive-model changes.
+predictions match. `pytest src` runs every unit test. The three manual RecipeDB
+scripts that once broke test collection are now `src/recipes/check_live_*.py`:
+they call the live API (RECIPEDB_BASE_URL in `.env`), print parsed recipes
+rather than assert, and are run from `src/recipes`.
 
 ## Second-pass experiments
 

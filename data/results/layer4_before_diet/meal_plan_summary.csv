@@ -7,10 +7,10 @@ varied_protein,1.0
 within_cuisines,1.0
 all_constraints,1.0
 complete_step1,0.5833333333333334
-complete_by_step2,0.81
+complete_by_step2,0.8033333333333333
 complete_by_step3,1.0
 repeated_recipes,1.0333333333333334
-borrowed_meals,0.19
+borrowed_meals,0.19666666666666666
 meals,14.0
 protein_families,5.836666666666667
-feasible_meals,0.8147619047619048
+feasible_meals,0.8138095238095239

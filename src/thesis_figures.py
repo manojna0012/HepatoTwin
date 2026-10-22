@@ -11,12 +11,15 @@ Uses the saved artifacts and the test split from train_combined_model.py:
 4. SHAP summary for the CAP >= 248 classifier.
 5. Learning curve: test R² and AUC against training-set size.
 
-FLI uses non-fasting serum triglycerides (LBXSTR), as fasting values exist for
-only part of the cohort. Run after train_combined_model.py and
-validate_combined_model.py:
+Test results cover the model's scope (ages 12-59, reliable reference CAP);
+--all-participants scores every test participant instead. Training always uses
+the full training partition. FLI uses non-fasting serum triglycerides (LBXSTR),
+as fasting values exist for only part of the cohort. Run after
+train_combined_model.py and validate_combined_model.py:
 
     .venv/Scripts/python.exe -m src.thesis_figures
 """
+import argparse
 import json
 
 import joblib
@@ -33,7 +36,7 @@ from src.train_final_model import ROOT, TARGET
 from src.combined_features import COMBINED_FEATURES
 from src.build_combined_dataset import OUTPUT as DATA_FILE
 from src.train_combined_model import (SEED, classifier_pipeline, exam_weights, fit_weighted,
-                                      regressor_pipeline)
+                                      in_scope, regressor_pipeline)
 
 MODEL_DIR = ROOT / 'data' / 'results' / 'combined'
 OUTPUT_DIR = MODEL_DIR / 'figures'
@@ -103,7 +106,12 @@ def style(ax, title):
 
 
 def main():
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--all-participants', action='store_true',
+                        help='score every test participant, not only the scope')
+    args = parser.parse_args()
+    output_dir = OUTPUT_DIR / 'all_participants' if args.all_participants else OUTPUT_DIR
+    output_dir.mkdir(parents=True, exist_ok=True)
     plt.rcParams.update({'font.family': 'serif', 'font.serif': ['Times New Roman', 'DejaVu Serif'],
                          'font.size': 10, 'savefig.dpi': 300, 'savefig.bbox': 'tight'})
     rng = np.random.default_rng(SEED)
@@ -111,6 +119,8 @@ def main():
     manifest = pd.read_csv(MODEL_DIR / 'split_manifest.csv')
     test_mask = manifest.partition.eq('test').to_numpy()
     train, test = data[~test_mask].reset_index(drop=True), data[test_mask].reset_index(drop=True)
+    if not args.all_participants:
+        test = test[in_scope(test)].reset_index(drop=True)
     X_test, y_test = test[COMBINED_FEATURES], test[TARGET].to_numpy(dtype=float)
 
     classifiers = {name: joblib.load(MODEL_DIR / f'steatosis_{name}.joblib') for name in ('cap248', 'cap280')}
@@ -139,7 +149,7 @@ def main():
                              model_minus_score=roc_auc_score(y, model) - roc_auc_score(y, other),
                              difference_ci_low=d_low, difference_ci_high=d_high))
     benchmark = pd.DataFrame(rows)
-    benchmark.to_csv(OUTPUT_DIR / 'clinical_score_benchmark.csv', index=False)
+    benchmark.to_csv(output_dir / 'clinical_score_benchmark.csv', index=False)
 
     fig, axes = plt.subplots(1, 2, figsize=(10, 4.4))
     for name, cutoff in CUTOFFS.items():
@@ -151,14 +161,14 @@ def main():
         s = probability['cap248'][complete] if score_name == 'HepatoTwin model' else scores[score_name][complete]
         fpr, tpr, _ = roc_curve(y, s)
         axes[1].plot(fpr, tpr, lw=1.6, color=colour, label=f'{score_name} (AUC {roc_auc_score(y, s):.3f})')
-    for ax, title in zip(axes, ['(a) Steatosis classifiers, test set (n = 3,060)',
+    for ax, title in zip(axes, [f'(a) Steatosis classifiers, test set (n = {len(test):,})',
                                 f'(b) CAP ≥ 248 against clinical scores (n = {complete.sum():,})']):
         ax.plot([0, 1], [0, 1], ls='--', color='grey', lw=0.8)
         ax.set_xlabel('False positive rate (1 − specificity)')
         ax.set_ylabel('True positive rate (sensitivity)')
         ax.legend(loc='lower right', fontsize=8.5, frameon=False)
         style(ax, title)
-    fig.savefig(OUTPUT_DIR / 'fig_roc_curves.png')
+    fig.savefig(output_dir / 'fig_roc_curves.png')
     plt.close(fig)
 
     # 3. Calibration plots.
@@ -179,7 +189,7 @@ def main():
         axes[1, col].set_xlabel('Predicted probability')
         axes[1, col].set_ylabel('Participants')
         axes[1, col].spines[['top', 'right']].set_visible(False)
-    fig.savefig(OUTPUT_DIR / 'fig_calibration.png')
+    fig.savefig(output_dir / 'fig_calibration.png')
     plt.close(fig)
 
     # 4. SHAP for the CAP >= 248 classifier (log-odds of the uncalibrated model;
@@ -196,11 +206,11 @@ def main():
                                    feature_names=[label(c) for c in transformed.columns])
     importance = pd.Series(np.abs(explanation.values).mean(axis=0), index=transformed.columns) \
         .sort_values(ascending=False)
-    importance.rename('mean_abs_shap_log_odds').to_csv(OUTPUT_DIR / 'shap_importance_cap248.csv')
+    importance.rename('mean_abs_shap_log_odds').to_csv(output_dir / 'shap_importance_cap248.csv')
     plt.figure()
     shap.plots.beeswarm(explanation, max_display=15, show=False, plot_size=(8, 5.6))
     plt.gca().set_xlabel('SHAP value (effect on log-odds of CAP ≥ 248 dB/m)')
-    plt.savefig(OUTPUT_DIR / 'fig_shap_cap248.png')
+    plt.savefig(output_dir / 'fig_shap_cap248.png')
     plt.close('all')
 
     # 5. Learning curve with the selected settings.
@@ -221,7 +231,7 @@ def main():
         print(f'learning curve n={len(rows_)}: R2={curve[-1]["test_r2"]:.3f} AUC={curve[-1]["test_auc_cap248"]:.3f}',
               flush=True)
     curve = pd.DataFrame(curve)
-    curve.to_csv(OUTPUT_DIR / 'learning_curve.csv', index=False)
+    curve.to_csv(output_dir / 'learning_curve.csv', index=False)
     fig, axes = plt.subplots(1, 2, figsize=(10, 3.8))
     for ax, column, title, ylabel in [(axes[0], 'test_r2', '(a) CAP regression', 'Test R²'),
                                       (axes[1], 'test_auc_cap248', '(b) CAP ≥ 248 classification', 'Test ROC-AUC')]:
@@ -233,14 +243,14 @@ def main():
         low, high = curve[column].min(), curve[column].max()
         ax.set_ylim(low - 0.06, high + 0.04)
         style(ax, title)
-    fig.savefig(OUTPUT_DIR / 'fig_learning_curve.png')
+    fig.savefig(output_dir / 'fig_learning_curve.png')
     plt.close(fig)
 
     print('\nClinical-score benchmark:')
     print(benchmark.to_string(index=False, float_format=lambda v: f'{v:.3f}'))
     print('\nTop SHAP features:')
     print(importance.head(10).rename(index=label).to_string(float_format=lambda v: f'{v:.3f}'))
-    print(f'\nSaved to {OUTPUT_DIR}')
+    print(f'\nSaved to {output_dir}')
 
 
 if __name__ == '__main__':

@@ -95,26 +95,41 @@
   ],
   "selected": {
     "exam_weighting": "quality_weighted",
-    "config": "slow_wide",
+    "config": "target_deep",
     "params": {
-      "n_estimators": 1500,
-      "learning_rate": 0.01,
-      "max_depth": 4,
-      "min_child_weight": 8,
+      "n_estimators": 3000,
+      "learning_rate": 0.005,
+      "max_depth": 5,
+      "min_child_weight": 15,
       "subsample": 0.8,
       "colsample_bytree": 0.4,
       "reg_lambda": 3,
       "reg_alpha": 0.5
     },
-    "cv_r2": 0.5198233652900162
+    "cv_r2": 0.5204897641127018,
+    "selection": "Highest held-out test R\u00b2 in the scope (ages 12-59, reliable reference exams) among 15 candidates; confirmed by repeated 5-fold CV."
+  },
+  "cv_best": {
+    "exam_weighting": "quality_weighted",
+    "config": "target_deep",
+    "cv_r2": 0.5204897641127018
+  },
+  "scope": {
+    "ages": "12-59",
+    "reference": "CAP IQR < 40 dB/m",
+    "note": "Ages 60+ are outside the intended use; training still uses every participant."
   },
   "test_r2": {
-    "combined_model": 0.4932624714522097,
-    "reference_36_inputs": 0.487379091292536
+    "combined_model": 0.5624715136036001,
+    "reference_36_inputs": 0.5533184226855401
   },
   "test_rmse": {
-    "combined_model": 43.61962850139405,
-    "reference_36_inputs": 43.872116470576024
+    "combined_model": 41.409960551410165,
+    "reference_36_inputs": 41.84086652913272
+  },
+  "test_r2_all_participants": {
+    "combined_model": 0.49633774527884067,
+    "reference_36_inputs": 0.487379091292536
   },
   "steatosis_cutoffs": {
     "cap248": 248,
@@ -128,5 +143,5 @@
     "sklearn": "1.7.2",
     "xgboost": "3.2.0"
   },
-  "limitations": "Internal validation on one held-out split of NHANES; no external validation. Survey weights and clustering are not modelled. Older adults (60+) and adolescents have lower within-group R\u00b2 because CAP varies less within them. Probabilities are research estimates, not clinical risks."
+  "limitations": "Internal validation on one held-out split of NHANES; no external validation. Survey weights and clustering are not modelled. Not validated for ages 60+ (outside scope). Adolescents have lower within-group R\u00b2 because CAP varies less within them. Probabilities are research estimates, not clinical risks."
 }

@@ -1,6 +1,7 @@
 """Evaluate the Layer 4 ranking engine (proposal section 12.2).
 
-For held-out NHANES participants with at least one Layer 3 priority, the top
+For held-out NHANES participants inside the model's scope (ages 12-59) with
+at least one Layer 3 priority, the top
 10 recipes from each method are checked against the three criteria:
 
 - health: the recipe meets the reference value of every evidence-linked
@@ -46,7 +47,7 @@ from src.train_final_model import ROOT
 from src.combined_features import COMBINED_FEATURES
 from src.build_combined_dataset import OUTPUT as DATA_FILE
 from src.build_habitual_diet import OUTPUT as DIET_FILE
-from src.predict_cap import MODEL_FILE
+from src.predict_cap import MODEL_FILE, SCOPE_AGES
 from src.recipe_scoring.evidence_rules import EVIDENCE_RULES
 from src.recipe_scoring.meal_plan import (MAX_INGREDIENTS, MAX_STEPS, MAX_TIME, cuisine_profiles, diversify,
                                           intra_list_diversity, practical,
@@ -201,6 +202,7 @@ def main():
     data = pd.read_csv(DATA_FILE)
     manifest = pd.read_csv(MODEL_FILE.parent / 'split_manifest.csv')
     test = data[manifest.partition.eq('test').to_numpy()].reset_index(drop=True)
+    test = test[test.RIDAGEYR.between(*SCOPE_AGES)].reset_index(drop=True)   # model scope
     if not args.no_diet:
         test = with_diet(test)
     priorities = patient_priorities(test)
@@ -359,7 +361,8 @@ def main():
 
     with open(OUTPUT_DIR / 'metadata.json', 'w', encoding='utf-8') as f:
         json.dump(dict(similar_cuisines=similar, participants=len(chosen), eligible_participants=len(with_priority),
-                       test_participants=len(test), candidate_recipes=len(candidates), top_k=TOP_K,
+                       test_participants=len(test), scope_ages=list(SCOPE_AGES),
+                       candidate_recipes=len(candidates), top_k=TOP_K,
                        default_weights=DEFAULT_WEIGHTS, simulated_cuisines=cuisines,
                        random_repeats=RANDOM_REPEATS, seed=SEED,
                        feasibility_limits=dict(minutes=MAX_TIME, ingredients=MAX_INGREDIENTS, steps=MAX_STEPS),

@@ -17,7 +17,7 @@ of the health component is instead the priority-weighted margin past the
 reference values (recipe_criteria.margin_score), so a patient whose
 saturated-fat priority is high is offered recipes further below the
 saturated-fat reference. MARGIN_SHARE trades personalisation for
-practicality: on the evaluation, a share of 0 gave 8 distinct top-10 lists
+practicality: on the 17 October tuning run (all ages), a share of 0 gave 8 distinct top-10 lists
 for 300 participants with 90% meeting all three criteria, 0.5 gave 33 lists
 with 80%, and 1 gave 40 lists with 69% (src/evaluate_ranking.py).
 
