@@ -1,0 +1,574 @@
+\chapter{Literature Review}
+\label{chap:literature}
+
+This chapter reviews the work on which HepatoTwin builds and the gaps it
+addresses. It follows the structure of the system: the clinical problem and
+the evidence for dietary treatment (Section~\ref{sec:lit_masld}); how liver fat
+is measured without biopsy (Section~\ref{sec:lit_measurement}); machine-learning
+models that estimate steatosis from routine data, and the limits on how well
+they can do so (Section~\ref{sec:lit_ml}); how diet is measured and
+personalised (Section~\ref{sec:lit_diet}); digital twins in health and
+nutrition (Section~\ref{sec:lit_twins}); computational gastronomy and food
+recommendation (Section~\ref{sec:lit_food}); and how a twin can be evaluated
+when no longitudinal data are available (Section~\ref{sec:lit_insilico}).
+Section~\ref{sec:lit_gap} summarises the gap.
+
+% ======================================================================
+\section{MASLD and Its Dietary Management}
+\label{sec:lit_masld}
+
+\subsection{Definition and burden}
+
+Metabolic dysfunction-associated steatotic liver disease (MASLD) is defined as
+hepatic steatosis together with at least one of five cardiometabolic risk
+factors, in the absence of another cause \cite{rinella2023nomenclature}. The
+2023 multi-society nomenclature replaced non-alcoholic fatty liver disease
+(NAFLD), removed the reliance on exclusion and stigmatising terms, and
+introduced MetALD for patients with MASLD who also drink moderate amounts of
+alcohol. A meta-analysis of studies using imaging to diagnose NAFLD estimated
+a global adult prevalence of 30.05\%, rising from 25.26\% in 1990--2006 to
+38.00\% in 2016--2019 \cite{younossi2023global}; a second meta-analysis
+reached a similar overall estimate \cite{riazi2022prevalence}. Most patients
+have simple steatosis, but a minority progress to steatohepatitis, fibrosis
+and cirrhosis, and the disease is closely associated with type~2 diabetes and
+cardiovascular risk \cite{easl2024masld,rinella2023aasld}.
+
+\subsection{Evidence for lifestyle and dietary treatment}
+
+Both the European (EASL-EASD-EASO) and American (AASLD) guidelines name
+lifestyle change as the first-line treatment for most patients
+\cite{easl2024masld,rinella2023aasld}. The strongest evidence concerns weight
+loss. In a prospective study of 293 patients with paired liver biopsies,
+weight loss through lifestyle change produced dose-dependent histological
+improvement: losses of 5\% or more improved steatosis and inflammation, and
+losses of 10\% or more resolved steatohepatitis in 90\% of patients and led to
+fibrosis regression in 45\% \cite{vilargomez2015weight}. A meta-analysis of 22
+randomised trials with 2{,}588 participants found that weight-loss
+interventions lowered ALT by 9.81~U/L and improved liver fat and histological
+activity, but found no significant change in fibrosis
+\cite{koutoukidis2019weightloss}. The thresholds of 5\%, 7--10\% and 10\%
+weight loss are now written into the European guideline \cite{easl2024masld}.
+Liver fat also responds quickly: in people with type~2 diabetes on an
+800~kcal per day diet, hepatic triglyceride fell from 12.8\% to 2.9\% over eight
+weeks, and had already fallen by 30\% after the first week
+\cite{lim2011reversal}.
+
+The evidence for specific dietary components is more mixed, and this
+variation matters for any system that turns evidence into advice. A 2026
+meta-analysis of randomised trials, which graded the certainty of each finding
+with GRADE, found that a Mediterranean-style diet reduced MRI-PDFF by 1.37
+percentage points and improved liver stiffness, while omega-3 supplementation
+and low-carbohydrate high-fat diets did not change ALT \cite{stern2026dietary}.
+Dietary interventions including calorie restriction improved liver enzymes,
+steatosis and stiffness in another meta-analysis
+\cite{haigh2022mediterranean}. Yet a meta-analysis of ten trials found that
+the Mediterranean diet reduced AST and GGT but not ALT
+\cite{sangouni2022mediterranean}, and it was no better than a low-fat diet in
+the short term \cite{xiong2024mediterranean}.
+
+Feeding trials show that the type of surplus energy matters. When 38
+overweight adults were overfed by 1{,}000~kcal per day for three weeks, liver
+fat rose by 55\% with saturated fat, 33\% with simple sugars and 15\% with
+unsaturated fat \cite{luukkonen2018saturated}. A meta-analysis of 13 trials
+with 260 participants found that fructose raised liver fat and ALT when it
+added surplus energy, but had no effect when it replaced other carbohydrate in
+the same amount of energy \cite{chiu2014fructose}. Exercise also reduces liver
+fat: in a meta-analysis of trials measuring liver fat by MRI, exercise was
+associated with a relative reduction of 30\% or more, the threshold that
+predicts histological response, even without clinically significant weight loss
+\cite{stine2023exercise}.
+
+Two lessons follow. First, the evidence is graded: biopsy-based dose--response
+data for weight loss are stronger than meta-analyses of liver enzymes, and null
+findings sit alongside positive ones. A system that recommends food should
+therefore carry the strength of the evidence with each recommendation, rather
+than treating all claims as equal. Second, the evidence is expressed in terms
+of energy, weight change, nutrients and dietary patterns, never single recipes;
+any mapping from evidence to a recipe is an inference that must be made
+explicit.
+
+% ======================================================================
+\section{Non-Invasive Assessment of Liver Fat}
+\label{sec:lit_measurement}
+
+Liver biopsy is the reference standard for grading steatosis and fibrosis but
+is invasive and impractical for screening. Magnetic resonance imaging
+proton-density fat fraction (MRI-PDFF) and proton spectroscopy
+($^1$H-MRS) measure liver fat accurately but are costly. Vibration-controlled
+transient elastography (FibroScan) is cheaper and widely used: its controlled
+attenuation parameter (CAP), reported from 100 to 400~dB/m, grades steatosis,
+with cut-offs of 248, 268 and 280~dB/m for grades S1, S2 and S3 derived from an
+individual patient data meta-analysis \cite{karlas2017cap}.
+
+CAP is, however, an imperfect measure of liver fat. A review of the technique
+reports that agreement between two operators examining the same patient has a
+concordance correlation of 0.82, falling to 0.65 in patients with BMI of
+30~kg/m$^2$ or more and to 0.44 when CAP is below 240~dB/m
+\cite{ferraioli2021cap}. The same review notes that CAP accuracy falls when the
+interquartile range (IQR) of the ten acquisitions exceeds 40~dB/m, which is
+why that limit is used as a quality criterion. In adults with NAFLD, CAP
+correlated with MRI-PDFF at $r = 0.66$, falling to $r = 0.37$ for changes over
+time \cite{ahn2018cap}. Part of every CAP reading is therefore measurement
+variation, and the variation is largest in exactly the people who are hardest
+to examine. This limits how closely any model can predict CAP
+(Section~\ref{sec:lit_ml_bounds}).
+
+Simple clinical scores offer a cheaper alternative. The Fatty Liver Index
+(FLI) combines BMI, waist circumference, triglycerides and GGT
+\cite{bedogni2006fli}; the Hepatic Steatosis Index (HSI) combines the ALT/AST
+ratio, BMI, sex and diabetes \cite{lee2010hsi}; and the NAFLD liver fat score
+combines metabolic syndrome, type~2 diabetes, fasting insulin, AST and the
+AST/ALT ratio, reaching an AUC of 0.86--0.87 against spectroscopy, with genetic
+information adding less than 1\% \cite{kotronen2009prediction}. These scores are
+the natural baselines for any new steatosis model.
+
+% ======================================================================
+\section{Machine-Learning Prediction of Steatosis and Liver Fat}
+\label{sec:lit_ml}
+
+\subsection{Classification of steatosis in NHANES}
+
+The US National Health and Nutrition Examination Survey (NHANES) added
+FibroScan to its 2017--March 2020 cycle, and several studies have since
+trained classifiers to detect CAP-defined steatosis from routine data
+(Table~\ref{tab:lit_nhanes}). Gradient-boosted trees, usually XGBoost
+\cite{chen2016xgboost}, perform best or near best in most of them, and the
+strongest predictors are consistently body-size measures (waist circumference
+and BMI), followed by liver enzymes, glucose and insulin markers, and
+triglycerides. Model explanations, typically SHAP values
+\cite{lundberg2017shap}, are widely reported.
+
+Du et al.\ used 6{,}814 participants and found logistic regression, XGBoost
+and LightGBM comparable (AUC 0.815--0.842), so that the added complexity of
+boosting bought little \cite{du2026masld}. Liu et al.\ compared models on an
+automated machine-learning platform in 4{,}177 participants; XGBoost reached an
+AUC of 0.859, and the authors imputed missing values by multiple imputation and
+reported calibration curves and decision-curve analysis
+\cite{liu2024automl}. Zhang et al.\ reported an AUC of 0.874 on 2{,}460
+complete cases \cite{zhang2025masld}. Boullion et al.\ identified biomarkers of
+steatosis and stiffness; propensity matching on age and sex required complete
+data and reduced the steatosis sample to 2{,}714, so their models were trained
+on the larger unmatched data, where random forests reached 79.6\% accuracy
+\cite{boullion2025biomarker}. Zhu et al.\ trained a three-grade model on
+215{,}145 non-obese Chinese adults, reaching a macro-average AUC of 0.941
+internally and 0.874 in 726 non-Hispanic Asian NHANES participants with
+complete data \cite{zhu2026nonobese}; this is one of the few studies with
+external validation, and it shows the usual fall in performance when a model
+moves to a new population.
+
+\begin{table}[htbp]
+    \centering
+    \small
+    \caption{Machine-learning classifiers of CAP-defined steatosis using NHANES.}
+    \label{tab:lit_nhanes}
+    \begin{tabular}{p{3.0cm}p{3.6cm}p{2.6cm}p{2.4cm}p{2.6cm}}
+        \hline
+        Study & Population & Outcome & Best model & Performance \\
+        \hline
+        Du et al.\ (2026) \cite{du2026masld} & 6{,}814 adults, 2017--2020 & MASLD, CAP $\geq$ 280 & LR, XGBoost, LightGBM & AUC 0.815--0.842 \\
+        Liu et al.\ (2024) \cite{liu2024automl} & 4{,}177, fasting subsample; imputed & CAP $\geq$ 302 & XGBoost (AutoML) & AUC 0.859; calibration curve \\
+        Zhang et al.\ (2025) \cite{zhang2025masld} & 2{,}460 complete cases & CAP-defined MASLD & XGBoost & AUC 0.874 \\
+        Boullion et al.\ (2025) \cite{boullion2025biomarker} & Unmatched sample (matched subset 2{,}714) & CAP $\geq$ 238 & Random forest & Accuracy 79.6\% \\
+        Zhu et al.\ (2026) \cite{zhu2026nonobese} & 215{,}145 non-obese Chinese adults; 726 NHANES Asians & CAP grades (S0, S1, S2--S3) & XGBoost & Macro AUC 0.941 internal; 0.874 external \\
+        \hline
+    \end{tabular}
+\end{table}
+
+Three limitations recur. Most studies use only the 2017--2020 cycle, and most
+discard participants with any missing value. Calibration is reported only
+occasionally \cite{liu2024automl}, although a risk model whose output will be
+shown to patients must produce probabilities that mean what they say;
+isotonic regression is a standard way to obtain them from tree ensembles
+\cite{zadrozny2002calibration}. And all are single snapshots, used to classify
+a participant once rather than to track or support them over time.
+
+\subsection{Prediction of liver fat as a continuous value}
+
+Fewer studies predict the amount of liver fat, and their results are more
+sobering (Table~\ref{tab:lit_regression}). In 28{,}796 UK Biobank adults, the
+Fatty Liver Index explained 28\% of the variance in MRI-PDFF (33--37\% across
+cross-validation folds); an extended
+model with twelve variables (FLI+) explained 54\% on average across four
+cross-validation folds (0.520--0.557) \cite{asaturyan2022fli}. A UK Biobank
+preprint reported $R^2$ of 0.37 from anthropometric and blood measures in
+40{,}533 participants with MRI-PDFF and 0.34 from plasma metabolites in 9{,}723,
+against 0.63--0.64 from DXA body-composition images analysed by a
+convolutional network \cite{insitro2024ukb}. Haas et al., also in UK Biobank, found that BMI
+correlated with MRI liver fat at $r = 0.42$ and that adding 24 clinical
+factors and biomarkers raised the correlation only to $r = 0.58$
+($R^2 \approx 0.34$), concluding that liver fat cannot be reliably estimated
+from clinical factors \cite{haas2021liverfat}. In Finnish adults measured by
+spectroscopy, liver enzymes alone explained 15--25\% of the variance; an
+equation including a specialist marker (phosphorylated IGFBP-1) reached an
+adjusted $R^2$ of 0.49 in validation and an AUROC of 0.84 for NAFLD, against
+0.72 for FLI and 0.62 for HSI \cite{petaja2016igfbp}. Higher values come from
+small, selected samples: in 272 patients of a Chinese obesity clinic, a
+four-variable equation predicted CAP with $R^2 = 0.76$ in derivation and
+$0.65$ in validation \cite{liu2022surrogate}, and a four-variable index
+correlated with MRI-PDFF at $\rho = 0.74$ in 149 overweight or obese adults,
+validated only by bootstrap resampling \cite{chen2023shsi}. No study reporting
+$R^2$ for CAP in NHANES was found.
+
+\begin{table}[htbp]
+    \centering
+    \small
+    \caption{Prediction of liver fat as a continuous value.}
+    \label{tab:lit_regression}
+    \begin{tabular}{p{3.3cm}p{3.1cm}p{2.0cm}p{3.8cm}p{2.3cm}}
+        \hline
+        Study & Population & Reference & Inputs & $R^2$ \\
+        \hline
+        UK Biobank preprint (2024) \cite{insitro2024ukb} & 40{,}533; 9{,}723; about 46{,}000 UK adults & MRI-PDFF & Body and blood measures; metabolites; DXA images & 0.37; 0.34; 0.63--0.64 \\
+        Asaturyan et al.\ (2022) \cite{asaturyan2022fli} & 28{,}796 UK adults & MRI-PDFF & FLI; FLI with 12 variables (FLI+) & 0.28--0.36; 0.54 (4-fold mean) \\
+        Haas et al.\ (2021) \cite{haas2021liverfat} & UK adults, 1{,}214 test & MRI & BMI; BMI with 24 clinical factors & $r$ 0.42; $r$ 0.58 \\
+        Pet{\"a}j{\"a} et al.\ (2016) \cite{petaja2016igfbp} & 378 Finnish adults & $^1$H-MRS & Enzymes only; equation with phosphorylated IGFBP-1 & 0.15--0.25; 0.49 (adjusted) \\
+        Liu et al.\ (2022) \cite{liu2022surrogate} & 272, obesity clinic & CAP & BMI, neck circumference, TG, C-peptide & 0.76 / 0.65 \\
+        Chen et al.\ (2023) \cite{chen2023shsi} & 149, overweight or obese & MRI-PDFF & ALT, AST, insulin, 1-h glucose & $\rho = 0.74$ \\
+        Kotronen et al.\ (2009) \cite{kotronen2009prediction} & 470 Finnish adults & $^1$H-MRS & Metabolic and liver markers & Not reported \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Why prediction from routine data is bounded}
+\label{sec:lit_ml_bounds}
+
+Two findings explain why continuous liver fat is hard to predict from routine
+measurements. First, liver fat is strongly heritable: in a prospective study
+of monozygotic and dizygotic twins using MRI-PDFF, the heritability of
+steatosis was 0.52 after adjustment for age, sex and ethnicity
+\cite{loomba2015heritability}, and in UK Biobank measured genetic variants
+together explained up to 30\% of the variance in liver fat
+\cite{haas2021liverfat}. Variants such as those in PNPLA3 change liver fat at
+the same body size, and routine clinical data contain none of this
+information. Second, the reference measurement itself is noisy
+(Section~\ref{sec:lit_measurement}): a model can explain no more of the
+variation in a single CAP reading than the reading shares with the patient's
+true liver state. Together, these findings imply that a model built on routine
+data should reach a moderate $R^2$ for liver fat, between about 0.3 and 0.55
+in the large studies above, and good discrimination of steatosis, which is the
+pattern seen in Tables~\ref{tab:lit_nhanes} and~\ref{tab:lit_regression}. For
+a digital twin, the implication is that a calibrated probability of steatosis
+is a more defensible state variable than a single predicted CAP value.
+
+% ======================================================================
+\section{Dietary Assessment and Personalised Nutrition}
+\label{sec:lit_diet}
+
+Personalising dietary advice requires knowing what a person usually eats.
+NHANES collects one or two 24-hour dietary recalls per participant. A single
+recall describes the average intake of a group well, but an individual's
+usual intake poorly, because intake varies from day to day. Statistical
+methods developed at the US National Cancer Institute estimate usual intake
+from two or more recalls by separating within-person from between-person
+variation \cite{dodd2006usual}. For foods that are not eaten every day, the
+NCI method uses a two-part model that separates the probability of eating a
+food on a given day from the amount eaten on days it is eaten, allows the two
+parts to be correlated, and can add covariates such as age, sex or a food
+frequency questionnaire; in simulation it estimated the distribution of usual
+intake substantially better than earlier methods \cite{tooze2006usual}.
+Self-reported intake is also biased: in the OPEN study, comparison with
+recovery biomarkers showed substantial under-reporting, particularly of energy
+\cite{subar2003open}. Diet quality can be summarised with the Healthy Eating
+Index-2020, a 0--100 score of 13 components aligned with the 2020--2025 Dietary
+Guidelines for Americans; its components are unchanged from HEI-2015 for ages
+2 and over, and a separate index was introduced for toddlers
+\cite{shamswhite2023hei}. Computing it requires food-group data from the USDA
+Food Patterns Equivalents Database.
+
+Personalisation is motivated by individual variation in response. Zeevi et
+al.\ showed in 800 people that post-meal glucose responses to identical meals
+differ widely and can be predicted from personal data, and that diets
+personalised on these predictions lowered post-meal glucose
+\cite{zeevi2015personalized}. For a liver twin, these findings suggest two
+requirements: dietary inputs should represent usual rather than single-day
+intake, and the system should become more personal as more of the patient's
+own data arrive.
+
+% ======================================================================
+\section{Digital Twins in Health and Nutrition}
+\label{sec:lit_twins}
+
+\subsection{Definitions and requirements}
+
+The US National Academies define a digital twin as a set of virtual
+information constructs that mimics the structure, context and behaviour of a
+physical system, is dynamically updated with data from it, has a predictive
+capability and informs decisions; the bidirectional flow between the virtual
+and physical system is central, and credibility rests on verification,
+validation and uncertainty quantification (VVUQ) \cite{nasem2024digitaltwins}.
+A scoping review of health twins frames them as a physical entity, its virtual
+representation and the connection between them, and found that the term is
+used for systems ranging from static models to fully coupled ones
+\cite{katsoulakis2024digital}. A perspective on medical twins describes them as
+most advanced in cardiology and oncology, and names data integration,
+validation and privacy as the main obstacles \cite{laubenbacher2024medicine}.
+
+Two architectural proposals are relevant to a modular twin. Nitschke et al.\
+propose a general patient twin built on a bipartite knowledge graph that links
+patient attributes to existing predictive models; fusion models based on
+ensemble learning combine the models' outputs, and a propagation scheme passes
+information through the graph each time new patient data arrive. They describe
+the design as modular, evolving, informed, interpretable and explainable
+\cite{nitschke2026design}. Nye structures patient data as a knowledge graph
+built on medical ontologies such as SNOMED CT and proposes closed-form
+continuous-time (``liquid'') neural networks to model the patient's evolving
+state \cite{nye2023knowledge}. Both are conceptual designs without empirical
+evaluation, but they share a principle that HepatoTwin adopts: separate
+modules, each with a defined role, connected by an explicit patient state.
+
+\subsection{Metabolic and nutrition twins}
+
+In nutrition, Gkouskou et al.\ extended the idea of an ``actual digital
+twin'', in which a patient is matched to many similar patients whose outcomes
+are known, into a ``virtual digital twin'': a personal model combining
+genetic, longitudinal metabolomic, immune, microbial and behavioural data,
+collected through connected devices and managed by machine learning, to
+simulate dietary interventions for that person \cite{gkouskou2020virtual}.
+Metabolic twins have also been outlined as tools that track a person's
+metabolic flexibility over time \cite{su2025metabolic}. A systematic review of
+twins in precision health identified 12 studies and found improvements in most
+of the reported outcomes, while noting that the evidence is still small and
+heterogeneous \cite{shen2024effectiveness}.
+
+The most developed clinical example is the Twin Health platform. Its method
+paper describes a machine-learning model (CatBoost) that predicts each
+person's post-meal glucose response from continuous glucose monitoring, food
+logs, activity and sleep, and a mobile application that adjusts dietary
+recommendations from those predictions and keeps refining them as data arrive
+\cite{twinhealth2024frontiers}. In a one-year randomised trial in 319 people
+with type~2 diabetes, nutrition guided by this twin improved liver-fat scores
+and MRI-PDFF compared with standard care \cite{joshi2023digitaltwin}. A second
+example, iDT-diet, modelled how diet quality affects biomarkers over time in
+402 participants measured at baseline and after one, three and six years. It
+combined a random forest with Choquet-integral LASSO feature selection, which
+had lower error than XGBoost, LightGBM and CatBoost for several targets, with
+generated natural-language descriptions and three-dimensional avatars of the
+predicted body state \cite{nobel2026idtdiet}. In MASLD specifically, the
+European ARTEMIS project is building virtual twins from retrospective data on
+several thousand patients \cite{artemis2024}.
+
+These systems either recommend individual foods from predicted glucose
+responses or forecast biomarker trajectories. The Twin Health platform depends
+on continuous glucose monitoring and proprietary data, and iDT-diet forecasts
+biomarkers without recommending food. None evaluates complete, existing
+recipes against evidence-graded dietary priorities, and none combines health
+with cuisine and practicality when making a recommendation.
+
+\subsection{From prediction to ``what if''}
+
+A twin that compares interventions must answer counterfactual questions,
+which predictive accuracy alone does not license. Freeman et al.\ name two
+traps. The \emph{fidelity trap} is the belief that a model accurate enough to
+reproduce patient trajectories can therefore say what would happen under a
+different treatment; prediction and counterfactual estimation are distinct
+tasks with different justifications. The \emph{feedback trap} arises when a
+twin learns from data that its own recommendations helped to produce, which
+breaks the assumptions behind its causal estimates. They argue that health
+twins should be causally valid, modular and evolving systems, with modularity
+isolating the parts that need interventional justification
+\cite{freeman2026traps}. Laudy formalises a twin as a simulator of each
+person's potential outcomes under treatment and control, and proposes a
+hierarchy of fidelity (marginal, joint and structural) with a five-level
+validation regime that turns the claim ``the simulator produces correct
+counterfactuals'' into tests against observable data, while stating that the
+dependence between a person's two potential outcomes remains untestable
+\cite{laudy2026counterfactual}.
+
+For HepatoTwin, these arguments have a direct consequence. A cross-sectional
+model trained on observational data, such as a steatosis classifier built on
+NHANES, describes the current state well but cannot by itself predict the
+effect of changing a diet. Intervention effects must instead come from
+interventional evidence, held in a separate module with their strength and
+uncertainty made explicit, and the twin's updating must be evaluated in a
+setting where the true effect is known (Section~\ref{sec:lit_insilico}).
+
+% ======================================================================
+\section{Computational Gastronomy and Food Recommendation}
+\label{sec:lit_food}
+
+\subsection{Recipe and food resources}
+
+Computational gastronomy treats food and cooking as structured data, studying
+recipes through their flavour, nutrition, health associations and
+sustainability \cite{bagler2024gastronomy}. RecipeDB contains 118{,}171 recipes
+from six continents, 26 geocultural regions and 74 countries, cooked with 268
+processes from over 20{,}000 ingredients, with cuisine labels, utensils and
+nutritional profiles, and ingredients linked to their flavour molecules
+\cite{batra2020recipedb}. FlavorDB catalogues 25{,}595 flavour molecules, 2{,}254
+of which are linked to 936 natural ingredients in 34 categories
+\cite{garg2018flavordb}. Literature mining of 5{,}769 abstracts produced 8{,}957
+associations between 152 culinary spices and 848 diseases; for 150 of the 152
+spices the beneficial associations outnumbered the adverse ones, and the
+authors used this balance to make disease-specific spice recommendations
+\cite{rakhi2018spices}. These resources make it possible to reason about
+recipes at scale, but they are built for exploration and analysis rather than
+for deciding which recipes suit a particular patient.
+
+\subsection{Food recommender systems}
+
+Food recommendation faces challenges beyond those of other domains: it must
+balance taste, health, culture and practicality. In a survey of the field,
+Trattner and Elsweiler showed that re-weighting standard recommender outputs by
+WHO or UK Food Standards Agency health scores can trade accuracy for
+healthiness, but the healthiest lists came with very poor accuracy, and they
+named health-aware recommendation an open problem \cite{trattner2017food}.
+
+Knowledge graphs are a common foundation. FoodKG links over a million
+recipes, their ingredients and USDA nutrient data in 67 million triples, and
+supports queries such as which recipe can be made from the ingredients at hand
+while avoiding allergens \cite{haussmann2019foodkg}. Chen et al.\ framed
+personalised recommendation as constrained question answering over FoodKG,
+treating the user's query, dietary preferences and health guidelines as
+constraints, and improved on non-personalised baselines by 59.7 percentage
+points on average across metrics \cite{chen2021constrained}. Graph neural
+networks have been used to move users gradually towards healthier recipes
+while respecting their preferences \cite{li2022healthguided}. In all of these
+systems, ``healthy'' is defined by generic nutritional guidelines rather than
+by a patient's clinical state, and the evidence behind each recommendation is
+not graded.
+
+\subsection{Recipe modification and adaptation}
+
+A related line of work modifies recipes by substituting ingredients. Shirai et
+al.\ combined explicit knowledge from a food knowledge graph with word
+embeddings into a substitutability heuristic (DIISH), filtered the candidates
+by nutritional and food-category constraints, and evaluated it against
+substitutions taken from cooking guides and recipe reviews
+\cite{shirai2021substitutions}. Loesch et al.\ learned knowledge-graph
+embeddings (RDF2Vec) over a food graph and evaluated them against 1{,}847 known
+substitution pairs, retrieving about 40\% of the true substitutes in the top
+ten candidates \cite{loesch2022substitution}. Rita et al.\ fine-tuned large
+language models to choose substitutions that raise phytochemical content,
+improving Hit@1 from 34.5\% to 38.0\% on the GISMo benchmark and producing
+1{,}639 enriched recipes, while cautioning that the health claims rest on
+preclinical evidence \cite{rita2024phytochemical}. A survey of the area
+concludes that a good substitute must match flavour, culinary function and
+health suitability together, and recommends knowledge graphs and
+neuro-symbolic reasoning for doing so \cite{kim2025substitution}. Cultural
+adaptation goes further: translating recipes between Chinese and English
+cuisines requires changing ingredients, units, tools and techniques, and
+GPT-4 still fell short of human experts when adapting English recipes into
+Chinese \cite{cao2024cultural}.
+
+Every modification creates a new recipe whose taste, feasibility and nutrition
+must be predicted, and none of these studies tested whether people liked or
+cooked the result. Evaluating existing recipes, the approach taken in this
+thesis, avoids that uncertainty: every recommended recipe has already been
+written, cooked and nutritionally described.
+
+\subsection{Menu planning, diversity and additional criteria}
+
+Menu planning composes meals that satisfy nutritional and cost targets; Sahin
+et al.\ released EvoMeal, an open-source tool comparing four multi-objective
+evolutionary algorithms, and found that two newer algorithms (AGE-MOEA and
+SMS-EMOA) outperformed NSGA-II and NSGA-III \cite{sahin2024menu}.
+Recommendation lists also benefit from diversity: maximal marginal relevance
+re-ranks items by a linear combination of relevance and dissimilarity to the
+items already chosen, reducing redundancy \cite{carbonell1998mmr}. Two further
+criteria are relevant to MASLD guidance. The degree of food processing can be
+estimated with FPro, a machine-learning score that predicts processing from
+nutrient profiles; it classified over 73\% of the US food supply as
+ultra-processed, was associated in NHANES with metabolic syndrome and
+diabetes, and showed that swapping foods for less-processed alternatives
+could reduce these associations \cite{menichetti2023processing}. Glycaemic
+load is available from the international glycaemic index tables
+\cite{atkinson2021gi}.
+
+% ======================================================================
+\section{Evaluating Digital Twins Without Longitudinal Data}
+\label{sec:lit_insilico}
+
+A twin's defining features, updating with new data and projecting the future,
+can only be fully validated against repeated measurements of the same people.
+When such data are unavailable, simulation offers a recognised alternative.
+In-silico clinical trials test interventions on computer-simulated patients
+before, or alongside, real trials \cite{pappalardo2019insilico}. The best-known
+example is the UVA/Padova type~1 diabetes simulator, a population of virtual
+patients built from physiological models, which the US Food and Drug
+Administration accepted in 2008 as a substitute for animal trials in the
+preclinical testing of closed-loop insulin control
+\cite{kovatchev2009insilico,dallaman2014simulator}. Its authors stress that
+such testing is a prerequisite to clinical trials, not a substitute for them
+\cite{kovatchev2009insilico}. Synthea generates synthetic patient records for
+software testing at scale \cite{walonoski2018synthea}.
+
+Two designs are particularly relevant. In plasmode simulation, real data
+provide the covariates and the outcome is simulated from a known model, so the
+data keep their real structure while the true effect is known and a method's
+ability to recover it can be measured \cite{franklin2014plasmode}. In data
+assimilation, observing system simulation experiments generate a ``true''
+state with one model, give a forecasting system only noisy observations of it,
+and measure how well the system recovers the truth; the field calls these twin
+experiments \cite{kalnay2003assimilation}.
+
+Simulated follow-up is credible only if its ingredients come from evidence.
+For diet-driven weight change, Hall et al.\ developed and validated a dynamic
+model of how a sustained change in energy intake translates into weight over
+time: a lasting reduction of about 10~kcal per day eventually lowers weight by
+about 0.45~kg, with half of the change reached in about one year and 95\% in
+about three years. The common static rule of 3{,}500~kcal per pound
+overestimates long-term weight loss by about 100\%, and the model predicts
+average rather than individual responses \cite{hall2011energy}. Large
+lifestyle trials report the weight trajectories that real participants
+achieve. In Look AHEAD, intensive lifestyle intervention produced a mean
+weight loss of 8.6\% at one year against 0.6\% with usual care; 68.0\% and
+37.7\% of participants lost at least 5\% and 10\%, and at eight years the mean
+losses were 4.7\% and 2.1\% \cite{lookahead2014eightyear}. The Diabetes
+Prevention Program reported a similar pattern of loss and partial regain
+\cite{dpp2002}, and a Look AHEAD analysis showed that losses of 5--10\%
+increased the odds of clinically meaningful improvements in glycaemia, blood
+pressure and lipids \cite{wing2011modest}. The response of the liver itself is
+given by the weight-loss studies of Section~\ref{sec:lit_masld}
+\cite{koutoukidis2019weightloss,vilargomez2015weight,lim2011reversal}.
+Realistic observations also require the normal biological variation of each
+laboratory test \cite{eflm_bv} and the known under-reporting of food intake
+\cite{subar2003open}.
+
+These sources make it possible to evaluate a twin's updating on virtual
+patients whose follow-up is grounded in published human data. Such an
+evaluation verifies that the twin behaves correctly when the truth is known;
+it does not establish its accuracy for real patients, which still requires
+longitudinal data.
+
+% ======================================================================
+\section{Summary and Research Gap}
+\label{sec:lit_gap}
+
+Table~\ref{tab:lit_gap} summarises what each strand of the literature offers
+and what it leaves open. Clinical research provides graded evidence on how
+weight and diet change the liver, but expressed in energy, nutrients and
+patterns rather than recipes. Machine-learning studies estimate steatosis well
+from routine data, but as one-off classifications, rarely calibrated, and with
+a ceiling on continuous prediction set by genetics and measurement. Digital
+twins in nutrition personalise food choices or forecast biomarkers, but do not
+evaluate existing recipes against evidence-graded priorities, and the causal
+literature warns that predictive accuracy alone does not justify their
+intervention advice. Food recommender and substitution systems handle
+preferences and generic healthiness, but not a patient's clinical state or the
+strength of evidence. And no liver twin has been evaluated for how it updates
+over time.
+
+\begin{table}[htbp]
+    \centering
+    \small
+    \caption{Strands of related work, what they leave open, and how HepatoTwin addresses it.}
+    \label{tab:lit_gap}
+    \begin{tabular}{p{3.0cm}p{4.0cm}p{3.8cm}p{4.0cm}}
+        \hline
+        Strand & What it provides & What it leaves open & HepatoTwin \\
+        \hline
+        Clinical evidence (Section~\ref{sec:lit_masld}) & Graded effects of weight loss, diet patterns and nutrients & Not expressed for recipes; evidence strength varies & Evidence engine with explicit strength labels, mapped to recipe criteria \\
+        Steatosis models (Section~\ref{sec:lit_ml}) & Good discrimination from routine data & Snapshots; rarely calibrated; bounded $R^2$ & Calibrated probabilities as the twin's state, within a defined scope \\
+        Dietary assessment (Section~\ref{sec:lit_diet}) & Recall data; usual-intake methods & Single-day recalls used directly & Recall-adjusted priorities; usual intake updated from food logs \\
+        Digital twins (Section~\ref{sec:lit_twins}) & Personal state, glucose-response prediction, trajectories & No recipe-level, evidence-graded recommendation; fidelity and feedback traps & Modular twin linking state, evidence and recipes; effects from interventional evidence \\
+        Food recommendation (Section~\ref{sec:lit_food}) & Recipe data, preferences, generic healthiness, substitution & No clinical state; ungraded evidence; untested modified recipes & Evidence-gated ranking of existing recipes by health, cuisine and feasibility \\
+        In-silico evaluation (Section~\ref{sec:lit_insilico}) & Virtual patients, plasmode and twin experiments & Not yet applied to liver twins & In-silico evaluation of the twin's updating on virtual NHANES patients \\
+        \hline
+    \end{tabular}
+\end{table}
+
+This thesis addresses the intersection of these strands: a patient-specific
+liver twin whose calibrated state, combined with graded intervention evidence
+and the patient's own diet, drives the transparent evaluation and ranking of
+existing recipes, and whose updating is evaluated in silico before real
+longitudinal data exist.
