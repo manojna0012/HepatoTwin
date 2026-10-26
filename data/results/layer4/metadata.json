@@ -64,7 +64,7 @@
     "steps": 12
   },
   "personalisation": {
-    "mean_pairwise_top10_overlap_same_cuisine": 0.9281575120259538,
+    "mean_pairwise_top10_overlap_same_cuisine": 0.9223067457209979,
     "distinct_priority_profiles": 29,
     "share_with_most_common_profile": 0.15666666666666668,
     "distinct_top10_lists": 27,

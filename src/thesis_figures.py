@@ -32,6 +32,7 @@ import shap
 import xgboost
 from sklearn.metrics import r2_score, roc_auc_score, roc_curve
 
+from src.feature_labels import label
 from src.train_final_model import ROOT, TARGET
 from src.combined_features import COMBINED_FEATURES
 from src.build_combined_dataset import OUTPUT as DATA_FILE
@@ -43,33 +44,6 @@ OUTPUT_DIR = MODEL_DIR / 'figures'
 CUTOFFS = {'cap248': 248, 'cap280': 280, 'cap302': 302}
 BOOTSTRAPS = 1000
 LEARNING_FRACTIONS = [0.1, 0.25, 0.5, 0.75, 1.0]
-LABELS = {
-    'BMXWAIST': 'Waist circumference', 'BMXBMI': 'BMI', 'BMXWT': 'Body weight', 'BMXHT': 'Height',
-    'BMXHIP': 'Hip circumference', 'BMXARMC': 'Arm circumference', 'BMXARML': 'Upper arm length',
-    'BMXLEG': 'Upper leg length', 'WHR': 'Waist-to-hip ratio', 'WHtR': 'Waist-to-height ratio',
-    'LBXGH': 'HbA1c', 'LBXSGL': 'Glucose (serum)', 'LBXGLU': 'Fasting glucose', 'LBXIN': 'Fasting insulin',
-    'HOMA_IR': 'HOMA-IR', 'TyG': 'Triglyceride-glucose index', 'LBXSTR': 'Triglycerides',
-    'LBDHDD': 'HDL cholesterol', 'LBXTC': 'Total cholesterol', 'LBXSATSI': 'ALT', 'LBXSASSI': 'AST',
-    'LBXSGTSI': 'GGT', 'LBXSUA': 'Uric acid', 'LBXSCR': 'Creatinine', 'RIDAGEYR': 'Age',
-    'RIAGENDR': 'Sex', 'RIDRETH3': 'Race/ethnicity', 'LBXHSCRP': 'hs-CRP', 'LBXFER': 'Ferritin',
-    'TG_HDL': 'Triglyceride/HDL ratio', 'AST_ALT': 'AST/ALT ratio', 'FLI_proxy': 'FLI (derived)', 'HSI_partial': 'HSI (derived, partial)',
-    'LBXWBCSI': 'White cell count', 'LBXPLTSI': 'Platelets', 'LBXSAL': 'Albumin', 'LBXSPH': 'Phosphorus',
-    'mean_SBP': 'Systolic blood pressure', 'mean_DBP': 'Diastolic blood pressure',
-    'DIQ010': 'Diagnosed diabetes', 'LBXSKSI': 'Potassium', 'LBXSCK': 'Creatine kinase',
-    'LBXSBU': 'Blood urea nitrogen', 'LBXSIR': 'Iron', 'LBXSTP': 'Total protein', 'LBXSGB': 'Globulin',
-}
-
-
-def label(name):
-    base = name.split('__')[-1]
-    for code, text in LABELS.items():
-        if base == code:
-            return text
-        if base.startswith(code + '_'):
-            return f'{text} = {base[len(code) + 1:]}'
-    return base
-
-
 def fatty_liver_index(data):
     logit = (0.953 * np.log(data.LBXSTR) + 0.139 * data.BMXBMI + 0.718 * np.log(data.LBXSGTSI)
              + 0.053 * data.BMXWAIST - 15.745)

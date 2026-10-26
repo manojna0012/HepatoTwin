@@ -52,6 +52,8 @@ from src.recipe_scoring.evidence_rules import EVIDENCE_RULES
 from src.recipe_scoring.meal_plan import (MAX_INGREDIENTS, MAX_STEPS, MAX_TIME, cuisine_profiles, diversify,
                                           intra_list_diversity, practical,
                                           protein_family, similar_cuisines, weekly_plan)
+from src.recipe_scoring.cuisine_typicality import default_typicality
+from src.recipe_scoring.practical_feasibility import techniques_and_equipment
 from src.recipe_scoring.multi_criteria import (DEFAULT_WEIGHTS, gated_health, is_candidate, rank_recipes,
                                                score_components)
 from src.recipe_scoring.patient_objective_generator import generate_patient_objectives
@@ -214,6 +216,10 @@ def main():
     candidates = [r for r in load_recipes() if is_candidate(r)]
     ids = np.array([str(r['recipe_id']) for r in candidates])
     is_feasible = np.array([feasible(r) for r in candidates])
+    # Section 7.1 additions: ingredient typicality for the requested cuisine (co-occurrence) and
+    # whether the instructions need a demanding technique.
+    demanding = np.array([bool(techniques_and_equipment(r.get('instructions'))[0]) for r in candidates])
+    typicality_model, typicality = default_typicality(), {}
     cuisine_counts = pd.Series([r['cuisine'] for r in candidates]).value_counts()
     cuisines = sorted(c for c, n in cuisine_counts.items() if n >= MIN_CUISINE_RECIPES and c != 'Other')
     recipe_cuisine = np.array([str(r['cuisine']).casefold() for r in candidates])
@@ -241,6 +247,9 @@ def main():
             generic_tables[cuisine] = components_table(candidates, generic_objectives, cuisine)
         table, generic = tables[key], generic_tables[cuisine]
         meets_cuisine = recipe_cuisine == cuisine.casefold()
+        if cuisine not in typicality:
+            typicality[cuisine] = np.array([np.nan if (s := typicality_model.score(r, cuisine)) is None else s
+                                            for r in candidates])
         assignments.append(dict(SEQN=int(test.SEQN[i]), cuisine=cuisine, priorities=';'.join(
             f'{a}:{b}' for a, b in signature(priorities[i]))))
 
@@ -253,7 +262,9 @@ def main():
                                                & is_feasible[picks]).mean(),
                                     mean_health_score=np.nanmean(table['health'][picks]),
                                     diversity=intra_list_diversity([candidates[j] for j in picks]),
-                                    acceptability=np.nanmean(table['acceptability'][picks])))
+                                    acceptability=np.nanmean(table['acceptability'][picks]),
+                                    cuisine_typicality=np.nanmean(typicality[cuisine][picks]),
+                                    demanding_technique=demanding[picks].mean()))
 
         base = top_k(gated(table, DEFAULT_WEIGHTS), table['health'], ids)
         record('Multi-criteria, health-gated (proposed)', base)
@@ -313,7 +324,8 @@ def main():
 
     methods = pd.DataFrame(method_rows)
     summary = methods.groupby('method', sort=False)[['health', 'cuisine', 'feasibility', 'all_three',
-                                                     'mean_health_score', 'diversity', 'acceptability']].mean()
+                                                     'mean_health_score', 'diversity', 'acceptability',
+                                                     'cuisine_typicality', 'demanding_technique']].mean()
     summary.insert(0, 'participants', len(chosen))
     sensitivity = pd.DataFrame(sensitivity_rows)
     grid_summary = sensitivity.groupby(['health', 'cuisine', 'feasibility'])[

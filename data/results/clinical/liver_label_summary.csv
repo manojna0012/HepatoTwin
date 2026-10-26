@@ -1,0 +1,9 @@
+adult,label,share
+False,no_steatosis_indicated,0.7307
+False,MASLD,0.2454
+False,cryptogenic_SLD,0.0239
+True,MASLD,0.5115
+True,no_steatosis_indicated,0.4382
+True,MetALD,0.0306
+True,ALD,0.0134
+True,cryptogenic_SLD,0.0064

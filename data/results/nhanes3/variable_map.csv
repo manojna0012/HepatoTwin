@@ -1,0 +1,82 @@
+model_input,nhanes3_variable,status,note
+RIDAGEYR,HSAGEIR,mapped,Age in years
+BMXBMI,BMPBMI,mapped,kg/m2
+BMXWAIST,BMPWAIST,mapped,cm
+LBXSATSI,ATPSI,mapped,"ALT, U/L (assay not recalibrated)"
+LBXSASSI,ASPSI,mapped,"AST, U/L (assay not recalibrated)"
+LBXGH,GHP,mapped,"HbA1c, %"
+LBXTC,TCP,mapped,"Total cholesterol, mg/dL"
+LBDHDD,HDP,mapped,"HDL cholesterol, mg/dL"
+DR1TKCAL,,not available (treated as missing),
+DR1TPROT,,not available (treated as missing),
+DR1TCARB,,not available (treated as missing),
+DR1TTFAT,,not available (treated as missing),
+BMXWT,BMPWT,mapped,kg
+BMXHT,BMPHT,mapped,cm
+LBXSGTSI,GGPSI,mapped,"GGT, U/L"
+LBXSTR,TGP,mapped,"Triglycerides, mg/dL"
+LBXSGL,SGP,mapped,"Serum glucose, mg/dL"
+LBXSUA,UAP,mapped,"Uric acid, mg/dL"
+LBXSAL,AMP,mapped,"Albumin, g/dL"
+LBXSTP,TPP,mapped,"Total protein, g/dL"
+LBXSGB,,not available (treated as missing),
+LBXSAPSI,APPSI,mapped,"Alkaline phosphatase, U/L"
+LBXSTB,TBP,mapped,"Bilirubin, mg/dL"
+LBXSCR,CEP,mapped,"Creatinine, mg/dL"
+LBXSBU,BUP,mapped,"Urea nitrogen, mg/dL"
+LBXSCA,CAPSI,mapped,Calcium mmol/L x 4.008 = mg/dL
+LBXSPH,PSP,mapped,"Phosphorus, mg/dL"
+LBXSKSI,SKPSI,mapped,mmol/L
+LBXSNASI,NAPSI,mapped,mmol/L
+LBXSCLSI,CLPSI,mapped,mmol/L
+LBXSC3SI,C3PSI,mapped,mmol/L
+LBXSIR,FEP,mapped,"Iron, ug/dL"
+LBXSLDSI,LDPSI,mapped,"LDH, U/L"
+LBXSCK,,not available (treated as missing),
+RIAGENDR,HSSEX,mapped,"1 male, 2 female in both surveys"
+RIDRETH3,DMARETHN,mapped,"Recoded: 1 NH white -> 3, 2 NH black -> 4, 3 Mexican American -> 1, 4 other -> 7"
+BMXHIP,BMPBUTTO,mapped,"Buttocks circumference, cm"
+BMXARMC,BMPARMC,mapped,cm
+BMXARML,,not available (treated as missing),
+BMXLEG,,not available (treated as missing),
+INDFMPIR,,not available (treated as missing),
+DMDEDUC2,,not available (treated as missing),
+DMDBORN4,,not available (treated as missing),
+LBXIN,I1P,mapped,"Insulin, uU/mL; kept only after >= 8 h fasting"
+LBXGLU,G1P,mapped,"Plasma glucose, mg/dL; kept only after >= 8 h fasting"
+LBXWBCSI,WCP,mapped,1000 cells/uL
+LBXLYPCT,LMPPCNT,mapped,"Lymphocytes, %"
+LBXNEPCT,,not available (treated as missing),
+LBXMOPCT,MOPPCNT,mapped,"Mononuclear %, closest to the monocyte share"
+LBXHGB,HGP,mapped,g/dL
+LBXHCT,HTP,mapped,%
+LBXMCVSI,MVPSI,mapped,fL
+LBXRDW,RWP,mapped,%
+LBXPLTSI,PLP,mapped,1000 cells/uL
+LBXMPSI,PVPSI,mapped,fL
+LBXHSCRP,CRP,mapped,CRP mg/dL x 10 = mg/L; not a high-sensitivity assay
+LBXFER,FRP,mapped,"Ferritin, ng/mL"
+BPXOSY1,PEPMNK1R,mapped,Average systolic BP; used for all three readings
+BPXOSY2,PEPMNK1R,mapped,Average systolic BP
+BPXOSY3,PEPMNK1R,mapped,Average systolic BP
+BPXODI1,PEPMNK5R,mapped,Average diastolic BP; used for all three readings
+BPXODI2,PEPMNK5R,mapped,Average diastolic BP
+BPXODI3,PEPMNK5R,mapped,Average diastolic BP
+BPXOPLS1,,not available (treated as missing),
+DIQ010,,not available (treated as missing),
+DIQ160,,not available (treated as missing),
+DIQ050,,not available (treated as missing),
+DIQ070,,not available (treated as missing),
+BPQ020,,not available (treated as missing),
+BPQ080,,not available (treated as missing),
+WHQ070,,not available (treated as missing),
+WHD050,,not available (treated as missing),
+HUQ010,,not available (treated as missing),
+SLD012,,not available (treated as missing),
+SMQ020,,not available (treated as missing),
+SMQ040,,not available (treated as missing),
+ALQ111,,not available (treated as missing),
+ALQ121,,not available (treated as missing),
+ALQ130,,not available (treated as missing),
+ALQ151,,not available (treated as missing),
+PAD680,,not available (treated as missing),

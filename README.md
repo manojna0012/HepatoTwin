@@ -236,6 +236,62 @@ weight loss of 5% or more (STRONG) shown as conditional. No CAP or probability
 is predicted for a scenario; the timeline for Layer 6 gives a direction per
 horizon, labelled "Simulated projection, not a clinical forecast".
 
+## Clinical safety, explanations and uncertainty (Proposal 5.3, 7.3, 17.2-17.4, 17.7)
+
+`src/twin_pipeline.py` now adds to every patient's output:
+
+- **Fibrosis risk** (`src/fibrosis.py`): FIB-4 for ages 18-59 with the EASL-EASD-EASO
+  2024 cut-offs (1.3, 2.67); none under 18. A high score withholds recipes until a
+  clinical assessment. Against measured stiffness in 7,586 adults with a reliable
+  reading (IQR/median <= 30%), FIB-4 below 1.3 rules out >= 12 kPa with NPV 0.978,
+  but AUC is only 0.59 (>= 8 kPa) and 0.67 (>= 12 kPa): a rule-out test
+  (`data/results/fibrosis/`). A low score at ages 18-34 carries a note that FIB-4 is less
+  reliable under 35 (AASLD 2023) and that a FibroScan would help (36% of adults). When a
+  patient has a reliable FibroScan reading (optional inputs `LUXSMED`, `LUXSIQRM`), it
+  replaces FIB-4: below 8 kPa low, 8-12 indeterminate, 12 or more high (recipes withheld).
+- **Subtype and safety notices** (`src/liver_labels.py`): MASLD, MetALD, ALD or
+  cryptogenic steatosis from the 2023 nomenclature (alcohol from ALQ121 x ALQ130 x
+  14 g), and "discuss with a clinician" notices for under-18s, alcohol in the MetALD
+  range or above, glucose-lowering medicine and pregnancy. In-scope adults: 51%
+  MASLD, 3.1% MetALD, 1.3% ALD (measured CAP >= 248). The adolescent criteria are
+  marked for verification against the nomenclature's figure.
+- **Explanation of the predicted CAP** (`src/explain_patient.py`): per-patient SHAP
+  in dB/m, the inputs that raise and lower the estimate.
+- **Uncertainty** (`src/uncertainty.py`): a 90% conformal CAP interval of +/- 66.6
+  dB/m from five-fold out-of-fold errors (test coverage 90.9% in scope), and bootstrap
+  bands for the calibrated probabilities (mean width about 5 points).
+- **Causal knowledge graph** (`src/knowledge_graph.py`, `data/evidence/causal_graph.csv`):
+  14 links from diet and activity levers through weight and insulin resistance to
+  liver fat, injury and fibrosis; CAP, ALT and stiffness are measurements only.
+  Priorities may act only on levers with a path to liver fat.
+- **Recipe explanations** (`src/recipe_scoring/recipe_explanation.py`): each
+  criterion of the top three recipes traced through the graph to liver fat with its
+  evidence rows, plus the cuisine and practicality context.
+- **Plain-language summary** (`src/twin_summary.py`): written by a template from the
+  twin's own facts; an automatic check confirms every number and citation appears
+  in those facts. A language model can be plugged in through `summary_generator`;
+  if its text fails the check, the template is shown.
+
+Recipe scoring (section 7.1): recipes labelled "Other" (71% of candidate meals)
+are now scored on ingredient co-occurrence typicality for the requested cuisine
+(`src/recipe_scoring/cuisine_typicality.py`), up to 50, between a correct label
+(100) and a wrong one (0); labelled recipes keep their label score. Blending label
+and ingredients for every recipe was tried and lowered the share of top-10
+recipes in the patient's cuisine from 0.998 to 0.865. Feasibility adds demanding
+techniques and special equipment read from the instructions.
+
+## NHANES III (Proposal 17.9)
+
+`src/nhanes3.py --download` fetches the NHANES III exam and laboratory files and
+the 2009-2010 hepatic steatosis ultrasound re-reading into `data/raw/nhanes3/`,
+maps 51 of the 81 model inputs (units converted; `data/results/nhanes3/variable_map.csv`)
+and keeps 10,682 adults aged 20-59 with a gradable image (20.7% moderate-severe).
+The public-use Linked Mortality File (`NHANES_III_MORT_2019_PUBLIC.dat`, downloaded by
+hand into `data/raw/nhanes3/` because ftp.cdc.gov fails the certificate check here;
+layout from NCHS's `SAS_ReadInProgramAllSurveys.sas`) links 10,672 of them: 2,174
+deaths over a median 27.3 years. Its cause-of-death recode has no liver category, so
+it supports all-cause, cardiovascular and cancer mortality, not liver-related deaths.
+
 ## Evidence table
 
 `data/evidence/intervention_evidence.csv` has 23 rows. Section 17.13 added

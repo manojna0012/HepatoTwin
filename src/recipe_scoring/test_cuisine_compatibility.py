@@ -36,6 +36,28 @@ def test_missing_cuisine():
     assert result["category"] == "unknown"
 
 
+def test_labelled_recipes_keep_their_label_score():
+    exact = cuisine_compatibility_score({"cuisine": "Asian"}, "Asian", typicality=20)
+    assert exact["score"] == 100 and exact["typicality"] == 20
+    assert cuisine_compatibility_score({"cuisine": "Mexican"}, "Asian", typicality=90)["score"] == 0
+
+
+def test_unlabelled_recipe_is_scored_on_ingredients_up_to_50():
+    result = cuisine_compatibility_score({"cuisine": "Other"}, "Asian", typicality=100)
+    assert result["score"] == 50 and result["category"] == "ingredients_only"
+    assert cuisine_compatibility_score({"cuisine": "Other"}, "Asian")["score"] == 0   # label only
+
+
+def test_cooccurrence_separates_cuisines():
+    from src.recipe_scoring.cuisine_typicality import CuisineTypicality
+    asian = [{"cuisine": "Asian", "ingredients": ["soy sauce", "ginger", "garlic", "rice"]}] * 20
+    mexican = [{"cuisine": "Mexican", "ingredients": ["tortilla", "cumin", "salsa", "beans"]}] * 20
+    model = CuisineTypicality(asian + mexican)
+    stir_fry = {"cuisine": "Other", "ingredients": ["soy sauce", "ginger", "garlic"]}
+    assert model.score(stir_fry, "asian") == 100 and model.score(stir_fry, "Mexican") == 0
+    assert model.score(stir_fry, "Klingon") is None
+
+
 if __name__ == "__main__":
     test_exact_match()
     test_related_match()

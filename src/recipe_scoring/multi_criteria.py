@@ -29,6 +29,7 @@ top 10 always did.
 import re
 
 from src.recipe_scoring.cuisine_compatibility import cuisine_compatibility_score
+from src.recipe_scoring.cuisine_typicality import default_typicality
 from src.recipe_scoring.health_alignment import health_alignment_score
 from src.recipe_scoring.practical_feasibility import practical_feasibility_score
 from src.recipe_scoring.recipe_criteria import derived_metrics, margin_score
@@ -137,10 +138,13 @@ def score_components(recipe, objectives, requested_cuisine=None, related_cuisine
     acceptability = acceptability_score(recipe)
     if acceptability is not None:
         scores["acceptability"] = acceptability
+    cuisine_detail = None
     if requested_cuisine:
-        cuisine = cuisine_compatibility_score(recipe, requested_cuisine, related_cuisines)
+        typicality = default_typicality().score(recipe, requested_cuisine)
+        cuisine = cuisine_compatibility_score(recipe, requested_cuisine, related_cuisines, typicality)
         if cuisine["score"] is not None:
             scores["cuisine"] = cuisine["score"]
+        cuisine_detail = {"category": cuisine["category"], "typicality": cuisine.get("typicality")}
 
     criteria = [{
         "priority_id": o["priority_id"], "priority": o["priority"], "label": o["label"],
@@ -153,7 +157,7 @@ def score_components(recipe, objectives, requested_cuisine=None, related_cuisine
     return {**result, "status": "ranked", "scores": scores, "health_coverage": health["coverage"],
             "meets_all_references": meets_all,
             "health_margin": margin_score(nutrition, objectives) if meets_all else None,
-            "criteria": criteria, "warnings": health["warnings"] + feasibility["warnings"]}
+            "cuisine_detail": cuisine_detail, "criteria": criteria, "warnings": health["warnings"] + feasibility["warnings"]}
 
 
 def gated_health(margin):

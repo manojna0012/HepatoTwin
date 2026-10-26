@@ -1,0 +1,15 @@
+edge_id,source,target,direction,relation,evidence_ids,source_reference,note
+CG01,energy_intake,body_weight,+,causes,,"Hall et al., Lancet 2011 (energy balance; 1 kg per 100 kJ/day)",Lowering energy intake lowers weight over months to years
+CG02,body_weight,liver_fat,+,causes,VG2015-WL5;VG2015-WL7-10;HAI2022-CR,"Vilar-Gomez et al. 2015; Haigh et al. 2022",Weight loss of 5% or more reduces steatosis
+CG03,body_weight,insulin_resistance,+,causes,,"Appuhamy et al., Diabetol Metab Syndr 2014",Weight loss lowers fasting insulin and glucose
+CG04,insulin_resistance,liver_fat,+,causes,,"Rinella et al. 2023 nomenclature",Insulin resistance is the key metabolic driver of MASLD
+CG05,saturated_fat_intake,liver_fat,+,causes,LUU2018-SAT;EASL2024-DIET,"Luukkonen et al. 2018; EASL-EASD-EASO 2024",Saturated-fat overfeeding raised liver fat more than unsaturated fat or sugars
+CG06,added_sugar_intake,liver_fat,+,causes when energy is in surplus,CHI2014-HYPER;CHI2014-ISO,"Chiu et al. 2014",Fructose raised liver fat only when it added surplus energy
+CG07,diet_quality,liver_fat,-,reduces,STE2026-MEDDIET;HAI2022-DIET;EASL2024-DIET,"Stern et al. 2026; Haigh et al. 2022; EASL-EASD-EASO 2024",A Mediterranean-style diet reduced MRI-PDFF
+CG08,physical_activity,liver_fat,-,reduces,STI2023-EX;STI2023-EXDOSE;EASL2024-PA,"Stine et al. 2023; EASL-EASD-EASO 2024",Exercise reduces liver fat even without clinically significant weight loss
+CG09,alcohol_intake,liver_fat,+,causes,,"Rinella et al. 2023 nomenclature (MetALD and ALD)",Alcohol adds to steatosis and defines MetALD and ALD
+CG10,liver_fat,liver_injury,+,causes,SAN2021-AST-GGT,"Koutoukidis et al. 2019; Wong et al. 2013",Liver enzymes fall as liver fat falls
+CG11,liver_injury,fibrosis,+,causes,VG2015-WL10-FIB,"Vilar-Gomez et al. 2015; EASL-EASD-EASO 2024",Ongoing injury drives fibrosis; 10% weight loss led to fibrosis regression in 45%
+CG12,liver_fat,CAP,+,is measured by,,"Wang et al., Dig Dis Sci 2020",CAP rises about 5 dB/m per point of MRI-PDFF
+CG13,liver_injury,ALT,+,is measured by,,"Koutoukidis et al. 2019",ALT is a marker of liver injury
+CG14,fibrosis,liver_stiffness,+,is measured by,,"EASL-EASD-EASO 2024 (8 and 12 kPa thresholds); Sterling et al. 2006 (FIB-4)",Stiffness and FIB-4 estimate fibrosis

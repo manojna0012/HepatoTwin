@@ -66,10 +66,15 @@ FAMILIES = [
 
 
 def ingredient_set(recipe):
-    return frozenset(i.get("name_lc") or str(i.get("name", "")).casefold()
-                     for i in recipe.get("ingredients") or []
-                     if i.get("predicted_category", "") not in IGNORED_GROUPS
-                     and (i.get("name_lc") or i.get("name")) not in ("water", "ice"))
+    names = set()
+    for i in recipe.get("ingredients") or []:
+        if isinstance(i, str):          # plain names, as in hand-built test recipes
+            name, group = i.casefold(), ""
+        else:
+            name, group = i.get("name_lc") or str(i.get("name", "")).casefold(), i.get("predicted_category", "")
+        if group not in IGNORED_GROUPS and name not in ("water", "ice"):
+            names.add(name)
+    return frozenset(names)
 
 
 def jaccard(a, b):
