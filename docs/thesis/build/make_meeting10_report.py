@@ -236,7 +236,7 @@ bullets([
     'abstracts.',
     'Checked published R² values against the full papers and corrected six figures in earlier reports.',
 ])
-para('All code is maintained in the project repository, and 129 automated tests pass '
+para('All code is maintained in the project repository, and 130 automated tests pass '
      '(84 from Meeting 9 and 45 new).', bold_lead='Implementation status: ', align='justify')
 
 # ---------------------------------------------------------------- 3
@@ -362,8 +362,11 @@ body('Each of the top three recipes is explained criterion by criterion: the val
      'chain to liver fat with evidence rows and strength, and the cuisine and practicality context. For SEQN 109349 '
      'the first recipe, Chipotle Pinto Beans, has 0.8% of energy from saturated fat against a reference of 10%, '
      'traced as “saturated fat intake → liver fat (MODERATE, LUU2018-SAT, EASL2024-DIET)”.')
-body('The patient summary is written by a template from the twin’s own facts: the CAP estimate and interval, the '
-     'probabilities, the label, FIB-4, safety notices, priorities with evidence identifiers, and recipe names. An '
+body('The patient summary is written by a template from the twin’s own facts: the chances of at least mild and of a '
+     'lot of liver fat with a plain verdict from the twin’s own decisions, the label, FIB-4, safety notices, priorities '
+     'with evidence identifiers, and recipe names. It leaves out the CAP estimate and its 90% range (about ±67 dB/m), '
+     'which would suggest more precision than a model with R² 0.56 has; they stay in the twin’s output for the '
+     'clinician view. An '
      'automatic check confirms that every number and citation in the text appears in those facts. A language model '
      'can be plugged in later; if its text fails the check, the template is shown instead. Tests confirm that an '
      'invented number or citation is caught and that recipes are left out when they are withheld.')
@@ -530,7 +533,7 @@ bullets([
     'Cuisine and feasibility scores that use ingredient co-occurrence and cooking techniques.',
     'NHANES III data mapped for external validation and linked to 27 years of mortality follow-up.',
     'A working virtual-patient simulator and the first two thesis chapters.',
-    '129 passing automated tests.',
+    '130 passing automated tests.',
 ])
 
 # ---------------------------------------------------------------- 7

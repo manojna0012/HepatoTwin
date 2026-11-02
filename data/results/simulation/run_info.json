@@ -18,14 +18,15 @@
   "weight_tau_months": 15.733923441623453,
   "calibration": {
     "pattern_shares": {
-      "steady": 0.4,
-      "slipping": 0.3,
-      "regaining": 0.2,
-      "dropping_out": 0.1
+      "steady": 0.004139923473714613,
+      "slipping": 0.9127274380326711,
+      "regaining": 0.0011326384936143402,
+      "dropping_out": 0.08199999999999999
     },
-    "adherence_mean": 0.7,
-    "adherence_sd": 0.15,
-    "slip_months": 6.0,
+    "adherence_mean": 0.3486041447077044,
+    "adherence_sd": 0.002674774609372501,
+    "slip_months": 3.8072692521226608,
+    "slip_floor": 0.00559912313349738,
     "regain_month_range": [
       4,
       9
@@ -34,12 +35,30 @@
       2,
       10
     ],
-    "weight_response_sd": 0.2,
+    "weight_response_sd": 0.4727808526205777,
+    "weight_drift_sd": 1.4665093993527871,
     "marker_response_sd": 0.5,
     "shared_response_corr": 0.5,
     "liver_response_sd": 0.5,
     "max_liver_fat_fall": 0.9,
     "min_pdff": 1.0
   },
-  "note": "Calibration settings are starting guesses, not yet tuned to the trial targets."
+  "observation_design": {
+    "blood_months": [
+      0,
+      3,
+      6,
+      9,
+      12
+    ],
+    "cap_months": [
+      0,
+      6,
+      12
+    ],
+    "miss_probability": 0.005,
+    "miss_probability_gaining": 0.04
+  },
+  "cap_error_sd": 29.343149928746154,
+  "note": "Calibration settings from data/results/simulation/calibration/chosen.json."
 }

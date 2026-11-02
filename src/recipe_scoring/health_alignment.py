@@ -13,6 +13,9 @@ DEFAULT_NUTRIENTS = {
     "saturated_fat_pct_energy",
     "sugar_pct_energy",
     "fiber_per_1000kcal",
+    # Built from the ingredients (processing_and_glycaemic_load.py).
+    "fpro",
+    "glycaemic_load",
 }
 
 

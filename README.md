@@ -223,6 +223,37 @@ practical limits (`meal_plan_summary.csv`, `meal_plan_by_cuisine.csv`).
 .venv/Scripts/python.exe src/demo.py --seqn 109349 --cuisine American --plan
 ```
 
+## Ultra-processing (FoodProX) and glycaemic load
+
+Two recipe criteria are built from the ingredients, since RecipeDB gives nutrition only per serving:
+
+- `src/recipe_scoring/ingredient_amounts.py` links each ingredient name to a USDA SR Legacy food (the 699
+  most frequent by hand in `data/evidence/ingredient_usda_manual.csv`, 92% of ingredient uses; the rest
+  automatically) and converts amounts to grams with USDA portion weights. Check: energy summed over the
+  ingredients matches RecipeDB's energy per serving (median ratio 0.99); carbohydrate per serving
+  Spearman 0.90.
+- `src/recipe_scoring/foodprox.py` re-trains FoodProX (Menichetti et al., Nat Commun 2023) on the
+  authors' public FNDDS/SR data (out-of-fold AUC 0.99 for every NOVA class; Spearman 0.98 with the
+  published FPro) and scores every SR Legacy food.
+- `src/recipe_scoring/atkinson_gi.py` reads the 2021 international GI tables (4,112 entries);
+  `data/evidence/glycaemic_index_links.csv` gives each carbohydrate food group the median GI of its
+  matching entries.
+- `src/recipe_scoring/processing_and_glycaemic_load.py` gives each recipe its energy-weighted FPro
+  (18,619 recipes) and glycaemic load per serving (14,691); the rest are "not assessed".
+
+Layer 3 adds `limit_ultra_processed` (likely steatosis; EASL-EASD-EASO 2024 and Hall et al. 2019) and
+`lower_glycaemic_load` (likely steatosis with HbA1c >= 5.7%; Bawden et al. 2017, weak), both at low
+priority. Reference values: FPro <= 0.5 (design choice, scale midpoint) and glycaemic load <= 20 per
+serving. They shape the health score but are not part of the pass/fail gate: as gates they cut the share
+of top-10 lists meeting all three criteria from 0.82 to 0.68. As soft criteria the share is 0.83 and every
+seven-day plan completes; for a typical patient in seven cuisines the top 10 within FPro <= 0.5 rose from
+75% to 81% and within glycaemic load <= 20 from 61% to 67%.
+
+```powershell
+.venv/Scripts/python.exe -m src.recipe_scoring.foodprox
+.venv/Scripts/python.exe -m src.recipe_scoring.processing_and_glycaemic_load
+```
+
 ## Layer 5: scenario engine
 
 `src/recipe_scoring/scenario_engine.py` compares Scenario A (most health-aligned
@@ -261,7 +292,7 @@ horizon, labelled "Simulated projection, not a clinical forecast".
   dB/m from five-fold out-of-fold errors (test coverage 90.9% in scope), and bootstrap
   bands for the calibrated probabilities (mean width about 5 points).
 - **Causal knowledge graph** (`src/knowledge_graph.py`, `data/evidence/causal_graph.csv`):
-  14 links from diet and activity levers through weight and insulin resistance to
+  16 links from diet and activity levers through weight and insulin resistance to
   liver fat, injury and fibrosis; CAP, ALT and stiffness are measurements only.
   Priorities may act only on levers with a path to liver fat.
 - **Recipe explanations** (`src/recipe_scoring/recipe_explanation.py`): each
@@ -269,7 +300,8 @@ horizon, labelled "Simulated projection, not a clinical forecast".
   evidence rows, plus the cuisine and practicality context.
 - **Plain-language summary** (`src/twin_summary.py`): written by a template from the
   twin's own facts; an automatic check confirms every number and citation appears
-  in those facts. A language model can be plugged in through `summary_generator`;
+  in those facts. It gives the patient the chances of liver fat and a plain verdict,
+  not the CAP estimate or its range, which stay in the twin's output for clinicians. A language model can be plugged in through `summary_generator`;
   if its text fails the check, the template is shown.
 
 Recipe scoring (section 7.1): recipes labelled "Other" (71% of candidate meals)

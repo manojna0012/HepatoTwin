@@ -64,10 +64,10 @@
     "steps": 12
   },
   "personalisation": {
-    "mean_pairwise_top10_overlap_same_cuisine": 0.9223067457209979,
-    "distinct_priority_profiles": 29,
-    "share_with_most_common_profile": 0.15666666666666668,
-    "distinct_top10_lists": 27,
+    "mean_pairwise_top10_overlap_same_cuisine": 0.9255173956818437,
+    "distinct_priority_profiles": 44,
+    "share_with_most_common_profile": 0.08333333333333333,
+    "distinct_top10_lists": 28,
     "uses_24h_recall": true
   },
   "note": "Cuisine preferences are simulated; NHANES does not record them."

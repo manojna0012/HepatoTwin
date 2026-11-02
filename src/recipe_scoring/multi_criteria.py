@@ -151,9 +151,13 @@ def score_components(recipe, objectives, requested_cuisine=None, related_cuisine
         "value": None if nutrition.get(o["nutrient"]) is None else round(float(nutrition[o["nutrient"]]), 1),
         "reference": f'{"<=" if o["direction"] == "lower" else ">="} {o["target"]} ({o["reference"]})',
         "score": health["components"].get(o["nutrient"]),
+        "optional": bool(o.get("optional")), "gate": o.get("gate", True),
         "evidence": [f'{e["evidence_id"]} [{e["evidence_strength"]}]' for e in o.get("evidence", [])],
     } for o in objectives]
-    meets_all = all(c["score"] == 100 for c in criteria)
+    # An optional criterion the recipe has no value for (not assessed) is not a missed reference, and
+    # criteria outside the gate (weaker evidence) only shape the score.
+    meets_all = all(c["score"] == 100 or (c["optional"] and c["value"] is None)
+                    for c in criteria if c["gate"])
     return {**result, "status": "ranked", "scores": scores, "health_coverage": health["coverage"],
             "meets_all_references": meets_all,
             "health_margin": margin_score(nutrition, objectives) if meets_all else None,

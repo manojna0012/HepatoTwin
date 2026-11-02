@@ -8,6 +8,7 @@ from src.twin_summary import check, facts, summarise, template_summary
 TWIN = {
     'current_state': {'predicted_cap': 313.7, 'predicted_grade': 'S3', 'p_cap248': 0.96, 'p_cap280': 0.78},
     'uncertainty': {'cap_interval_90': (247.0, 380.3)},
+    'patient_state': {'steatosis_likely': 1, 'steatosis_moderate_severe_likely': 1},
     'clinical': {'liver_label': {'label': 'MASLD'},
                  'fibrosis': {'fib4': 0.46, 'category': 'low'},
                  'guardrails': {'notices': [], 'block_recipes': False}},
@@ -19,7 +20,7 @@ TWIN = {
 
 def test_graph_is_acyclic_and_cites_only_known_evidence():
     graph = load_graph()
-    assert sum(len(v) for v in graph.values()) == 14
+    assert sum(len(v) for v in graph.values()) == 16
     assert set(NODE_TYPES) >= {e['target'] for edges in graph.values() for e in edges}
 
 
@@ -50,10 +51,23 @@ def test_recipe_explanation_traces_each_criterion():
     assert out['context']['techniques'] == [] and out['context']['steps'] == 2
 
 
-def test_template_summary_is_faithful():
+def test_template_summary_is_faithful_and_shows_chances_not_cap():
     result = summarise(TWIN)
     assert result['written_by'] == 'template' and result['check']['faithful']
-    assert '314' in result['text'] and '247' in result['text'] and 'LUU2018-SAT' in result['text']
+    assert result['text'].startswith('Your results suggest you likely have a lot of liver fat.')
+    assert '96%' in result['text'] and '78%' in result['text'] and 'LUU2018-SAT' in result['text']
+    for hidden in ('314', '247', '380', 'CAP', 'dB/m'):
+        assert hidden not in result['text']
+    assert 'predicted_cap' not in facts(TWIN)       # a generator cannot quote the CAP either
+    assert summarise(TWIN, generator=lambda f: 'Your CAP is about 314 dB/m.')['written_by'] == 'template'
+
+
+def test_verdict_follows_the_twins_decisions():
+    for flags, start in (({'steatosis_likely': 1, 'steatosis_moderate_severe_likely': 0}, 'likely have some'),
+                         ({'steatosis_likely': 0, 'steatosis_moderate_severe_likely': 0}, 'show little sign')):
+        assert start in summarise(dict(TWIN, patient_state=flags))['text']
+    unknown = summarise(dict(TWIN, patient_state={}))['text']
+    assert unknown.startswith('The chance of at least mild liver fat is 96%')
 
 
 def test_generator_text_with_an_invented_number_or_citation_falls_back_to_the_template():
@@ -61,7 +75,7 @@ def test_generator_text_with_an_invented_number_or_citation_falls_back_to_the_te
     assert made_up['written_by'] == 'template' and 'faithfulness' in made_up['fallback_reason']
     assert made_up['rejected_check']['unsupported_numbers'] == ['290']
     assert made_up['rejected_check']['unsupported_citations'] == ['ABC2020-XYZ']
-    good = summarise(TWIN, generator=lambda f: f'Your CAP is about {f["predicted_cap"]} dB/m (LUU2018-SAT).')
+    good = summarise(TWIN, generator=lambda f: f'Your chance of liver fat is {f["p_cap248_pct"]}% (LUU2018-SAT).')
     assert good['written_by'] == 'generator' and good['check']['faithful']
     broken = summarise(TWIN, generator=lambda f: 1 / 0)
     assert broken['written_by'] == 'template' and 'generator failed' in broken['fallback_reason']

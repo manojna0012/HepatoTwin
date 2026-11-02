@@ -5,14 +5,20 @@ rounded as it will be shown. A template writes the summary now; a language model
 later through `generator`, a function that takes the facts and returns text. Whatever writes it, an
 automatic check confirms that every number and every evidence citation in the text appears in the
 facts; if the check fails, the template summary is shown instead and the reason is recorded.
+
+The summary is written for the patient, so it gives the chances of liver fat and a plain verdict
+taken from the twin's own yes/no decisions (patient_state), not the CAP estimate: at R^2 0.56 a
+single CAP number and its 90% range (about +/- 67 dB/m) would suggest more precision than the
+model has. The CAP estimate and its range stay in the twin's output for the clinician view.
 """
 import re
 
 CITATION = re.compile(r'\b[A-Z]{2,5}\d{4}-[A-Z0-9][A-Z0-9-]*\b')
 # Digits joined to a name by a hyphen (FIB-4, VG2015-WL7-10) are part of the name, not a value.
 NUMBER = re.compile(r'(?<![\w.-])\d+(?:\.\d+)?')
-GRADE_WORDS = {'S0': 'no clear sign of liver fat from this value alone', 'S1': 'mild liver fat', 'S2': 'moderate liver fat',
-               'S3': 'a lot of liver fat'}
+VERDICT = {'a_lot': 'Your results suggest you likely have a lot of liver fat.',
+           'some': 'Your results suggest you likely have some liver fat.',
+           'little': 'Your results show little sign of liver fat.'}
 LABEL_WORDS = {'MASLD': 'metabolic dysfunction-associated steatotic liver disease (MASLD)',
                'MetALD': 'MASLD with increased alcohol intake (MetALD)',
                'ALD': 'liver fat that is likely related to alcohol',
@@ -23,11 +29,8 @@ LABEL_WORDS = {'MASLD': 'metabolic dysfunction-associated steatotic liver diseas
 def facts(twin, top=3):
     """The numbers and citations a summary may use, rounded as they will be shown."""
     state = twin['current_state']
-    out = {'predicted_cap': round(state['predicted_cap']), 'grade': state['predicted_grade'],
-           'p_cap248_pct': round(100 * state['p_cap248']), 'p_cap280_pct': round(100 * state['p_cap280'])}
-    uncertainty = twin.get('uncertainty')
-    if uncertainty:
-        out['cap_low'], out['cap_high'] = (round(v) for v in uncertainty['cap_interval_90'])
+    out = {'p_cap248_pct': round(100 * state['p_cap248']), 'p_cap280_pct': round(100 * state['p_cap280']),
+           'verdict': verdict(twin.get('patient_state') or {})}
     clinical = twin.get('clinical') or {}
     if clinical.get('liver_label'):
         out['label'] = clinical['liver_label']['label']
@@ -47,10 +50,19 @@ def facts(twin, top=3):
     return out
 
 
+def verdict(state):
+    """Plain verdict from the twin's decisions on the two calibrated probabilities (None if unknown)."""
+    if state.get('steatosis_moderate_severe_likely') == 1:
+        return 'a_lot'
+    if state.get('steatosis_likely') == 1:
+        return 'some'
+    if state.get('steatosis_likely') == 0:
+        return 'little'
+    return None
+
+
 def template_summary(f):
-    lines = [f'Your liver estimate: CAP about {f["predicted_cap"]} dB/m, which suggests {GRADE_WORDS.get(f["grade"], f["grade"])}.']
-    if 'cap_low' in f:
-        lines.append(f'Because no estimate is exact, your CAP is likely between {f["cap_low"]} and {f["cap_high"]} dB/m.')
+    lines = [VERDICT[f['verdict']]] if f.get('verdict') else []
     lines.append(f'The chance of at least mild liver fat is {f["p_cap248_pct"]}%, and of a lot of liver fat {f["p_cap280_pct"]}%.')
     if 'label' in f:
         lines.append(f'Taking the chance of liver fat into account, this pattern fits '

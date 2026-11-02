@@ -176,8 +176,12 @@ def _day_values(meals):
 
 def meets(values, objectives):
     for o in objectives:
+        if o.get("gate") is False:
+            continue
         value = values.get(o["nutrient"])
         if value is None:
+            if o.get("optional"):
+                continue
             return False
         if (o["direction"] == "lower" and value > o["target"]) or \
                 (o["direction"] == "higher" and value < o["target"]):
