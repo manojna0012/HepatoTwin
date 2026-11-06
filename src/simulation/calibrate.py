@@ -21,7 +21,10 @@ followed as closely as the diet: the same adherence scales the whole prescriptio
 The settings shared by all trials (adherence patterns, how adherence varies and fades, how strongly
 people respond, natural drift) are tuned together; the starting adherence is tuned per trial,
 because an intensive programme with meal replacements is followed more closely than routine
-clinical advice. HepatoTwin's own scenarios use the Vilar-Gomez adherence: routine advice to
+clinical advice. During each programme's intensive-contact phase (DPP's 24-week one-to-one core
+curriculum, Look AHEAD's 6 months of weekly sessions; RX-CONTACT-*) a 'slipping' participant keeps
+full effort and only eases off afterwards; without this the early loss was too slow (DPP's 24-week
+goal 37% against 50%). HepatoTwin's own scenarios use the Vilar-Gomez adherence: routine advice to
 patients with fatty liver, the setting the twin is meant for. The share of patients who drop out
 is not tuned but set from Vilar-Gomez's loss to follow-up (CAL-DROPOUT): stopping the diet looks
 the same in weight whether the patient keeps reporting (regaining) or not (dropping out), so the
@@ -55,7 +58,7 @@ from scipy.optimize import differential_evolution, minimize
 from src.simulation.cohort import DATA_FILE, MANIFEST_FILE
 from src.simulation.parameters import KJ_PER_KCAL, ROOT, TARGET_FILE, Calibration, Evidence, body_fat_kg, \
     load_table, personal_weight_response
-from src.simulation.simulator import drift_path, has_diabetes, lognormal, pattern_of, trait_draws
+from src.simulation.simulator import drift_path, has_diabetes, lognormal, pattern_of, slipping_adherence, trait_draws
 
 OUTPUT = ROOT / 'data' / 'results' / 'simulation' / 'calibration'
 SEED = 42
@@ -160,14 +163,17 @@ class Cohort:
         self.decay = np.exp(-1 / np.array([tau for _, tau in response]))
         self.kg_per_kcal = ev.kg_per_100kj * KJ_PER_KCAL / 100
 
-    def run(self, energy, cal, adherence_mean):
+    def run(self, energy, cal, adherence_mean, contact_months=None):
         """Weight change (kg) at months 0..months, whether each person completed follow-up, and the
-        diet-driven part alone: the simulator's adherence_path, weight_path and drift_path, vectorised."""
+        diet-driven part alone: the simulator's adherence_path, weight_path and drift_path, vectorised.
+        contact_months: the programme's intensive-contact phase (default: cal.contact_months)."""
+        if contact_months is not None:
+            cal = replace(cal, contact_months=contact_months)
         kcal = np.array([np.broadcast_to(energy(w, self.months), (self.months,)) for w in self.weight])
         pattern = pattern_of(self.pattern_u, [cal.pattern_shares[p] for p in PATTERNS])
         a0 = np.clip(adherence_mean + cal.adherence_sd * self.adherence_z, 0, 1)
         t = np.arange(self.months, dtype=float)[None, :]
-        slipping = a0[:, None] * (cal.slip_floor + (1 - cal.slip_floor) * np.exp(-t / cal.slip_months))
+        slipping = slipping_adherence(a0[:, None], t, cal)
         stop = np.where(pattern == 2, self.stop['regaining'], self.stop['dropping_out'])
         stopping = np.where(t < stop[:, None], a0[:, None], 0.0)
         adherence = np.select([pattern[:, None] == 0, pattern[:, None] == 1], [np.broadcast_to(a0[:, None], stopping.shape),
@@ -195,15 +201,24 @@ def at(path, month):
     return path[:, low] + (month - low) * (path[:, high] - path[:, low])
 
 
-def outcomes(cohorts, rx, cal, adherence, ev=None, months=12, seed=SEED):
+def contact_phases(table=None):
+    """Months of weekly contact at the start of each programme (RX-CONTACT-LA, RX-CONTACT-DPP); Vilar-Gomez
+    gave routine clinical advice, so none."""
+    table = load_table() if table is None else table
+    return {'look_ahead': float(table.loc['RX-CONTACT-LA', 'value']),
+            'dpp': float(table.loc['RX-CONTACT-DPP', 'value']) * 7 / 30.4375, 'vilar_gomez': 0.0}
+
+
+def outcomes(cohorts, rx, cal, adherence, ev=None, months=12, seed=SEED, contact=None):
     """Simulated value of every target, keyed by target_id. cohorts: trial name to Cohort (built for
-    at least `months`) or DataFrame."""
+    at least `months`) or DataFrame. contact: each trial's intensive-contact phase (contact_phases())."""
     built = {t: c if isinstance(c, Cohort) else Cohort(c, ev, months, seed, cal) for t, c in cohorts.items()}
+    contact = contact_phases() if contact is None else contact
     sim = {}
-    runs = {'ILI': built['look_ahead'].run(rx['look_ahead'], cal, adherence['look_ahead']),
+    runs = {'ILI': built['look_ahead'].run(rx['look_ahead'], cal, adherence['look_ahead'], contact['look_ahead']),
             'DSE': built['look_ahead'].run(rx['usual_care'], cal, 0.0),
-            'DPP': built['dpp'].run(rx['dpp'], cal, adherence['dpp']),
-            'VG': built['vilar_gomez'].run(rx['vilar_gomez'], cal, adherence['vilar_gomez'])}
+            'DPP': built['dpp'].run(rx['dpp'], cal, adherence['dpp'], contact['dpp']),
+            'VG': built['vilar_gomez'].run(rx['vilar_gomez'], cal, adherence['vilar_gomez'], contact['vilar_gomez'])}
     paths = {arm: run[0] for arm, run in runs.items()}
     completed = runs['VG'][1]
     ili_diet = runs['ILI'][2]

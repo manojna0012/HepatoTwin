@@ -2,15 +2,16 @@
   "quit_cap": 0.2,
   "calibration": {
     "pattern_shares": {
-      "steady": 0.045863891354162134,
-      "slipping": 0.7558856902043352,
-      "regaining": 0.11625041844150272,
+      "steady": 0.062459898905406486,
+      "slipping": 0.7400747505854979,
+      "regaining": 0.11546535050909572,
       "dropping_out": 0.08199999999999999
     },
     "adherence_mean": 0.7,
-    "adherence_sd": 0.003979894903609339,
-    "slip_months": 2.956761228700427,
-    "slip_floor": 0.0018405673826892028,
+    "adherence_sd": 0.2984361861539149,
+    "slip_months": 1.269615714298336,
+    "slip_floor": 0.01994502066010676,
+    "contact_months": 0.0,
     "regain_month_range": [
       4,
       9
@@ -19,8 +20,8 @@
       2,
       10
     ],
-    "weight_response_sd": 0.2674079890792309,
-    "weight_drift_sd": 1.4689021334979684,
+    "weight_response_sd": 0.2577983415649288,
+    "weight_drift_sd": 1.334742379346514,
     "marker_response_sd": 0.5,
     "shared_response_corr": 0.5,
     "liver_response_sd": 0.5,
@@ -28,12 +29,12 @@
     "min_pdff": 1.0
   },
   "adherence_by_trial": {
-    "look_ahead": 0.9926684602761218,
-    "dpp": 0.9989107758451203,
-    "vilar_gomez": 0.32854946851780353
+    "look_ahead": 0.5389774966765425,
+    "dpp": 0.7829535469788771,
+    "vilar_gomez": 0.5343696825591423
   },
-  "loss": 14.323614486389706,
-  "evaluations": 10663,
+  "loss": 3.2534065502900376,
+  "evaluations": 10813,
   "seed": 42,
   "cohort_sizes": {
     "look_ahead": 1159,

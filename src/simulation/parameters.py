@@ -138,6 +138,8 @@ class Calibration:
     adherence_sd: float = 0.15
     slip_months: float = 6.0           # time constant of the decline for 'slipping'
     slip_floor: float = 0.0            # share of starting adherence a 'slipping' patient keeps (WT-ADH)
+    contact_months: float = 0.0        # intensive-contact phase before slipping starts (RX-CONTACT-*; 0 for
+                                       # routine advice and HepatoTwin's own scenarios); set per trial, not tuned
     regain_month_range: tuple = (4, 9)   # month adherence stops for 'regaining'
     dropout_month_range: tuple = (2, 10)  # month a 'dropping_out' patient stops (and stops reporting)
     weight_response_sd: float = 0.2    # person-to-person spread of the weight response (log scale)

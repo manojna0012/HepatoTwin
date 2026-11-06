@@ -1,28 +1,28 @@
 target_id,use,unit,published,after
-LA-Y1-MEAN-ILI,calibrate,% of initial weight,-8.6,-8.564413734209753
-LA-Y1-MEAN-DSE,calibrate,% of initial weight,-0.6,0.1198932651702591
-LA-Y1-SD-ILI,calibrate,kg,7.6,7.573652858775
-LA-Y1-SD-DSE,calibrate,kg,5.0,5.104652724036036
-LA-Y1-GE5-ILI,calibrate,% of participants,68.0,68.24849007765314
-LA-Y1-GE10-ILI,calibrate,% of participants,37.7,39.94823123382226
-LA-Y1-GE5-DSE,calibrate,% of participants,13.3,18.3779119930975
-LA-Y1-GE10-DSE,calibrate,% of participants,2.9,3.710094909404659
-LA-Y8-MEAN-ILI,held back,% of initial weight,-4.7,-0.5153417232547975
-LA-Y8-GE5-ILI,held back,% of participants,50.3,39.51682484900776
-LA-Y8-GE10-ILI,held back,% of participants,26.9,28.04141501294219
-DPP-GOAL-24W,calibrate,% of participants,50.0,37.28129205921938
-DPP-GOAL-LAST,held back,% of participants,38.0,29.071332436069987
-DPP-MEAN-LIFESTYLE,held back,kg,5.6,1.5512397233950859
-VG-GE5-52W,check,% of participants,30.0,33.703824779339655
-VG-SHAPE-8W,calibrate,fraction,0.717391304347826,0.6254288036807519
-VG-SHAPE-16W,calibrate,fraction,0.9347826086956522,0.9093986662231304
-VG-SHAPE-24W,calibrate,fraction,1.0,1.0381737499351589
-VG-SHAPE-32W,calibrate,fraction,1.0434782608695652,1.0728542616049062
-VG-SHAPE-40W,calibrate,fraction,1.0434782608695652,1.0634599820282404
+LA-Y1-MEAN-ILI,calibrate,% of initial weight,-8.6,-8.402192044195631
+LA-Y1-MEAN-DSE,calibrate,% of initial weight,-0.6,0.10933048529925966
+LA-Y1-SD-ILI,calibrate,kg,7.6,7.564573555837456
+LA-Y1-SD-DSE,calibrate,kg,5.0,4.654925018603044
+LA-Y1-GE5-ILI,calibrate,% of participants,68.0,66.86798964624676
+LA-Y1-GE10-ILI,calibrate,% of participants,37.7,39.68938740293356
+LA-Y1-GE5-DSE,calibrate,% of participants,13.3,16.39344262295082
+LA-Y1-GE10-DSE,calibrate,% of participants,2.9,2.5021570319240722
+LA-Y8-MEAN-ILI,held back,% of initial weight,-4.7,-1.8697640090542271
+LA-Y8-GE5-ILI,held back,% of participants,50.3,40.89732528041415
+LA-Y8-GE10-ILI,held back,% of participants,26.9,29.421915444348578
+DPP-GOAL-24W,calibrate,% of participants,50.0,49.93270524899058
+DPP-GOAL-LAST,held back,% of participants,38.0,33.73710183938986
+DPP-MEAN-LIFESTYLE,held back,kg,5.6,3.26220160403566
+VG-GE5-52W,check,% of participants,30.0,33.80189604445897
+VG-SHAPE-8W,calibrate,fraction,0.717391304347826,0.7075931095755906
+VG-SHAPE-16W,calibrate,fraction,0.9347826086956522,0.9441478196905226
+VG-SHAPE-24W,calibrate,fraction,1.0,1.0197982000242924
+VG-SHAPE-32W,calibrate,fraction,1.0434782608695652,1.0305642228070024
+VG-SHAPE-40W,calibrate,fraction,1.0434782608695652,1.0225918700778482
 VG-SHAPE-52W,calibrate,fraction,1.0,1.0
-VG-PCT-52W,calibrate,% of initial weight,-3.8,-2.4336493227992038
-VG-GRP-LT5,calibrate,% of participants,70.0,66.29617522066034
-VG-GRP-5TO7,calibrate,% of participants,11.6,12.487741091860086
-VG-GRP-7TO10,calibrate,% of participants,8.5,11.474338018960445
-VG-GRP-GE10,calibrate,% of participants,9.9,9.741745668519124
-LA-Y1-REGAIN-T1,select,percentage points of initial weight,1.5,2.6256444588543304
+VG-PCT-52W,calibrate,% of initial weight,-3.8,-2.974272967401924
+VG-GRP-LT5,calibrate,% of participants,70.0,66.19810395554101
+VG-GRP-5TO7,calibrate,% of participants,11.6,11.082052958483164
+VG-GRP-7TO10,calibrate,% of participants,8.5,10.918600849950964
+VG-GRP-GE10,calibrate,% of participants,9.9,11.801242236024844
+LA-Y1-REGAIN-T1,select,percentage points of initial weight,1.5,2.0029726204624017

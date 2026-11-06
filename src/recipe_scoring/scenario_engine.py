@@ -180,22 +180,36 @@ def timeline(state, scenario):
         for h in HORIZONS]
 
 
-def compare_scenarios(ranked, recipes, priorities, patient=None, size=3):
+def compare_scenarios(ranked, recipes, priorities, patient=None, size=3, favourites=()):
     """Scenario A (most health-aligned) and B (closest to the usual diet).
 
     ranked: Layer 4 output; both scenarios draw from recipes that meet every
-    reference value, A by margin past the references, B by smallest shift
-    from the patient's usual diet.
+    reference value, A by margin past the references, B by the smallest
+    distance from what the patient eats now: nutrients against the 24-hour
+    recall and ingredient overlap with the favourite dishes picked at sign-up
+    (style_ladder.closeness). Without either, B falls back to the shift from
+    the reference values and is labelled as not personalised.
     """
+    from src.recipe_scoring.style_ladder import closeness
+
     by_id = {str(r["recipe_id"]): r for r in recipes}
     passing = [item for item in ranked if item.get("meets_all_references")]
     if len(passing) < size:
         passing = list(ranked)
     pool = [by_id[str(item["recipe_id"])] for item in passing[:200]]
     a = sorted(passing[:200], key=lambda i: (-(i.get("health_margin") or 0), -i["overall"]))[:size]
-    scored = [(evaluate_scenario([r], priorities, patient)["shift_score"] or 0, n, r) for n, r in enumerate(pool)]
-    b = [r for _, _, r in sorted(scored)[:size]]
+    distance = [closeness(r, priorities, patient, favourites) for r in pool]
+    personal = bool(pool) and all(d is not None for d in distance)
+    if personal:
+        scored = [(d, n, r) for n, (d, r) in enumerate(zip(distance, pool))]
+    else:
+        scored = [(evaluate_scenario([r], priorities, patient)["shift_score"] or 0, n, r) for n, r in enumerate(pool)]
+    b = [r for _, _, r in sorted(scored, key=lambda x: (x[0], x[1]))[:size]]
     scenario_a = evaluate_scenario([by_id[str(i["recipe_id"])] for i in a], priorities, patient,
                                    "Scenario A - max health")
     scenario_b = evaluate_scenario(b, priorities, patient, "Scenario B - closer to usual recipes")
+    scenario_b["personalised"] = personal
+    scenario_b["closer_by"] = ([k for k, known in (("24-hour recall", patient and scenario_b["shift_from_usual"]),
+                                                   ("favourite dishes", bool(favourites))) if known]
+                               if personal else [])
     return [scenario_a, scenario_b]

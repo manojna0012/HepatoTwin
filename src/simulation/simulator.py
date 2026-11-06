@@ -108,12 +108,20 @@ def person_traits(seqn, seed, cal):
             'markers': markers}
 
 
+def slipping_adherence(a0, t, cal):
+    """Effort of a 'slipping' patient in months t: full during a programme's intensive-contact phase
+    (cal.contact_months: weekly sessions in DPP and Look AHEAD; none for routine advice or an app),
+    then relaxing towards a lower, lasting effort."""
+    after = np.maximum(np.asarray(t, dtype=float) - cal.contact_months, 0.0)
+    return a0 * (cal.slip_floor + (1 - cal.slip_floor) * np.exp(-after / cal.slip_months))
+
+
 def adherence_path(traits, cal, months=MONTHS):
     """Adherence during each month 0..months-1 (the month after each visit)."""
     t = np.arange(months, dtype=float)
     a0, pattern = traits['adherence0'], traits['pattern']
     if pattern == 'slipping':      # relaxes towards a lower, lasting effort (Hall 2011, Figure 4B)
-        return a0 * (cal.slip_floor + (1 - cal.slip_floor) * np.exp(-t / cal.slip_months))
+        return slipping_adherence(a0, t, cal)
     if pattern in ('regaining', 'dropping_out'):
         return np.where(t < traits['stop_month'], a0, 0.0)
     return np.full(months, a0)

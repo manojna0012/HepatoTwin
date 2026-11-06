@@ -6,14 +6,18 @@ import pandas as pd
 import pytest
 from fastapi.testclient import TestClient
 
-from src.api.app import CAP_KEY, DATA_FILE, app, get_store, plain, without_cap
+from src.api.app import CAP_KEY, DATA_FILE, app, current_user, get_store, plain, without_cap
+from src.api.auth import create_clinician
 from src.api.db import Store, current_inputs
 
 
 @pytest.fixture()
 def client():
+    """A signed-in clinician of a test clinic."""
     store = Store(':memory:')
+    clinician = store.user(create_clinician(store, 'dr@example.org', 'Test clinic', 'HT-TEST'))
     app.dependency_overrides[get_store] = lambda: store
+    app.dependency_overrides[current_user] = lambda: clinician
     yield TestClient(app)
     app.dependency_overrides.clear()
 

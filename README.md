@@ -312,6 +312,38 @@ and ingredients for every recipe was tried and lowered the share of top-10
 recipes in the patient's cuisine from 0.998 to 0.865. Feasibility adds demanding
 techniques and special equipment read from the instructions.
 
+## Backend: patient journey and clinician workflow
+
+`src/api/app.py` (FastAPI, SQLite in `src/api/db.py`) serves the journey:
+
+1. **Sign-in** without passwords (`src/api/auth.py`): a one-time code (shown in the response in this
+   prototype), then a bearer token. Patients see only their own record; clinicians see their clinic's
+   patients. Patients join a clinic with its code.
+2. **Sign-up** (`POST /patients`): measurements, cuisine and favourite dishes picked from
+   `GET /dishes?cuisine=`. The twin then runs with the cuisine and favourites.
+3. **Suggested plan** (`GET /patients/{id}/plan/suggestion`, `src/care_plan.py`): three paces from the
+   trial prescriptions (gentle: half the DPP calorie cut, 90 min walking; standard: DPP cut and 150 min;
+   ambitious: Look AHEAD goal and 175 min) with the expected 12-month change from Hall's rule. Patients
+   pick a pace; only clinicians set custom numbers. A plan waits for a clinician's approval
+   (`POST .../plan/approve`) when a safety notice applies (under 18, alcohol, glucose-lowering medicine,
+   pregnancy, scarring referral).
+4. **Recipe-style ladder** (`PUT .../plan/style`, `src/recipe_scoring/style_ladder.py`): four steps from
+   "closest to what you eat now" (Scenario B: nutrients against the 24-hour recall and ingredient overlap
+   with the favourite dishes) to "healthiest" (Scenario A), all within the recipes meeting every gating
+   reference. `GET .../week` builds the seven-day plan at the step; `GET .../week/shopping` adds up one
+   serving of each meal.
+5. **Check-ins** (`POST .../visits` with `followed`: meals most/half/few, walking as_planned/some/little)
+   return what changed: the step verdict, progress against the plan from the start, its cause ("plan not
+   followed", "slow response") and one tip (`src/api/care.py`). The re-assessment loop splits the response
+   factor into adherence x body response (`src/reassessment.py`); without answers it is unchanged.
+6. **Today** (`GET .../today`): a status line, the one next step (awaiting approval, choose a plan,
+   check-in due, add liver blood tests, or cook today's meals), today's two meals and the next check-in.
+7. **Clinician** (`GET /patients`, `GET /alerts`): patients sorted by alerts (plan awaiting approval,
+   scarring risk, behind plan twice despite good adherence, check-in overdue, no plan, no scarring check).
+
+Limit found while building it: the 20,000-recipe sample has few main meals in some cuisines (Indian 13,
+against European 1,152, Asian 637, Mexican 308), so a seven-day plan cannot be filled for those cuisines.
+
 ## NHANES III (Proposal 17.9)
 
 `src/nhanes3.py --download` fetches the NHANES III exam and laboratory files and

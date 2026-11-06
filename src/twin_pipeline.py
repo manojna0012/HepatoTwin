@@ -74,8 +74,9 @@ def layer2_uncertainty(state_model):
 
 
 def run_twin(patient, recipes=None, model_file=MODEL_FILE, weights=DEFAULT_WEIGHTS, preferences=None,
-             summary_generator=None):
-    """Run Layers 2-5 for one patient and return every intermediate result."""
+             summary_generator=None, favourites=()):
+    """Run Layers 2-5 for one patient and return every intermediate result. favourites: recipes the
+    patient picked as dishes they cook often, used to make Scenario B familiar."""
     patient = dict(patient)
     state_model = layer2(patient, model_file)
     state = derive_patient_state(patient, state_model['probabilities'], state_model['thresholds'])
@@ -90,7 +91,7 @@ def run_twin(patient, recipes=None, model_file=MODEL_FILE, weights=DEFAULT_WEIGH
     scenarios = []
     if workflow['ranked_recipes']:
         scenarios = compare_scenarios(workflow['ranked_recipes'], recipes,
-                                      workflow['nutritional_priorities'], patient)
+                                      workflow['nutritional_priorities'], patient, favourites=favourites)
         for scenario in scenarios:
             scenario['timeline'] = timeline(now, scenario)
     by_id = {str(r.get('recipe_id')): r for r in recipes}

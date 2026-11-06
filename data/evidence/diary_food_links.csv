@@ -1,0 +1,55 @@
+food,usda_pattern,note
+toast,"^Bread, white, commercially prepared, toasted$",
+bread,"^Bread, white, commercially prepared \(includes soft bread crumbs\)$",
+wheat toast,"^Bread, whole-wheat, commercially prepared, toasted$",
+bagel,"^Bagels, plain, enriched, with calcium propionate \(includes onion, poppy, sesame\)$",
+cereal,"^Cereals ready-to-eat, GENERAL MILLS, CHEERIOS$",ready-to-eat cereal; Cheerios as the reference
+oatmeal,"^Cereals, oats, regular and quick, unenriched, cooked with water \(includes boiling and microwaving\), without salt$",cooked
+pancakes,"^Pancakes, plain, frozen, ready-to-heat, microwave \(includes buttermilk\)$",
+waffles,"^Waffles, plain, frozen, ready-to-heat$",
+muffin,"^Muffins, blueberry, commercially prepared \(Includes mini-muffins\)$",
+doughnut,"^Doughnuts, yeast-leavened, glazed, enriched \(includes honey buns\)$",
+donut,"^Doughnuts, yeast-leavened, glazed, enriched \(includes honey buns\)$",
+pizza,"^Pizza, cheese topping, regular crust, frozen, cooked$",
+burger,"^Fast foods, hamburger; single, regular patty; with condiments$",
+hamburger,"^Fast foods, hamburger; single, regular patty; with condiments$",
+cheeseburger,"^Fast foods, cheeseburger; single, regular patty, with condiments$",
+fries,"^Fast foods, potato, french fried in vegetable oil$",
+french fries,"^Fast foods, potato, french fried in vegetable oil$",
+chips,"^Snacks, potato chips, plain, salted$",
+potato chips,"^Snacks, potato chips, plain, salted$",
+burrito,"^Fast foods, burrito, with beans and cheese$",
+chicken nuggets,"^Fast foods, chicken, breaded and fried, boneless pieces, plain$",
+fried chicken,"^Fast foods, chicken, breaded and fried, boneless pieces, plain$",
+chicken sandwich,"^Fast foods, chicken fillet sandwich, plain with pickles$",
+grilled chicken,"^Chicken, broilers or fryers, breast, meat only, cooked, roasted$",
+chicken,"^Chicken, broilers or fryers, breast, meat only, cooked, roasted$",cooked
+rice,"^Rice, white, long-grain, regular, enriched, cooked$",cooked
+pasta,"^Pasta, cooked, enriched, without added salt$",cooked
+spaghetti,"^Pasta, cooked, enriched, without added salt$",cooked
+noodles,"^Pasta, cooked, enriched, without added salt$",cooked
+soda,"^Beverages, carbonated, cola, regular$",
+coke,"^Beverages, carbonated, cola, regular$",
+cola,"^Beverages, carbonated, cola, regular$",
+coffee,"^Beverages, coffee, brewed, prepared with tap water$",
+tea,"^Beverages, tea, black, brewed, prepared with tap water$",
+orange juice,"^Orange juice, chilled, includes from concentrate$",
+beer,"^Alcoholic beverage, beer, regular, all$",
+wine,"^Alcoholic beverage, wine, table, red$",
+ice cream,"^Ice creams, vanilla$",
+cookie,"^Cookies, chocolate chip, commercially prepared, soft-type$",
+cookies,"^Cookies, chocolate chip, commercially prepared, soft-type$",
+hot dog,"^Frankfurter, beef, unheated$",
+bacon,"^Pork, cured, bacon, cooked, baked$",cooked
+sausage,"^Sausage, turkey and pork, fresh, bulk, patty or link, cooked$",cooked
+chicken noodle soup,"^Soup, chicken noodle, canned, prepared with equal volume water$",
+greek yogurt,"^Yogurt, Greek, plain, whole milk$",
+salad,"^Lettuce, green leaf, raw$",green salad without dressing
+apple,"^Apples, raw, gala, with skin$",
+eggs,"^Egg, whole, cooked, fried$",cooked
+egg,"^Egg, whole, cooked, fried$",cooked
+steak,"^Beef, top sirloin, steak, separable lean and fat, trimmed to 1/8"" fat, choice, cooked, broiled$",cooked
+turkey sandwich,"^Fast foods, submarine sandwich, turkey breast on white bread with lettuce and tomato$",
+sandwich,"^Fast foods, submarine sandwich, turkey breast on white bread with lettuce and tomato$",generic sandwich; turkey sub as the reference
+spaghetti with meat sauce,"^Spaghetti with meat sauce, frozen entree$",
+meat sauce,"^Sauce, pasta, spaghetti/marinara, ready-to-serve$",tomato pasta sauce as the closest generic
