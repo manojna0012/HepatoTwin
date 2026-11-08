@@ -320,26 +320,35 @@ techniques and special equipment read from the instructions.
    prototype), then a bearer token. Patients see only their own record; clinicians see their clinic's
    patients. Patients join a clinic with its code.
 2. **Sign-up** (`POST /patients`): measurements, cuisine and favourite dishes picked from
-   `GET /dishes?cuisine=`. The twin then runs with the cuisine and favourites.
+   `GET /dishes?cuisine=`, and food answers (`GET /food/questions`, `src/recipe_scoring/food_preferences.py`):
+   diet, the nine US major allergens plus gluten and any other allergy typed in, foods never eaten (pork,
+   beef, alcohol), disliked and liked ingredients, cooking time and household size. All but likes and
+   household are hard rules; a recipe must pass both RecipeDB's diet label and an ingredient check. The twin
+   then runs with the cuisine, favourites and food answers.
 3. **Suggested plan** (`GET /patients/{id}/plan/suggestion`, `src/care_plan.py`): three paces from the
    trial prescriptions (gentle: half the DPP calorie cut, 90 min walking; standard: DPP cut and 150 min;
    ambitious: Look AHEAD goal and 175 min) with the expected 12-month change from Hall's rule. Patients
    pick a pace; only clinicians set custom numbers. A plan waits for a clinician's approval
    (`POST .../plan/approve`) when a safety notice applies (under 18, alcohol, glucose-lowering medicine,
    pregnancy, scarring referral).
-4. **Recipe-style ladder** (`PUT .../plan/style`, `src/recipe_scoring/style_ladder.py`): four steps from
+4. **Recipe-style ladder** (`PUT .../plan/style`, `src/recipe_scoring/style_ladder.py`): the patient
+   chooses Scenario B or Scenario A; the twin then moves them between the two a step at a time after
+   check-ins (two middle steps). Four steps from
    "closest to what you eat now" (Scenario B: nutrients against the 24-hour recall and ingredient overlap
    with the favourite dishes) to "healthiest" (Scenario A), all within the recipes meeting every gating
    reference. `GET .../week` builds the seven-day plan at the step; `GET .../week/shopping` adds up one
    serving of each meal.
 5. **Check-ins** (`POST .../visits` with `followed`: meals most/half/few, walking as_planned/some/little)
    return what changed: the step verdict, progress against the plan from the start, its cause ("plan not
-   followed", "slow response") and one tip (`src/api/care.py`). The re-assessment loop splits the response
+   followed", "no progress despite effort") and one tip (`src/api/care.py`). The re-assessment loop splits the response
    factor into adherence x body response (`src/reassessment.py`); without answers it is unchanged.
+   "No progress despite effort" does not claim a slow body: the in-silico evaluation below showed the body
+   response cannot be told apart from ordinary weight drift within a year.
 6. **Today** (`GET .../today`): a status line, the one next step (awaiting approval, choose a plan,
    check-in due, add liver blood tests, or cook today's meals), today's two meals and the next check-in.
 7. **Clinician** (`GET /patients`, `GET /alerts`): patients sorted by alerts (plan awaiting approval,
-   scarring risk, behind plan twice despite good adherence, check-in overdue, no plan, no scarring check).
+   scarring risk, no progress at two check-ins despite reported effort (with what to check: a 3-day food
+   diary, ordinary weight drift, medicines or thyroid), check-in overdue, no plan, no scarring check).
 
 Limit found while building it: the 20,000-recipe sample has few main meals in some cuisines (Indian 13,
 against European 1,152, Asian 637, Mexican 308), so a seven-day plan cannot be filled for those cuisines.
@@ -355,6 +364,52 @@ hand into `data/raw/nhanes3/` because ftp.cdc.gov fails the certificate check he
 layout from NCHS's `SAS_ReadInProgramAllSurveys.sas`) links 10,672 of them: 2,174
 deaths over a median 27.3 years. Its cause-of-death recode has no liver category, so
 it supports all-cause, cardiovascular and cancer mortality, not liver-related deaths.
+
+`src/nhanes3_validation.py` scores the model on them (`data/results/nhanes3/validation.json`;
+unweighted; ultrasound grade, not CAP, 30 years earlier, so it tests ranking, not CAP values):
+
+| Moderate-severe steatosis on ultrasound | n | AUC (95% CI) |
+|---|---|---|
+| Model: chance of CAP >= 280 | 10,682 | 0.771 (0.759-0.782) |
+| Hepatic Steatosis Index | 10,055 | 0.725 (0.712-0.738) |
+| Waist / BMI alone | 10,374 / 10,668 | 0.716 / 0.698 |
+| With GGT: Fatty Liver Index vs model | 7,649 | 0.744 vs 0.766 |
+
+By group: men 0.783, women 0.755, Mexican American 0.787, non-Hispanic White 0.790, non-Hispanic Black
+0.690 (the lowest; the ultrasound share is also lowest, 16%). Mean chance 0.255 against a 20.7%
+ultrasound share; the share rises in every tenth of the chance from the fourth up.
+
+Mortality by quarter of the chance of CAP >= 280 (10,671 linked, 2,173 deaths, median 27.3 years;
+rate ratios adjusted for age and sex, Poisson with person-years offset):
+
+| Deaths | Highest vs lowest quarter | Ultrasound moderate-severe vs not |
+|---|---|---|
+| All-cause | 1.58 (1.38-1.81) | 1.29 (1.17-1.41) |
+| Cardiovascular | 2.15 (1.64-2.81) | 1.35 (1.13-1.61) |
+| Cancer | 1.00 (0.79-1.28) | 1.05 (0.88-1.26) |
+
+Not adjusted for smoking, alcohol or income, which are not mapped.
+
+## In-silico evaluation of the follow-up loop (Proposal 17.14)
+
+`src/in_silico_evaluation.py` runs the twin on the calibrated virtual cohort (1,236 people, 500 and
+250 kcal/day plans, 12 months). The twin sees only what a clinic would record (monthly weights with missed
+visits, quarterly bloods) and the monthly meals answer, and is graded against the simulator's truth
+(`data/results/in_silico/summary.json`; adults, honest answers):
+
+- Weight forecasts: mean error 1.9 kg (month 3 to 6) and 2.8 kg (month 6 to 12), against 2.9 and 4.7 kg
+  for the textbook curve; 90% ranges cover 91%. Carrying the last weight forward is as accurate (1.9 and
+  2.7 kg), because most simulated people ease off within months. Without the meals answer the month-12
+  error rises to 3.0 kg.
+- "Plan not followed": true adherence was below 0.4 every time.
+- Body response: the learned response correlates 0.03-0.06 with the true one; 12 monthly weights cannot
+  separate a slow body (true spread about 20%) from ordinary drift (1.3 kg per square-root month). The
+  "slow response" cause and alert were therefore reworded as "no progress despite effort". 78% of alerted
+  patients were still behind plan at month 12 (63% of all); behind the alerts were ordinary drift (74%)
+  and a slow body (26%), and with over-reported answers also intake higher than reported (8%).
+- Liver: the chance of CAP >= 280 keeps AUC 0.88 at months 0, 6 and 12 with mean chance close to the true
+  share (0.31 vs 0.29 at month 12, 500 kcal). The month-6 forecast of month 12 beats reusing the month-0
+  chance (AUC 0.875 vs 0.868, Brier 0.126 vs 0.133).
 
 ## Evidence table
 

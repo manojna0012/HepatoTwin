@@ -13,8 +13,10 @@ Next step on the patient's Today screen, the first that applies:
 Tip after a check-in, from the latest progress against the plan and its cause (src/reassessment.py):
 - behind, plan not followed: move one step towards familiar food (a smaller change kept beats a
   larger one dropped), or shorter walks at the lowest step;
-- behind, slow response: keep going; after two such check-ins in a row the progress is shared with the
-  clinician (an alert);
+- behind, no progress despite effort (good reported adherence): keep going; after two such check-ins in a
+  row the progress is shared with the clinician (an alert with the reasons to check). The twin does not
+  claim the body is slow: within a year that cannot be told apart from ordinary weight drift or eating
+  more than reported (src/in_silico_evaluation.py);
 - on or ahead of plan with good adherence at two check-ins in a row: offer one step towards the
   healthiest recipes;
 - ahead: keep going, and make sure meals are not being skipped.
@@ -26,11 +28,15 @@ without a plan, scarring check missing.
 from datetime import date, timedelta
 
 from src.care_plan import Prescriptions, reported_adherence, walking_kcal
-from src.reassessment import GOOD_ADHERENCE, WeightRule, reassess
+from src.reassessment import GOOD_ADHERENCE, NO_PROGRESS, WeightRule, reassess
 from src.recipe_scoring.style_ladder import STEPS
 
 CHECKIN_WEEKS = 4
 CHECKIN_GRACE_DAYS = 7
+# What the clinician checks when a patient reports following the plan but is not losing weight
+NO_PROGRESS_CHECKS = ('Intake may be higher than reported: ask for a 3-day food diary.',
+                      'Ordinary weight ups and downs: if the diary matches the plan, review again next month.',
+                      'Medical causes: new medicines (for example steroids, some antidepressants), thyroid.')
 SEVERITY = {'awaiting_approval': 1, 'scarring_risk': 1, 'behind_twice': 2, 'checkin_overdue': 3,
             'no_plan': 3, 'scarring_check_missing': 4}
 
@@ -101,13 +107,13 @@ def tip(result, plan):
                         'message': 'A smaller change you keep beats a big change you drop. Try recipes closer to '
                                    'what you usually eat this month.'}
             return {'id': 'easier_walks', 'message': 'Try two short walks this week; small steps count.'}
-        if v['cause'] == 'slow response':
-            if len(last) == 2 and last[0]['cause'] == 'slow response':
+        if v['cause'] == NO_PROGRESS:
+            if len(last) == 2 and last[0]['cause'] == NO_PROGRESS:
                 return {'id': 'shared_with_clinician',
-                        'message': "You're sticking to the plan and your body is responding slowly. We've shared "
-                                   'your progress with your clinician.'}
-            return {'id': 'keep_going', 'message': "You're following the plan well. Bodies respond at different "
-                                                   'speeds; keep going.'}
+                        'message': "You're following the plan, but your weight isn't moving yet. We've shared "
+                                   'this with your clinician so you can look at it together.'}
+            return {'id': 'keep_going', 'message': "You're following the plan well. Weight goes up and down from "
+                                                   'month to month; keep going.'}
         return {'id': 'keep_going', 'message': 'Progress is a little slow. Following more of the meals will help.'}
     good = len(last) == 2 and all((x['adherence'] or 0) >= GOOD_ADHERENCE and x['progress'] != 'behind plan'
                                   for x in last)
@@ -141,14 +147,15 @@ def alerts(patient, plan, run, result, today=None):
     if category in ('indeterminate', 'high'):
         out.append(('scarring_risk', f'Scarring risk {category}: further assessment advised.'))
     last = _last_checkins(result)
-    if len(last) == 2 and all(v['cause'] == 'slow response' for v in last):
-        out.append(('behind_twice', 'Behind plan at two check-ins despite good reported adherence.'))
+    if len(last) == 2 and all(v['cause'] == NO_PROGRESS for v in last):
+        out.append(('behind_twice', 'No progress at two check-ins although the patient reports following the plan.'))
     if plan and plan.get('next_checkin') and \
             today > date.fromisoformat(plan['next_checkin']) + timedelta(days=CHECKIN_GRACE_DAYS):
         out.append(('checkin_overdue', f'Check-in overdue since {plan["next_checkin"]}.'))
     if category == 'unknown':
         out.append(('scarring_check_missing', 'No scarring check yet: order ALT, AST and platelets.'))
-    return [{'id': i, 'message': m, 'severity': SEVERITY[i]} for i, m in sorted(out, key=lambda x: SEVERITY[x[0]])]
+    return [{'id': i, 'message': m, 'severity': SEVERITY[i], **({'checks': list(NO_PROGRESS_CHECKS)} if i == 'behind_twice' else {})}
+            for i, m in sorted(out, key=lambda x: SEVERITY[x[0]])]
 
 
 def next_step(plan, run, today=None):

@@ -23,8 +23,11 @@ adherence of 0.5. When the patient reports at a check-in how much of the plan th
 (src/care_plan.py), that step uses the reported adherence and r is learned from it; without a report
 the step uses 0.5, which gives exactly the k of the version without reports. This separates the two
 reasons for slow progress: a weight above the range with low reported adherence means the plan was not
-followed ("plan not followed"); with good adherence it means the body responds slowly ("slow
-response"). Reported adherence is self-reported and likely optimistic, as food logs are.
+followed ("plan not followed"); with good adherence it is "no progress despite effort". That second cause
+does not say why: the in-silico evaluation (src/in_silico_evaluation.py) found the body response r cannot be
+told apart from ordinary weight drift within a year (learned r correlated 0.03-0.06 with the truth), so the
+twin names what it sees and the clinician checks the possible reasons (intake higher than reported, drift,
+a medical cause). Reported adherence is self-reported and likely optimistic, as food logs are.
 
 Progress against the plan. The step verdict compares each weight with what the twin expected after
 learning, so once it has learned that a patient is not losing weight it stops flagging them. Progress
@@ -140,6 +143,9 @@ def is_behind(start, observed, typical, high, months):
     return months >= BEHIND_FROM_MONTHS and expected_loss > 0 and start - observed < BEHIND_SHARE * expected_loss
 
 
+NO_PROGRESS = 'no progress despite effort'
+
+
 def cause(progress, adherence):
     """Why progress is behind the plan, when the patient reported what they followed."""
     if adherence is None or progress != 'behind plan':
@@ -147,7 +153,7 @@ def cause(progress, adherence):
     if adherence < LOW_ADHERENCE:
         return 'plan not followed'
     if adherence >= GOOD_ADHERENCE:
-        return 'slow response'
+        return NO_PROGRESS
     return 'partly followed'
 
 

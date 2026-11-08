@@ -36,6 +36,7 @@ from src.api.db import DEFAULT_DB, Store, current_inputs
 from src.care_plan import PACES, MEAL_ANSWERS, WALK_ANSWERS, needs_approval, suggest
 from src.reassessment import WeightRule, projected_inputs
 from src.recipe_scoring.food_diary import diary_totals
+from src.recipe_scoring.food_preferences import FoodPreferences, allowed_recipes, liked_dish, questions
 from src.recipe_scoring.meal_plan import cuisine_profiles, similar_cuisines, weekly_plan
 from src.recipe_scoring.recipe_criteria import criteria_for
 from src.recipe_scoring.style_ladder import (STEP_LABELS, STEPS, favourite_choices, for_week, ladder_order,
@@ -66,6 +67,36 @@ def recipes():
 @lru_cache(maxsize=1)
 def recipes_by_id():
     return {str(r['recipe_id']): r for r in recipes()}
+
+
+@lru_cache(maxsize=64)
+def _allowed(prefs):
+    return tuple(allowed_recipes(recipes(), prefs))
+
+
+def food_of(patient):
+    return FoodPreferences.from_dict(patient.get('food') or {})
+
+
+def recipes_for(patient):
+    """The recipes the patient's food answers allow (diet, allergies, foods avoided, dislikes, time)."""
+    return list(_allowed(food_of(patient)))
+
+
+def favourites_for(patient):
+    """Favourite dishes plus the liked ingredients as a pseudo-dish (both only make recipes rank closer)."""
+    dishes = [recipes_by_id()[f] for f in patient['favourites'] if f in recipes_by_id()]
+    liked = liked_dish(food_of(patient))
+    return dishes + ([liked] if liked else [])
+
+
+def checked_food(food):
+    if food is None:
+        return None
+    try:
+        return FoodPreferences.from_dict(food).as_dict()
+    except (ValueError, TypeError) as error:
+        raise HTTPException(422, str(error))
 
 
 @lru_cache(maxsize=32)
@@ -156,12 +187,15 @@ class NewPatient(Measurements):
     label: Optional[str] = Field(None, min_length=1, max_length=80, description='A clinic reference, never a name')
     cuisine: Optional[str] = None
     favourites: list[str] = Field(default_factory=list, description='Recipe ids of dishes the patient cooks often')
+    food: Optional[dict] = Field(None, description='Food answers: diet, allergies, other_allergies, avoid, dislikes, likes, '
+                                                   'max_minutes, household (see GET /food/questions)')
     clinic_code: Optional[str] = None
 
 
 class Profile(BaseModel):
     cuisine: Optional[str] = None
     favourites: Optional[list[str]] = None
+    food: Optional[dict] = None
 
 
 class Plan(BaseModel):
@@ -260,10 +294,19 @@ def diary_preview(body: DiaryText, user=Depends(current_user)):
     return diary_totals(body.text, body.usual_day)
 
 
+@app.get('/food/questions')
+def food_questions(user=Depends(current_user)):
+    """The sign-up food questions and their options."""
+    return questions()
+
+
 @app.get('/dishes')
-def dishes(cuisine: str, user=Depends(current_user)):
-    """Popular main meals of a cuisine, to pick favourite dishes from at sign-up."""
-    return favourite_choices(recipes(), cuisine)
+def dishes(cuisine: str, diet: str = 'anything', allergies: str = '', avoid: str = '', user=Depends(current_user)):
+    """Popular main meals of a cuisine that fit the diet, allergies and foods avoided (comma-separated),
+    to pick favourite dishes from at sign-up."""
+    split = lambda text: [x for x in text.split(',') if x.strip()]
+    prefs = checked_food({'diet': diet, 'allergies': split(allergies), 'avoid': split(avoid)})
+    return favourite_choices(list(_allowed(FoodPreferences.from_dict(prefs))), cuisine)
 
 
 # ---------------- patients and visits ----------------
@@ -282,7 +325,8 @@ def create_patient(body: NewPatient, store: Store = Depends(get_store), user=Dep
     unknown = [f for f in body.favourites if f not in recipes_by_id()]
     if unknown:
         raise HTTPException(400, f'Unknown recipes: {", ".join(unknown[:5])}')
-    patient_id = store.add_patient(body.label or 'pending', body.cuisine, body.favourites, clinic_id)
+    patient_id = store.add_patient(body.label or 'pending', body.cuisine, body.favourites, clinic_id,
+                                   checked_food(body.food))
     if not body.label:
         store.conn.execute('UPDATE patients SET label = ? WHERE id = ?', (f'P{patient_id:04d}', patient_id))
         store.conn.commit()
@@ -318,7 +362,7 @@ def set_profile(patient_id: int, body: Profile, store: Store = Depends(get_store
     unknown = [f for f in body.favourites or [] if f not in recipes_by_id()]
     if unknown:
         raise HTTPException(400, f'Unknown recipes: {", ".join(unknown[:5])}')
-    store.update_profile(patient_id, body.cuisine, body.favourites)
+    store.update_profile(patient_id, body.cuisine, body.favourites, checked_food(body.food))
     return store.patient(patient_id)
 
 
@@ -478,9 +522,9 @@ def run_for_visit(patient_id: int, view: Literal['patient', 'clinician'] = 'pati
     patient = require_patient(store, patient_id, user)
     clinician = check_view(view, user)
     visit, inputs, measured = twin_inputs(store, patient_id, visit_id)
-    favourites = [recipes_by_id()[f] for f in patient['favourites'] if f in recipes_by_id()]
     preferences = {'requested_cuisine': patient['cuisine']} if patient['cuisine'] else None
-    twin = plain(run_twin(full_inputs(inputs), recipes=recipes(), preferences=preferences, favourites=favourites))
+    twin = plain(run_twin(full_inputs(inputs), recipes=recipes_for(patient), preferences=preferences,
+                          favourites=favourites_for(patient)))
     run_id = store.add_run(patient_id, visit['id'], twin)
     body = twin if clinician else patient_view(twin)
     return {'run_id': run_id, 'visit_id': visit['id'], 'visit_date': visit['visit_date'], 'view': view,
@@ -498,14 +542,14 @@ def week_for(store, patient_id):
                 'days': [], 'checks': {}, 'style': None}
     step = (plan or {}).get('style_step') or 0
     inputs = twin_inputs(store, patient_id)[1]
-    favourites = [recipes_by_id()[f] for f in patient['favourites'] if f in recipes_by_id()]
-    order, personal = ladder_order(twin['ranked_recipes'], recipes(), twin['nutritional_priorities'],
-                                   full_inputs(inputs), favourites, step)
+    allowed = recipes_for(patient)
+    order, personal = ladder_order(twin['ranked_recipes'], allowed, twin['nutritional_priorities'],
+                                   full_inputs(inputs), favourites_for(patient), step)
     objectives, _ = criteria_for(twin['nutritional_priorities'])
     cuisines = [patient['cuisine']] if patient['cuisine'] else None
     chosen = {str(i['recipe_id']) for i in order}
     rest = [i for i in twin['ranked_recipes'] if str(i['recipe_id']) not in chosen]   # to complete the week
-    days, checks, notes = weekly_plan(for_week(order + rest), list(recipes()), objectives, cuisines,
+    days, checks, notes = weekly_plan(for_week(order + rest), allowed, objectives, cuisines,
                                       list(similar_to(patient['cuisine'])), pool=len(order) + len(rest))
     return {'withheld': False, 'style_step': step, 'style': STEP_LABELS[step] if personal else STEP_LABELS[STEPS],
             'personalised': personal, 'start_date': (plan or {}).get('start_date'),
@@ -527,7 +571,11 @@ def get_week(patient_id: int, store: Store = Depends(get_store), user=Depends(cu
 def get_shopping(patient_id: int, store: Store = Depends(get_store), user=Depends(current_user)):
     require_patient(store, patient_id, user)
     week = week_for(store, patient_id)
-    return plain({'servings': 'one serving of each meal', 'groups': shopping_list(week.get('_meals', []))})
+    people = food_of(store.patient(patient_id)).household
+    groups = {g: [{**i, 'grams': round(i['grams'] * people) if i.get('grams') else i.get('grams')} for i in items]
+              for g, items in shopping_list(week.get('_meals', [])).items()}
+    return plain({'servings': f'one serving of each meal for {people} {"person" if people == 1 else "people"}',
+                  'people': people, 'groups': groups})
 
 
 @app.get('/patients/{patient_id}/today')

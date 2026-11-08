@@ -42,7 +42,7 @@ def test_a_stalled_weight_is_behind_plan_and_the_cause_follows_the_reported_adhe
     good = reassess(stalled, START.isoformat(), -500, RULE, adherence=[None, 0.9, 0.9, 0.9, 0.9])['visits']
     assert good[1]['progress'] == 'on plan'                       # too early to judge at month 1
     assert [v['progress'] for v in good[2:]] == ['behind plan'] * 3
-    assert {v['cause'] for v in good[2:]} == {'slow response'}
+    assert {v['cause'] for v in good[2:]} == {'no progress despite effort'}
     poor = reassess(stalled, START.isoformat(), -500, RULE, adherence=[None, 0.9, 0.15, 0.15, 0.15])['visits']
     assert poor[-1]['cause'] == 'plan not followed'
     on_plan = reassess(weights(1.0, range(0, 7)), START.isoformat(), -500, RULE, adherence=[None] + [0.9] * 6)

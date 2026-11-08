@@ -83,6 +83,7 @@ ADDED_COLUMNS = [
     ('patients', 'cuisine', 'TEXT'),
     ('patients', 'favourites', "TEXT NOT NULL DEFAULT '[]'"),
     ('patients', 'clinic_id', 'INTEGER REFERENCES clinics(id)'),
+    ('patients', 'food', "TEXT NOT NULL DEFAULT '{}'"),
     ('visits', 'followed', 'TEXT'),
     ('plans', 'pace', 'TEXT'),
     ('plans', 'walking_min_per_week', 'REAL NOT NULL DEFAULT 0'),
@@ -117,14 +118,16 @@ class Store:
         self.conn.commit()
 
     # ---------------- patients ----------------
-    def add_patient(self, label, cuisine=None, favourites=(), clinic_id=None):
+    def add_patient(self, label, cuisine=None, favourites=(), clinic_id=None, food=None):
         cur = self.conn.execute(
-            'INSERT INTO patients (label, created_at, cuisine, favourites, clinic_id) VALUES (?, ?, ?, ?, ?)',
-            (label, _now(), cuisine, json.dumps([str(f) for f in favourites]), clinic_id))
+            'INSERT INTO patients (label, created_at, cuisine, favourites, clinic_id, food) VALUES (?, ?, ?, ?, ?, ?)',
+            (label, _now(), cuisine, json.dumps([str(f) for f in favourites]), clinic_id, json.dumps(food or {})))
         self.conn.commit()
         return cur.lastrowid
 
-    def update_profile(self, patient_id, cuisine=None, favourites=None):
+    def update_profile(self, patient_id, cuisine=None, favourites=None, food=None):
+        if food is not None:
+            self.conn.execute('UPDATE patients SET food = ? WHERE id = ?', (json.dumps(food), patient_id))
         if cuisine is not None:
             self.conn.execute('UPDATE patients SET cuisine = ? WHERE id = ?', (cuisine, patient_id))
         if favourites is not None:
@@ -141,11 +144,11 @@ class Store:
         return [dict(r) for r in rows]
 
     def patient(self, patient_id):
-        row = self.conn.execute('SELECT id, label, created_at, cuisine, favourites, clinic_id FROM patients '
+        row = self.conn.execute('SELECT id, label, created_at, cuisine, favourites, clinic_id, food FROM patients '
                                 'WHERE id = ?', (patient_id,)).fetchone()
         if row is None:
             return None
-        return {**dict(row), 'favourites': json.loads(row['favourites'] or '[]')}
+        return {**dict(row), 'favourites': json.loads(row['favourites'] or '[]'), 'food': json.loads(row['food'] or '{}')}
 
     # ---------------- visits ----------------
     def add_visit(self, patient_id, visit_date, measurements, followed=None):

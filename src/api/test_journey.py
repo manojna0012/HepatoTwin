@@ -87,17 +87,17 @@ def test_journey(setup, baseline):
     assert today['next_step']['id'] == 'cook' and len(today['meals_today']) == 2
     assert client.put(f'/patients/{pid}/plan/style', headers=patient, json={'style_step': 3}).json()['style'] == 'healthiest'
 
-    # Two check-ins behind plan while following it: slow response, shared with the clinician
+    # Two check-ins behind plan while following it: no progress despite effort, shared with the clinician
     w = baseline['BMXWT']
     for when, kg in (('2026-02-02', w + 2.5), ('2026-03-02', w + 5.0)):
         changed = client.post(f'/patients/{pid}/visits', headers=patient, json={
             'visit_date': when, 'measurements': {'BMXWT': kg},
             'followed': {'meals': 'most', 'walking': 'as_planned'}}).json()
         assert changed['check_in']['progress'] == 'behind plan'
-        assert changed['check_in']['cause'] == 'slow response'
+        assert changed['check_in']['cause'] == 'no progress despite effort'
     assert changed['tip']['id'] == 'shared_with_clinician' and changed['next_checkin'] == '2026-03-30'
-    ids = [a['id'] for a in client.get('/alerts', headers=clinician).json()]
-    assert 'behind_twice' in ids
+    alert = next(a for a in client.get('/alerts', headers=clinician).json() if a['id'] == 'behind_twice')
+    assert 'food diary' in alert['checks'][0] and 'slow' not in alert['message']
     # The clinician moves the patient to another pace from today; earlier months keep the plan they had
     before = client.get(f'/patients/{pid}/timeline', params={'view': 'clinician'}, headers=clinician).json()
     client.put(f'/patients/{pid}/plan', headers=clinician, json={'start_date': '2026-03-02', 'pace': 'gentle',
@@ -138,7 +138,7 @@ def test_tips_and_next_step():
     assert tip(loop(('behind plan', 'plan not followed', 0.15)), {'style_step': 2})['style_step'] == 1
     assert tip(loop(('behind plan', 'plan not followed', 0.15)), {'style_step': 0})['id'] == 'easier_walks'
     assert tip(loop(('on plan', None, 0.9), ('on plan', None, 0.9)), {'style_step': 1})['style_step'] == 2
-    assert tip(loop(('behind plan', 'slow response', 0.9)), {})['id'] == 'keep_going'
+    assert tip(loop(('behind plan', 'no progress despite effort', 0.9)), {})['id'] == 'keep_going'
     assert tip({'visits': [{'verdict': 'start'}]}, {}) is None
     run = {'clinical': {'fibrosis': {'category': 'unknown'}, 'guardrails': {'notices': []}}}
     plan = {'status': 'active', 'next_checkin': '2026-02-02', 'style_step': 0}
@@ -147,3 +147,35 @@ def test_tips_and_next_step():
     assert next_step(None, run)['id'] == 'choose_plan'
     found = [a['id'] for a in alerts({}, plan, run, None, '2026-03-01')]
     assert found == ['checkin_overdue', 'scarring_check_missing']
+
+
+def test_food_answers_shape_the_recipes(setup, baseline):
+    from src.api.app import recipes_by_id
+    from src.recipe_scoring.food_preferences import FoodPreferences, breaks
+    client, _ = setup
+    patient = sign_in(client, 'vegetarian@example.org')
+    assert 'diet' in client.get('/food/questions', headers=patient).json()
+    assert client.get('/dishes', params={'cuisine': 'European', 'diet': 'keto'}, headers=patient).status_code == 422
+    food = {'diet': 'vegetarian', 'allergies': ['peanuts'], 'dislikes': ['mushroom'], 'likes': ['beans'], 'household': 2}
+    prefs = FoodPreferences.from_dict(food)
+    dishes = client.get('/dishes', params={'cuisine': 'European', 'diet': 'vegetarian', 'allergies': 'peanuts'},
+                        headers=patient).json()
+    assert dishes and all(not breaks(recipes_by_id()[d['recipe_id']], FoodPreferences(diet='vegetarian',
+                                                                                     allergies=('peanuts',)))
+                          for d in dishes)
+    made = client.post('/patients', headers=patient, json={
+        'visit_date': '2026-01-05', 'measurements': {**baseline, 'DIQ070': 2.0}, 'cuisine': 'European',
+        'favourites': [dishes[0]['recipe_id']], 'food': food}).json()
+    pid = made['id']
+    assert client.get(f'/patients/{pid}', headers=patient).json()['food']['diet'] == 'vegetarian'
+    twin = client.post(f'/patients/{pid}/twin', headers=patient).json()['twin']
+    shown = [str(r['recipe_id']) for r in twin['recipes']] + [str(i) for sc in twin['scenarios'] for i in sc['recipe_ids']]
+    assert shown and all(not breaks(recipes_by_id()[i], prefs) for i in shown)
+    client.put(f'/patients/{pid}/plan', headers=patient, json={'start_date': '2026-01-05', 'pace': 'standard'})
+    week = client.get(f'/patients/{pid}/week', headers=patient).json()
+    meals = [m['recipe_id'] for day in week['days'] for m in day]
+    assert meals and all(not breaks(recipes_by_id()[m], prefs) for m in meals)
+    shopping = client.get(f'/patients/{pid}/week/shopping', headers=patient).json()
+    assert shopping['people'] == 2 and 'for 2 people' in shopping['servings']
+    assert client.put(f'/patients/{pid}/profile', headers=patient,
+                      json={'food': {'allergies': ['strawberries']}}).status_code == 422
