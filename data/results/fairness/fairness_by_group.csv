@@ -23,12 +23,12 @@ Layer 2,CAP >= 280,race and ethnicity: Other or multiracial,85,0.306,0.337,0.859
 Layer 2,CAP >= 280,age: 12-17,209,0.144,0.142,0.931,0.071,"[0.887, 0.969]","[0.051, 0.094]",,,,,
 Layer 2,CAP >= 280,age: 18-39,512,0.285,0.29,0.872,0.127,"[0.841, 0.902]","[0.109, 0.145]",,,,,
 Layer 2,CAP >= 280,age: 40-59,515,0.474,0.461,0.841,0.162,"[0.804, 0.875]","[0.143, 0.182]",,,,,
-Layer 4,top-10 recipes,all patients,300,,,,,,,1.0,0.975,0.831,0.826,"[0.808, 0.844]"
-Layer 4,top-10 recipes,sex: men,168,,,,,,,1.0,0.974,0.823,0.817,"[0.792, 0.842]"
-Layer 4,top-10 recipes,sex: women,132,,,,,,,1.0,0.976,0.842,0.838,"[0.811, 0.864]"
-Layer 4,top-10 recipes,race and ethnicity: Mexican American,46,,,,,,,1.0,0.978,0.848,0.841,"[0.798, 0.885]"
-Layer 4,top-10 recipes,race and ethnicity: Non-Hispanic White,108,,,,,,,1.0,0.969,0.812,0.806,"[0.776, 0.837]"
-Layer 4,top-10 recipes,race and ethnicity: Non-Hispanic Black,68,,,,,,,1.0,0.975,0.847,0.841,"[0.803, 0.879]"
-Layer 4,top-10 recipes,age: 12-17,30,,,,,,,1.0,0.98,0.807,0.803,"[0.747, 0.857]"
-Layer 4,top-10 recipes,age: 18-39,109,,,,,,,1.0,0.978,0.833,0.829,"[0.798, 0.858]"
-Layer 4,top-10 recipes,age: 40-59,161,,,,,,,1.0,0.971,0.835,0.828,"[0.804, 0.852]"
+Layer 4,top-10 recipes,all patients,300,,,,,,,1.0,0.976,0.832,0.823,"[0.804, 0.841]"
+Layer 4,top-10 recipes,sex: men,168,,,,,,,1.0,0.974,0.821,0.81,"[0.785, 0.835]"
+Layer 4,top-10 recipes,sex: women,132,,,,,,,1.0,0.98,0.845,0.839,"[0.812, 0.866]"
+Layer 4,top-10 recipes,race and ethnicity: Mexican American,46,,,,,,,1.0,0.974,0.848,0.835,"[0.785, 0.883]"
+Layer 4,top-10 recipes,race and ethnicity: Non-Hispanic White,108,,,,,,,1.0,0.974,0.81,0.8,"[0.77, 0.831]"
+Layer 4,top-10 recipes,race and ethnicity: Non-Hispanic Black,68,,,,,,,1.0,0.978,0.851,0.846,"[0.809, 0.882]"
+Layer 4,top-10 recipes,age: 12-17,30,,,,,,,1.0,0.977,0.807,0.793,"[0.73, 0.847]"
+Layer 4,top-10 recipes,age: 18-39,109,,,,,,,1.0,0.978,0.833,0.827,"[0.795, 0.857]"
+Layer 4,top-10 recipes,age: 40-59,161,,,,,,,1.0,0.975,0.835,0.825,"[0.8, 0.85]"
