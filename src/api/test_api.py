@@ -1,3 +1,4 @@
+import re
 import json
 import math
 
@@ -68,7 +69,9 @@ def test_patient_view_shows_chances_but_no_cap(client, baseline):
     twin = out['twin']
     assert out['view'] == 'patient' and out['inputs_last_measured'] is None
     assert 0 <= twin['chance_some_fat_pct'] <= 100 and twin['summary_checked']
-    assert twin['summary'].startswith('Your results') and 'dB/m' not in json.dumps(twin)
+    # only the published cut-offs (248 and 280 dB/m) may appear, never the patient's own CAP estimate
+    assert twin['summary'].startswith('Your results')
+    assert set(re.findall(r'(\d+) dB/m', json.dumps(twin))) <= {'248', '280'}
     assert not [k for k in keys(twin) if CAP_KEY.search(k)]
     clinician = client.post(f'/patients/{pid}/twin', params={'view': 'clinician'}).json()['twin']
     assert clinician['current_state']['predicted_cap'] > 0 and len(clinician['uncertainty']['cap_interval_90']) == 2

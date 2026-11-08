@@ -55,8 +55,10 @@ def test_template_summary_is_faithful_and_shows_chances_not_cap():
     result = summarise(TWIN)
     assert result['written_by'] == 'template' and result['check']['faithful']
     assert result['text'].startswith('Your results suggest you likely have a lot of liver fat.')
-    assert '96%' in result['text'] and '78%' in result['text'] and 'LUU2018-SAT' in result['text']
-    for hidden in ('314', '247', '380', 'CAP', 'dB/m'):
+    assert '96%' in result['text'] and '78%' in result['text'] and 'backed by 1 study' in result['text']
+    assert 'LUU2018-SAT' not in result['text'] and 'Karlas et al. 2017' in result['text']   # codes stay in the clinician view
+    assert 'Liver scarring (fibrosis) is' in result['text'] and 'below 1.3 is low' in result['text']
+    for hidden in ('314', '247', '380', 'CAP'):
         assert hidden not in result['text']
     assert 'predicted_cap' not in facts(TWIN)       # a generator cannot quote the CAP either
     assert summarise(TWIN, generator=lambda f: 'Your CAP is about 314 dB/m.')['written_by'] == 'template'
@@ -67,7 +69,7 @@ def test_verdict_follows_the_twins_decisions():
                          ({'steatosis_likely': 0, 'steatosis_moderate_severe_likely': 0}, 'show little sign')):
         assert start in summarise(dict(TWIN, patient_state=flags))['text']
     unknown = summarise(dict(TWIN, patient_state={}))['text']
-    assert unknown.startswith('The chance of at least mild liver fat is 96%')
+    assert unknown.startswith('The chance that you have at least some liver fat is 96%')
 
 
 def test_generator_text_with_an_invented_number_or_citation_falls_back_to_the_template():
@@ -114,3 +116,21 @@ def test_cap_explanation_adds_up_and_interval_covers_prediction():
     assert total == pytest.approx(predicted, abs=0.5)
     low, high = cap_interval(predicted)
     assert low <= predicted <= high and high - low <= 2 * 67
+
+
+def test_borderline_scores_certainty_and_notices_follow_the_teams_review():
+    border = dict(TWIN, clinical=dict(TWIN['clinical'], fibrosis={'fib4': 2.56, 'category': 'indeterminate'}))
+    text = summarise(border)
+    assert 'close to the boundary between indeterminate and high (2.67)' in text['text'] and text['check']['faithful']
+    sure = dict(TWIN, current_state=dict(TWIN['current_state'], p_cap248=0.999, p_cap280=0.002))
+    assert 'more than 99%' in summarise(sure)['text'] and 'less than 1%' in summarise(sure)['text']
+    no_fat = dict(TWIN, patient_state={'steatosis_likely': 0, 'steatosis_moderate_severe_likely': 0},
+                  nutritional_priorities=[], ranked_recipes=[],
+                  clinical=dict(TWIN['clinical'], fibrosis={'fib4': 0.4, 'category': 'low',
+                                                            'note': 'FIB-4 is less reliable under age 35. Ask about a FibroScan.'},
+                                guardrails={'notices': [{'id': 'under_18', 'message': 'You are under 18.'},
+                                                        {'id': 'alcohol', 'message': 'Your alcohol intake adds liver risk.'}],
+                                            'block_recipes': False}))
+    text = summarise(no_fat)['text']
+    assert 'under 18' not in text and 'under age 35' not in text and 'FibroScan.' not in text   # no diet change, no fat
+    assert 'alcohol intake adds liver risk' in text                                         # alcohol matters anyway

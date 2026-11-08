@@ -376,6 +376,99 @@
           1.26
         ]
       }
+    },
+    "fib4": {
+      "participants": 9967,
+      "share_by_category": {
+        "low": 0.922,
+        "indeterminate": 0.071,
+        "high": 0.008
+      },
+      "all-cause": {
+        "per_1000_person_years": {
+          "low": 6.9,
+          "indeterminate": 19.2,
+          "high": 44.86
+        },
+        "deaths_by_category": {
+          "low": 1659,
+          "indeterminate": 312,
+          "high": 56
+        },
+        "adjusted_rate_ratio_vs_low": {
+          "indeterminate": {
+            "rate_ratio": 1.25,
+            "ci95": [
+              1.1,
+              1.42
+            ]
+          },
+          "high": {
+            "rate_ratio": 3.23,
+            "ci95": [
+              2.47,
+              4.23
+            ]
+          }
+        }
+      },
+      "cardiovascular": {
+        "per_1000_person_years": {
+          "low": 1.91,
+          "indeterminate": 5.17,
+          "high": 8.01
+        },
+        "deaths_by_category": {
+          "low": 460,
+          "indeterminate": 84,
+          "high": 10
+        },
+        "adjusted_rate_ratio_vs_low": {
+          "indeterminate": {
+            "rate_ratio": 1.09,
+            "ci95": [
+              0.86,
+              1.39
+            ]
+          },
+          "high": {
+            "rate_ratio": 1.89,
+            "ci95": [
+              1.01,
+              3.54
+            ]
+          }
+        }
+      },
+      "cancer": {
+        "per_1000_person_years": {
+          "low": 2.06,
+          "indeterminate": 4.98,
+          "high": 12.02
+        },
+        "deaths_by_category": {
+          "low": 495,
+          "indeterminate": 81,
+          "high": 15
+        },
+        "adjusted_rate_ratio_vs_low": {
+          "indeterminate": {
+            "rate_ratio": 0.98,
+            "ci95": [
+              0.77,
+              1.25
+            ]
+          },
+          "high": {
+            "rate_ratio": 2.63,
+            "ci95": [
+              1.57,
+              4.41
+            ]
+          }
+        }
+      },
+      "liver_related": "not available: the public-use mortality file has no liver-disease cause category"
     }
   }
 }

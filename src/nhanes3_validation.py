@@ -15,7 +15,8 @@ file (follow-up to 31 December 2019).
    person-years and rate ratios adjusted for age and sex (Poisson regression with log person-years as
    offset, fitted by iteratively reweighted least squares; Wald 95% intervals) for all-cause, cardiovascular (heart disease
    or stroke, NCHS leading causes 1 and 5) and cancer (2) deaths. The ultrasound grade itself is analysed
-   the same way as a reference. The public file has no liver-death category, and smoking, alcohol and
+   the same way as a reference, and so is the FIB-4 scarring category (src/fibrosis.py: low below 1.3,
+   indeterminate 1.3-2.67, high above 2.67), as Proposal 12.4 asks. The public file has no liver-death category, and smoking, alcohol and
    income are not mapped, so the ratios are adjusted for age and sex only.
 
 Unweighted: the results describe this sample, not the US population.
@@ -28,6 +29,7 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import roc_auc_score
 
+from src.fibrosis import HIGH, LOW, fib4
 from src.predict_cap import MODEL_FILE, predict_patients, predict_steatosis
 from src.train_final_model import ROOT
 
@@ -161,6 +163,26 @@ def mortality(d):
         out[cause] = {'by_quarter': table,
                       'adjusted_rate_ratio_vs_lowest_quarter': rate_ratios(d, quarter, events),
                       'ultrasound_moderate_severe_vs_not': rate_ratios(d, d.steatosis_moderate_severe, events)['1']}
+    out['fib4'] = fib4_mortality(d)
+    return out
+
+
+def fib4_mortality(d):
+    """Deaths by FIB-4 category (low / indeterminate / high), adjusted for age and sex."""
+    score = pd.Series(fib4(d.RIDAGEYR, d.LBXSASSI, d.LBXSATSI, d.LBXPLTSI), index=d.index)
+    keep = score.notna()
+    d, score = d[keep].reset_index(drop=True), score[keep].reset_index(drop=True)
+    level = pd.Series(np.select([score < LOW, score > HIGH], [0, 2], 1), index=d.index)
+    names = {0: 'low', 1: 'indeterminate', 2: 'high'}
+    out = {'participants': int(len(d)), 'share_by_category': {names[k]: round(float((level == k).mean()), 3) for k in names}}
+    for cause in CAUSES:
+        events = died_of(d, cause).astype(float)
+        rates = {names[k]: round(1000 * float(events[level == k].sum()) / float(d.PERMTH_EXM[level == k].sum() / 12), 2)
+                 for k in names if (level == k).any()}
+        ratios = rate_ratios(d, level, events)
+        out[cause] = {'per_1000_person_years': rates, 'deaths_by_category': {names[k]: int(events[level == k].sum()) for k in names},
+                      'adjusted_rate_ratio_vs_low': {names[int(k)]: v for k, v in ratios.items()}}
+    out['liver_related'] = 'not available: the public-use mortality file has no liver-disease cause category'
     return out
 
 

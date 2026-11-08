@@ -10,6 +10,14 @@ The summary is written for the patient, so it gives the chances of liver fat and
 taken from the twin's own yes/no decisions (patient_state), not the CAP estimate: at R^2 0.56 a
 single CAP number and its 90% range (about +/- 67 dB/m) would suggest more precision than the
 model has. The CAP estimate and its range stay in the twin's output for the clinician view.
+
+Written for people without medical training (changes after the team's review, 8 November 2026): evidence codes
+stay in the clinician view and the patient reads how many studies back each priority; priorities and liver
+scarring are explained in plain words; the published cut-offs are shown with their source (CAP 248 and 280
+dB/m, Karlas et al. 2017; FIB-4 1.3 and 2.67, EASL-EASD-EASO 2024; stiffness 8 and 12 kPa), and a score
+within 10% of a cut-off is called close to that boundary. Notices about changing diet (under 18,
+glucose-lowering medicine, pregnancy) appear only when a diet change is suggested, and the FIB-4 under-35
+note only when liver fat is likely: guidelines look for scarring in people with fatty liver.
 """
 import re
 
@@ -26,27 +34,70 @@ LABEL_WORDS = {'MASLD': 'metabolic dysfunction-associated steatotic liver diseas
                'no_steatosis_indicated': 'no sign of fatty liver', 'unknown': 'an unclear liver status'}
 
 
+CAP_CUTOFFS = {'some': 248, 'a_lot': 280, 'source': 'Karlas et al. 2017'}
+FIB4_CUTOFFS = {'low': 1.3, 'high': 2.67, 'source': 'EASL-EASD-EASO 2024'}
+STIFFNESS_CUTOFFS = {'low': 8, 'high': 12, 'source': 'EASL-EASD-EASO 2024'}
+BORDER = 0.10                       # within 10% of a cut-off = close to that boundary
+DIET_NOTICES = {'under_18', 'glucose_lowering_medicine', 'pregnant'}
+PLAIN_PRIORITY = [('weight', 'losing some weight'), ('dietary quality', 'eating a healthier diet overall'),
+                  ('added sugar', 'less added sugar'),
+                  ('saturated fat', 'less saturated fat, the kind in butter, fatty meat and cheese'),
+                  ('processed', 'food made from fresh or less processed ingredients'),
+                  ('glycaemic load', 'meals that raise blood sugar less, called a lower glycaemic load')]
+
+
+def plain_priority(title):
+    low = title.lower()
+    return next((words for key, words in PLAIN_PRIORITY if key in low), low)
+
+
+def pct_text(p):
+    """A chance as shown: never 0% or 100%, which would claim certainty the model does not have."""
+    value = round(100 * p)
+    return 'more than 99%' if value >= 100 else 'less than 1%' if value <= 0 else f'{value}%'
+
+
+def near_boundary(score, cutoffs):
+    """The cut-off a score lies within BORDER of (relative), or None."""
+    if score is None:
+        return None
+    return next((c for c in (cutoffs['low'], cutoffs['high']) if abs(score - c) <= BORDER * c), None)
+
+
 def facts(twin, top=3):
     """The numbers and citations a summary may use, rounded as they will be shown."""
     state = twin['current_state']
     out = {'p_cap248_pct': round(100 * state['p_cap248']), 'p_cap280_pct': round(100 * state['p_cap280']),
-           'verdict': verdict(twin.get('patient_state') or {})}
+           'p_cap248_text': pct_text(state['p_cap248']), 'p_cap280_text': pct_text(state['p_cap280']),
+           'verdict': verdict(twin.get('patient_state') or {}), 'cap_cutoffs': CAP_CUTOFFS}
     clinical = twin.get('clinical') or {}
     if clinical.get('liver_label'):
         out['label'] = clinical['liver_label']['label']
+    fat_likely = out['verdict'] in ('some', 'a_lot')
     if clinical.get('fibrosis'):
-        out['fib4'] = clinical['fibrosis']['fib4']
-        out['liver_stiffness_kpa'] = clinical['fibrosis'].get('liver_stiffness_kpa')
-        out['fibrosis_category'] = clinical['fibrosis']['category']
-        out['fibrosis_note'] = clinical['fibrosis'].get('note')
-    out['notices'] = [n['message'] for n in (clinical.get('guardrails') or {}).get('notices', [])]
+        fib = clinical['fibrosis']
+        out['fib4'] = fib.get('fib4')
+        out['liver_stiffness_kpa'] = fib.get('liver_stiffness_kpa')
+        out['fibrosis_category'] = fib['category']
+        note = fib.get('note') or ''
+        if not fat_likely and 'under age 35' in note:     # no scarring check is needed without fatty liver
+            note = ' '.join(x for x in re.split(r'(?<=\.)\s+', note) if 'under age 35' not in x and 'FibroScan' not in x)
+        out['fibrosis_note'] = note or None
+        scan = out['liver_stiffness_kpa'] is not None
+        cutoffs = STIFFNESS_CUTOFFS if scan else FIB4_CUTOFFS
+        out['fibrosis_cutoffs'] = cutoffs
+        out['fibrosis_near'] = near_boundary(out['liver_stiffness_kpa'] if scan else out['fib4'], cutoffs)
     out['blocked'] = bool((clinical.get('guardrails') or {}).get('block_recipes'))
-    out['priorities'] = [{'title': p['title'], 'level': p['priority'],
-                          'evidence_ids': [e['evidence_id'] for e in p.get('supporting_evidence', [])]}
+    out['priorities'] = [{'title': p['title'], 'words': plain_priority(p['title']), 'level': p['priority'],
+                          'evidence_ids': [e['evidence_id'] for e in p.get('supporting_evidence', [])],
+                          'studies': len(p.get('supporting_evidence', []))}
                          for p in twin.get('nutritional_priorities', [])]
     out['recipes'] = [] if out['blocked'] else [
         {'title': r['title'], 'values': {c['label']: c['value'] for c in r.get('criteria', [])}}
         for r in twin.get('ranked_recipes', [])[:top]]
+    diet_change = bool(out['priorities'] or out['recipes'])
+    out['notices'] = [n['message'] for n in (clinical.get('guardrails') or {}).get('notices', [])
+                      if diet_change or n.get('id') not in DIET_NOTICES]
     return out
 
 
@@ -61,23 +112,40 @@ def verdict(state):
     return None
 
 
+def article(word):
+    """'a low', 'an indeterminate'."""
+    return f'{"an" if str(word)[:1].lower() in "aeiou" else "a"} {word}'
+
+
 def template_summary(f):
     lines = [VERDICT[f['verdict']]] if f.get('verdict') else []
-    lines.append(f'The chance of at least mild liver fat is {f["p_cap248_pct"]}%, and of a lot of liver fat {f["p_cap280_pct"]}%.')
+    cap = f['cap_cutoffs']
+    lines.append(f'The chance that you have at least some liver fat is {f["p_cap248_text"]}, and a lot of liver fat '
+                 f'{f["p_cap280_text"]}. On a FibroScan, doctors call a reading of {cap["some"]} dB/m or more "some fat" '
+                 f'and {cap["a_lot"]} dB/m or more "a lot" ({cap["source"]}).')
     if 'label' in f:
         lines.append(f'Taking the chance of liver fat into account, this pattern fits '
                      f'{LABEL_WORDS.get(f["label"], f["label"])}. This is a research label, not a diagnosis.')
-    if f.get('liver_stiffness_kpa') is not None:
-        lines.append(f'Your FibroScan liver stiffness is {f["liver_stiffness_kpa"]} kPa, a {f["fibrosis_category"]} '
-                     'fibrosis-risk result.')
-    elif f.get('fib4') is not None:
-        lines.append(f'Your liver-scarring score (FIB-4) is {f["fib4"]}, a {f["fibrosis_category"]} result.')
+    if f.get('liver_stiffness_kpa') is not None or f.get('fib4') is not None:
+        c = f['fibrosis_cutoffs']
+        lines.append('Liver scarring (fibrosis) is long-term damage that makes the liver stiffer.')
+        if f.get('liver_stiffness_kpa') is not None:
+            lines.append(f'Your FibroScan liver stiffness is {f["liver_stiffness_kpa"]} kPa, {article(f["fibrosis_category"])} '
+                         f'scarring-risk result: below {c["low"]} kPa is low, {c["low"]} to {c["high"]} kPa indeterminate and '
+                         f'{c["high"]} kPa or more high ({c["source"]}).')
+        else:
+            lines.append(f'Your scarring score (FIB-4) is {f["fib4"]}, {article(f["fibrosis_category"])} result: below '
+                         f'{c["low"]} is low, {c["low"]} to {c["high"]} indeterminate and above {c["high"]} high ({c["source"]}).')
+        if f.get('fibrosis_near') is not None:
+            c = f['fibrosis_cutoffs']
+            sides = 'low and indeterminate' if f['fibrosis_near'] == c['low'] else 'indeterminate and high'
+            lines.append(f'Your result is close to the boundary between {sides} ({f["fibrosis_near"]}).')
     if f.get('fibrosis_note'):
         lines.append(f['fibrosis_note'])
     lines.extend(f['notices'])
     if f['priorities']:
-        parts = [f'{p["title"].lower()} ({p["level"]} priority; evidence {", ".join(p["evidence_ids"])})'
-                 if p['evidence_ids'] else f'{p["title"].lower()} ({p["level"]} priority)' for p in f['priorities']]
+        parts = [f'{p["words"]} ({p["level"]} priority' + (f', backed by {p["studies"]} '
+                 f'{"study" if p["studies"] == 1 else "studies"})' if p['studies'] else ')') for p in f['priorities']]
         lines.append('What matters most for you: ' + '; '.join(parts) + '.')
     if f['recipes']:
         lines.append('Recipes that fit these priorities: ' + ', '.join(r['title'] for r in f['recipes']) + '.')

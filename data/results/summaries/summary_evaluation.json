@@ -1,0 +1,56 @@
+{
+  "patients": 300,
+  "faithful_share": 1.0,
+  "planted_errors": {
+    "citation invented": {
+      "caught_share": 1.0,
+      "n": 300
+    },
+    "harmless rewording": {
+      "caught_share": 0.0,
+      "n": 300
+    },
+    "number added": {
+      "caught_share": 1.0,
+      "n": 300
+    },
+    "number changed": {
+      "caught_share": 1.0,
+      "n": 300
+    },
+    "wrong word, no number": {
+      "caught_share": 0.0,
+      "n": 246
+    }
+  },
+  "readability": {
+    "words": {
+      "median": 178.0,
+      "iqr": [
+        101.0,
+        196.0
+      ]
+    },
+    "sentences": {
+      "median": 10.0,
+      "iqr": [
+        8.0,
+        10.0
+      ]
+    },
+    "flesch_reading_ease": {
+      "median": 56.5,
+      "iqr": [
+        54.0,
+        75.1
+      ]
+    },
+    "flesch_kincaid_grade": {
+      "median": 9.8,
+      "iqr": [
+        5.9,
+        10.5
+      ]
+    }
+  }
+}

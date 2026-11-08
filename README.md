@@ -163,33 +163,38 @@ aged 12-59 (the model's scope) with priorities, of 1,112 eligible among 2,040
 in-scope test participants (cuisine preferences simulated; NHANES has none). Share of each
 top 10 meeting the criteria (`data/results/layer4/`):
 
-| Method | Health | Cuisine | Feasibility | All three |
+| Method | Health | Cuisine | Feasibility | All three | Diversity |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Multi-criteria, health-gated, with personal fit (default) | 1.000 | 0.976 | 0.832 | **0.823** | 0.949 |
+| Same, without personal fit | 1.000 | 0.975 | 0.831 | 0.826 | 0.952 |
+| Same, with diversity re-ranking (MMR) | 1.000 | 0.972 | 0.820 | 0.804 | 0.963 |
+| Same, without acceptability | 1.000 | 0.980 | 0.807 | 0.803 | 0.945 |
+| Multi-criteria, weighted only | 0.278 | 0.998 | 0.957 | 0.272 | 0.948 |
+| Health score only | 1.000 | 0.068 | 0.300 | 0.022 | 0.963 |
+| Nutrition only (non-personalised) | 1.000 | 0.074 | 0.300 | 0.022 | 0.968 |
+| Random | 0.057 | 0.053 | 0.596 | 0.003 | 0.962 |
+
+Only the gated rankings always meet every health reference. Across a grid of 36 weight combinations
+(acceptability held at 0.1, no personal fit) the median top-10 overlap with the default is 0.78; it drops
+mainly when cuisine has weight 0.1. Diversity re-ranking raises intra-list diversity only slightly (mean
+pairwise 1 - Jaccard of ingredient sets without seasonings), so it is not the default. Health-only and
+nutrition-only coincide because hundreds of candidates meet every reference value, so both choose among tied
+recipes.
+
+Personal fit (`src/recipe_scoring/personal_fit.py`, weight 0.4) re-orders only the recipes that pass the
+health gate by closeness to the patient's 24-hour recall and favourite dishes or liked ingredients. It was
+added after the team's review found that patients were offered the same few dishes. Personalisation
+(section 12.4; `data/results/layer4_before_diet/` is the engine without the recall, `layer4_fit20/` the
+same with weight 0.2):
+
+| | Without recall | With recall, no personal fit | Personal fit 0.2 | Personal fit 0.4 (default) |
 | --- | ---: | ---: | ---: | ---: |
-| Multi-criteria, health-gated (default) | 1.000 | 0.998 | 0.832 | **0.831** |
-| Same, without acceptability | 1.000 | 0.994 | 0.803 | 0.796 |
-| Same, with diversity re-ranking (MMR) | 1.000 | 0.988 | 0.818 | 0.806 |
-| Multi-criteria, weighted only | 0.737 | 1.000 | 0.970 | 0.727 |
-| Health score only | 1.000 | 0.057 | 0.400 | 0.017 |
-| Nutrition only (non-personalised) | 1.000 | 0.057 | 0.400 | 0.017 |
-| Random | 0.057 | 0.053 | 0.596 | 0.003 |
+| Distinct top-10 lists (300 patients) | 15 | 28 | 81 | **124** |
+| Mean top-10 overlap, same cuisine | 0.95 | 0.93 | 0.85 | **0.71** |
+| Top 10 meeting all three criteria | | 0.826 | 0.834 | 0.823 |
 
-Only the gated ranking always meets every health reference. Across a grid of 36
-weight combinations (acceptability held at 0.1) the median top-10 overlap with
-the default is 0.78; it drops mainly when cuisine has weight 0.1. Diversity
-re-ranking raised intra-list diversity only from 0.947 to 0.956 (mean pairwise
-1 - Jaccard of ingredient sets without seasonings), so it is not the default. Health-only and nutrition-only
-coincide because 565 candidates meet every reference value, so both choose among
-tied recipes.
-
-Personalisation (section 12.4; `data/results/layer4_before_diet/` is the same
-engine without the recall):
-
-| | Without recall | With recall |
-| --- | ---: | ---: |
-| Distinct priority profiles | 9 | 29 |
-| Most common profile (share of patients) | 0.43 | 0.16 |
-| Distinct top-10 lists | 15 | 27 |
-| Mean top-10 overlap, same cuisine | 0.95 | 0.93 |
+180 of the 300 have a reliable recall; the other 120 keep the gated order, as nothing is known about their
+food. In the app every patient also gives favourite dishes and liked ingredients at sign-up.
 
 Acceptability makes lists a little more alike, because well-rated recipes are
 shared. `priority_response.csv` checks the direction: with a high saturated-fat
@@ -388,7 +393,19 @@ rate ratios adjusted for age and sex, Poisson with person-years offset):
 | Cardiovascular | 2.15 (1.64-2.81) | 1.35 (1.13-1.61) |
 | Cancer | 1.00 (0.79-1.28) | 1.05 (0.88-1.26) |
 
-Not adjusted for smoking, alcohol or income, which are not mapped.
+Not adjusted for smoking, alcohol or income, which are not mapped. FIB-4 (9,967 with the three blood
+tests; 92% low, 7% indeterminate, 1% high): high vs low had 3.23 (2.47-4.23) times the all-cause death
+rate, 1.89 (1.01-3.54) cardiovascular and 2.63 (1.57-4.41) cancer; indeterminate vs low 1.25 (1.10-1.42)
+all-cause. Liver-related deaths cannot be studied: the public file has no liver category.
+
+## Fairness audit (Proposal 17.8)
+
+`src/fairness_audit.py` (`data/results/fairness/`) scores the 1,236 in-scope 2017-2023 test participants
+by sex, race and ethnicity and age group, with 95% bootstrap intervals. The chance of CAP >= 280 ranks
+people similarly in every group (AUC 0.84-0.89; 0.93 at ages 12-17; all intervals overlap). Calibration
+differs by ethnicity: the mean chance is too low for non-Hispanic Asian participants (0.25 against a 0.31
+share) and too high for non-Hispanic Black participants (0.34 against 0.29). The ranking engine meets all
+three recipe criteria for 80-84% of every group (300 patients; simulated cuisine preferences).
 
 ## In-silico evaluation of the follow-up loop (Proposal 17.14)
 
@@ -410,6 +427,42 @@ visits, quarterly bloods) and the monthly meals answer, and is graded against th
 - Liver: the chance of CAP >= 280 keeps AUC 0.88 at months 0, 6 and 12 with mean chance close to the true
   share (0.31 vs 0.29 at month 12, 500 kcal). The month-6 forecast of month 12 beats reusing the month-0
   chance (AUC 0.875 vs 0.868, Brier 0.126 vs 0.133).
+
+`src/in_silico_extras.py` (`data/results/in_silico/extras.json`) adds the other measures of section 12.3:
+
+- Detecting a change: a patient truly behind the plan was flagged at the same check-in in 96.5% of cases
+  and within a month in 99.4% (51 of 1,659 never, after missed visits), with no false flags. Liver fat
+  falling below CAP 280 is harder: of 51 such patients (500 kcal), the twin's chance fell below 0.5 for 29
+  (median a month before the truth) and also fell for 46 whose CAP stayed above 280; near the threshold
+  the chance cannot place a person on one side.
+- Learning: the 3-month-ahead weight error stays about 1.9 kg from month 1 to month 9 while the textbook
+  curve's grows from 2.3 to 4.8 kg; 90% coverage stays 91-93%.
+- Robustness (month 6 to 12): 2.77 kg with honest answers, 2.81 with 30% more missed visits, 2.91 with a
+  scale reading within about 1 kg, 3.03 without answers; coverage 0.89-0.91. The month-12 liver AUC is the
+  same without follow-up bloods (0.88), because the simulated change runs through weight and waist.
+- Scenario order: the twin's sign-up projection always puts Scenario A below B below usual diet; the truth
+  agrees for 95.6% of adults. At month 6 its forecasts order A and B as the truth for 95.6%; for liver fat
+  at month 12 only 54%, because the true difference between A and B is small next to person-to-person
+  variation.
+
+## Plain-language summaries (Proposal 17.7)
+
+`src/summary_evaluation.py` (`data/results/summaries/`) runs the twin for 300 in-scope test patients. All
+300 summaries pass the faithfulness check, and planted errors are caught every time when a number is changed
+or added or a citation invented, with no false alarm on a harmless rewording; a wrong word with no number
+("low" to "high") is never caught, as the check reads only numbers and citations. After the team's review of
+10 summaries (`summaries_for_review.md`, with the expected words worked out beside each) the patient text
+shows no evidence codes ("backed by 4 studies" instead), explains liver scarring, gives the published cut-offs
+with their source and says when a score is close to one, words the priorities plainly, shows diet notices only
+when a diet change is suggested and the under-35 FIB-4 note only when liver fat is likely, and never shows 0%
+or 100%. Median Flesch-Kincaid grade fell from 12.5 to 9.8 (Reading Ease 43 to 56.5).
+
+## Reproducibility
+
+`.venv/Scripts/python.exe -m src.rebuild_all` rebuilds data, models and results in order (`--list` shows
+the 24 steps, `--from <stage>` resumes, `--with-recipes` also re-collects the RecipeDB sample); step times
+go to `data/results/rebuild_log.json`. It repeats the simulator calibration for quit caps 0.1-0.4 and
+chooses the cap by the Neiberg 2012 regain target, as was done by hand.
 
 ## Evidence table
 

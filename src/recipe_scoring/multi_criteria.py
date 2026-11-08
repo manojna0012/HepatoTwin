@@ -24,6 +24,11 @@ with 80%, and 1 gave 40 lists with 69% (src/evaluate_ranking.py).
 Without the gate, a recipe could trade health for cuisine or convenience: the
 weighted-only top 10 met every health reference 75% of the time, the gated
 top 10 always did.
+
+personal_fit (recipe_scoring/personal_fit.py) is a fifth criterion for the recipes that pass the gate:
+closeness to the patient's 24-hour recall and favourite dishes. It is added after ranking
+(personal_fit.personalise), because it needs the patient, not only the priorities; rank_recipes alone
+leaves it out and renormalises.
 """
 
 import re
@@ -35,9 +40,12 @@ from src.recipe_scoring.practical_feasibility import practical_feasibility_score
 from src.recipe_scoring.recipe_criteria import derived_metrics, margin_score
 from src.recipes.nutrition_quality import nutrition_issues
 
-# Weights are renormalised over the criteria a recipe has, so these act as
-# 0.545 / 0.182 / 0.182 / 0.091.
-DEFAULT_WEIGHTS = {"health": 0.6, "cuisine": 0.2, "feasibility": 0.2, "acceptability": 0.1}
+# Weights are renormalised over the criteria a recipe has, so without personal fit these act as
+# 0.545 / 0.182 / 0.182 / 0.091, and with it as 0.4 / 0.133 / 0.133 / 0.067 / 0.267. Personal fit 0.4 was
+# chosen on the 300-patient evaluation (8 November 2026): 124 distinct top-10 lists instead of 28 and
+# same-cuisine overlap 71% instead of 93%, every top-10 recipe still meeting every reference, and the share
+# meeting all three criteria 82.3% against 82.6% without it (0.2 gave 81 lists, 85%, 83.4%).
+DEFAULT_WEIGHTS = {"health": 0.6, "cuisine": 0.2, "feasibility": 0.2, "acceptability": 0.1, "personal_fit": 0.4}
 # Acceptability (proposal section 17.12): RecipeDB ratings shrunk towards the
 # corpus mean by a pseudo-count, so 5 stars from 3 raters does not beat 4.9
 # from 3,000. Ratings cluster near 5, so 4.5-5.0 maps to 0-100. Weight 0.1

@@ -1,0 +1,80 @@
+{
+  "similar_cuisines": {
+    "American": [
+      [
+        "Mexican",
+        0.96
+      ]
+    ],
+    "Asian": [],
+    "Canadian": [
+      [
+        "Australian",
+        0.9
+      ],
+      [
+        "European",
+        0.9
+      ]
+    ],
+    "European": [
+      [
+        "Canadian",
+        0.9
+      ],
+      [
+        "Australian",
+        0.9
+      ]
+    ],
+    "Mexican": [
+      [
+        "American",
+        0.96
+      ]
+    ]
+  },
+  "participants": 300,
+  "eligible_participants": 1112,
+  "test_participants": 2040,
+  "scope_ages": [
+    12,
+    59
+  ],
+  "candidate_recipes": 10108,
+  "top_k": 10,
+  "default_weights": {
+    "health": 0.6,
+    "cuisine": 0.2,
+    "feasibility": 0.2,
+    "acceptability": 0.1,
+    "personal_fit": 0.2
+  },
+  "simulated_cuisines": [
+    "American",
+    "Asian",
+    "Canadian",
+    "European",
+    "Mexican"
+  ],
+  "random_repeats": 20,
+  "seed": 42,
+  "feasibility_limits": {
+    "minutes": 60,
+    "ingredients": 15,
+    "steps": 12
+  },
+  "personalisation": {
+    "mean_pairwise_top10_overlap_same_cuisine": 0.8530036916881084,
+    "distinct_priority_profiles": 44,
+    "share_with_most_common_profile": 0.08333333333333333,
+    "distinct_top10_lists": 81,
+    "uses_24h_recall": true,
+    "patients_with_personal_fit": 180,
+    "without_personal_fit": {
+      "mean_pairwise_top10_overlap_same_cuisine": 0.9255173956818439,
+      "distinct_top10_lists": 28
+    }
+  },
+  "note": "Cuisine preferences are simulated; NHANES does not record them."
+}
