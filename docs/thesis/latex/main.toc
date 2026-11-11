@@ -1,0 +1,82 @@
+\contentsline {chapter}{Student Declaration}{i}{chapter*.1}%
+\contentsline {chapter}{Abstract}{ii}{chapter*.3}%
+\contentsline {chapter}{Acknowledgment}{iii}{chapter*.4}%
+\contentsline {chapter}{Table of Contents}{vi}{chapter*.6}%
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Background}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Digital Twins in Medicine and Nutrition}{2}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Computational Gastronomy and Recipe Data}{2}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Problem Statement and Research Gap}{3}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Research Question and Objectives}{3}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Approach Overview}{4}{section.1.6}%
+\contentsline {section}{\numberline {1.7}Contributions}{4}{section.1.7}%
+\contentsline {section}{\numberline {1.8}Scope and Limitations}{5}{section.1.8}%
+\contentsline {section}{\numberline {1.9}Thesis Outline}{6}{section.1.9}%
+\contentsline {chapter}{\numberline {2}Literature Review}{7}{chapter.2}%
+\contentsline {section}{\numberline {2.1}MASLD and Its Dietary Management}{7}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Definition and burden}{7}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Evidence for lifestyle and dietary treatment}{7}{subsection.2.1.2}%
+\contentsline {section}{\numberline {2.2}Non-Invasive Assessment of Liver Fat}{8}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Machine-Learning Prediction of Steatosis and Liver Fat}{9}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Classification of steatosis in NHANES}{9}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Prediction of liver fat as a continuous value}{10}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Why prediction from routine data is bounded}{10}{subsection.2.3.3}%
+\contentsline {section}{\numberline {2.4}Dietary Assessment and Personalised Nutrition}{11}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Digital Twins in Health and Nutrition}{12}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Definitions and requirements}{12}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Metabolic and nutrition twins}{12}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.3}From prediction to ``what if''}{13}{subsection.2.5.3}%
+\contentsline {section}{\numberline {2.6}Computational Gastronomy and Food Recommendation}{14}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}Recipe and food resources}{14}{subsection.2.6.1}%
+\contentsline {subsection}{\numberline {2.6.2}Food recommender systems}{14}{subsection.2.6.2}%
+\contentsline {subsection}{\numberline {2.6.3}Recipe modification and adaptation}{14}{subsection.2.6.3}%
+\contentsline {subsection}{\numberline {2.6.4}Menu planning, diversity and additional criteria}{15}{subsection.2.6.4}%
+\contentsline {section}{\numberline {2.7}Evaluating Digital Twins Without Longitudinal Data}{15}{section.2.7}%
+\contentsline {section}{\numberline {2.8}Summary and Research Gap}{16}{section.2.8}%
+\contentsline {chapter}{\numberline {3}Experiments on Predicting Liver Fat}{18}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Evaluation Protocols}{18}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Experiments}{18}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Phases 1 and 2: baselines, tuning and inputs}{19}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Phase 3: features, weighting and learners}{19}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Phase 4: the target and other model families}{20}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.4}Phase 5: additional data}{20}{subsection.3.2.4}%
+\contentsline {subsection}{\numberline {3.2.5}Phase 6: target population and lean participants}{21}{subsection.3.2.5}%
+\contentsline {section}{\numberline {3.3}Final Model and Results}{21}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Why $R^2$ Plateaus}{23}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Comparison with Published Models}{25}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Summary}{26}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Methodology}{27}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Data}{27}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}NHANES FibroScan cohort}{27}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Habitual diet from the 24-hour recall}{28}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Recipe corpus}{28}{subsection.4.1.3}%
+\contentsline {subsection}{\numberline {4.1.4}NHANES III: external cohort with long-term follow-up}{28}{subsection.4.1.4}%
+\contentsline {section}{\numberline {4.2}Layer 2: Liver-State Model and Clinical Safety Checks}{29}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Liver-state model}{29}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Uncertainty and explanation}{29}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Fibrosis risk, liver label and safety notices}{29}{subsection.4.2.3}%
+\contentsline {section}{\numberline {4.3}Layer 3: Evidence Engine}{30}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Intervention evidence table}{30}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}From patient state to dietary priorities}{30}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Causal knowledge graph}{30}{subsection.4.3.3}%
+\contentsline {section}{\numberline {4.4}Layer 4: Recipe Evaluation and Ranking Engine}{31}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Food preferences}{31}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Criteria}{31}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Health-gated ranking}{32}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}Explanations, diversity and weekly plans}{33}{subsection.4.4.4}%
+\contentsline {section}{\numberline {4.5}Layer 5: Scenario Engine}{33}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Updating the Twin: Plan, Check-ins and Re-assessment}{34}{section.4.6}%
+\contentsline {subsection}{\numberline {4.6.1}The plan}{34}{subsection.4.6.1}%
+\contentsline {subsection}{\numberline {4.6.2}Predict, observe, compare, adjust}{34}{subsection.4.6.2}%
+\contentsline {subsection}{\numberline {4.6.3}Tips and alerts}{35}{subsection.4.6.3}%
+\contentsline {section}{\numberline {4.7}Plain-Language Summary}{35}{section.4.7}%
+\contentsline {section}{\numberline {4.8}System and Interfaces}{35}{section.4.8}%
+\contentsline {section}{\numberline {4.9}Evaluation Design}{36}{section.4.9}%
+\contentsline {subsection}{\numberline {4.9.1}Liver-state model and safety checks}{36}{subsection.4.9.1}%
+\contentsline {subsection}{\numberline {4.9.2}Fairness audit}{36}{subsection.4.9.2}%
+\contentsline {subsection}{\numberline {4.9.3}External and long-term validation on NHANES III}{36}{subsection.4.9.3}%
+\contentsline {subsection}{\numberline {4.9.4}Recipe ranking}{37}{subsection.4.9.4}%
+\contentsline {subsection}{\numberline {4.9.5}Plain-language summaries}{37}{subsection.4.9.5}%
+\contentsline {subsection}{\numberline {4.9.6}In-silico evaluation of the updating twin}{37}{subsection.4.9.6}%
+\contentsline {chapter}{\numberline {5}Results}{39}{chapter.5}%
+\contentsline {chapter}{Bibliography}{40}{chapter*.25}%

@@ -1,0 +1,622 @@
+\chapter{Methodology}
+\label{chap:methodology}
+
+This chapter describes how HepatoTwin is built and how it is evaluated.
+Section~\ref{sec:m_data} introduces the data: the NHANES FibroScan cohort,
+the patients' 24-hour dietary recalls, the recipe corpus and the external
+NHANES~III cohort. Sections~\ref{sec:m_layer2} to \ref{sec:m_summary} mirror the different levels in
+Figure~\ref{fig:hepatotwin_overview} namely the model of liver state and its safety criteria (Layer~2), 
+the evidence engine (Layer~3), the recipe evaluation and prioritization engine (Layer~4), the scenario engine (Layer~5), 
+the loop for updating the twin based on incoming data, and the layperson's report. Section~\ref{sec:m_system} describes the software
+system and the patient and clinician interfaces (Layers~6 and~7).
+Section~\ref{sec:m_eval} sets out how each component is evaluated, including
+the in-silico evaluation of the twin on virtual patients. The experiments
+behind the liver-state model are reported separately in
+Chapter~\ref{chap:experiments}; the results of every evaluation are given in
+Chapter~ef{chap:results}.
+
+% ======================================================================
+\section{Data}
+\label{sec:m_data}
+
+\subsection{NHANES FibroScan cohort}
+
+The twin is built on the US National Health and Nutrition Examination Survey
+(NHANES), which performed vibration-controlled transient elastography
+(FibroScan) on a nationally representative sample in its 2017--March 2020 and
+2021--2023 cycles \cite{nhanes_lux}. Both cycles use the same examination
+protocol and variable names. Participants with a complete examination
+(LUAXSTAT $=1$) and an observed controlled attenuation parameter (CAP) form
+the cohort of 15{,}300 participants aged 12 to 80. A test set of 3{,}060
+participants (20\%, stratified by cycle, seed 42) was set aside before any
+model choice and is used only for evaluation; the remaining 12{,}240 form the
+training set. The split is saved and reused by every later component, so the
+same test participants are never seen in training anywhere in the system.
+
+The liver-state model is intended for people aged 12 to 59, evaluated against
+reliable examinations (CAP interquartile range below 40~dB/m); this is the
+model's \emph{scope} (Chapter~\ref{chap:experiments}). The test set holds
+1{,}236 in-scope participants, who are the held-out patients for every
+evaluation in this thesis.
+
+\subsection{Habitual diet from the 24-hour recall}
+
+Each NHANES participant reports everything eaten on the previous day in a
+24-hour dietary recall. The day-1 nutrient totals of both cycles are joined
+with the USDA Food Patterns Equivalents (FPED), which give added sugars and
+food-group amounts. USDA has released FPED totals only for 2017--March 2020;
+for 2021--2023 they are derived with USDA's own method, from the individual
+foods and the 2017--2020 food-level FPED values (about 99.6\% of the
+recalled energy has a matching food code). From the recall the twin computes
+the same composition measures it uses for recipes---energy, saturated fat and
+sugars as a share of energy, and fibre per 1{,}000~kcal---and the Healthy
+Eating Index 2020 \cite{shamswhite2023hei}.
+
+A single day is a noisy measure of an individual's usual diet
+\cite{dodd2006usual}, and people under-report what they eat
+\cite{subar2003open}. It is only in the event of NHANES judging the recall as reliable, 
+and also if the participant indicates that the day was normal, 
+that the recall may be considered (500--3{,}500~kcal for females, 800--4{,}000~kcal for males). Even in this case, 
+the recall can affect the ranking of diet by not more than one level 
+(Section~\ref{sec:m_layer3}). New users who are not NHANES participants type
+what they ate yesterday in plain words; each item is linked to a USDA SR
+Legacy food, converted to grams and summed into the same totals.
+
+\subsection{Recipe corpus}
+
+Recipes come from RecipeDB \cite{batra2020recipedb}, which records each
+recipe's ingredients with their quantities, instructions, preparation time,
+servings, nutrition per serving, cuisine, diet labels and user ratings. A
+sample of 20{,}000 recipes was collected through the RecipeDB interface. Only
+main meals are candidates for recommendation: desserts, drinks, sauces,
+dressings and spreads are excluded by category and title, as are dishes with
+less than 200~kcal per serving. This leaves 10{,}108 candidate meals. Most
+(71\%) are labelled ``Other'' rather than with a specific cuisine; the
+largest labelled cuisines are European (1{,}152), Asian (637), Mexican (308),
+Canadian (247) and American (228).
+
+Every ingredient line is linked to a USDA SR Legacy food and its amount
+converted to grams, which allows two measures that RecipeDB does not provide:
+the degree of processing and the glycaemic load (Section~\ref{sec:m_layer4}).
+
+\subsection{NHANES III: external cohort with long-term follow-up}
+
+The external validation uses NHANES~III (1988--1994), in which an archived
+gallbladder ultrasound was re-read for hepatic steatosis in 2009--2010
+\cite{nhanes3_ultrasound}. Adults aged 20--59 with a gradable image form a
+cohort of 10{,}682 participants, 20.7\% of whom had moderate or severe
+steatosis (the recode recommended by the National Center for Health
+Statistics). NHANES~III examination and laboratory variables were mapped onto
+the model's inputs with unit conversions; 51 of the 81 inputs are available,
+and the rest are treated as missing, which the model handles natively. The
+public-use Linked Mortality File follows the participants to 31 December 2019
+\cite{nchs2022mortality}: 10{,}671 are linked, with 2{,}173 deaths over a
+median of 27.3 years. Its cause-of-death recode distinguishes heart disease,
+stroke and cancer but has no liver-disease category.
+
+% ======================================================================
+\section{Layer 2: Liver-State Model and Clinical Safety Checks}
+\label{sec:m_layer2}
+
+\subsection{Liver-state model}
+
+The liver twin's core is an XGBoost regressor \cite{chen2016xgboost} that
+estimates CAP from 81 routine inputs---body measurements, standard blood
+tests, blood pressure and a short questionnaire---and six derived scores.
+Two classifiers estimate the probability that CAP is at least 248~dB/m
+(``some liver fat'', steatosis grade S1 or above) and at least 280~dB/m
+(``a lot of liver fat'', grade S3) \cite{karlas2017cap}; both are calibrated
+with isotonic regression \cite{zadrozny2002calibration}. The experiments that
+led to this model are reported in Chapter~\ref{chap:experiments}.
+
+The calibrated probabilities, not the CAP estimate, are the twin's primary
+state: with a held-out $R^2$ of 0.56 the individual CAP error (RMSE about
+41~dB/m) is wider than the 32~dB/m between the S1 and S3 cut-offs, so a
+single CAP number would suggest more precision than the model has. Each
+probability is turned into a yes/no decision at the threshold that maximised
+the F1 score on the training data (0.432 for CAP $\geq$ 248 and 0.365 for
+CAP $\geq$ 280).
+
+\subsection{Uncertainty and explanation}
+
+Each patient's CAP estimate carries a 90\% conformal prediction interval
+\cite{vovk2005conformal}: five-fold out-of-fold predictions on the training
+set give one absolute error per in-scope training patient, and the interval
+is the estimate plus or minus their 90th percentile, with the finite-sample
+correction. Each calibrated probability carries a band, the 5th to 95th
+percentile of the probabilities given by isotonic calibrators refitted on 200
+bootstrap resamples. SHAP values \cite{lundberg2017shap}, computed with
+XGBoost's built-in TreeSHAP, split each patient's CAP estimate into the
+average prediction plus one contribution per input; they describe what drives
+the model's estimate, not causes that diet can change.
+
+\subsection{Fibrosis risk, liver label and safety notices}
+
+Diet advice must not replace the clinical care pathway. Three rule-based
+checks run alongside the model.
+
+\textbf{Fibrosis risk.} FIB-4 $=$ age $\times$ AST $/$ (platelets $\times$
+$\sqrt{\mathrm{ALT}}$) \cite{sterling2006fib4} is computed for adults and
+categorised by the EASL--EASD--EASO 2024 pathway \cite{easl2024masld}: below
+1.3 low risk, 1.3--2.67 indeterminate (further testing advised) and above
+2.67 high risk. A measured FibroScan liver stiffness, when available and
+reliable, replaces FIB-4 (below 8~kPa low, 8--12~kPa indeterminate, 12~kPa or
+more high). Because FIB-4 is less accurate under 35 \cite{rinella2023aasld},
+a low score in a young adult who is likely to have liver fat carries a note
+that elastography would help. A high risk withholds every recipe until the
+patient has had a clinical assessment.
+
+\textbf{Liver label.} Following the 2023 multisociety nomenclature
+\cite{rinella2023nomenclature}, steatotic liver disease with at least one
+cardiometabolic risk factor is labelled MASLD; with an alcohol intake of
+140--350~g a week (women) or 210--420~g (men) MetALD; above that range
+alcohol-related liver disease; and without a risk factor cryptogenic.
+Adolescents are checked against the nomenclature's paediatric criteria. This is simply a 
+research label that is used in the explanations and not a diagnosis. 
+\textbf{Safety notices.} Those below 18 years of age, patients who have consumed alcohol at or above the MetALD
+ level, on glucose lowering drugs, or those who are pregnant will get a note asking to 
+consult a doctor before making any changes to the diet (Section~\ref{sec:m_update}).
+
+% ======================================================================
+\section{Layer 3: Evidence Engine}
+\label{sec:m_layer3}
+
+\subsection{Intervention evidence table}
+
+The evidence engine rests on a curated table of 25 intervention--outcome
+findings. Each row records the study, intervention, outcome, reported effect
+and direction, design, population, sample size, limitations and an explicit
+evidence-strength label: 4 rows are STRONG (for example, among patients who
+lost 5\% or more of their weight in a 12-month prospective study with paired
+liver biopsies, 58\% had resolution of steatohepatitis
+\cite{vilargomez2015weight}), 11 MODERATE, 2 GUIDELINE RECOMMENDATION, 5 WEAK
+or INCONCLUSIVE and 3 OBSERVATIONAL ASSOCIATION. Observational associations
+are recorded but never used as effects.
+
+\subsection{From patient state to dietary priorities}
+
+Layer~2's decisions and routine measurements set explicit yes/no flags with
+published thresholds: probable steatosis and probable moderate-to-severe
+steatosis (from the calibrated probabilities); overweight and obesity (BMI 25
+and 30~kg/m$^2$, or 23 and 27.5 for Asian patients); a raised waist (above
+102~cm in men and 88~cm in women); raised glycaemia (HbA1c 5.7\% or more); and
+dyslipidaemia (raised triglycerides or low HDL). Evidence rules then fire on
+these flags and produce up to six \emph{priorities}, each with a level (low,
+medium or high) and the evidence rows that support it
+(Table~\ref{tab:m_priorities}). Every priority requires probable steatosis;
+the other flags decide which priorities apply and how high they rank.
+Priorities say which dietary objective matters
+more for this patient; they are not prescriptions and carry no numeric
+intake target.
+
+\begin{table}[htbp]
+\centering
+\caption{Dietary priorities: when each applies (always together with probable steatosis), its default level, what raises it, and the recipe criterion it sets.}
+\label{tab:m_priorities}
+\begin{tabular}{p{2.6cm}p{2.4cm}p{1.3cm}p{3.8cm}p{3.6cm}}
+\toprule
+Priority & Also requires & Default & Raised to & Recipe criterion (reference) \\
+\midrule
+Weight management & Excess weight & Medium & High: probable CAP $\geq$ 280, or obesity & Energy per serving $\leq$ 600~kcal \\
+Diet quality & -- & Medium & High: probable CAP $\geq$ 280 & Fibre $\geq$ 14~g per 1{,}000~kcal \\
+Limit saturated fat & -- & Medium & High: dyslipidaemia & Saturated fat $\leq$ 10\% of energy \\
+Limit excess sugar & -- & Low & Medium: raised glycaemia or excess weight & Sugars $\leq$ 10\% of energy \\
+Limit ultra-processed foods & -- & Low & -- & Processing FPro $\leq$ 0.5 \\
+Lower glycaemic load & Raised glycaemia & Low & -- & Glycaemic load $\leq$ 20 per serving \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+When the patient has a reliable recall, a priority moves up one level if the
+patient's own intake misses the same reference value used for recipes, and
+down one level if it meets it.
+
+\subsection{Causal knowledge graph}
+
+A small hand-written causal graph of 16 links encodes the well-established
+direction of MASLD biology: dietary and activity levers act on body weight,
+insulin resistance and liver fat; liver fat drives liver injury and fibrosis;
+CAP, ALT and liver stiffness only measure them. Each link names its evidence
+rows. The graph confines the prioritization to the levers having a causal pathway 
+towards liver fat, and therefore the criteria of any recipe never focuses on any downstream 
+measurement such as ALT, and it provides the chain for every recommendation for the 
+explanations (Section~\ref{sec:m_layer4}).
+
+% ======================================================================
+\section{Layer 4: Recipe Evaluation and Ranking Engine}
+\label{sec:m_layer4}
+
+Layer~4, NutriTwin, is the core contribution of this thesis. It scores every
+candidate meal on five criteria, ranks first the meals that meet every
+evidence-linked reference value, and explains each recommendation.
+
+\subsection{Food preferences}
+
+At sign-up the patient states how they eat (anything, pescatarian,
+vegetarian, vegetarian without eggs, or vegan), any of the nine major food
+allergens named in US law plus gluten, any other allergy typed in, foods never
+eaten (pork, beef or alcohol), disliked and liked ingredients, the longest
+time they can spend cooking, and how many people they cook for. Diet,
+allergies, foods avoided, dislikes and cooking time are hard rules: a recipe
+that breaks one is never shown. A recipe must pass both RecipeDB's own diet
+label and a check of its ingredient words and food groups, because the labels
+contain errors (162 recipes labelled vegan list meat).
+
+\subsection{Criteria}
+
+\textbf{Health relevance.} Each priority maps to one recipe-composition
+criterion with a reference value from public dietary guidance
+(Table~\ref{tab:m_priorities}): energy per main meal \cite{phe2018calories},
+saturated fat \cite{who2023satfat,dga2020}, sugars \cite{who2015sugars} and
+fibre \cite{dga2020}. Two criteria are computed from the ingredients. The
+degree of processing (FPro, 0 to 1) is the energy-weighted mean of the
+ingredients' FPro, predicted by a re-implementation of FoodProX
+\cite{menichetti2023processing}, a random forest that infers the NOVA
+processing class of a food from its nutrient profile. The glycaemic load per
+serving is the sum over ingredients of glycaemic index times available
+carbohydrate divided by 100 \cite{atkinson2021gi}, with each carbohydrate food
+taking the median glycaemic index of its matching entries in the 2021
+international tables. Both are left blank when too few ingredients can be
+linked. A criterion scores 100 at or past its reference value and falls
+linearly to 0 over a tolerance; the health score is the mean of the patient's
+criteria weighted by priority level.
+
+\textbf{Cuisine compatibility.} A recipe labelled with the requested cuisine
+scores 100, a declared related cuisine 75 and any other label 0. Because 71\%
+of candidates are unlabelled, these are judged on their ingredients: the
+typicality of a recipe for a cuisine is the mean share of that cuisine's
+recipes that use each pair of the recipe's ingredients, scaled so that the
+cuisine's own recipes at the 75th percentile score 100. Unlabelled recipes
+score at most 50, so they fill gaps without displacing correctly labelled
+ones.
+
+\textbf{Practical feasibility.} The mean of three components, each 100 at the
+minimum and 0 at a screening limit: total time (60 minutes), number of
+ingredients (15) and number of instruction steps (12). The score is then
+reduced by 25\% for each demanding technique named in the instructions
+(deep-frying, kneading or proving dough, overnight chilling, marinating,
+thermometer work, flamb\'eing) and by 10\% for each piece of special
+equipment.
+
+\textbf{Acceptability.} RecipeDB's user rating, shrunk towards the corpus
+mean (4.91) with the weight of 20 ratings so that a recipe rated 5.0 by one
+user does not outrank one rated 4.9 by hundreds, and scaled from 4.5 (0) to
+5.0 (100).
+
+\textbf{Personal fit.} The closeness of a recipe to what the patient already
+eats and likes, with two parts averaged when both are known: the distance of
+the recipe from the patient's 24-hour recall on the patient's own priorities
+(meal energy, saturated fat, sugar and fibre, each in units of the
+criterion's tolerance, capped at 1), and one minus the largest ingredient
+overlap (Jaccard index) with a favourite dish or the liked ingredients.
+The personal fit is equal to 100 times (one minus this distance); 
+if there is no reliable recall or favorites then it is unknown. 
+\subsection{Health-gated ranking}
+
+The total score is the weighted average of the criteria which the recipe satisfies, 
+where the weights are renormalized according to the criteria satisfied (Table~\ref{tab:m_weights}). 
+The weighted scoring alone allows such a trade-off. The ranking is, in this case, 
+\emph{health-gated}: recipes that fulfill all of the evidence-based reference values 
+rank above the rest, and the weight score ranks recipes within these categories. Both 
+processing and glycaemic load determine the score but are not 
+health gated since the evidence behind them is less conclusive.
+
+Inside the gated group every health score would be 100 and the patient's
+priority levels would no longer matter. There, half of the health component
+is instead the priority-weighted margin by which the recipe goes past the
+reference values, so a patient whose saturated-fat priority is high is
+offered recipes further below the saturated-fat reference. Personal fit is
+applied only within the gated group, after ranking, so familiarity never
+outranks health.
+
+\begin{table}[htbp]
+\centering
+\caption{Criterion weights. Weights are renormalised over the criteria a recipe has; personal fit counts only for recipes that meet every reference value.}
+\label{tab:m_weights}
+\begin{tabular}{lrr}
+\toprule
+Criterion & Weight & Share when all are present \\
+\midrule
+Health relevance & 0.6 & 0.400 \\
+Cuisine compatibility & 0.2 & 0.133 \\
+Practical feasibility & 0.2 & 0.133 \\
+Acceptability & 0.1 & 0.067 \\
+Personal fit & 0.4 & 0.267 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The personal-fit weight was chosen on the evaluation of
+Section~\ref{sec:m_eval}: 0.4 made the top-ten lists of different patients
+clearly different while every recommended recipe still met every reference
+value (Chapter~ef{chap:results}). The other weights were set in the proposal and tested for
+sensitivity over a grid of 36 combinations.
+
+\subsection{Explanations, diversity and weekly plans}
+
+Each recommended recipe is explained by following its criteria back through
+the causal knowledge graph to liver fat, with the evidence rows and strength
+of each link, and ending with the cuisine and practicality context that kept
+the recipe appropriate. Every statement is built from the ranking engine's
+own output.
+
+A seven-day plan of two main meals a day is drawn greedily from the gated
+recipes, practical ones first, after re-ranking by maximal marginal relevance
+\cite{carbonell1998mmr} ($\lambda = 0.9$) so that near-duplicates do not fill
+the list. The solution needs to meet the constraints on a weekly basis. This involves 
+meeting the requirements of each meal and each pair of daily meals based on the reference 
+values of the patient, the recipe appearing twice or not at all in the week and not consecutively, 
+there being a difference in protein families in daily meals, 
+and the absence of a dominant protein family in the week. If the cuisine
+cannot fill the week, a favourite may appear twice, and then recipes from the
+most similar cuisines (by ingredient profile) are borrowed and labelled as
+such. A shopping list adds up one serving of each planned meal.
+
+% ======================================================================
+\section{Layer 5: Scenario Engine}
+\label{sec:m_layer5}
+
+The patient chooses between two scenarios. \emph{Scenario~A} takes the
+recipes in the health-gated order, the healthiest available.
+\emph{Scenario~B} takes recipes from the same safe pool ordered by closeness
+to what the patient eats now, so the change is smaller. For each criterion
+the engine compares the scenario's mean composition with the patient's own
+recall and reports whether it improves, worsens or does not change
+meaningfully, each direction carrying the evidence rows of its pathway:
+calorie restriction (and, if sustained to 5\% weight loss, the STRONG
+weight-loss evidence \cite{vilargomez2015weight}); saturated fat
+\cite{luukkonen2018saturated}; sugar, labelled MODERATE only when the scenario
+also lowers energy, because sugar harms the liver when it adds surplus energy
+but not when exchanged isocalorically \cite{chiu2014fructose}; and fibre as a
+marker of a Mediterranean-style pattern \cite{haigh2022mediterranean}. The
+scenario's label is the strongest among the criteria that improve, and every
+scenario is labelled as indirect evidence, since one recipe is not a dietary
+pattern.
+
+The scenario engine never asks the Layer~2 model to predict an intervention's
+effect, because the model was trained on a cross-sectional survey, not on
+interventions. Two intermediate steps between the scenarios are used only by
+the updating loop, which can move a patient gradually from Scenario~B
+towards Scenario~A as they settle in, or back when they struggle
+(Section~\ref{sec:m_update}).
+
+% ======================================================================
+\section{Updating the Twin: Plan, Check-ins and Re-assessment}
+\label{sec:m_update}
+
+\subsection{The plan}
+
+Patients cannot be expected to know how large a change to make, so the twin
+suggests a plan at three paces, taken from the trial prescriptions: gentle
+(half the Diabetes Prevention Program calorie cut for the patient's weight
+band and 90 minutes of walking a week), standard (the DPP cut of
+500--1{,}000~kcal a day and 150 minutes) \cite{dpp2002lifestyle} and ambitious
+(the Look AHEAD calorie goal and 175 minutes) \cite{lookahead2006intervention}.
+Walking adds (MET $-1$) $\times$ weight $\times$ hours of energy use at 3.8~MET.
+Patients under 18 receive no calorie cut. A plan with a safety notice waits
+for a clinician's approval, and only a clinician can set custom numbers.
+
+\subsection{Predict, observe, compare, adjust}
+
+At each monthly check-in the patient enters their weight and how many of the
+planned meals they cooked and how much they walked. The twin then runs one
+cycle of a predict--observe--compare--adjust loop.
+
+\emph{Predict.} The forecast follows Hall's published rule
+\cite{hall2011energy}: a sustained change in intake moves weight by about
+1~kg per 100~kJ a day in the end, half of it in about a year. The plan's full
+effect is scaled by a personal response factor $k = a \times r$, the product
+of adherence $a$ (the share of the plan followed, from the patient's answers)
+and the body's response $r$ (1 for the textbook response).
+
+\emph{Compare.} The 90\% range of the forecast combines the uncertainty in
+$k$ with ordinary weight drift, set from the spread of weight change in Look
+AHEAD usual care and assumed to grow like a random walk. Progress is also
+judged against the plan from the start: from month 1.5, a patient who has
+lost less than half of the loss the plan typically gives is \emph{behind
+plan}. It can be seen from the patient's responses that if the adherence level is low, 
+then the adherence to the regimen has not taken place, and vice versa. 
+\emph{Adjust.} Response variable $r$ is reassessed by Bayesian linear regression using the changes 
+in weight between visits from a weakly informative prior ($r = 1.0 \pm 0.7$), with 
+older values discounted due to adherence drift. The projection at 3, 6 and 12 months uses what has been learned, and
+the liver projection re-runs Layer~2 with the projected weight, BMI and waist.
+A plan changed by the clinician part-way through is handled as a dated
+schedule of energy changes, so each month is judged against the plan in force
+at that time.
+
+\subsection{Tips and alerts}
+
+Every message follows from one rule on the twin's output. The patient that did not adhere 
+to the plan will be provided with more familiar recipes, while the one that adhered to 
+the plan will be advised to continue following it. After two consecutive follow-ups of 
+patients on the plan, the doctor will receive a notification of the points to consider: 
+intake greater than stated, regular fluctuations in weight, and medical issues like newly 
+prescribed medication or hyperthyroidism. The alert does not claim the
+patient's body is slow: the in-silico evaluation showed that this cannot be
+told apart from weight drift within a year (Chapter~ef{chap:results}). A patient on plan
+with good adherence at two check-ins in a row is offered one step towards the
+healthiest recipes. Clinicians also see alerts for plans awaiting approval,
+indeterminate or high fibrosis risk, overdue check-ins and missing blood
+tests.
+
+% ======================================================================
+\section{Plain-Language Summary}
+\label{sec:m_summary}
+
+The patient reads a short summary of the twin's output. It is produced solely 
+based on the facts computed by the twin, with all numbers being rounded up as 
+indicated: the probabilities of a few and a high amount of fat in the liver 
+(never as 0\% or 100\%), a clear verdict based on the twin's binary decision, 
+the liver classification, the outcome of fibrosis using published thresholds 
+and the sources for those thresholds (with an indication where the score falls 
+within 10\% of the threshold), any warnings about risks, and the importance of 
+criteria in clear language with the number of studies supporting each, and the 
+top recipes. Evidence codes, the CAP estimate and its interval are kept for the clinician's view.
+Notices about changing diet appear only when a diet change is suggested.
+
+A template writes the summary, and a language model can be plugged in
+instead. Whatever writes it, an automatic check confirms that every number
+and every evidence citation in the text appears in the twin's facts; if not,
+the template summary is shown and the reason recorded.
+
+% ======================================================================
+\section{System and Interfaces}
+\label{sec:m_system}
+
+The twin's Layers~2--5 are wrapped in an HTTP backend (FastAPI) with an
+SQLite database that keeps each patient's dated visits, plans, check-ins and
+twin runs, so later visits can be compared with what the twin expected.
+Patients sign in with a one-time code and see only their own record;
+clinicians see the patients of their clinic. One twin run has two views. The
+patient's view holds the summary, the chances of liver fat, the safety check,
+the priorities, the recipes with their reasons and the two scenarios, but no
+CAP estimate. The clinician's view holds the full output, including the CAP
+estimate, its 90\% interval and the SHAP drivers.
+
+The dashboard (Layer~7) presents this journey: a short sign-up, the patient's
+results, the choice of pace and recipe style, a ``Today'' screen with one next
+step and the day's meals, the weekly plan and shopping list, monthly
+check-ins, and progress against the plan; and for the clinician, a list of
+patients ordered by alerts and a patient view in which plans are approved or
+changed. The liver visualisation (Layer~6) colours a three-dimensional liver
+by the steatosis state from the calibrated probabilities, with a timeline
+slider for today and three, six and twelve months, and labels every future
+state as a simulated projection, not a clinical forecast.
+
+% ======================================================================
+\section{Evaluation Design}
+\label{sec:m_eval}
+
+Each component is evaluated against appropriate baselines on data it was not
+built on. Unless stated, intervals are 95\% bootstrap percentile intervals
+over participants, and results are unweighted.
+
+\subsection{Liver-state model and safety checks}
+
+The model is evaluated on the in-scope test participants by $R^2$ and RMSE
+for CAP, and by ROC-AUC, Brier score and calibration for the two
+classifiers, against the Fatty Liver Index \cite{bedogni2006fli} and the
+Hepatic Steatosis Index \cite{lee2010hsi} on the same participants
+(Chapter~\ref{chap:experiments}). The conformal intervals are checked by their
+empirical coverage on the test set (target 90\%). FIB-4 is evaluated against
+liver stiffness measured in the same FibroScan examination, with 8~kPa to rule
+out and 12~kPa to rule in advanced fibrosis.
+
+\subsection{Fairness audit}
+
+The calibrated classifiers are scored separately by sex, race and ethnicity,
+and age group (12--17, 18--39, 40--59) on the in-scope test participants:
+ROC-AUC, Brier score, and the mean predicted probability against the observed
+share (calibration in the large), with 1{,}000 bootstrap resamples within each
+group. Groups with fewer than 30 participants are not reported. The share of
+recommended recipes meeting each ranking criterion is compared across the same
+groups.
+
+\subsection{External and long-term validation on NHANES III}
+
+On the NHANES~III cohort, the model's probabilities are compared with the
+ultrasound grade (moderate or severe against normal or mild) by ROC-AUC,
+alongside the Fatty Liver Index (on participants with GGT), the Hepatic
+Steatosis Index, BMI and waist computed from the same record. This is a
+different reference standard 30 years earlier, so it tests whether the model
+ranks people correctly, not whether it reproduces CAP. For mortality,
+participants are divided into quarters of the probability of CAP $\geq$ 280,
+and death rates per 1{,}000 person-years are compared for all causes,
+cardiovascular causes (heart disease or stroke) and cancer. Rate ratios
+adjusted for age and sex come from Poisson regression with the logarithm of
+person-years as offset, fitted by iteratively reweighted least squares, with
+Wald intervals. The ultrasound grade and the FIB-4 category are analysed the
+same way.
+
+\subsection{Recipe ranking}
+
+The ranking engine is evaluated on 300 randomly chosen in-scope test
+participants with at least one recipe criterion. NHANES records no cuisine
+preference, so each participant is given a cuisine at random among those with
+at least 100 candidate recipes. The main measure is the share of each top-ten
+list that meets all three criteria at once: every one of the patient's health
+reference values, the patient's cuisine, and the practical limits (60 minutes,
+15 ingredients, 12 steps). The proposed ranking is compared with the same
+ranking without personal fit, without acceptability and with diversity
+re-ranking; with weighted scoring without the health gate; with health-only
+and nutrition-only rankings; and with random selection. Personalisation is
+measured by the number of distinct top-ten lists and the mean overlap of the
+top ten between patients of the same cuisine, with and without the 24-hour
+recall. Weekly plans are checked against every weekly constraint, and the
+sensitivity of the ranking to its weights is measured over 36 weight
+combinations.
+
+\subsection{Plain-language summaries}
+
+For 300 in-scope test participants the twin runs end to end. The summaries
+are scored on faithfulness (every number and citation present in the twin's
+facts) and on readability (Flesch Reading Ease and Flesch--Kincaid grade
+\cite{flesch1948readability}). The faithfulness check itself is tested by
+planting errors in each summary as a language model might make them---a
+number changed, a number added, a citation invented, which should all be
+caught; a harmless rewording, which should pass; and a wrong word with no
+number, which measures the check's blind spot. A random sample of ten
+summaries was read by the project team, each beside the words its rules should
+produce.
+
+\subsection{In-silico evaluation of the updating twin}
+
+NHANES examined each participant once, so the twin's updating and projections
+cannot be tested on real follow-up. Following the design of in-silico trials
+\cite{pappalardo2019insilico} and plasmode simulation
+\cite{franklin2014plasmode}, real test patients provide month~0 and their next
+twelve months are simulated; this addresses the verification part of digital
+twin validation \cite{nasem2024digitaltwins}.
+
+\textbf{Simulator.} Each of the 1{,}236 in-scope test patients follows usual
+diet, Scenario~A ($-500$~kcal a day) and Scenario~B ($-250$~kcal a day) for
+twelve months. A person-level adherence pattern (steady, slipping, regaining
+or dropping out) scales the prescribed change. Monthly weight follows Hall's
+model \cite{hall2011energy}, scaled by each person's body fat, with a random
+weight drift independent of the diet. Waist, blood markers and blood pressure
+change with weight loss by published effect sizes \cite{wing2011modest};
+liver fat falls with weight loss and further while intake is reduced
+\cite{lim2011reversal}; CAP follows liver fat, and liver enzymes follow the
+change in liver fat \cite{koutoukidis2019weightloss,wong2013community}. Each
+person's biology is drawn once, so the scenarios differ only in diet. The
+simulator never uses the Layer~2 model, so the twin is not checked against its
+own output.
+
+\textbf{Observation layer.} The twin never sees the simulated truth. It sees
+what a clinic would record: monthly weights and food logs, blood tests every
+three months with within-person and laboratory variation from the EFLM
+database \cite{eflm_bv}, CAP at months 0, 6 and 12 with measurement error,
+food logs that under-report intake as in the OPEN study \cite{subar2003open},
+and missed visits that become more likely when a patient's weight has risen.
+
+\textbf{Calibration.} The settings that no trial reports directly (adherence
+patterns and how they fade, response spread, weight drift) were tuned by
+differential evolution so that virtual patients resembling each trial's
+participants, drawn from the training set, reproduce published outcomes: Look
+AHEAD at one year \cite{lookahead2006intervention}, the DPP at 24 weeks
+\cite{dpp2002lifestyle} and Vilar-Gomez et al.\ at one year
+\cite{vilargomez2015weight}. During each programme's intensive-contact phase
+a slipping participant keeps full effort. Later outcomes (Look AHEAD at eight
+years \cite{lookahead2014eightyear} and the DPP at about three years) were held
+back to check the tuned simulator, and first-year regain in Look AHEAD
+\cite{neiberg2012patterns} was used only to choose how many participants stop
+the diet completely. HepatoTwin's scenarios use the adherence fitted to
+Vilar-Gomez et al., routine advice to patients with fatty liver.
+
+\textbf{Measures.} The twin runs month by month on the observed data with the
+patient's answers derived from the true adherence (honest answers) and, as a
+robustness check, inflated by each person's under-reporting share, or absent.
+The performance of the model is judged by: predictions of the weight at months 3 
+and 6, 3 and 6 months ahead, compared to the textbook pattern without learning 
+and to the last carried forward weight (mean absolute error and coverage of the 
+90\% range); how the prediction error varies with the learning process from month 
+1 to month 9; the reasons given for the slow learning and warnings, compared to actual 
+adherence and body reaction; how many months it takes to detect a patient falling
+behind and liver fat falling below 280~dB/m; the probability of CAP $\geq$
+280 at months 0, 6 and 12 against the true CAP (AUC, Brier score,
+calibration), and its month-6 forecast of month 12; robustness to more missed
+visits, scale noise, over-reported answers and missing answers; and whether
+its projections order Scenario~A, Scenario~B and usual diet as the truth does.
+These results verify that the twin can update, track and adapt; they do not
+show that it predicts real patients, and almost all calibration trials were in
+adults.

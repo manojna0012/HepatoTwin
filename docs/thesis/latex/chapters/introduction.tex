@@ -1,9 +1,7 @@
 \chapter{Introduction}
 \label{chap:introduction}
-
 \section{Background}
 \label{sec:background}
-
 Metabolic dysfunction-associated steatotic liver disease (MASLD), formerly
 non-alcoholic fatty liver disease (NAFLD), is the most common chronic liver
 disease worldwide. It affects about 30\% of the adult population, and its
@@ -14,7 +12,7 @@ accompanied by at least one cardiometabolic risk factor, such as excess
 weight, raised blood glucose or dyslipidaemia \cite{rinella2023nomenclature}.
 Untreated, MASLD can progress from simple fat accumulation (steatosis) to
 inflammation, fibrosis and cirrhosis, and it is closely linked to type~2
-diabetes and cardiovascular disease.
+diabetes and cardiovascular disease \cite{easl2024masld}.
 
 Diet is central to its management. No dietary pattern is a cure, but the
 current European guideline recommends lifestyle change, centred on diet
@@ -26,6 +24,12 @@ to resolution of steatohepatitis in most patients and to regression of
 fibrosis in many \cite{vilargomez2015weight}. Beyond weight, the guideline
 advises a Mediterranean-style diet, fewer foods rich in saturated fat and
 sugars, and the avoidance of sugar-sweetened beverages \cite{easl2024masld}.
+Trials and meta-analyses support parts of this advice, although the evidence
+differs by outcome: Mediterranean and calorie-restricted diets improve some
+liver measures \cite{sangouni2022mediterranean,haigh2022mediterranean},
+Mediterranean and low-fat diets do not clearly differ
+\cite{xiong2024mediterranean}, and saturated fat and fructose are linked
+to liver fat in feeding studies \cite{luukkonen2018saturated,chiu2014fructose}.
 
 Turning this guidance into daily meals is where patients struggle. Guidelines
 speak in nutrients and dietary patterns (``limit saturated fat'', ``increase
@@ -40,17 +44,16 @@ patient's plate is the problem this thesis addresses.
 Liver fat itself can be measured non-invasively. Vibration-controlled
 transient elastography (FibroScan) reports the controlled attenuation
 parameter (CAP), which grades steatosis with established cut-offs
-\cite{karlas2017cap}. The US National Health and Nutrition Examination
-Survey (NHANES) performed this examination on a nationally representative
-sample in its 2017--March 2020 and 2021--2023 cycles, together with blood
-tests, body measurements, questionnaires and a 24-hour dietary recall
-\cite{nhanes_lux}. In the 15{,}300 participants with a complete examination
-used in this work, 52\% had a CAP of at least 248~dB/m, the usual threshold
-for any steatosis.
+\cite{karlas2017cap,ferraioli2021cap}. The US National Health and Nutrition
+Examination Survey (NHANES) performed this examination on a nationally
+representative sample in its 2017--March 2020 and 2021--2023 cycles, together
+with blood tests, body measurements, questionnaires and a 24-hour dietary
+recall \cite{nhanes_lux}. In the 15{,}300 participants with a complete
+examination used in this work, 52\% had a CAP of at least 248~dB/m, the usual
+threshold for any steatosis \cite{karlas2017cap}.
 
 \section{Digital Twins in Medicine and Nutrition}
 \label{sec:digital_twins}
-
 A digital twin is a virtual representation of a specific physical system that
 is updated with data from that system, can predict how it will behave, and is
 used to inform decisions about it \cite{nasem2024digitaltwins}. In medicine
@@ -61,7 +64,10 @@ faces common challenges in data integration, validation and privacy
 twin from a one-off prediction model is that it is specific to one patient, is
 updated as new data arrive, and can simulate how that patient's state may
 change under different interventions
-\cite{nasem2024digitaltwins,katsoulakis2024digital}.
+\cite{nasem2024digitaltwins,katsoulakis2024digital}. Systematic reviews report
+growing interest in digital twins for metabolic and population health, but
+also limited evidence of their effectiveness
+\cite{su2025metabolic,shen2024effectiveness}.
 
 Nutrition is a natural application. People respond differently to the same
 food \cite{zeevi2015personalized}, and the ``virtual digital twin'' concept in
@@ -70,7 +76,10 @@ dietary data into a model that can test dietary choices before they are made
 \cite{gkouskou2020virtual}. Early clinical results are encouraging: in a
 one-year randomised trial in people with type~2 diabetes, nutrition guided by
 a digital twin that predicted each person's post-meal glucose response
-improved markers of liver fat \cite{joshi2023digitaltwin}. In MASLD
+improved markers of liver fat \cite{joshi2023digitaltwin}; related work applies
+the same technology to glycaemic control and diabetes remission
+\cite{twinhealth2024frontiers}, and a recent student abstract proposes twins
+of diet-influenced biomarker trajectories \cite{nobel2026idtdiet}. In MASLD
 specifically, the European ARTEMIS project is building virtual twins from
 retrospective data on several thousand patients \cite{artemis2024}. None of
 these systems, however, evaluates complete, existing recipes against a
@@ -78,7 +87,6 @@ patient's evidence-based dietary needs.
 
 \section{Computational Gastronomy and Recipe Data}
 \label{sec:gastronomy}
-
 Computational gastronomy treats food and cooking as data that can be analysed
 and reasoned about \cite{bagler2024gastronomy}. Structured resources now make
 this possible at scale. RecipeDB contains more than 118{,}000 recipes from 74
@@ -88,20 +96,24 @@ molecules found in foods \cite{garg2018flavordb}; and literature-mined
 resources link culinary herbs and spices to health outcomes
 \cite{rakhi2018spices}. Related work in menu planning uses multi-objective
 optimisation to compose daily menus that meet nutritional targets
-\cite{sahin2024menu}.
+\cite{sahin2024menu}, and health-aware food recommenders have used food
+knowledge graphs to match recipes to nutritional needs
+\cite{trattner2017food,haussmann2019foodkg,chen2021constrained,li2022healthguided}.
+Another line of work generates new recipes or modifies existing ones, for
+example by substituting ingredients or adapting a dish to another cuisine
+\cite{shirai2021substitutions,kim2025substitution,rita2024phytochemical,cao2024cultural}.
 
 These resources are designed mainly for exploring and querying culinary data,
-or for meeting generic nutrient targets. They do not, by themselves, decide
-which existing recipes suit a particular patient, given that patient's
-current liver state, the strength of the clinical evidence behind each dietary
-change, and the practical realities of their kitchen.
+for generating variants, or for meeting generic nutrient targets. They do not,
+by themselves, decide which existing recipes suit a particular patient, given
+that patient's current liver state, the strength of the clinical evidence
+behind each dietary change, and the practical realities of their kitchen.
 
 \section{Problem Statement and Research Gap}
 \label{sec:problem}
-
 Three bodies of work hold complementary pieces of the problem. Clinical
 evidence links dietary changes to liver outcomes; patient-specific models,
-including digital twins, estimate an individual's health state; and recipe
+including digital twins, give an estimate for an individual's health state; and recipe
 databases describe the food people actually cook. These components are
 usually studied separately. In particular, we found no framework that
 evaluates and ranks existing recipes for an individual patient by combining
@@ -118,20 +130,17 @@ back to the evidence that supports it.
 
 \section{Research Question and Objectives}
 \label{sec:research_question}
-
 This thesis asks:
-
 \begin{quote}
 \emph{Can a patient-specific liver digital twin, built from clinical data and
 graded intervention evidence, support the evidence-grounded evaluation and
 ranking of existing recipes according to their health relevance, cuisine
 compatibility and cooking feasibility for an individual patient?}
 \end{quote}
-
 To answer it, the work pursues five objectives:
 \begin{enumerate}
     \item Estimate each patient's current liver state, as calibrated
-          probabilities of steatosis, from routinely collected clinical data.
+          probabilities of fatty liver, from routinely collected clinical data.
     \item Translate that state, together with the patient's own reported
           diet, into evidence-graded nutritional priorities, without
           inventing individual numeric targets.
@@ -146,36 +155,41 @@ To answer it, the work pursues five objectives:
 
 \section{Approach Overview}
 \label{sec:approach}
-
 The proposed system, HepatoTwin, is organised in seven layers
 (Figure~\ref{fig:hepatotwin_overview}). Layer~1 holds the patient's state:
 demographics, body measurements, blood tests, questionnaire answers and a
 24-hour dietary recall. Layer~2, the core of the twin, estimates the current
-liver state with an XGBoost model and two calibrated classifiers that give
-the probability of CAP at or above 248 and 280~dB/m, explained per feature
-with SHAP values. Layer~3, the evidence engine, converts this state into
+liver state with an XGBoost model \cite{chen2016xgboost} and two calibrated
+classifiers \cite{zadrozny2002calibration} that give the probability of CAP at
+or above 248 and 280~dB/m, explained per feature with SHAP values
+\cite{lundberg2017shap}. Layer~3, the evidence engine, converts this state into
 nutritional priorities such as weight management or limiting saturated fat;
 each priority cites rows of a curated table of 23 intervention--outcome
-findings with explicit evidence-strength labels, and is adjusted by the
-patient's own intake. Layer~4, the recipe evaluation and ranking engine
+findings drawn from trials, meta-analyses and guidelines
+\cite{vilargomez2015weight,sangouni2022mediterranean,haigh2022mediterranean,xiong2024mediterranean,stine2023exercise,stern2026dietary,easl2024masld}
+with explicit evidence-strength labels, and is adjusted by the patient's own
+intake. Because a single 24-hour recall is a noisy measure of habitual diet
+\cite{subar2003open,dodd2006usual,tooze2006usual}, it can shift a priority by
+at most one level. Layer~4, the recipe evaluation and ranking engine
 (NutriTwin), is the core research contribution: it scores candidate recipes
 for health relevance, cuisine compatibility, practical feasibility and
 acceptability, ranks first the recipes that meet every evidence-linked
 reference value, and explains each recommendation. Layer~5 compares recipe
-scenarios and projects their effect over time; Layers~6 and~7 present the
-twin through a three-dimensional liver visualisation and an explainable
-dashboard. When new measurements or food logs arrive, the twin updates its
-state and its recommendations.
+scenarios and projects their effect over time. A three-dimensional liver and
+an explainable dashboard are used in Layers~6 and~7 for visualisation. The
+twin updates its state and its recommendations accordingly when new food logs
+or measurements arrive, in the spirit of assimilating new observations into a
+model state \cite{kalnay2003assimilation,nasem2024digitaltwins}.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{figures/hepatotwin_overview.pdf}
-    \caption{Overview of HepatoTwin. The patient's data (Layer~1) feed the
-             liver twin core (Layer~2), whose calibrated state drives
-             evidence-graded priorities (Layer~3) and the ranking of existing
-             recipes (Layer~4, the core contribution). Scenarios (Layer~5) are
-             shown through a visualisation (Layer~6) and a dashboard
-             (Layer~7); new measurements and food logs update the twin.}
+    \caption{Overview of HepatoTwin. Patient data (Layer~1) calibrate the liver
+             twin core (Layer~2), which guides evidence-graded priorities
+             (Layer~3) and the ranking of existing recipes (Layer~4, the core
+             contribution). Scenarios (Layer~5) are shown through a visualisation
+             (Layer~6) and a dashboard (Layer~7); new measurements and food logs
+             update the twin.}
     \label{fig:hepatotwin_overview}
 \end{figure}
 
@@ -185,7 +199,6 @@ examinations; ages 60 and over are outside its scope.
 
 \section{Contributions}
 \label{sec:contributions}
-
 The main contributions of this thesis are:
 \begin{enumerate}
     \item \textbf{A calibrated liver-state model from routine data.} Trained on
@@ -194,8 +207,12 @@ The main contributions of this thesis are:
           on held-out patients within its scope, above the Fatty Liver Index
           (0.861) and the Hepatic Steatosis Index (0.836) on the same patients
           \cite{bedogni2006fli,lee2010hsi}, and holds its performance on a
-          later survey cycle. It also predicts CAP with a held-out R$^2$ of
-          0.56, comparable to or above published models built on routine data.
+          later survey cycle. Its discrimination is in the range reported by
+          other machine-learning models built on NHANES routine data
+          \cite{du2026masld,liu2024automl,zhang2025masld,boullion2025biomarker}.
+          It also predicts CAP with a held-out R$^2$ of 0.56, comparable to or
+          above published CAP-prediction models built on routine data
+          \cite{liu2022surrogate}.
     \item \textbf{An evidence engine linking patient state to graded dietary
           priorities.} Every priority cites named trials, meta-analyses or
           guidelines with an explicit strength label, observational findings
@@ -214,25 +231,24 @@ The main contributions of this thesis are:
     \item \textbf{An open, modular digital-twin framework}, demonstrated for
           MASLD, together with an in-silico evaluation design that tests how
           the twin updates on virtual patients before real follow-up data
-          exist.
+          exist, following the use of simulated patients and virtual trials in
+          other fields \cite{pappalardo2019insilico,kovatchev2009insilico,walonoski2018synthea,franklin2014plasmode}.
 \end{enumerate}
 
 \section{Scope and Limitations}
 \label{sec:scope}
-
 NHANES is cross-sectional: each participant was examined once. The twin's
 estimate of the current state is therefore validated on held-out patients,
 but its projections of future states cannot be compared with real repeat
 measurements. They are presented as simulated projections grounded in
 clinical evidence, never as clinical forecasts, and the twin's updating is
-evaluated on virtual patients. Validation with real longitudinal data
-requires deployment with patients who enter their own measurements over
-time. The recommendations are research outputs: they support, and do not
-replace, clinical care.
+evaluated on virtual patients \cite{pappalardo2019insilico,franklin2014plasmode}.
+For validation with real longitudinal data, deployment with patients who enter
+their own measurements over time is required. The recommendations are research
+outputs: they support, and do not replace, clinical care.
 
 \section{Thesis Outline}
 \label{sec:outline}
-
 Chapter~2 reviews related work on MASLD and its dietary treatment,
 non-invasive liver fat assessment, machine-learning prediction of steatosis,
 dietary assessment, digital twins, computational gastronomy and the

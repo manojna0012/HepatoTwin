@@ -1,0 +1,61 @@
+
+\ProvidesPackage{reportSty}
+\usepackage{fullpage}
+\usepackage{verbatim}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+
+%\usepackage{noReferences}
+\usepackage[small]{caption}
+\usepackage{graphics}
+\usepackage{color}
+
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage[backend=biber,style=ieee]{biblatex}
+\addbibresource{references.bib}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{adjustbox}
+\usepackage[nottoc,numbib]{tocbibind}
+\usepackage{array}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+% hyperref setup, change as you wish
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=blue,      
+    urlcolor=black,
+    citecolor=blue,
+}
+
+% tikz libraries
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows.meta}
+
+
+% tables of content spacing
+\setlength{\parskip}{1ex}
+\parindent 0in
+
+% top and botom margins
+\geometry{
+    top=20mm,
+    bottom=20mm,
+    left=25mm,
+    right=25mm
+}
+
+% bibtex file
+
+% header and footer, change as you wish
+\fancyhf{}
+\fancyfoot[CF]{\thepage}
+

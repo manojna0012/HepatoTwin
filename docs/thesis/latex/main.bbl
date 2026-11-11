@@ -1,0 +1,4014 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{younossi2023global}{article}{}{}
+      \name{author}{6}{}{%
+        {{hash=7aa11b00f8c59a41eefbb8d7e1e448b3}{%
+           family={Younossi},
+           familyi={Y\bibinitperiod},
+           given={Zobair\bibnamedelima M.},
+           giveni={Z\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=aa3b38e8d8544dce36ce95498aaf176b}{%
+           family={Golabi},
+           familyi={G\bibinitperiod},
+           given={Pegah},
+           giveni={P\bibinitperiod}}}%
+        {{hash=476acc01405c0116d7b56a9867981edb}{%
+           family={Paik},
+           familyi={P\bibinitperiod},
+           given={James\bibnamedelima M.},
+           giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=48071dbb562cdf884817bb750bc80fc0}{%
+           family={Henry},
+           familyi={H\bibinitperiod},
+           given={Austin},
+           giveni={A\bibinitperiod}}}%
+        {{hash=cb36d7f6ab37e72f4fd8631772f2dcca}{%
+           family={Van\bibnamedelima Dongen},
+           familyi={V\bibinitperiod\bibinitdelim D\bibinitperiod},
+           given={Catherine},
+           giveni={C\bibinitperiod}}}%
+        {{hash=6899289e223c5829cce2419a0c5a5d11}{%
+           family={Henry},
+           familyi={H\bibinitperiod},
+           given={Linda},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{43741e808edf25b38a2d6ccb57482ab1}
+      \strng{fullhash}{566cb4268886be55d46d6bbe5d129dbe}
+      \strng{fullhashraw}{566cb4268886be55d46d6bbe5d129dbe}
+      \strng{bibnamehash}{566cb4268886be55d46d6bbe5d129dbe}
+      \strng{authorbibnamehash}{566cb4268886be55d46d6bbe5d129dbe}
+      \strng{authornamehash}{43741e808edf25b38a2d6ccb57482ab1}
+      \strng{authorfullhash}{566cb4268886be55d46d6bbe5d129dbe}
+      \strng{authorfullhashraw}{566cb4268886be55d46d6bbe5d129dbe}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Hepatology}
+      \field{number}{4}
+      \field{title}{The global epidemiology of nonalcoholic fatty liver disease ({NAFLD}) and nonalcoholic steatohepatitis ({NASH}): a systematic review}
+      \field{volume}{77}
+      \field{year}{2023}
+      \field{pages}{1335\bibrangedash 1347}
+      \range{pages}{13}
+      \verb{doi}
+      \verb 10.1097/HEP.0000000000000004
+      \endverb
+    \endentry
+    \entry{riazi2022prevalence}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{7}{}{%
+        {{hash=3e221854a8cd89e16b063640a8606b31}{%
+           family={Riazi},
+           familyi={R\bibinitperiod},
+           given={Kiarash},
+           giveni={K\bibinitperiod}}}%
+        {{hash=d66e1cff905f6de7542f5ea7ca553465}{%
+           family={Azhari},
+           familyi={A\bibinitperiod},
+           given={Hassan},
+           giveni={H\bibinitperiod}}}%
+        {{hash=a8aa9067877d7c4c421d6b9a12cdb760}{%
+           family={Charette},
+           familyi={C\bibinitperiod},
+           given={Jacob\bibnamedelima H.},
+           giveni={J\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=bb364130eeb256c2d422345ce4ff3c2d}{%
+           family={Underwood},
+           familyi={U\bibinitperiod},
+           given={Fox\bibnamedelima E.},
+           giveni={F\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+        {{hash=decb1259bd4272a9ed000d902033681b}{%
+           family={King},
+           familyi={K\bibinitperiod},
+           given={James\bibnamedelima A.},
+           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=e291a16df64affb55d50984fcc608bff}{%
+           family={Afshar},
+           familyi={A\bibinitperiod},
+           given={Elnaz\bibnamedelima Ehteshami},
+           giveni={E\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+        {{hash=156db9b732aac4eaf5a0147ca2249f22}{%
+           family={Swain},
+           familyi={S\bibinitperiod},
+           given={Mark\bibnamedelima G.},
+           giveni={M\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+      }
+      \strng{namehash}{589ae4cf5752b76b5d5287da8ee836b9}
+      \strng{fullhash}{30b09f31f6a83a35b1fe8fc35664f3b6}
+      \strng{fullhashraw}{30b09f31f6a83a35b1fe8fc35664f3b6}
+      \strng{bibnamehash}{589ae4cf5752b76b5d5287da8ee836b9}
+      \strng{authorbibnamehash}{589ae4cf5752b76b5d5287da8ee836b9}
+      \strng{authornamehash}{589ae4cf5752b76b5d5287da8ee836b9}
+      \strng{authorfullhash}{30b09f31f6a83a35b1fe8fc35664f3b6}
+      \strng{authorfullhashraw}{30b09f31f6a83a35b1fe8fc35664f3b6}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Lancet Gastroenterology \& Hepatology}
+      \field{number}{9}
+      \field{title}{The prevalence and incidence of {NAFLD} worldwide: a systematic review and meta-analysis}
+      \field{volume}{7}
+      \field{year}{2022}
+      \field{pages}{851\bibrangedash 861}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1016/S2468-1253(22)00165-0
+      \endverb
+    \endentry
+    \entry{rinella2023nomenclature}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{6}{}{%
+        {{hash=2c86784e6e5db16944d9d24255517492}{%
+           family={Rinella},
+           familyi={R\bibinitperiod},
+           given={Mary\bibnamedelima E.},
+           giveni={M\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+        {{hash=115d97a2d1696cd7888b8590ac0f3aeb}{%
+           family={Lazarus},
+           familyi={L\bibinitperiod},
+           given={Jeffrey\bibnamedelima V.},
+           giveni={J\bibinitperiod\bibinitdelim V\bibinitperiod}}}%
+        {{hash=a352b2694c3f783ee1b484c867740b84}{%
+           family={Ratziu},
+           familyi={R\bibinitperiod},
+           given={Vlad},
+           giveni={V\bibinitperiod}}}%
+        {{hash=664eda7ae2b31363bc4178adbdde6181}{%
+           family={Francque},
+           familyi={F\bibinitperiod},
+           given={Sven\bibnamedelima M.},
+           giveni={S\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=5aa762703e7fd6d961ff7ae44a17d138}{%
+           family={Sanyal},
+           familyi={S\bibinitperiod},
+           given={Arun\bibnamedelima J.},
+           giveni={A\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=33b2e5b248aed75b2792959db0689a63}{%
+           family={Kanwal},
+           familyi={K\bibinitperiod},
+           given={Fasiha},
+           giveni={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{2aaa3ad9144676dbff20d73d97a4b68b}
+      \strng{fullhash}{380eb0eb6c72a0194529c38d2d1072a3}
+      \strng{fullhashraw}{380eb0eb6c72a0194529c38d2d1072a3}
+      \strng{bibnamehash}{380eb0eb6c72a0194529c38d2d1072a3}
+      \strng{authorbibnamehash}{380eb0eb6c72a0194529c38d2d1072a3}
+      \strng{authornamehash}{2aaa3ad9144676dbff20d73d97a4b68b}
+      \strng{authorfullhash}{380eb0eb6c72a0194529c38d2d1072a3}
+      \strng{authorfullhashraw}{380eb0eb6c72a0194529c38d2d1072a3}
+      \field{extraname}{1}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Hepatology}
+      \field{number}{6}
+      \field{title}{A multisociety {Delphi} consensus statement on new fatty liver disease nomenclature}
+      \field{volume}{78}
+      \field{year}{2023}
+      \field{pages}{1966\bibrangedash 1986}
+      \range{pages}{21}
+    \endentry
+    \entry{easl2024masld}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=65b34b43512f000f73ab0d39dd0004fe}{%
+           family={{European Association for the Study of the Liver (EASL)}},
+           familyi={E\bibinitperiod}}}%
+        {{hash=dc57f190a7d3cab33bbc172319515c69}{%
+           family={{European Association for the Study of Diabetes (EASD)}},
+           familyi={E\bibinitperiod}}}%
+        {{hash=64384a6ec0dd9dc5eb76ca93666b2df4}{%
+           family={{European Association for the Study of Obesity (EASO)}},
+           familyi={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{b98c29972810c885a0757dbb2d7dddfe}
+      \strng{fullhash}{ddd05072ea90d5085bee1a4154804334}
+      \strng{fullhashraw}{ddd05072ea90d5085bee1a4154804334}
+      \strng{bibnamehash}{ddd05072ea90d5085bee1a4154804334}
+      \strng{authorbibnamehash}{ddd05072ea90d5085bee1a4154804334}
+      \strng{authornamehash}{b98c29972810c885a0757dbb2d7dddfe}
+      \strng{authorfullhash}{ddd05072ea90d5085bee1a4154804334}
+      \strng{authorfullhashraw}{ddd05072ea90d5085bee1a4154804334}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Hepatology}
+      \field{number}{3}
+      \field{title}{{EASL-EASD-EASO} Clinical Practice Guidelines on the management of metabolic dysfunction-associated steatotic liver disease ({MASLD})}
+      \field{volume}{81}
+      \field{year}{2024}
+      \field{pages}{492\bibrangedash 542}
+      \range{pages}{51}
+      \verb{doi}
+      \verb 10.1016/j.jhep.2024.04.031
+      \endverb
+    \endentry
+    \entry{vilargomez2015weight}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{1}{}{%
+        {{hash=5652a156b7e414a4de39bcfcb1727d98}{%
+           family={Vilar-Gomez},
+           familyi={V\bibinithyphendelim G\bibinitperiod},
+           given={Eduardo},
+           giveni={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{6e812fc1a7ef98a166762f1c88b5d865}
+      \strng{fullhash}{6e812fc1a7ef98a166762f1c88b5d865}
+      \strng{fullhashraw}{6e812fc1a7ef98a166762f1c88b5d865}
+      \strng{bibnamehash}{6e812fc1a7ef98a166762f1c88b5d865}
+      \strng{authorbibnamehash}{6e812fc1a7ef98a166762f1c88b5d865}
+      \strng{authornamehash}{6e812fc1a7ef98a166762f1c88b5d865}
+      \strng{authorfullhash}{6e812fc1a7ef98a166762f1c88b5d865}
+      \strng{authorfullhashraw}{6e812fc1a7ef98a166762f1c88b5d865}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Gastroenterology}
+      \field{number}{2}
+      \field{title}{Weight loss through lifestyle modification significantly reduces features of nonalcoholic steatohepatitis}
+      \field{volume}{149}
+      \field{year}{2015}
+      \field{pages}{367\bibrangedash 378}
+      \range{pages}{12}
+      \verb{doi}
+      \verb 10.1053/j.gastro.2015.04.005
+      \endverb
+    \endentry
+    \entry{sangouni2022mediterranean}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{1}{}{%
+        {{hash=4043b051273185616b575d4a57e18def}{%
+           family={Sangouni},
+           familyi={S\bibinitperiod},
+           given={Ali\bibnamedelima Akbar},
+           giveni={A\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{53f04f1402acdf2e8afb15f178e7efda}
+      \strng{fullhash}{53f04f1402acdf2e8afb15f178e7efda}
+      \strng{fullhashraw}{53f04f1402acdf2e8afb15f178e7efda}
+      \strng{bibnamehash}{53f04f1402acdf2e8afb15f178e7efda}
+      \strng{authorbibnamehash}{53f04f1402acdf2e8afb15f178e7efda}
+      \strng{authornamehash}{53f04f1402acdf2e8afb15f178e7efda}
+      \strng{authorfullhash}{53f04f1402acdf2e8afb15f178e7efda}
+      \strng{authorfullhashraw}{53f04f1402acdf2e8afb15f178e7efda}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{British Journal of Nutrition}
+      \field{number}{7}
+      \field{title}{Effect of {Mediterranean} diet on liver enzymes: a systematic review and meta-analysis of randomised controlled trials}
+      \field{volume}{128}
+      \field{year}{2022}
+      \field{pages}{1231\bibrangedash 1239}
+      \range{pages}{9}
+      \verb{doi}
+      \verb 10.1017/S0007114521002270
+      \endverb
+    \endentry
+    \entry{haigh2022mediterranean}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{5}{}{%
+        {{hash=b804917013d99211c6999687aa32834b}{%
+           family={Haigh},
+           familyi={H\bibinitperiod},
+           given={Laura},
+           giveni={L\bibinitperiod}}}%
+        {{hash=cf1dc5f167d88da0c07f5ef61ebda92b}{%
+           family={Kirk},
+           familyi={K\bibinitperiod},
+           given={Clare},
+           giveni={C\bibinitperiod}}}%
+        {{hash=34dcdd859db04afd6bf6f416c98d38b6}{%
+           family={El\bibnamedelima Gendy},
+           familyi={E\bibinitperiod\bibinitdelim G\bibinitperiod},
+           given={Khaled},
+           giveni={K\bibinitperiod}}}%
+        {{hash=632b128fba402c711ca5918ec9a4d76d}{%
+           family={Gallacher},
+           familyi={G\bibinitperiod},
+           given={Jennifer},
+           giveni={J\bibinitperiod}}}%
+        {{hash=1af67dcd8c2e3cf098a47d831824b3d6}{%
+           family={Errington},
+           familyi={E\bibinitperiod},
+           given={Linda},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{e6ff9c6ae3e8237e9e9b85a2dba33734}
+      \strng{fullhash}{e04f68ad4aaf4e3f748c7c09147f5de0}
+      \strng{fullhashraw}{e04f68ad4aaf4e3f748c7c09147f5de0}
+      \strng{bibnamehash}{e04f68ad4aaf4e3f748c7c09147f5de0}
+      \strng{authorbibnamehash}{e04f68ad4aaf4e3f748c7c09147f5de0}
+      \strng{authornamehash}{e6ff9c6ae3e8237e9e9b85a2dba33734}
+      \strng{authorfullhash}{e04f68ad4aaf4e3f748c7c09147f5de0}
+      \strng{authorfullhashraw}{e04f68ad4aaf4e3f748c7c09147f5de0}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Clinical Nutrition}
+      \field{number}{9}
+      \field{title}{The effectiveness and acceptability of {Mediterranean} diet and calorie restriction in non-alcoholic fatty liver disease ({NAFLD}): a systematic review and meta-analysis}
+      \field{volume}{41}
+      \field{year}{2022}
+      \field{pages}{1913\bibrangedash 1931}
+      \range{pages}{19}
+      \verb{doi}
+      \verb 10.1016/j.clnu.2022.06.037
+      \endverb
+    \endentry
+    \entry{xiong2024mediterranean}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{1}{}{%
+        {{hash=1a36b72d376b712281c863cf39a133a3}{%
+           family={Xiong},
+           familyi={X\bibinitperiod},
+           given={Y.},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{4fc70379e7fb3ec77c18fc1591633ddc}
+      \strng{fullhash}{4fc70379e7fb3ec77c18fc1591633ddc}
+      \strng{fullhashraw}{4fc70379e7fb3ec77c18fc1591633ddc}
+      \strng{bibnamehash}{4fc70379e7fb3ec77c18fc1591633ddc}
+      \strng{authorbibnamehash}{4fc70379e7fb3ec77c18fc1591633ddc}
+      \strng{authornamehash}{4fc70379e7fb3ec77c18fc1591633ddc}
+      \strng{authorfullhash}{4fc70379e7fb3ec77c18fc1591633ddc}
+      \strng{authorfullhashraw}{4fc70379e7fb3ec77c18fc1591633ddc}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Food \& Function}
+      \field{number}{16}
+      \field{title}{Effects of {Mediterranean} diet and low-fat diet on liver enzymes and liver fat content of {NAFLD}: a meta-analysis of randomized controlled trials}
+      \field{volume}{15}
+      \field{year}{2024}
+      \field{pages}{8248\bibrangedash 8257}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.1039/D4FO01461H
+      \endverb
+    \endentry
+    \entry{luukkonen2018saturated}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{1}{}{%
+        {{hash=6a6b4d8dc47bb904b026a4b0a028a542}{%
+           family={Luukkonen},
+           familyi={L\bibinitperiod},
+           given={Panu\bibnamedelima K.},
+           giveni={P\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+      }
+      \strng{namehash}{62c482be306a65011d81b930acdfbc2c}
+      \strng{fullhash}{62c482be306a65011d81b930acdfbc2c}
+      \strng{fullhashraw}{62c482be306a65011d81b930acdfbc2c}
+      \strng{bibnamehash}{62c482be306a65011d81b930acdfbc2c}
+      \strng{authorbibnamehash}{62c482be306a65011d81b930acdfbc2c}
+      \strng{authornamehash}{62c482be306a65011d81b930acdfbc2c}
+      \strng{authorfullhash}{62c482be306a65011d81b930acdfbc2c}
+      \strng{authorfullhashraw}{62c482be306a65011d81b930acdfbc2c}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Diabetes Care}
+      \field{number}{8}
+      \field{title}{Saturated fat is more metabolically harmful for the human liver than unsaturated fat or simple sugars}
+      \field{volume}{41}
+      \field{year}{2018}
+      \field{pages}{1732\bibrangedash 1739}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.2337/dc18-0071
+      \endverb
+    \endentry
+    \entry{chiu2014fructose}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{1}{}{%
+        {{hash=92ab1cd91879394e3bc55004cf451604}{%
+           family={Chiu},
+           familyi={C\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{1f41fa0969bda828c4062882bc0f70cb}
+      \strng{fullhash}{1f41fa0969bda828c4062882bc0f70cb}
+      \strng{fullhashraw}{1f41fa0969bda828c4062882bc0f70cb}
+      \strng{bibnamehash}{1f41fa0969bda828c4062882bc0f70cb}
+      \strng{authorbibnamehash}{1f41fa0969bda828c4062882bc0f70cb}
+      \strng{authornamehash}{1f41fa0969bda828c4062882bc0f70cb}
+      \strng{authorfullhash}{1f41fa0969bda828c4062882bc0f70cb}
+      \strng{authorfullhashraw}{1f41fa0969bda828c4062882bc0f70cb}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{European Journal of Clinical Nutrition}
+      \field{number}{4}
+      \field{title}{Effect of fructose on markers of non-alcoholic fatty liver disease ({NAFLD}): a systematic review and meta-analysis of controlled feeding trials}
+      \field{volume}{68}
+      \field{year}{2014}
+      \field{pages}{416\bibrangedash 423}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1038/ejcn.2014.8
+      \endverb
+    \endentry
+    \entry{karlas2017cap}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{7}{}{%
+        {{hash=f8bacf13657308eb870b5ddbb4cf3fa1}{%
+           family={Karlas},
+           familyi={K\bibinitperiod},
+           given={Thomas},
+           giveni={T\bibinitperiod}}}%
+        {{hash=9843b5a19aaba95664a2f1526620cb3b}{%
+           family={Petroff},
+           familyi={P\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+        {{hash=0a47ed35912dabaeab133e9ecd47f87b}{%
+           family={Sasso},
+           familyi={S\bibinitperiod},
+           given={Magali},
+           giveni={M\bibinitperiod}}}%
+        {{hash=5bca5d50ebf6fa1ddb1df0db29cb1c70}{%
+           family={Fan},
+           familyi={F\bibinitperiod},
+           given={Jian-Gao},
+           giveni={J\bibinithyphendelim G\bibinitperiod}}}%
+        {{hash=30b01b90721780e80f7868f04fa4bd37}{%
+           family={Mi},
+           familyi={M\bibinitperiod},
+           given={Yu-Qiang},
+           giveni={Y\bibinithyphendelim Q\bibinitperiod}}}%
+        {{hash=a3eb542fc7a3bc16b3721280d2375dc0}{%
+           family={Lédinghen},
+           familyi={L\bibinitperiod},
+           given={Victor},
+           giveni={V\bibinitperiod},
+           prefix={de},
+           prefixi={d\bibinitperiod}}}%
+        {{hash=939a07ef95f263a77489acec648a3070}{%
+           family={Kumar},
+           familyi={K\bibinitperiod},
+           given={Manoj},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{96dadd5ae81692ea75886c6518931542}
+      \strng{fullhash}{31ece93c9742fa7b635dcfb7dac43c1a}
+      \strng{fullhashraw}{31ece93c9742fa7b635dcfb7dac43c1a}
+      \strng{bibnamehash}{96dadd5ae81692ea75886c6518931542}
+      \strng{authorbibnamehash}{96dadd5ae81692ea75886c6518931542}
+      \strng{authornamehash}{96dadd5ae81692ea75886c6518931542}
+      \strng{authorfullhash}{31ece93c9742fa7b635dcfb7dac43c1a}
+      \strng{authorfullhashraw}{31ece93c9742fa7b635dcfb7dac43c1a}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Hepatology}
+      \field{number}{5}
+      \field{title}{Individual patient data meta-analysis of controlled attenuation parameter ({CAP}) technology for assessing steatosis}
+      \field{volume}{66}
+      \field{year}{2017}
+      \field{pages}{1022\bibrangedash 1030}
+      \range{pages}{9}
+      \verb{doi}
+      \verb 10.1016/j.jhep.2016.12.022
+      \endverb
+    \endentry
+    \entry{ferraioli2021cap}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=f4fcfc5402cf9bf194665518a8404a12}{%
+           family={Ferraioli},
+           familyi={F\bibinitperiod},
+           given={Giovanna},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{f4fcfc5402cf9bf194665518a8404a12}
+      \strng{fullhash}{f4fcfc5402cf9bf194665518a8404a12}
+      \strng{fullhashraw}{f4fcfc5402cf9bf194665518a8404a12}
+      \strng{bibnamehash}{f4fcfc5402cf9bf194665518a8404a12}
+      \strng{authorbibnamehash}{f4fcfc5402cf9bf194665518a8404a12}
+      \strng{authornamehash}{f4fcfc5402cf9bf194665518a8404a12}
+      \strng{authorfullhash}{f4fcfc5402cf9bf194665518a8404a12}
+      \strng{authorfullhashraw}{f4fcfc5402cf9bf194665518a8404a12}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Medical Ultrasonics}
+      \field{title}{Quantitative assessment of liver steatosis using ultrasound controlled attenuation parameter ({Echosens})}
+      \field{volume}{48}
+      \field{year}{2021}
+      \field{pages}{489\bibrangedash 495}
+      \range{pages}{7}
+      \verb{doi}
+      \verb 10.1007/s10396-021-01106-1
+      \endverb
+    \endentry
+    \entry{nhanes_lux}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=3e61cde714e4d5415048669c0ddf7f51}{%
+           family={{National Center for Health Statistics}},
+           familyi={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{3e61cde714e4d5415048669c0ddf7f51}
+      \strng{fullhash}{3e61cde714e4d5415048669c0ddf7f51}
+      \strng{fullhashraw}{3e61cde714e4d5415048669c0ddf7f51}
+      \strng{bibnamehash}{3e61cde714e4d5415048669c0ddf7f51}
+      \strng{authorbibnamehash}{3e61cde714e4d5415048669c0ddf7f51}
+      \strng{authornamehash}{3e61cde714e4d5415048669c0ddf7f51}
+      \strng{authorfullhash}{3e61cde714e4d5415048669c0ddf7f51}
+      \strng{authorfullhashraw}{3e61cde714e4d5415048669c0ddf7f51}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Centers for Disease Control and Prevention, Hyattsville, MD}
+      \field{title}{National Health and Nutrition Examination Survey: Liver Ultrasound Transient Elastography ({LUX}) data documentation, 2017--March 2020 and August 2021--August 2023}
+      \field{year}{2024}
+    \endentry
+    \entry{nasem2024digitaltwins}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=7712180ec1b113ea720ee1781bc0dfba}{%
+           family={{National Academies of Sciences, Engineering, and Medicine}},
+           familyi={N\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Washington, DC}%
+      }
+      \list{publisher}{1}{%
+        {The National Academies Press}%
+      }
+      \strng{namehash}{7712180ec1b113ea720ee1781bc0dfba}
+      \strng{fullhash}{7712180ec1b113ea720ee1781bc0dfba}
+      \strng{fullhashraw}{7712180ec1b113ea720ee1781bc0dfba}
+      \strng{bibnamehash}{7712180ec1b113ea720ee1781bc0dfba}
+      \strng{authorbibnamehash}{7712180ec1b113ea720ee1781bc0dfba}
+      \strng{authornamehash}{7712180ec1b113ea720ee1781bc0dfba}
+      \strng{authorfullhash}{7712180ec1b113ea720ee1781bc0dfba}
+      \strng{authorfullhashraw}{7712180ec1b113ea720ee1781bc0dfba}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Foundational Research Gaps and Future Directions for Digital Twins}
+      \field{year}{2024}
+      \verb{doi}
+      \verb 10.17226/26894
+      \endverb
+    \endentry
+    \entry{laubenbacher2024medicine}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=03ba65cd7c9ac33b68ad015634c84d4a}{%
+           family={Laubenbacher},
+           familyi={L\bibinitperiod},
+           given={Reinhard},
+           giveni={R\bibinitperiod}}}%
+        {{hash=5f6acf1bedf4ede107161d1e23ea2efb}{%
+           family={Mehrad},
+           familyi={M\bibinitperiod},
+           given={Borna},
+           giveni={B\bibinitperiod}}}%
+        {{hash=1c6fa0c8cdc26d21c367f71fa52d26ea}{%
+           family={Shmulevich},
+           familyi={S\bibinitperiod},
+           given={Ilya},
+           giveni={I\bibinitperiod}}}%
+        {{hash=749b739e362fefa671d8ccf9df9481e6}{%
+           family={Trayanova},
+           familyi={T\bibinitperiod},
+           given={Natalia},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{14d3fa5fb989212bb3458106b03650e6}
+      \strng{fullhash}{31507df4a6a19c135cdb3fe8b46c9cba}
+      \strng{fullhashraw}{31507df4a6a19c135cdb3fe8b46c9cba}
+      \strng{bibnamehash}{31507df4a6a19c135cdb3fe8b46c9cba}
+      \strng{authorbibnamehash}{31507df4a6a19c135cdb3fe8b46c9cba}
+      \strng{authornamehash}{14d3fa5fb989212bb3458106b03650e6}
+      \strng{authorfullhash}{31507df4a6a19c135cdb3fe8b46c9cba}
+      \strng{authorfullhashraw}{31507df4a6a19c135cdb3fe8b46c9cba}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Nature Computational Science}
+      \field{number}{3}
+      \field{title}{Digital twins in medicine}
+      \field{volume}{4}
+      \field{year}{2024}
+      \field{pages}{184\bibrangedash 191}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1038/s43588-024-00607-6
+      \endverb
+    \endentry
+    \entry{katsoulakis2024digital}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{8}{}{%
+        {{hash=9092b64bf654933106f645db34982328}{%
+           family={Katsoulakis},
+           familyi={K\bibinitperiod},
+           given={Evangelia},
+           giveni={E\bibinitperiod}}}%
+        {{hash=2ff53b99cb226c6384ebd0abb3e330b1}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Qi},
+           giveni={Q\bibinitperiod}}}%
+        {{hash=55a05af7e501a30a2cde0691a32d2e04}{%
+           family={Wu},
+           familyi={W\bibinitperiod},
+           given={Huanmei},
+           giveni={H\bibinitperiod}}}%
+        {{hash=4c40007cda189991fd8f5a048129adfe}{%
+           family={Shahriyari},
+           familyi={S\bibinitperiod},
+           given={Leili},
+           giveni={L\bibinitperiod}}}%
+        {{hash=5eca8a5df49309ac5d0a01722cc5dc88}{%
+           family={Fletcher},
+           familyi={F\bibinitperiod},
+           given={Richard},
+           giveni={R\bibinitperiod}}}%
+        {{hash=6dd24ecbc20949f8b30ba3b86ee89924}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Jinwei},
+           giveni={J\bibinitperiod}}}%
+        {{hash=655d363f88ab79d008e105f63673ab91}{%
+           family={Achenie},
+           familyi={A\bibinitperiod},
+           given={Luke},
+           giveni={L\bibinitperiod}}}%
+        {{hash=42ee4a556c2fde88b40bba35a9d6e359}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Hongfang},
+           giveni={H\bibinitperiod}}}%
+      }
+      \strng{namehash}{8f7433522a84bfce5b655dc48fac5090}
+      \strng{fullhash}{f159f095f901d877ecd8c2ec86781184}
+      \strng{fullhashraw}{f159f095f901d877ecd8c2ec86781184}
+      \strng{bibnamehash}{8f7433522a84bfce5b655dc48fac5090}
+      \strng{authorbibnamehash}{8f7433522a84bfce5b655dc48fac5090}
+      \strng{authornamehash}{8f7433522a84bfce5b655dc48fac5090}
+      \strng{authorfullhash}{f159f095f901d877ecd8c2ec86781184}
+      \strng{authorfullhashraw}{f159f095f901d877ecd8c2ec86781184}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{npj Digital Medicine}
+      \field{number}{1}
+      \field{title}{Digital twins for health: a scoping review}
+      \field{volume}{7}
+      \field{year}{2024}
+      \field{pages}{77}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1038/s41746-024-01073-0
+      \endverb
+    \endentry
+    \entry{su2025metabolic}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=8dbf669a4d0ac247b99b734a04c4da29}{%
+           family={Su},
+           familyi={S\bibinitperiod},
+           given={C.},
+           giveni={C\bibinitperiod}}}%
+        {{hash=f94399510b1be6d7fab7d889d00b68d8}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={P.},
+           giveni={P\bibinitperiod}}}%
+        {{hash=b431a40e9981de3c662544d21ebf18fc}{%
+           family={Foo},
+           familyi={F\bibinitperiod},
+           given={N.},
+           giveni={N\bibinitperiod}}}%
+        {{hash=d48ba86e03c3189ebe5ed1af27f19579}{%
+           family={Ho},
+           familyi={H\bibinitperiod},
+           given={D.},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{120a003b1a0ecadba32bcb6a63e6ae3f}
+      \strng{fullhash}{99017a974f88d0e61fd2d01eaba39818}
+      \strng{fullhashraw}{99017a974f88d0e61fd2d01eaba39818}
+      \strng{bibnamehash}{99017a974f88d0e61fd2d01eaba39818}
+      \strng{authorbibnamehash}{99017a974f88d0e61fd2d01eaba39818}
+      \strng{authornamehash}{120a003b1a0ecadba32bcb6a63e6ae3f}
+      \strng{authorfullhash}{99017a974f88d0e61fd2d01eaba39818}
+      \strng{authorfullhashraw}{99017a974f88d0e61fd2d01eaba39818}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{npj Aging}
+      \field{number}{1}
+      \field{title}{Optimizing metabolic health with digital twins}
+      \field{volume}{11}
+      \field{year}{2025}
+      \field{pages}{20}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1038/s41514-025-00211-6
+      \endverb
+    \endentry
+    \entry{shen2024effectiveness}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=308b5c7675fdeaab41b099b9b2396855}{%
+           family={Shen},
+           familyi={S\bibinitperiod},
+           given={M.\bibnamedelimi D.},
+           giveni={M\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=c6b56670c11dbad6f982a1d1d29a6895}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={S.\bibnamedelimi B.},
+           giveni={S\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=0c4434e7b5f3b78d87764c6e958d02ee}{%
+           family={Ding},
+           familyi={D\bibinitperiod},
+           given={X.\bibnamedelimi D.},
+           giveni={X\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+      }
+      \strng{namehash}{c1698664cb27425f8a4f7404017484ab}
+      \strng{fullhash}{325cea6c3d2659b68fd47177d4799765}
+      \strng{fullhashraw}{325cea6c3d2659b68fd47177d4799765}
+      \strng{bibnamehash}{325cea6c3d2659b68fd47177d4799765}
+      \strng{authorbibnamehash}{325cea6c3d2659b68fd47177d4799765}
+      \strng{authornamehash}{c1698664cb27425f8a4f7404017484ab}
+      \strng{authorfullhash}{325cea6c3d2659b68fd47177d4799765}
+      \strng{authorfullhashraw}{325cea6c3d2659b68fd47177d4799765}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{npj Digital Medicine}
+      \field{number}{1}
+      \field{title}{The effectiveness of digital twins in promoting precision health across the entire population: a systematic review}
+      \field{volume}{7}
+      \field{year}{2024}
+      \field{pages}{145}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1038/s41746-024-01146-0
+      \endverb
+    \endentry
+    \entry{zeevi2015personalized}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{7}{}{%
+        {{hash=8fecdae742102354a5e572147c7acdf0}{%
+           family={Zeevi},
+           familyi={Z\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+        {{hash=a2304cec12c2cc4f85f398b448f6c0f1}{%
+           family={Korem},
+           familyi={K\bibinitperiod},
+           given={Tal},
+           giveni={T\bibinitperiod}}}%
+        {{hash=357ff84e71868c03eddc06b03cb4d3f3}{%
+           family={Zmora},
+           familyi={Z\bibinitperiod},
+           given={Niv},
+           giveni={N\bibinitperiod}}}%
+        {{hash=9e6f871e5f5b0a2d1b39268ad9e5514f}{%
+           family={Israeli},
+           familyi={I\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+        {{hash=002b946ee28cd6a68b277c59d518e5f1}{%
+           family={Rothschild},
+           familyi={R\bibinitperiod},
+           given={Daphna},
+           giveni={D\bibinitperiod}}}%
+        {{hash=76b26d02755dea213726afe4b7f6bc8e}{%
+           family={Weinberger},
+           familyi={W\bibinitperiod},
+           given={Adina},
+           giveni={A\bibinitperiod}}}%
+        {{hash=ed0d324983045dd82949b453489ba0bc}{%
+           family={Ben-Yacov},
+           familyi={B\bibinithyphendelim Y\bibinitperiod},
+           given={Orly},
+           giveni={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{d5cb4de4fedf9243207f28678d3c8b30}
+      \strng{fullhash}{4c052df634c772e2a3942c42fc01206a}
+      \strng{fullhashraw}{4c052df634c772e2a3942c42fc01206a}
+      \strng{bibnamehash}{d5cb4de4fedf9243207f28678d3c8b30}
+      \strng{authorbibnamehash}{d5cb4de4fedf9243207f28678d3c8b30}
+      \strng{authornamehash}{d5cb4de4fedf9243207f28678d3c8b30}
+      \strng{authorfullhash}{4c052df634c772e2a3942c42fc01206a}
+      \strng{authorfullhashraw}{4c052df634c772e2a3942c42fc01206a}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Cell}
+      \field{number}{5}
+      \field{title}{Personalized Nutrition by Prediction of Glycemic Responses}
+      \field{volume}{163}
+      \field{year}{2015}
+      \field{pages}{1079\bibrangedash 1094}
+      \range{pages}{16}
+      \verb{doi}
+      \verb 10.1016/j.cell.2015.11.001
+      \endverb
+    \endentry
+    \entry{gkouskou2020virtual}{article}{}{}
+      \name{author}{6}{}{%
+        {{hash=fa984105bd29da8dbaf131b8df392169}{%
+           family={Gkouskou},
+           familyi={G\bibinitperiod},
+           given={Kalliopi},
+           giveni={K\bibinitperiod}}}%
+        {{hash=fe87f15abd11bb88f5a98cae55d050e1}{%
+           family={Vlastos},
+           familyi={V\bibinitperiod},
+           given={Ioannis},
+           giveni={I\bibinitperiod}}}%
+        {{hash=7ee0268ea339ca46d8776f706c26275d}{%
+           family={Karkalousos},
+           familyi={K\bibinitperiod},
+           given={Petros},
+           giveni={P\bibinitperiod}}}%
+        {{hash=846e3568416fe708448c1f063be9c6c7}{%
+           family={Chaniotis},
+           familyi={C\bibinitperiod},
+           given={Dimitrios},
+           giveni={D\bibinitperiod}}}%
+        {{hash=611262271650799cb1fc49ba00b57e5e}{%
+           family={Sanoudou},
+           familyi={S\bibinitperiod},
+           given={Despina},
+           giveni={D\bibinitperiod}}}%
+        {{hash=ca4b4cec121a308b3cada824c1a017f5}{%
+           family={Eliopoulos},
+           familyi={E\bibinitperiod},
+           given={Aristides\bibnamedelima G.},
+           giveni={A\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+      }
+      \strng{namehash}{d3fb0b6c9912be935b9b3f9090e483b2}
+      \strng{fullhash}{1f16a306eb6e38830efb33147fc22e77}
+      \strng{fullhashraw}{1f16a306eb6e38830efb33147fc22e77}
+      \strng{bibnamehash}{1f16a306eb6e38830efb33147fc22e77}
+      \strng{authorbibnamehash}{1f16a306eb6e38830efb33147fc22e77}
+      \strng{authornamehash}{d3fb0b6c9912be935b9b3f9090e483b2}
+      \strng{authorfullhash}{1f16a306eb6e38830efb33147fc22e77}
+      \strng{authorfullhashraw}{1f16a306eb6e38830efb33147fc22e77}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Advances in Nutrition}
+      \field{number}{6}
+      \field{title}{The ``Virtual Digital Twins'' Concept in Precision Nutrition}
+      \field{volume}{11}
+      \field{year}{2020}
+      \field{pages}{1405\bibrangedash 1413}
+      \range{pages}{9}
+      \verb{doi}
+      \verb 10.1093/advances/nmaa089
+      \endverb
+    \endentry
+    \entry{joshi2023digitaltwin}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{6}{}{%
+        {{hash=3a6aab405a1515dbfc2f7337f867a95b}{%
+           family={Joshi},
+           familyi={J\bibinitperiod},
+           given={Shashank},
+           giveni={S\bibinitperiod}}}%
+        {{hash=d08a7faaaa004f81c3d7e06b36dfe8ce}{%
+           family={Shamanna},
+           familyi={S\bibinitperiod},
+           given={Paramesh},
+           giveni={P\bibinitperiod}}}%
+        {{hash=cad86a321515b8ff82f36019ff15cfe2}{%
+           family={Dharmalingam},
+           familyi={D\bibinitperiod},
+           given={Mala},
+           giveni={M\bibinitperiod}}}%
+        {{hash=8373f4f9421ddf8ea1b91e1e805aa362}{%
+           family={Vadavi},
+           familyi={V\bibinitperiod},
+           given={Ashok},
+           giveni={A\bibinitperiod}}}%
+        {{hash=5bc0e966fe5f204fbdedf9bc48927b85}{%
+           family={Keshavamurthy},
+           familyi={K\bibinitperiod},
+           given={Arun},
+           giveni={A\bibinitperiod}}}%
+        {{hash=141c4f7611568c3287ead3fa6b70f8f4}{%
+           family={Shah},
+           familyi={S\bibinitperiod},
+           given={Lalit},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{bb1c4d461a35b5ab93a4203659a715ae}
+      \strng{fullhash}{b66b28d0bf60b2691a98a907b12fdfd3}
+      \strng{fullhashraw}{b66b28d0bf60b2691a98a907b12fdfd3}
+      \strng{bibnamehash}{b66b28d0bf60b2691a98a907b12fdfd3}
+      \strng{authorbibnamehash}{b66b28d0bf60b2691a98a907b12fdfd3}
+      \strng{authornamehash}{bb1c4d461a35b5ab93a4203659a715ae}
+      \strng{authorfullhash}{b66b28d0bf60b2691a98a907b12fdfd3}
+      \strng{authorfullhashraw}{b66b28d0bf60b2691a98a907b12fdfd3}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Endocrine Practice}
+      \field{number}{12}
+      \field{title}{Digital Twin-Enabled Personalized Nutrition Improves Metabolic Dysfunction-Associated Fatty Liver Disease in Type 2 Diabetes: Results of a 1-Year Randomized Controlled Study}
+      \field{volume}{29}
+      \field{year}{2023}
+      \field{pages}{960\bibrangedash 970}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1016/j.eprac.2023.08.016
+      \endverb
+    \endentry
+    \entry{twinhealth2024frontiers}{article}{}{}
+      \name{author}{7}{}{%
+        {{hash=d08a7faaaa004f81c3d7e06b36dfe8ce}{%
+           family={Shamanna},
+           familyi={S\bibinitperiod},
+           given={Paramesh},
+           giveni={P\bibinitperiod}}}%
+        {{hash=3a6aab405a1515dbfc2f7337f867a95b}{%
+           family={Joshi},
+           familyi={J\bibinitperiod},
+           given={Shashank},
+           giveni={S\bibinitperiod}}}%
+        {{hash=65a4b22ae4c07ff8fc6f44fe762d7466}{%
+           family={Thajudeen},
+           familyi={T\bibinitperiod},
+           given={Mohamed},
+           giveni={M\bibinitperiod}}}%
+        {{hash=f981101e27ba21890dd89d582adbbbd3}{%
+           family={Shah},
+           familyi={S\bibinitperiod},
+           given={Lisa},
+           giveni={L\bibinitperiod}}}%
+        {{hash=f689ddd00ead82cd27fb15faee26cdde}{%
+           family={Poon},
+           familyi={P\bibinitperiod},
+           given={Terrence},
+           giveni={T\bibinitperiod}}}%
+        {{hash=7624b717a6e84a27bf58e5b49198cdc6}{%
+           family={Mohamed},
+           familyi={M\bibinitperiod},
+           given={Maluk},
+           giveni={M\bibinitperiod}}}%
+        {{hash=d1a5130003f5418a16563babc9704a63}{%
+           family={Mohammed},
+           familyi={M\bibinitperiod},
+           given={Jahangir},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{cf564dc9a00b7b10c2a2d0d40f217e6d}
+      \strng{fullhash}{5080dba0c929d91b344373e8eb9be879}
+      \strng{fullhashraw}{5080dba0c929d91b344373e8eb9be879}
+      \strng{bibnamehash}{cf564dc9a00b7b10c2a2d0d40f217e6d}
+      \strng{authorbibnamehash}{cf564dc9a00b7b10c2a2d0d40f217e6d}
+      \strng{authornamehash}{cf564dc9a00b7b10c2a2d0d40f217e6d}
+      \strng{authorfullhash}{5080dba0c929d91b344373e8eb9be879}
+      \strng{authorfullhashraw}{5080dba0c929d91b344373e8eb9be879}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Frontiers in Endocrinology}
+      \field{title}{Personalized nutrition in type 2 diabetes remission: application of digital twin technology for predictive glycemic control}
+      \field{volume}{15}
+      \field{year}{2024}
+      \field{pages}{1485464}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.3389/fendo.2024.1485464
+      \endverb
+    \endentry
+    \entry{nobel2026idtdiet}{inproceedings}{}{}
+      \name{author}{4}{}{%
+        {{hash=46116644d6fe7dbc97687050ee00472c}{%
+           family={Nobel},
+           familyi={N\bibinitperiod},
+           given={Ashikur},
+           giveni={A\bibinitperiod}}}%
+        {{hash=7e79b90ea4f3f7a91fed14ef726f6082}{%
+           family={Matos},
+           familyi={M\bibinitperiod},
+           given={Jacob},
+           giveni={J\bibinitperiod}}}%
+        {{hash=5c759bd0a5762f3c6960e56a59ceaffd}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Honggang},
+           giveni={H\bibinitperiod}}}%
+        {{hash=6dd9be3892627388d00fc317b250bdc6}{%
+           family={Fang},
+           familyi={F\bibinitperiod},
+           given={Hua},
+           giveni={H\bibinitperiod}}}%
+      }
+      \strng{namehash}{6f7409dcb587cc64f0a4d48278db46aa}
+      \strng{fullhash}{2bdaf95afd454ae4bc0f9a83eacb7a8a}
+      \strng{fullhashraw}{2bdaf95afd454ae4bc0f9a83eacb7a8a}
+      \strng{bibnamehash}{2bdaf95afd454ae4bc0f9a83eacb7a8a}
+      \strng{authorbibnamehash}{2bdaf95afd454ae4bc0f9a83eacb7a8a}
+      \strng{authornamehash}{6f7409dcb587cc64f0a4d48278db46aa}
+      \strng{authorfullhash}{2bdaf95afd454ae4bc0f9a83eacb7a8a}
+      \strng{authorfullhashraw}{2bdaf95afd454ae4bc0f9a83eacb7a8a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the AAAI Conference on Artificial Intelligence}
+      \field{number}{48}
+      \field{title}{{iDT-diet}: An intelligent digital twin model for diet-influenced biomarker trajectories (Student Abstract)}
+      \field{volume}{40}
+      \field{year}{2026}
+      \field{pages}{41334\bibrangedash 41336}
+      \range{pages}{3}
+      \verb{doi}
+      \verb 10.1609/aaai.v40i48.42260
+      \endverb
+    \endentry
+    \entry{artemis2024}{misc}{}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Horizon Europe grant 101136299; ClinicalTrials.gov NCT07430501}
+      \field{title}{{ARTEMIS}: AcceleRating the Translation of virtual twins towards a pErsonalised Management of steatotIc liver patientS}
+      \field{year}{2024}
+    \endentry
+    \entry{bagler2024gastronomy}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=6353677089096621b06383a59b2121f2}{%
+           family={Bagler},
+           familyi={B\bibinitperiod},
+           given={Ganesh},
+           giveni={G\bibinitperiod}}}%
+        {{hash=73a010cc656dbe4c99893518841b5431}{%
+           family={Goel},
+           familyi={G\bibinitperiod},
+           given={Mansi},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{0b8ffb011fd44e867beeea255d9fb084}
+      \strng{fullhash}{0b8ffb011fd44e867beeea255d9fb084}
+      \strng{fullhashraw}{0b8ffb011fd44e867beeea255d9fb084}
+      \strng{bibnamehash}{0b8ffb011fd44e867beeea255d9fb084}
+      \strng{authorbibnamehash}{0b8ffb011fd44e867beeea255d9fb084}
+      \strng{authornamehash}{0b8ffb011fd44e867beeea255d9fb084}
+      \strng{authorfullhash}{0b8ffb011fd44e867beeea255d9fb084}
+      \strng{authorfullhashraw}{0b8ffb011fd44e867beeea255d9fb084}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{npj Systems Biology and Applications}
+      \field{number}{1}
+      \field{title}{Computational gastronomy: capturing culinary creativity by making food computable}
+      \field{volume}{10}
+      \field{year}{2024}
+      \field{pages}{72}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1038/s41540-024-00399-5
+      \endverb
+    \endentry
+    \entry{batra2020recipedb}{article}{}{}
+      \name{author}{12}{}{%
+        {{hash=27b3889cc249047c5087baa341a93926}{%
+           family={Batra},
+           familyi={B\bibinitperiod},
+           given={Devansh},
+           giveni={D\bibinitperiod}}}%
+        {{hash=d70cf3a376a7a7059f57b9649f49fd83}{%
+           family={Diwan},
+           familyi={D\bibinitperiod},
+           given={Nirav},
+           giveni={N\bibinitperiod}}}%
+        {{hash=7360c864bd358b9cfd6c68cd9aecc77c}{%
+           family={Upadhyay},
+           familyi={U\bibinitperiod},
+           given={Utkarsh},
+           giveni={U\bibinitperiod}}}%
+        {{hash=9b568d8db6e56becc4e97284f54a0eaa}{%
+           family={Kalra},
+           familyi={K\bibinitperiod},
+           given={Jushaan\bibnamedelima Singh},
+           giveni={J\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=26eeaa11b5577fdb7c016b3d88389c34}{%
+           family={Sharma},
+           familyi={S\bibinitperiod},
+           given={Tript},
+           giveni={T\bibinitperiod}}}%
+        {{hash=646e9240459e0ad9b2ad9d401e52d4e8}{%
+           family={Sharma},
+           familyi={S\bibinitperiod},
+           given={Aman\bibnamedelima Kumar},
+           giveni={A\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+        {{hash=eede6906a1d619f9caec6ec2e82ea83e}{%
+           family={Khanna},
+           familyi={K\bibinitperiod},
+           given={Dheeraj},
+           giveni={D\bibinitperiod}}}%
+        {{hash=91626e415a91c1eaac030d49673599ed}{%
+           family={Marwah},
+           familyi={M\bibinitperiod},
+           given={Jaspreet\bibnamedelima Singh},
+           giveni={J\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=6862c726d16bf3a9a070bc2d82905f8a}{%
+           family={Kalathil},
+           familyi={K\bibinitperiod},
+           given={Srilakshmi},
+           giveni={S\bibinitperiod}}}%
+        {{hash=147c81cc9ca7f45e701121f520a2628c}{%
+           family={Singh},
+           familyi={S\bibinitperiod},
+           given={Navjot},
+           giveni={N\bibinitperiod}}}%
+        {{hash=c90349a6dea2c4300b3442f3eff90b17}{%
+           family={Tuwani},
+           familyi={T\bibinitperiod},
+           given={Rudraksh},
+           giveni={R\bibinitperiod}}}%
+        {{hash=6353677089096621b06383a59b2121f2}{%
+           family={Bagler},
+           familyi={B\bibinitperiod},
+           given={Ganesh},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{784ec6ca2ad50135382ae8fde92e272c}
+      \strng{fullhash}{ccbb9b68abbb3034eaa00d640a3c3786}
+      \strng{fullhashraw}{ccbb9b68abbb3034eaa00d640a3c3786}
+      \strng{bibnamehash}{784ec6ca2ad50135382ae8fde92e272c}
+      \strng{authorbibnamehash}{784ec6ca2ad50135382ae8fde92e272c}
+      \strng{authornamehash}{784ec6ca2ad50135382ae8fde92e272c}
+      \strng{authorfullhash}{ccbb9b68abbb3034eaa00d640a3c3786}
+      \strng{authorfullhashraw}{ccbb9b68abbb3034eaa00d640a3c3786}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Database}
+      \field{title}{{RecipeDB}: a resource for exploring recipes}
+      \field{volume}{2020}
+      \field{year}{2020}
+      \field{pages}{baaa077}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1093/database/baaa077
+      \endverb
+    \endentry
+    \entry{garg2018flavordb}{article}{}{}
+      \name{author}{17}{}{%
+        {{hash=52e640bc39d057af6257643b333498c0}{%
+           family={Garg},
+           familyi={G\bibinitperiod},
+           given={Neelansh},
+           giveni={N\bibinitperiod}}}%
+        {{hash=75393573a88206345a0aadadab7a3878}{%
+           family={Sethupathy},
+           familyi={S\bibinitperiod},
+           given={Apuroop},
+           giveni={A\bibinitperiod}}}%
+        {{hash=c90349a6dea2c4300b3442f3eff90b17}{%
+           family={Tuwani},
+           familyi={T\bibinitperiod},
+           given={Rudraksh},
+           giveni={R\bibinitperiod}}}%
+        {{hash=340fa4add8fbf3cfccfa5f021dd07c3a}{%
+           family={Nk},
+           familyi={N\bibinitperiod},
+           given={Rakhi},
+           giveni={R\bibinitperiod}}}%
+        {{hash=9c0715daec7aeeb6355c4ae50e259dc7}{%
+           family={Dokania},
+           familyi={D\bibinitperiod},
+           given={Shubham},
+           giveni={S\bibinitperiod}}}%
+        {{hash=3cb82d697dfbeef0ccb312496893d04c}{%
+           family={Iyer},
+           familyi={I\bibinitperiod},
+           given={Arvind},
+           giveni={A\bibinitperiod}}}%
+        {{hash=3cd346d360fbc10c57d97fb81aa9e5ec}{%
+           family={Gupta},
+           familyi={G\bibinitperiod},
+           given={Ayushi},
+           giveni={A\bibinitperiod}}}%
+        {{hash=a8735bfc153437d9ec55311e6cea9ab6}{%
+           family={Agrawal},
+           familyi={A\bibinitperiod},
+           given={Shubhra},
+           giveni={S\bibinitperiod}}}%
+        {{hash=147c81cc9ca7f45e701121f520a2628c}{%
+           family={Singh},
+           familyi={S\bibinitperiod},
+           given={Navjot},
+           giveni={N\bibinitperiod}}}%
+        {{hash=126cf58e0546f1f64575ddbaa7538114}{%
+           family={Shukla},
+           familyi={S\bibinitperiod},
+           given={Shubham},
+           giveni={S\bibinitperiod}}}%
+        {{hash=5cb78b463a6f37123d0e6b577113e112}{%
+           family={Kathuria},
+           familyi={K\bibinitperiod},
+           given={Kriti},
+           giveni={K\bibinitperiod}}}%
+        {{hash=f9eee9d8dd105910faebe1ac14b4be83}{%
+           family={Badhwar},
+           familyi={B\bibinitperiod},
+           given={Rahul},
+           giveni={R\bibinitperiod}}}%
+        {{hash=3acbeedc2d8d05b6247c9720c21ca02e}{%
+           family={Kanji},
+           familyi={K\bibinitperiod},
+           given={Rakesh},
+           giveni={R\bibinitperiod}}}%
+        {{hash=9eda6861dc1c1d0fbdaf5099fc7bc31a}{%
+           family={Jain},
+           familyi={J\bibinitperiod},
+           given={Anupam},
+           giveni={A\bibinitperiod}}}%
+        {{hash=bee191b2058b46abb48060689a43f6c8}{%
+           family={Kaur},
+           familyi={K\bibinitperiod},
+           given={Avneet},
+           giveni={A\bibinitperiod}}}%
+        {{hash=03d1ffd03c10062ae5dda54695eeb1b7}{%
+           family={Nagpal},
+           familyi={N\bibinitperiod},
+           given={Rashmi},
+           giveni={R\bibinitperiod}}}%
+        {{hash=6353677089096621b06383a59b2121f2}{%
+           family={Bagler},
+           familyi={B\bibinitperiod},
+           given={Ganesh},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{3c84cac6263cab739c382ad12d34b1c3}
+      \strng{fullhash}{978b756138355c72f456bd02ec119a36}
+      \strng{fullhashraw}{978b756138355c72f456bd02ec119a36}
+      \strng{bibnamehash}{3c84cac6263cab739c382ad12d34b1c3}
+      \strng{authorbibnamehash}{3c84cac6263cab739c382ad12d34b1c3}
+      \strng{authornamehash}{3c84cac6263cab739c382ad12d34b1c3}
+      \strng{authorfullhash}{978b756138355c72f456bd02ec119a36}
+      \strng{authorfullhashraw}{978b756138355c72f456bd02ec119a36}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Nucleic Acids Research}
+      \field{number}{D1}
+      \field{title}{{FlavorDB}: a database of flavor molecules}
+      \field{volume}{46}
+      \field{year}{2018}
+      \field{pages}{D1210\bibrangedash D1216}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1093/nar/gkx957
+      \endverb
+    \endentry
+    \entry{rakhi2018spices}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=09e833f1f098dc158596c8fdd466d1a1}{%
+           family={Rakhi},
+           familyi={R\bibinitperiod},
+           given={N.\bibnamedelimi K.},
+           giveni={N\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+        {{hash=c90349a6dea2c4300b3442f3eff90b17}{%
+           family={Tuwani},
+           familyi={T\bibinitperiod},
+           given={Rudraksh},
+           giveni={R\bibinitperiod}}}%
+        {{hash=97aa789a19f02c84495f43a8a59b1b50}{%
+           family={Mukherjee},
+           familyi={M\bibinitperiod},
+           given={Jagriti},
+           giveni={J\bibinitperiod}}}%
+        {{hash=6353677089096621b06383a59b2121f2}{%
+           family={Bagler},
+           familyi={B\bibinitperiod},
+           given={Ganesh},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{94374fbb0e2451a81e6a9c2bff2db1fa}
+      \strng{fullhash}{c0e67e58f3e076ad5e1a616fcbf56b6b}
+      \strng{fullhashraw}{c0e67e58f3e076ad5e1a616fcbf56b6b}
+      \strng{bibnamehash}{c0e67e58f3e076ad5e1a616fcbf56b6b}
+      \strng{authorbibnamehash}{c0e67e58f3e076ad5e1a616fcbf56b6b}
+      \strng{authornamehash}{94374fbb0e2451a81e6a9c2bff2db1fa}
+      \strng{authorfullhash}{c0e67e58f3e076ad5e1a616fcbf56b6b}
+      \strng{authorfullhashraw}{c0e67e58f3e076ad5e1a616fcbf56b6b}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{PLoS ONE}
+      \field{number}{5}
+      \field{title}{Data-driven analysis of biomedical literature suggests broad-spectrum benefits of culinary herbs and spices}
+      \field{volume}{13}
+      \field{year}{2018}
+      \field{pages}{e0198030}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1371/journal.pone.0198030
+      \endverb
+    \endentry
+    \entry{sahin2024menu}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=1b98ea6e53fac01c1d4116ec8dd17950}{%
+           family={Sahin},
+           familyi={S\bibinitperiod},
+           given={Omur},
+           giveni={O\bibinitperiod}}}%
+        {{hash=9c92fe34b7cab84e931d8d98019bc940}{%
+           family={Aytekin-Sahin},
+           familyi={A\bibinithyphendelim S\bibinitperiod},
+           given={Gizem},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{8431da90a6e1ea181c041981d99071c2}
+      \strng{fullhash}{8431da90a6e1ea181c041981d99071c2}
+      \strng{fullhashraw}{8431da90a6e1ea181c041981d99071c2}
+      \strng{bibnamehash}{8431da90a6e1ea181c041981d99071c2}
+      \strng{authorbibnamehash}{8431da90a6e1ea181c041981d99071c2}
+      \strng{authornamehash}{8431da90a6e1ea181c041981d99071c2}
+      \strng{authorfullhash}{8431da90a6e1ea181c041981d99071c2}
+      \strng{authorfullhashraw}{8431da90a6e1ea181c041981d99071c2}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Expert Systems with Applications}
+      \field{title}{Open-source multi-objective optimization software for menu planning}
+      \field{volume}{252}
+      \field{year}{2024}
+      \field{pages}{124213}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1016/j.eswa.2024.124213
+      \endverb
+    \endentry
+    \entry{trattner2017food}{misc}{}{}
+      \name{author}{2}{}{%
+        {{hash=7b888f866b96179ba5cf30b5c5a1fa83}{%
+           family={Trattner},
+           familyi={T\bibinitperiod},
+           given={Christoph},
+           giveni={C\bibinitperiod}}}%
+        {{hash=5c6049fc6ed7ea810d2b9e49dc2e5a2c}{%
+           family={Elsweiler},
+           familyi={E\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{c42e9ca74a116092a3954b77a7591cd4}
+      \strng{fullhash}{c42e9ca74a116092a3954b77a7591cd4}
+      \strng{fullhashraw}{c42e9ca74a116092a3954b77a7591cd4}
+      \strng{bibnamehash}{c42e9ca74a116092a3954b77a7591cd4}
+      \strng{authorbibnamehash}{c42e9ca74a116092a3954b77a7591cd4}
+      \strng{authornamehash}{c42e9ca74a116092a3954b77a7591cd4}
+      \strng{authorfullhash}{c42e9ca74a116092a3954b77a7591cd4}
+      \strng{authorfullhashraw}{c42e9ca74a116092a3954b77a7591cd4}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{arXiv preprint arXiv:1711.02760}
+      \field{title}{Food recommender systems: important contributions, challenges and future research directions}
+      \field{year}{2017}
+    \endentry
+    \entry{haussmann2019foodkg}{inproceedings}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{3}{}{%
+        {{hash=ddd871e111a918f14017921432b1f1df}{%
+           family={Haussmann},
+           familyi={H\bibinitperiod},
+           given={Steven},
+           giveni={S\bibinitperiod}}}%
+        {{hash=9c134e61f193ba681c90bf21d73b5bd2}{%
+           family={Seneviratne},
+           familyi={S\bibinitperiod},
+           given={Oshani},
+           giveni={O\bibinitperiod}}}%
+        {{hash=5ffb5aba0d9858b862639d446d48f8eb}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Yu},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{1b10d981fb7c7ad3c5fbc919712d7dba}
+      \strng{fullhash}{4ea4ca03a6ad0c82dbb1d5a52ad5da67}
+      \strng{fullhashraw}{4ea4ca03a6ad0c82dbb1d5a52ad5da67}
+      \strng{bibnamehash}{4ea4ca03a6ad0c82dbb1d5a52ad5da67}
+      \strng{authorbibnamehash}{4ea4ca03a6ad0c82dbb1d5a52ad5da67}
+      \strng{authornamehash}{1b10d981fb7c7ad3c5fbc919712d7dba}
+      \strng{authorfullhash}{4ea4ca03a6ad0c82dbb1d5a52ad5da67}
+      \strng{authorfullhashraw}{4ea4ca03a6ad0c82dbb1d5a52ad5da67}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{The Semantic Web -- ISWC 2019}
+      \field{series}{Lecture Notes in Computer Science}
+      \field{title}{{FoodKG}: a semantics-driven knowledge graph for food recommendation}
+      \field{volume}{11779}
+      \field{year}{2019}
+    \endentry
+    \entry{chen2021constrained}{inproceedings}{}{}
+      \name{author}{4}{}{%
+        {{hash=5ffb5aba0d9858b862639d446d48f8eb}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Yu},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=2fdd783be3d99e1600ef5db0b7e48b02}{%
+           family={Subburathinam},
+           familyi={S\bibinitperiod},
+           given={Ananya},
+           giveni={A\bibinitperiod}}}%
+        {{hash=7dae4341be3fde65a1b1a6a7442d50ec}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Ching-Hua},
+           giveni={C\bibinithyphendelim H\bibinitperiod}}}%
+        {{hash=404eb667af641569d44ed07a5ba9dc58}{%
+           family={Zaki},
+           familyi={Z\bibinitperiod},
+           given={Mohammed\bibnamedelima J.},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \strng{namehash}{0effc2245a9f081ee2b2aa49f28ce2c4}
+      \strng{fullhash}{57b143db556059464bf15e72ab9cc9c1}
+      \strng{fullhashraw}{57b143db556059464bf15e72ab9cc9c1}
+      \strng{bibnamehash}{57b143db556059464bf15e72ab9cc9c1}
+      \strng{authorbibnamehash}{57b143db556059464bf15e72ab9cc9c1}
+      \strng{authornamehash}{0effc2245a9f081ee2b2aa49f28ce2c4}
+      \strng{authorfullhash}{57b143db556059464bf15e72ab9cc9c1}
+      \strng{authorfullhashraw}{57b143db556059464bf15e72ab9cc9c1}
+      \field{extraname}{1}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 14th ACM International Conference on Web Search and Data Mining (WSDM)}
+      \field{title}{Personalized food recommendation as constrained question answering over a large-scale food knowledge graph}
+      \field{year}{2021}
+    \endentry
+    \entry{li2022healthguided}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=9fe4794da50fe23d3af58952f6997f9f}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Diya},
+           giveni={D\bibinitperiod}}}%
+        {{hash=404eb667af641569d44ed07a5ba9dc58}{%
+           family={Zaki},
+           familyi={Z\bibinitperiod},
+           given={Mohammed\bibnamedelima J.},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=02e6a0f8c888b4512a22ce7192d192ee}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Ching-hua},
+           giveni={C\bibinithyphendelim h\bibinitperiod}}}%
+      }
+      \strng{namehash}{3ba7243ccc6905ff1df2ff7b7d7ae41a}
+      \strng{fullhash}{bf7b24b542b8fa3c7bd5876aa0bf3a97}
+      \strng{fullhashraw}{bf7b24b542b8fa3c7bd5876aa0bf3a97}
+      \strng{bibnamehash}{bf7b24b542b8fa3c7bd5876aa0bf3a97}
+      \strng{authorbibnamehash}{bf7b24b542b8fa3c7bd5876aa0bf3a97}
+      \strng{authornamehash}{3ba7243ccc6905ff1df2ff7b7d7ae41a}
+      \strng{authorfullhash}{bf7b24b542b8fa3c7bd5876aa0bf3a97}
+      \strng{authorfullhashraw}{bf7b24b542b8fa3c7bd5876aa0bf3a97}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Web Semantics}
+      \field{title}{Health-guided recipe recommendation over knowledge graphs}
+      \field{year}{2022}
+      \field{pages}{100743}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1016/j.websem.2022.100743
+      \endverb
+    \endentry
+    \entry{shirai2021substitutions}{article}{}{}
+      \name{author}{5}{}{%
+        {{hash=a29115d2571703456c193a51bdaa9439}{%
+           family={Shirai},
+           familyi={S\bibinitperiod},
+           given={Sola\bibnamedelima S.},
+           giveni={S\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=9c134e61f193ba681c90bf21d73b5bd2}{%
+           family={Seneviratne},
+           familyi={S\bibinitperiod},
+           given={Oshani},
+           giveni={O\bibinitperiod}}}%
+        {{hash=ba8283c5ed7f8bd04b71a5f00b16a78f}{%
+           family={Gordon},
+           familyi={G\bibinitperiod},
+           given={Minor\bibnamedelima E.},
+           giveni={M\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+        {{hash=7dae4341be3fde65a1b1a6a7442d50ec}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Ching-Hua},
+           giveni={C\bibinithyphendelim H\bibinitperiod}}}%
+        {{hash=1c75e12800e4181c2aae0a6753d2d812}{%
+           family={McGuinness},
+           familyi={M\bibinitperiod},
+           given={Deborah\bibnamedelima L.},
+           giveni={D\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+      }
+      \strng{namehash}{be5e0f2a88eb784dbbe5d07c0bb8eedd}
+      \strng{fullhash}{fbbd6fe5058e289b3fd8e201ce5d8149}
+      \strng{fullhashraw}{fbbd6fe5058e289b3fd8e201ce5d8149}
+      \strng{bibnamehash}{fbbd6fe5058e289b3fd8e201ce5d8149}
+      \strng{authorbibnamehash}{fbbd6fe5058e289b3fd8e201ce5d8149}
+      \strng{authornamehash}{be5e0f2a88eb784dbbe5d07c0bb8eedd}
+      \strng{authorfullhash}{fbbd6fe5058e289b3fd8e201ce5d8149}
+      \strng{authorfullhashraw}{fbbd6fe5058e289b3fd8e201ce5d8149}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Frontiers in Artificial Intelligence}
+      \field{title}{Identifying ingredient substitutions using a knowledge graph of food}
+      \field{volume}{3}
+      \field{year}{2021}
+      \field{pages}{621766}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.3389/frai.2020.621766
+      \endverb
+    \endentry
+    \entry{kim2025substitution}{misc}{}{}
+      \name{author}{3}{}{%
+        {{hash=0601f31247fc65eb3480702d94e0080a}{%
+           family={Kim},
+           familyi={K\bibinitperiod},
+           given={Hyunwook},
+           giveni={H\bibinitperiod}}}%
+        {{hash=6ff34dca834dac215e8e2b4873943878}{%
+           family={Venkataramanan},
+           familyi={V\bibinitperiod},
+           given={Revathy},
+           giveni={R\bibinitperiod}}}%
+        {{hash=44ce79da77c0a025945bff1cb198c1e1}{%
+           family={Sheth},
+           familyi={S\bibinitperiod},
+           given={Amit},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{114021a5a421950362353bbb6634dc24}
+      \strng{fullhash}{bcd2cb4a4226ec85637896bd73324d4d}
+      \strng{fullhashraw}{bcd2cb4a4226ec85637896bd73324d4d}
+      \strng{bibnamehash}{bcd2cb4a4226ec85637896bd73324d4d}
+      \strng{authorbibnamehash}{bcd2cb4a4226ec85637896bd73324d4d}
+      \strng{authornamehash}{114021a5a421950362353bbb6634dc24}
+      \strng{authorfullhash}{bcd2cb4a4226ec85637896bd73324d4d}
+      \strng{authorfullhashraw}{bcd2cb4a4226ec85637896bd73324d4d}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{arXiv preprint arXiv:2501.01958}
+      \field{title}{A survey on food ingredient substitutions}
+      \field{year}{2025}
+    \endentry
+    \entry{rita2024phytochemical}{misc}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{4}{}{%
+        {{hash=cec41599271eac2326d564cd543feb7a}{%
+           family={Rita},
+           familyi={R\bibinitperiod},
+           given={Luis},
+           giveni={L\bibinitperiod}}}%
+        {{hash=14d0b19b4a82104c72e0a1c6fb5fab7a}{%
+           family={Southern},
+           familyi={S\bibinitperiod},
+           given={Josh},
+           giveni={J\bibinitperiod}}}%
+        {{hash=adecc0c17f3a35b0ec549bcd5f0b4526}{%
+           family={Laponogov},
+           familyi={L\bibinitperiod},
+           given={Ivan},
+           giveni={I\bibinitperiod}}}%
+        {{hash=7c82935c8466f553a40f439830c5b834}{%
+           family={Higgins},
+           familyi={H\bibinitperiod},
+           given={Kyle},
+           giveni={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{1f974d2945951f83350739139283e6dd}
+      \strng{fullhash}{14073b3ea3290375d1349a8c489b9d03}
+      \strng{fullhashraw}{14073b3ea3290375d1349a8c489b9d03}
+      \strng{bibnamehash}{14073b3ea3290375d1349a8c489b9d03}
+      \strng{authorbibnamehash}{14073b3ea3290375d1349a8c489b9d03}
+      \strng{authornamehash}{1f974d2945951f83350739139283e6dd}
+      \strng{authorfullhash}{14073b3ea3290375d1349a8c489b9d03}
+      \strng{authorfullhashraw}{14073b3ea3290375d1349a8c489b9d03}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{arXiv preprint arXiv:2409.08792}
+      \field{title}{Optimizing ingredient substitution using large language models to enhance phytochemical content in recipes}
+      \field{year}{2024}
+    \endentry
+    \entry{cao2024cultural}{article}{}{}
+      \name{author}{8}{}{%
+        {{hash=c7c1f04c8171035f4c1fc5569781921a}{%
+           family={Cao},
+           familyi={C\bibinitperiod},
+           given={Yong},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=6b0eedb567088eb16e444ff796880391}{%
+           family={Kementchedjhieva},
+           familyi={K\bibinitperiod},
+           given={Yova},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=dc2cfdce364ff852ac311e2ff76723f9}{%
+           family={Cui},
+           familyi={C\bibinitperiod},
+           given={Ruixiang},
+           giveni={R\bibinitperiod}}}%
+        {{hash=d704796d01165a207d740de2001f3ee6}{%
+           family={Karamolegkou},
+           familyi={K\bibinitperiod},
+           given={Antonia},
+           giveni={A\bibinitperiod}}}%
+        {{hash=cbe3d4d62aa7eb719d3fc6882e631041}{%
+           family={Zhou},
+           familyi={Z\bibinitperiod},
+           given={Li},
+           giveni={L\bibinitperiod}}}%
+        {{hash=71da88dbb7aa080db9d6ca7412901c63}{%
+           family={Dare},
+           familyi={D\bibinitperiod},
+           given={Megan},
+           giveni={M\bibinitperiod}}}%
+        {{hash=66cc1529838596058f6897ba41d2a676}{%
+           family={Donatelli},
+           familyi={D\bibinitperiod},
+           given={Lucia},
+           giveni={L\bibinitperiod}}}%
+        {{hash=89c9215eabbf70387b0dfc8df657f923}{%
+           family={Hershcovich},
+           familyi={H\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{a9a7b30dd497a0918b4fb3b20b48b68f}
+      \strng{fullhash}{aa7e709c4cda4ea51370b302d0f50083}
+      \strng{fullhashraw}{aa7e709c4cda4ea51370b302d0f50083}
+      \strng{bibnamehash}{a9a7b30dd497a0918b4fb3b20b48b68f}
+      \strng{authorbibnamehash}{a9a7b30dd497a0918b4fb3b20b48b68f}
+      \strng{authornamehash}{a9a7b30dd497a0918b4fb3b20b48b68f}
+      \strng{authorfullhash}{aa7e709c4cda4ea51370b302d0f50083}
+      \strng{authorfullhashraw}{aa7e709c4cda4ea51370b302d0f50083}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Transactions of the Association for Computational Linguistics}
+      \field{title}{Cultural adaptation of recipes}
+      \field{volume}{12}
+      \field{year}{2024}
+      \field{pages}{80\bibrangedash 99}
+      \range{pages}{20}
+      \verb{doi}
+      \verb 10.1162/tacl_a_00634
+      \endverb
+    \endentry
+    \entry{chen2016xgboost}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=48461ccdf50ba5a54e29a354aa734c0b}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Tianqi},
+           giveni={T\bibinitperiod}}}%
+        {{hash=c9ab8ac486d7f85ac914b1a8e51e512b}{%
+           family={Guestrin},
+           familyi={G\bibinitperiod},
+           given={Carlos},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{f79ceb030bcf791e5521f87ac6ada03b}
+      \strng{fullhash}{f79ceb030bcf791e5521f87ac6ada03b}
+      \strng{fullhashraw}{f79ceb030bcf791e5521f87ac6ada03b}
+      \strng{bibnamehash}{f79ceb030bcf791e5521f87ac6ada03b}
+      \strng{authorbibnamehash}{f79ceb030bcf791e5521f87ac6ada03b}
+      \strng{authornamehash}{f79ceb030bcf791e5521f87ac6ada03b}
+      \strng{authorfullhash}{f79ceb030bcf791e5521f87ac6ada03b}
+      \strng{authorfullhashraw}{f79ceb030bcf791e5521f87ac6ada03b}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining}
+      \field{title}{{XGBoost}: A scalable tree boosting system}
+      \field{year}{2016}
+      \field{pages}{785\bibrangedash 794}
+      \range{pages}{10}
+    \endentry
+    \entry{zadrozny2002calibration}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=17d2d39955db4736e1950d47ee811290}{%
+           family={Zadrozny},
+           familyi={Z\bibinitperiod},
+           given={Bianca},
+           giveni={B\bibinitperiod}}}%
+        {{hash=4a515be7c49aeeb68dfe1388be237a23}{%
+           family={Elkan},
+           familyi={E\bibinitperiod},
+           given={Charles},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{07fb66843c938ca7f9b3d9aa8fa282cd}
+      \strng{fullhash}{07fb66843c938ca7f9b3d9aa8fa282cd}
+      \strng{fullhashraw}{07fb66843c938ca7f9b3d9aa8fa282cd}
+      \strng{bibnamehash}{07fb66843c938ca7f9b3d9aa8fa282cd}
+      \strng{authorbibnamehash}{07fb66843c938ca7f9b3d9aa8fa282cd}
+      \strng{authornamehash}{07fb66843c938ca7f9b3d9aa8fa282cd}
+      \strng{authorfullhash}{07fb66843c938ca7f9b3d9aa8fa282cd}
+      \strng{authorfullhashraw}{07fb66843c938ca7f9b3d9aa8fa282cd}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the Eighth ACM SIGKDD International Conference on Knowledge Discovery and Data Mining}
+      \field{title}{Transforming classifier scores into accurate multiclass probability estimates}
+      \field{year}{2002}
+      \field{pages}{694\bibrangedash 699}
+      \range{pages}{6}
+    \endentry
+    \entry{lundberg2017shap}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=2a1075150e1e1dad8127b019f7ca9031}{%
+           family={Lundberg},
+           familyi={L\bibinitperiod},
+           given={Scott\bibnamedelima M.},
+           giveni={S\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=ee964079d93879aaef2382a5fff343d3}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={Su-In},
+           giveni={S\bibinithyphendelim I\bibinitperiod}}}%
+      }
+      \strng{namehash}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \strng{fullhash}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \strng{fullhashraw}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \strng{bibnamehash}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \strng{authorbibnamehash}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \strng{authornamehash}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \strng{authorfullhash}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \strng{authorfullhashraw}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Advances in Neural Information Processing Systems 30}
+      \field{title}{A unified approach to interpreting model predictions}
+      \field{year}{2017}
+    \endentry
+    \entry{stine2023exercise}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{1}{}{%
+        {{hash=a1e881f30c1e51f9bcd705582433e558}{%
+           family={Stine},
+           familyi={S\bibinitperiod},
+           given={Jonathan\bibnamedelima G.},
+           giveni={J\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+      }
+      \strng{namehash}{ac761253650b429995c2d6d7e830aaf5}
+      \strng{fullhash}{ac761253650b429995c2d6d7e830aaf5}
+      \strng{fullhashraw}{ac761253650b429995c2d6d7e830aaf5}
+      \strng{bibnamehash}{ac761253650b429995c2d6d7e830aaf5}
+      \strng{authorbibnamehash}{ac761253650b429995c2d6d7e830aaf5}
+      \strng{authornamehash}{ac761253650b429995c2d6d7e830aaf5}
+      \strng{authorfullhash}{ac761253650b429995c2d6d7e830aaf5}
+      \strng{authorfullhashraw}{ac761253650b429995c2d6d7e830aaf5}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{American Journal of Gastroenterology}
+      \field{number}{7}
+      \field{title}{Exercise training is associated with treatment response in liver fat content by magnetic resonance imaging independent of clinically significant body weight loss in patients with nonalcoholic fatty liver disease: a systematic review and meta-analysis}
+      \field{volume}{118}
+      \field{year}{2023}
+      \field{pages}{1204\bibrangedash 1213}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.14309/ajg.0000000000002098
+      \endverb
+    \endentry
+    \entry{stern2026dietary}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{6}{}{%
+        {{hash=0dabc19884fbac4c303bb4834cac6a7f}{%
+           family={Stern},
+           familyi={S\bibinitperiod},
+           given={Ulrike\bibnamedelima M.},
+           giveni={U\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=be9f54eba8494ee24cf719345fe54bcd}{%
+           family={Wagenpfeil},
+           familyi={W\bibinitperiod},
+           given={Gudrun},
+           giveni={G\bibinitperiod}}}%
+        {{hash=1b4cd39c5cb996e55857c8117594d946}{%
+           family={Weber},
+           familyi={W\bibinitperiod},
+           given={Susanne\bibnamedelima N.},
+           giveni={S\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+        {{hash=c71f9591643e90a2ab00d82422634c02}{%
+           family={Alqahtani},
+           familyi={A\bibinitperiod},
+           given={Saleh\bibnamedelima A.},
+           giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=1f1bbf00f2742b5e16fd9e228ae8905b}{%
+           family={Michel},
+           familyi={M\bibinitperiod},
+           given={Maurice},
+           giveni={M\bibinitperiod}}}%
+        {{hash=7a822cffc3bf652e0ead4dfdf6f3f4a9}{%
+           family={Schattenberg},
+           familyi={S\bibinitperiod},
+           given={Jörn\bibnamedelima M.},
+           giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \strng{namehash}{d175967bf69665b811c90f807eb6f57c}
+      \strng{fullhash}{3f97b479203914667ed1bfc1dd7d3820}
+      \strng{fullhashraw}{3f97b479203914667ed1bfc1dd7d3820}
+      \strng{bibnamehash}{3f97b479203914667ed1bfc1dd7d3820}
+      \strng{authorbibnamehash}{3f97b479203914667ed1bfc1dd7d3820}
+      \strng{authornamehash}{d175967bf69665b811c90f807eb6f57c}
+      \strng{authorfullhash}{3f97b479203914667ed1bfc1dd7d3820}
+      \strng{authorfullhashraw}{3f97b479203914667ed1bfc1dd7d3820}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{European Journal of Nutrition}
+      \field{number}{2}
+      \field{title}{The impact of dietary interventions on liver health biomarkers in individuals with metabolic dysfunction-associated steatotic liver disease: a systematic review and meta-analysis of randomized controlled trials}
+      \field{volume}{65}
+      \field{year}{2026}
+      \field{pages}{58}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1007/s00394-025-03870-z
+      \endverb
+    \endentry
+    \entry{subar2003open}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{6}{}{%
+        {{hash=d0d17c8c7b25fdd325b8056433b67fb2}{%
+           family={Subar},
+           familyi={S\bibinitperiod},
+           given={Amy\bibnamedelima F.},
+           giveni={A\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+        {{hash=a0502d3040ca31a11daaa3ee8f682fc1}{%
+           family={Kipnis},
+           familyi={K\bibinitperiod},
+           given={Victor},
+           giveni={V\bibinitperiod}}}%
+        {{hash=534fc85a57d1445bda765561cc347351}{%
+           family={Troiano},
+           familyi={T\bibinitperiod},
+           given={Richard\bibnamedelima P.},
+           giveni={R\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=00f2152f71ad5bf163f367fcfbad5eb4}{%
+           family={Midthune},
+           familyi={M\bibinitperiod},
+           given={Douglas},
+           giveni={D\bibinitperiod}}}%
+        {{hash=ba72b8a254b3f8e2d2c8df053e97a95d}{%
+           family={Schoeller},
+           familyi={S\bibinitperiod},
+           given={Dale\bibnamedelima A.},
+           giveni={D\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=e4dce9f513a917b2449ddb651cfa7157}{%
+           family={Bingham},
+           familyi={B\bibinitperiod},
+           given={Sheila},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{f271e1f691d5146b7ad1d9ab4f406383}
+      \strng{fullhash}{2851007c1e04b206679cc64729458b2e}
+      \strng{fullhashraw}{2851007c1e04b206679cc64729458b2e}
+      \strng{bibnamehash}{2851007c1e04b206679cc64729458b2e}
+      \strng{authorbibnamehash}{2851007c1e04b206679cc64729458b2e}
+      \strng{authornamehash}{f271e1f691d5146b7ad1d9ab4f406383}
+      \strng{authorfullhash}{2851007c1e04b206679cc64729458b2e}
+      \strng{authorfullhashraw}{2851007c1e04b206679cc64729458b2e}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{American Journal of Epidemiology}
+      \field{number}{1}
+      \field{title}{Using intake biomarkers to evaluate the extent of dietary misreporting in a large sample of adults: the {OPEN} study}
+      \field{volume}{158}
+      \field{year}{2003}
+      \field{pages}{1\bibrangedash 13}
+      \range{pages}{13}
+    \endentry
+    \entry{dodd2006usual}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{6}{}{%
+        {{hash=db4348374309b5afd056ae579008fd04}{%
+           family={Dodd},
+           familyi={D\bibinitperiod},
+           given={Kevin\bibnamedelima W.},
+           giveni={K\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=bde8ae040299b02d32fba22aa10e775c}{%
+           family={Guenther},
+           familyi={G\bibinitperiod},
+           given={Patricia\bibnamedelima M.},
+           giveni={P\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=da8929a7de3e495f7508261844483a10}{%
+           family={Freedman},
+           familyi={F\bibinitperiod},
+           given={Laurence\bibnamedelima S.},
+           giveni={L\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=d0d17c8c7b25fdd325b8056433b67fb2}{%
+           family={Subar},
+           familyi={S\bibinitperiod},
+           given={Amy\bibnamedelima F.},
+           giveni={A\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+        {{hash=a0502d3040ca31a11daaa3ee8f682fc1}{%
+           family={Kipnis},
+           familyi={K\bibinitperiod},
+           given={Victor},
+           giveni={V\bibinitperiod}}}%
+        {{hash=00f2152f71ad5bf163f367fcfbad5eb4}{%
+           family={Midthune},
+           familyi={M\bibinitperiod},
+           given={Douglas},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{7ddeb10cdf0411e1e875b10be46b5df4}
+      \strng{fullhash}{63083d0cffb49bf213718d7d80483e31}
+      \strng{fullhashraw}{63083d0cffb49bf213718d7d80483e31}
+      \strng{bibnamehash}{63083d0cffb49bf213718d7d80483e31}
+      \strng{authorbibnamehash}{63083d0cffb49bf213718d7d80483e31}
+      \strng{authornamehash}{7ddeb10cdf0411e1e875b10be46b5df4}
+      \strng{authorfullhash}{63083d0cffb49bf213718d7d80483e31}
+      \strng{authorfullhashraw}{63083d0cffb49bf213718d7d80483e31}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of the American Dietetic Association}
+      \field{number}{10}
+      \field{title}{Statistical methods for estimating usual intake of nutrients and foods: a review of the theory}
+      \field{volume}{106}
+      \field{year}{2006}
+      \field{pages}{1640\bibrangedash 1650}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1016/j.jada.2006.07.011
+      \endverb
+    \endentry
+    \entry{tooze2006usual}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{6}{}{%
+        {{hash=63e04a338ff154eb5dbad127a95193a9}{%
+           family={Tooze},
+           familyi={T\bibinitperiod},
+           given={Janet\bibnamedelima A.},
+           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=00f2152f71ad5bf163f367fcfbad5eb4}{%
+           family={Midthune},
+           familyi={M\bibinitperiod},
+           given={Douglas},
+           giveni={D\bibinitperiod}}}%
+        {{hash=db4348374309b5afd056ae579008fd04}{%
+           family={Dodd},
+           familyi={D\bibinitperiod},
+           given={Kevin\bibnamedelima W.},
+           giveni={K\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=da8929a7de3e495f7508261844483a10}{%
+           family={Freedman},
+           familyi={F\bibinitperiod},
+           given={Laurence\bibnamedelima S.},
+           giveni={L\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=6cbdddc83eab41ca1d2de2ef74b2df85}{%
+           family={Krebs-Smith},
+           familyi={K\bibinithyphendelim S\bibinitperiod},
+           given={Susan\bibnamedelima M.},
+           giveni={S\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=d0d17c8c7b25fdd325b8056433b67fb2}{%
+           family={Subar},
+           familyi={S\bibinitperiod},
+           given={Amy\bibnamedelima F.},
+           giveni={A\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+      }
+      \strng{namehash}{1773411c800ade87ca92c3b860318417}
+      \strng{fullhash}{ceb629d9d03f6b3e756fcfa90b97e511}
+      \strng{fullhashraw}{ceb629d9d03f6b3e756fcfa90b97e511}
+      \strng{bibnamehash}{ceb629d9d03f6b3e756fcfa90b97e511}
+      \strng{authorbibnamehash}{ceb629d9d03f6b3e756fcfa90b97e511}
+      \strng{authornamehash}{1773411c800ade87ca92c3b860318417}
+      \strng{authorfullhash}{ceb629d9d03f6b3e756fcfa90b97e511}
+      \strng{authorfullhashraw}{ceb629d9d03f6b3e756fcfa90b97e511}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of the American Dietetic Association}
+      \field{number}{10}
+      \field{title}{A new statistical method for estimating the usual intake of episodically consumed foods with application to their distribution}
+      \field{volume}{106}
+      \field{year}{2006}
+      \field{pages}{1575\bibrangedash 1587}
+      \range{pages}{13}
+      \verb{doi}
+      \verb 10.1016/j.jada.2006.07.003
+      \endverb
+    \endentry
+    \entry{kalnay2003assimilation}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=84342e7995fd06a514ab2b746431c0b0}{%
+           family={Kalnay},
+           familyi={K\bibinitperiod},
+           given={Eugenia},
+           giveni={E\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Cambridge}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{84342e7995fd06a514ab2b746431c0b0}
+      \strng{fullhash}{84342e7995fd06a514ab2b746431c0b0}
+      \strng{fullhashraw}{84342e7995fd06a514ab2b746431c0b0}
+      \strng{bibnamehash}{84342e7995fd06a514ab2b746431c0b0}
+      \strng{authorbibnamehash}{84342e7995fd06a514ab2b746431c0b0}
+      \strng{authornamehash}{84342e7995fd06a514ab2b746431c0b0}
+      \strng{authorfullhash}{84342e7995fd06a514ab2b746431c0b0}
+      \strng{authorfullhashraw}{84342e7995fd06a514ab2b746431c0b0}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Atmospheric Modeling, Data Assimilation and Predictability}
+      \field{year}{2003}
+    \endentry
+    \entry{bedogni2006fli}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{1}{}{%
+        {{hash=3441029a66d4e70c47025331562e64d9}{%
+           family={Bedogni},
+           familyi={B\bibinitperiod},
+           given={Giorgio},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{b8802aa30eefd6759a7ad41bc38c6246}
+      \strng{fullhash}{b8802aa30eefd6759a7ad41bc38c6246}
+      \strng{fullhashraw}{b8802aa30eefd6759a7ad41bc38c6246}
+      \strng{bibnamehash}{b8802aa30eefd6759a7ad41bc38c6246}
+      \strng{authorbibnamehash}{b8802aa30eefd6759a7ad41bc38c6246}
+      \strng{authornamehash}{b8802aa30eefd6759a7ad41bc38c6246}
+      \strng{authorfullhash}{b8802aa30eefd6759a7ad41bc38c6246}
+      \strng{authorfullhashraw}{b8802aa30eefd6759a7ad41bc38c6246}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{BMC Gastroenterology}
+      \field{title}{The Fatty Liver Index: a simple and accurate predictor of hepatic steatosis in the general population}
+      \field{volume}{6}
+      \field{year}{2006}
+      \field{pages}{33}
+      \range{pages}{1}
+    \endentry
+    \entry{lee2010hsi}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{1}{}{%
+        {{hash=113d1a692a5a394e7b355bbc4922f7bc}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={Jeong-Hoon},
+           giveni={J\bibinithyphendelim H\bibinitperiod}}}%
+      }
+      \strng{namehash}{4588dee834fa1049385a7bc5ff46563d}
+      \strng{fullhash}{4588dee834fa1049385a7bc5ff46563d}
+      \strng{fullhashraw}{4588dee834fa1049385a7bc5ff46563d}
+      \strng{bibnamehash}{4588dee834fa1049385a7bc5ff46563d}
+      \strng{authorbibnamehash}{4588dee834fa1049385a7bc5ff46563d}
+      \strng{authornamehash}{4588dee834fa1049385a7bc5ff46563d}
+      \strng{authorfullhash}{4588dee834fa1049385a7bc5ff46563d}
+      \strng{authorfullhashraw}{4588dee834fa1049385a7bc5ff46563d}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Digestive and Liver Disease}
+      \field{number}{7}
+      \field{title}{Hepatic steatosis index: a simple screening tool reflecting nonalcoholic fatty liver disease}
+      \field{volume}{42}
+      \field{year}{2010}
+      \field{pages}{503\bibrangedash 508}
+      \range{pages}{6}
+    \endentry
+    \entry{du2026masld}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=186be4f99a01f477e7495bfaa9725905}{%
+           family={Du},
+           familyi={D\bibinitperiod},
+           given={Shiying},
+           giveni={S\bibinitperiod}}}%
+        {{hash=0285085b3c6d79e567a493af0c3d77d3}{%
+           family={Yu},
+           familyi={Y\bibinitperiod},
+           given={Hailiang},
+           giveni={H\bibinitperiod}}}%
+        {{hash=fca8c49d8bee5caf79732c5089f1a59e}{%
+           family={Du},
+           familyi={D\bibinitperiod},
+           given={Jianbo},
+           giveni={J\bibinitperiod}}}%
+        {{hash=6b599a291c3cf63e6ff70ff05ab64832}{%
+           family={Xu},
+           familyi={X\bibinitperiod},
+           given={Yunan},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{6baaa1711fb647e33f2617384adeea19}
+      \strng{fullhash}{877d3f6aa0bd030210579d65af0197fe}
+      \strng{fullhashraw}{877d3f6aa0bd030210579d65af0197fe}
+      \strng{bibnamehash}{877d3f6aa0bd030210579d65af0197fe}
+      \strng{authorbibnamehash}{877d3f6aa0bd030210579d65af0197fe}
+      \strng{authornamehash}{6baaa1711fb647e33f2617384adeea19}
+      \strng{authorfullhash}{877d3f6aa0bd030210579d65af0197fe}
+      \strng{authorfullhashraw}{877d3f6aa0bd030210579d65af0197fe}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{International Journal of Hepatology}
+      \field{number}{1}
+      \field{title}{Machine learning models to predict metabolic dysfunction-associated steatotic liver disease ({MASLD}) with simple anthropometric and biochemical variables: a cross-sectional study in {US} population}
+      \field{volume}{2026}
+      \field{year}{2026}
+      \field{pages}{8221645}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1155/ijh/8221645
+      \endverb
+    \endentry
+    \entry{liu2024automl}{article}{}{}
+      \name{author}{9}{}{%
+        {{hash=3232d8f4ed537db6b136114bce49cad2}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Lihe},
+           giveni={L\bibinitperiod}}}%
+        {{hash=35d0b5149ac72faeb2529d447643b95e}{%
+           family={Lin},
+           familyi={L\bibinitperiod},
+           given={Jiaxi},
+           giveni={J\bibinitperiod}}}%
+        {{hash=9b70d85f003fa30a5cae684a692c6e97}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Lu},
+           giveni={L\bibinitperiod}}}%
+        {{hash=131c4eb71b2cfc39bdd29bd515388251}{%
+           family={Gao},
+           familyi={G\bibinitperiod},
+           given={Jingwen},
+           giveni={J\bibinitperiod}}}%
+        {{hash=13eaff2ebe9344185f45e301c74e8712}{%
+           family={Xu},
+           familyi={X\bibinitperiod},
+           given={Guoting},
+           giveni={G\bibinitperiod}}}%
+        {{hash=f8e99e3150e7d05a312485d36c203a2d}{%
+           family={Yin},
+           familyi={Y\bibinitperiod},
+           given={Minyue},
+           giveni={M\bibinitperiod}}}%
+        {{hash=920af63650589e36aa5a4979cb55af7f}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Xiaolin},
+           giveni={X\bibinitperiod}}}%
+        {{hash=623bfb3ccd19e2235a11001b4a82b488}{%
+           family={Wu},
+           familyi={W\bibinitperiod},
+           given={Airong},
+           giveni={A\bibinitperiod}}}%
+        {{hash=9005731ea474b6a73f3e62299c4ccdd1}{%
+           family={Zhu},
+           familyi={Z\bibinitperiod},
+           given={Jinzhou},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{1426b2609cacddf7c279ae0428e8b9e0}
+      \strng{fullhash}{0b2776e7460c668ac327d34fc15bc2b2}
+      \strng{fullhashraw}{0b2776e7460c668ac327d34fc15bc2b2}
+      \strng{bibnamehash}{1426b2609cacddf7c279ae0428e8b9e0}
+      \strng{authorbibnamehash}{1426b2609cacddf7c279ae0428e8b9e0}
+      \strng{authornamehash}{1426b2609cacddf7c279ae0428e8b9e0}
+      \strng{authorfullhash}{0b2776e7460c668ac327d34fc15bc2b2}
+      \strng{authorfullhashraw}{0b2776e7460c668ac327d34fc15bc2b2}
+      \field{extraname}{1}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Digital Health}
+      \field{title}{Automated machine learning models for nonalcoholic fatty liver disease assessed by controlled attenuation parameter from the {NHANES} 2017--2020}
+      \field{volume}{10}
+      \field{year}{2024}
+      \field{pages}{20552076241272535}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1177/20552076241272535
+      \endverb
+    \endentry
+    \entry{zhang2025masld}{article}{}{}
+      \name{author}{5}{}{%
+        {{hash=2c81656c924858824dfb10d50423b77a}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Yong},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=4622823528906a7f86a323f6f41fd33e}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Xiang},
+           giveni={X\bibinitperiod}}}%
+        {{hash=0a01fbea7e01934f861031079998ee74}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Xingqiang},
+           giveni={X\bibinitperiod}}}%
+        {{hash=ea225a473667d984dc90a17f5eeeb074}{%
+           family={Fei},
+           familyi={F\bibinitperiod},
+           given={Yangfan},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=b5ce5c3d4c49b5481644c3d0a06ed656}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Xiaoxu},
+           giveni={X\bibinitperiod}}}%
+      }
+      \strng{namehash}{2810de8af34d5dab287ae58a8692e0cf}
+      \strng{fullhash}{90c3b3a98722b4d985019c3f904cedab}
+      \strng{fullhashraw}{90c3b3a98722b4d985019c3f904cedab}
+      \strng{bibnamehash}{90c3b3a98722b4d985019c3f904cedab}
+      \strng{authorbibnamehash}{90c3b3a98722b4d985019c3f904cedab}
+      \strng{authornamehash}{2810de8af34d5dab287ae58a8692e0cf}
+      \strng{authorfullhash}{90c3b3a98722b4d985019c3f904cedab}
+      \strng{authorfullhashraw}{90c3b3a98722b4d985019c3f904cedab}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{PLoS ONE}
+      \field{number}{11}
+      \field{title}{Machine learning-based prediction of metabolic dysfunction-associated steatotic liver disease using {National Health and Nutrition Examination Survey} ({NHANES}) data}
+      \field{volume}{20}
+      \field{year}{2025}
+      \field{pages}{e0335656}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1371/journal.pone.0335656
+      \endverb
+    \endentry
+    \entry{boullion2025biomarker}{article}{}{}
+      \name{author}{12}{}{%
+        {{hash=42e73ce5e104c7e85a1837b42783077a}{%
+           family={Boullion},
+           familyi={B\bibinitperiod},
+           given={Jolie},
+           giveni={J\bibinitperiod}}}%
+        {{hash=9e2e189b88ed35f3162313ea365b476c}{%
+           family={Husein},
+           familyi={H\bibinitperiod},
+           given={Amanda},
+           giveni={A\bibinitperiod}}}%
+        {{hash=2c87b130eda00acfd9cf7bc25278ad76}{%
+           family={Agrawal},
+           familyi={A\bibinitperiod},
+           given={Akshat},
+           giveni={A\bibinitperiod}}}%
+        {{hash=aaa52916a2e973e09717098afa9b8bdd}{%
+           family={Xing},
+           familyi={X\bibinitperiod},
+           given={Diensn},
+           giveni={D\bibinitperiod}}}%
+        {{hash=6702b99c6f5801a57637441ae2cab19b}{%
+           family={Hossain},
+           familyi={H\bibinitperiod},
+           given={Md\bibnamedelima Ismail},
+           giveni={M\bibinitperiod\bibinitdelim I\bibinitperiod}}}%
+        {{hash=d857509e6b44c77e84b6ab271ad7ec1c}{%
+           family={Bhuiyan},
+           familyi={B\bibinitperiod},
+           given={Md\bibnamedelima Shenuarin},
+           giveni={M\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=977cec88d06004ff53d01f3d5a575fbe}{%
+           family={Rom},
+           familyi={R\bibinitperiod},
+           given={Oren},
+           giveni={O\bibinitperiod}}}%
+        {{hash=e43f4d7253ad247a9575896494e7279c}{%
+           family={Conrad},
+           familyi={C\bibinitperiod},
+           given={Steven\bibnamedelima A.},
+           giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=b74ad801e789d1dc5f64791ca3fc3777}{%
+           family={Vanchiere},
+           familyi={V\bibinitperiod},
+           given={John\bibnamedelima A.},
+           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=bc116a54ec7a086788fc770d5b694173}{%
+           family={Orr},
+           familyi={O\bibinitperiod},
+           given={A.\bibnamedelimi Wayne},
+           giveni={A\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=90256d9e585a52892f9e7da200186762}{%
+           family={Kevil},
+           familyi={K\bibinitperiod},
+           given={Christopher\bibnamedelima G.},
+           giveni={C\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=92837fed668c62ca1301c12780bdc999}{%
+           family={Bhuiyan},
+           familyi={B\bibinitperiod},
+           given={Mohammad\bibnamedelimb Alfrad\bibnamedelima Nobel},
+           giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+      }
+      \strng{namehash}{8fcf5c1701436ecdbe12f4fe5cb0904d}
+      \strng{fullhash}{fa2a1e098ef1a904b5ccf7a915228ef5}
+      \strng{fullhashraw}{fa2a1e098ef1a904b5ccf7a915228ef5}
+      \strng{bibnamehash}{8fcf5c1701436ecdbe12f4fe5cb0904d}
+      \strng{authorbibnamehash}{8fcf5c1701436ecdbe12f4fe5cb0904d}
+      \strng{authornamehash}{8fcf5c1701436ecdbe12f4fe5cb0904d}
+      \strng{authorfullhash}{fa2a1e098ef1a904b5ccf7a915228ef5}
+      \strng{authorfullhashraw}{fa2a1e098ef1a904b5ccf7a915228ef5}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Journal of Clinical Endocrinology \& Metabolism}
+      \field{number}{11}
+      \field{title}{Machine learning--based biomarker identification for early diagnosis of metabolic dysfunction--associated steatotic liver disease}
+      \field{volume}{110}
+      \field{year}{2025}
+      \field{pages}{e3866\bibrangedash e3877}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1210/clinem/dgaf111
+      \endverb
+    \endentry
+    \entry{liu2022surrogate}{article}{}{}
+      \name{author}{11}{}{%
+        {{hash=fe21c2a3cb71f1cc0d46bbf8d9056634}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Hanying},
+           giveni={H\bibinitperiod}}}%
+        {{hash=9974d6382df9a9870c97dad6837bcf62}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Xiao},
+           giveni={X\bibinitperiod}}}%
+        {{hash=eaadf171d4098e22e4729ac3da804d37}{%
+           family={Han},
+           familyi={H\bibinitperiod},
+           given={Xiaodong},
+           giveni={X\bibinitperiod}}}%
+        {{hash=28f91f3a4b62ce57b7a533e742e8aae1}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Yan},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=c3649db1c8aad2c7b32074912e3eca27}{%
+           family={Gu},
+           familyi={G\bibinitperiod},
+           given={Yanting},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=c9af14856b3375671a5d228962856cb1}{%
+           family={Sun},
+           familyi={S\bibinitperiod},
+           given={Lianjie},
+           giveni={L\bibinitperiod}}}%
+        {{hash=be8460a1b50f7fb49ffb869f205d8093}{%
+           family={Han},
+           familyi={H\bibinitperiod},
+           given={Junfeng},
+           giveni={J\bibinitperiod}}}%
+        {{hash=a16d43227815a7f48f4a4f0284e16cad}{%
+           family={Tu},
+           familyi={T\bibinitperiod},
+           given={Yinfang},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=ab10e0452d523837f1d4c6b21376b91b}{%
+           family={Bao},
+           familyi={B\bibinitperiod},
+           given={Yuqian},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=d17f629cbb92bd1be5f1c290c39f9aad}{%
+           family={Bai},
+           familyi={B\bibinitperiod},
+           given={Wenkun},
+           giveni={W\bibinitperiod}}}%
+        {{hash=4bccfb6e12c136c3f64de8752485d9d3}{%
+           family={Yu},
+           familyi={Y\bibinitperiod},
+           given={Haoyong},
+           giveni={H\bibinitperiod}}}%
+      }
+      \strng{namehash}{94b911af4517890e9f844ccaca8752b2}
+      \strng{fullhash}{cd77f9549f72cda12f292936600365b7}
+      \strng{fullhashraw}{cd77f9549f72cda12f292936600365b7}
+      \strng{bibnamehash}{94b911af4517890e9f844ccaca8752b2}
+      \strng{authorbibnamehash}{94b911af4517890e9f844ccaca8752b2}
+      \strng{authornamehash}{94b911af4517890e9f844ccaca8752b2}
+      \strng{authorfullhash}{cd77f9549f72cda12f292936600365b7}
+      \strng{authorfullhashraw}{cd77f9549f72cda12f292936600365b7}
+      \field{extraname}{2}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Frontiers in Medicine}
+      \field{title}{Simple surrogate equations to predict controlled attenuation parameter values for screening non-alcoholic fatty liver disease in a {Chinese} population}
+      \field{volume}{9}
+      \field{year}{2022}
+      \field{pages}{894895}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.3389/fmed.2022.894895
+      \endverb
+    \endentry
+    \entry{pappalardo2019insilico}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=e69331c6f0245b97085084457696b5bf}{%
+           family={Pappalardo},
+           familyi={P\bibinitperiod},
+           given={Francesco},
+           giveni={F\bibinitperiod}}}%
+        {{hash=4febfa075bae1945cf298200ee525c47}{%
+           family={Russo},
+           familyi={R\bibinitperiod},
+           given={Giulia},
+           giveni={G\bibinitperiod}}}%
+        {{hash=49d22f74d44aa036e31c0c2ed02fa7f8}{%
+           family={Tshinanu},
+           familyi={T\bibinitperiod},
+           given={Flora\bibnamedelima Musuamba},
+           giveni={F\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=7e04ecd328a9c9497c5032ee1feee553}{%
+           family={Viceconti},
+           familyi={V\bibinitperiod},
+           given={Marco},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{16ca0e7097ca01bf6a75d050b40ef2fd}
+      \strng{fullhash}{bcacaa3fc7ff526ba8916ad549832fb6}
+      \strng{fullhashraw}{bcacaa3fc7ff526ba8916ad549832fb6}
+      \strng{bibnamehash}{bcacaa3fc7ff526ba8916ad549832fb6}
+      \strng{authorbibnamehash}{bcacaa3fc7ff526ba8916ad549832fb6}
+      \strng{authornamehash}{16ca0e7097ca01bf6a75d050b40ef2fd}
+      \strng{authorfullhash}{bcacaa3fc7ff526ba8916ad549832fb6}
+      \strng{authorfullhashraw}{bcacaa3fc7ff526ba8916ad549832fb6}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Briefings in Bioinformatics}
+      \field{number}{5}
+      \field{title}{In silico clinical trials: concepts and early adoptions}
+      \field{volume}{20}
+      \field{year}{2019}
+      \field{pages}{1699\bibrangedash 1708}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.1093/bib/bby043
+      \endverb
+    \endentry
+    \entry{kovatchev2009insilico}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=a2495af709bfefc23a074a18c31086a6}{%
+           family={Kovatchev},
+           familyi={K\bibinitperiod},
+           given={Boris\bibnamedelima P.},
+           giveni={B\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=0d1885d7d1b52fbd0491fdb0a2e83ff8}{%
+           family={Breton},
+           familyi={B\bibinitperiod},
+           given={Marc},
+           giveni={M\bibinitperiod}}}%
+        {{hash=ce572645e60dba9acb86cb57af51fa76}{%
+           family={Dalla\bibnamedelima Man},
+           familyi={D\bibinitperiod\bibinitdelim M\bibinitperiod},
+           given={Chiara},
+           giveni={C\bibinitperiod}}}%
+        {{hash=eab96912d48c787987a3349c328f916a}{%
+           family={Cobelli},
+           familyi={C\bibinitperiod},
+           given={Claudio},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{88a9daf29ec9ae85968a727b59844168}
+      \strng{fullhash}{0b6111b4eff03b2571f0a393bb07fb46}
+      \strng{fullhashraw}{0b6111b4eff03b2571f0a393bb07fb46}
+      \strng{bibnamehash}{0b6111b4eff03b2571f0a393bb07fb46}
+      \strng{authorbibnamehash}{0b6111b4eff03b2571f0a393bb07fb46}
+      \strng{authornamehash}{88a9daf29ec9ae85968a727b59844168}
+      \strng{authorfullhash}{0b6111b4eff03b2571f0a393bb07fb46}
+      \strng{authorfullhashraw}{0b6111b4eff03b2571f0a393bb07fb46}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Diabetes Science and Technology}
+      \field{number}{1}
+      \field{title}{In silico preclinical trials: a proof of concept in closed-loop control of type 1 diabetes}
+      \field{volume}{3}
+      \field{year}{2009}
+      \field{pages}{44\bibrangedash 55}
+      \range{pages}{12}
+      \verb{doi}
+      \verb 10.1177/193229680900300106
+      \endverb
+    \endentry
+    \entry{walonoski2018synthea}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{3}{}{%
+        {{hash=515119419aff07588d23910529604a95}{%
+           family={Walonoski},
+           familyi={W\bibinitperiod},
+           given={Jason},
+           giveni={J\bibinitperiod}}}%
+        {{hash=0a255cddfe0f4e2c31d268323399bc04}{%
+           family={Kramer},
+           familyi={K\bibinitperiod},
+           given={Mark},
+           giveni={M\bibinitperiod}}}%
+        {{hash=52d9f6bcfa2223958b6de4e8e5246498}{%
+           family={Nichols},
+           familyi={N\bibinitperiod},
+           given={Joseph},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{cbf8964f28084be7d87c21cb62295533}
+      \strng{fullhash}{efa1af9f3790a279c18703f433e9f49e}
+      \strng{fullhashraw}{efa1af9f3790a279c18703f433e9f49e}
+      \strng{bibnamehash}{efa1af9f3790a279c18703f433e9f49e}
+      \strng{authorbibnamehash}{efa1af9f3790a279c18703f433e9f49e}
+      \strng{authornamehash}{cbf8964f28084be7d87c21cb62295533}
+      \strng{authorfullhash}{efa1af9f3790a279c18703f433e9f49e}
+      \strng{authorfullhashraw}{efa1af9f3790a279c18703f433e9f49e}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of the American Medical Informatics Association}
+      \field{number}{3}
+      \field{title}{Synthea: an approach, method, and software mechanism for generating synthetic patients and the synthetic electronic health care record}
+      \field{volume}{25}
+      \field{year}{2018}
+      \field{pages}{230\bibrangedash 238}
+      \range{pages}{9}
+    \endentry
+    \entry{franklin2014plasmode}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=9fa9b26cb960651d4f33d69d1fbb381e}{%
+           family={Franklin},
+           familyi={F\bibinitperiod},
+           given={Jessica\bibnamedelima M.},
+           giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=6f1d1eb1f80df46d2a686269df4c247a}{%
+           family={Schneeweiss},
+           familyi={S\bibinitperiod},
+           given={Sebastian},
+           giveni={S\bibinitperiod}}}%
+        {{hash=c334fb8d389b58e3181a2acfef5eb8a2}{%
+           family={Polinski},
+           familyi={P\bibinitperiod},
+           given={Jennifer\bibnamedelima M.},
+           giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=9b53cae3a96802a72c129341194d003b}{%
+           family={Rassen},
+           familyi={R\bibinitperiod},
+           given={Jeremy\bibnamedelima A.},
+           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{93d71e5ba13538cfa76b5d6a2ce67801}
+      \strng{fullhash}{c569e3c75fd7e9136239c7839e600a07}
+      \strng{fullhashraw}{c569e3c75fd7e9136239c7839e600a07}
+      \strng{bibnamehash}{c569e3c75fd7e9136239c7839e600a07}
+      \strng{authorbibnamehash}{c569e3c75fd7e9136239c7839e600a07}
+      \strng{authornamehash}{93d71e5ba13538cfa76b5d6a2ce67801}
+      \strng{authorfullhash}{c569e3c75fd7e9136239c7839e600a07}
+      \strng{authorfullhashraw}{c569e3c75fd7e9136239c7839e600a07}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Computational Statistics \& Data Analysis}
+      \field{title}{Plasmode simulation for the evaluation of pharmacoepidemiologic methods in complex healthcare databases}
+      \field{volume}{72}
+      \field{year}{2014}
+      \field{pages}{219\bibrangedash 226}
+      \range{pages}{8}
+    \endentry
+    \entry{rinella2023aasld}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{4}{}{%
+        {{hash=2c86784e6e5db16944d9d24255517492}{%
+           family={Rinella},
+           familyi={R\bibinitperiod},
+           given={Mary\bibnamedelima E.},
+           giveni={M\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+        {{hash=15293295cf4b7dd2b890aaaf0d344dd6}{%
+           family={Neuschwander-Tetri},
+           familyi={N\bibinithyphendelim T\bibinitperiod},
+           given={Brent\bibnamedelima A.},
+           giveni={B\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=80216d11513be22bd6f83c92d0a5e6ab}{%
+           family={Siddiqui},
+           familyi={S\bibinitperiod},
+           given={Mohammad\bibnamedelima Shadab},
+           giveni={M\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=1bf82dd0f1bad54d77b3e712ab8b404a}{%
+           family={Abdelmalek},
+           familyi={A\bibinitperiod},
+           given={Manal\bibnamedelima F.},
+           giveni={M\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+      }
+      \strng{namehash}{2aaa3ad9144676dbff20d73d97a4b68b}
+      \strng{fullhash}{c9d5bb1bda7477e939da54270867311d}
+      \strng{fullhashraw}{c9d5bb1bda7477e939da54270867311d}
+      \strng{bibnamehash}{c9d5bb1bda7477e939da54270867311d}
+      \strng{authorbibnamehash}{c9d5bb1bda7477e939da54270867311d}
+      \strng{authornamehash}{2aaa3ad9144676dbff20d73d97a4b68b}
+      \strng{authorfullhash}{c9d5bb1bda7477e939da54270867311d}
+      \strng{authorfullhashraw}{c9d5bb1bda7477e939da54270867311d}
+      \field{extraname}{2}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Hepatology}
+      \field{number}{5}
+      \field{title}{{AASLD} Practice Guidance on the clinical assessment and management of nonalcoholic fatty liver disease}
+      \field{volume}{77}
+      \field{year}{2023}
+      \field{pages}{1797\bibrangedash 1835}
+      \range{pages}{39}
+      \verb{doi}
+      \verb 10.1097/HEP.0000000000000323
+      \endverb
+    \endentry
+    \entry{koutoukidis2019weightloss}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{5}{}{%
+        {{hash=f3fb408c36ae720530aeab9c7d98dc0f}{%
+           family={Koutoukidis},
+           familyi={K\bibinitperiod},
+           given={Dimitrios\bibnamedelima A.},
+           giveni={D\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=45ae07f334944a195dd7aceaae8a160e}{%
+           family={Astbury},
+           familyi={A\bibinitperiod},
+           given={Nerys\bibnamedelima M.},
+           giveni={N\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=4046494d90cb2094381490cef3c8b33b}{%
+           family={Tudor},
+           familyi={T\bibinitperiod},
+           given={Kate\bibnamedelima E.},
+           giveni={K\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+        {{hash=e2717757b6729448eefa25a514ee0747}{%
+           family={Morris},
+           familyi={M\bibinitperiod},
+           given={Elizabeth},
+           giveni={E\bibinitperiod}}}%
+        {{hash=32e565371240957fc7e5df22be402071}{%
+           family={Henry},
+           familyi={H\bibinitperiod},
+           given={John\bibnamedelima A.},
+           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{fa78f449b7bdd8ac7674ee4ee6d4dbcf}
+      \strng{fullhash}{93450a61187d30d013ae41ed4a402786}
+      \strng{fullhashraw}{93450a61187d30d013ae41ed4a402786}
+      \strng{bibnamehash}{93450a61187d30d013ae41ed4a402786}
+      \strng{authorbibnamehash}{93450a61187d30d013ae41ed4a402786}
+      \strng{authornamehash}{fa78f449b7bdd8ac7674ee4ee6d4dbcf}
+      \strng{authorfullhash}{93450a61187d30d013ae41ed4a402786}
+      \strng{authorfullhashraw}{93450a61187d30d013ae41ed4a402786}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{JAMA Internal Medicine}
+      \field{number}{9}
+      \field{title}{Association of weight loss interventions with changes in biomarkers of nonalcoholic fatty liver disease: a systematic review and meta-analysis}
+      \field{volume}{179}
+      \field{year}{2019}
+      \field{pages}{1262\bibrangedash 1271}
+      \range{pages}{10}
+    \endentry
+    \entry{lim2011reversal}{article}{}{}
+      \name{author}{6}{}{%
+        {{hash=976ebe587410b8b0cf946cc9cc6cca11}{%
+           family={Lim},
+           familyi={L\bibinitperiod},
+           given={E.\bibnamedelimi L.},
+           giveni={E\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+        {{hash=0af7b444c65d2efcc04252f3df8cda26}{%
+           family={Hollingsworth},
+           familyi={H\bibinitperiod},
+           given={K.\bibnamedelimi G.},
+           giveni={K\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=73987d2618c182eff7bafe43c3602f0d}{%
+           family={Aribisala},
+           familyi={A\bibinitperiod},
+           given={B.\bibnamedelimi S.},
+           giveni={B\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=6766677c670aa244ea8704d1305b419f}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={M.\bibnamedelimi J.},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=9b244fbe06341f6b5d9e338c6f03bd69}{%
+           family={Mathers},
+           familyi={M\bibinitperiod},
+           given={J.\bibnamedelimi C.},
+           giveni={J\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=96687293a6bacd111cb2a3c218f41763}{%
+           family={Taylor},
+           familyi={T\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{97a8f638803073dd6238fd26853f86f3}
+      \strng{fullhash}{4f13874a43611bfe44e850556a3d155f}
+      \strng{fullhashraw}{4f13874a43611bfe44e850556a3d155f}
+      \strng{bibnamehash}{4f13874a43611bfe44e850556a3d155f}
+      \strng{authorbibnamehash}{4f13874a43611bfe44e850556a3d155f}
+      \strng{authornamehash}{97a8f638803073dd6238fd26853f86f3}
+      \strng{authorfullhash}{4f13874a43611bfe44e850556a3d155f}
+      \strng{authorfullhashraw}{4f13874a43611bfe44e850556a3d155f}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Diabetologia}
+      \field{number}{10}
+      \field{title}{Reversal of type 2 diabetes: normalisation of beta cell function in association with decreased pancreas and liver triacylglycerol}
+      \field{volume}{54}
+      \field{year}{2011}
+      \field{pages}{2506\bibrangedash 2514}
+      \range{pages}{9}
+    \endentry
+    \entry{ahn2018cap}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{3}{}{%
+        {{hash=3c729f35b20cf90903f5960d95fe996c}{%
+           family={Ahn},
+           familyi={A\bibinitperiod},
+           given={Sang\bibnamedelima Bong},
+           giveni={S\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=26943e01b056c0cbba59df690d27e2c1}{%
+           family={Jun},
+           familyi={J\bibinitperiod},
+           given={Dae\bibnamedelima Won},
+           giveni={D\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=3e0c4950b86cecc332a524d77718c3d1}{%
+           family={Kang},
+           familyi={K\bibinitperiod},
+           given={Bo-Kyeong},
+           giveni={B\bibinithyphendelim K\bibinitperiod}}}%
+      }
+      \strng{namehash}{c91729215fab6c000a655ce72c7f9b8e}
+      \strng{fullhash}{0771d00752363af98711965b8269ed1f}
+      \strng{fullhashraw}{0771d00752363af98711965b8269ed1f}
+      \strng{bibnamehash}{0771d00752363af98711965b8269ed1f}
+      \strng{authorbibnamehash}{0771d00752363af98711965b8269ed1f}
+      \strng{authornamehash}{c91729215fab6c000a655ce72c7f9b8e}
+      \strng{authorfullhash}{0771d00752363af98711965b8269ed1f}
+      \strng{authorfullhashraw}{0771d00752363af98711965b8269ed1f}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Medicine}
+      \field{number}{50}
+      \field{title}{Optimal cutoff value for assessing changes in intrahepatic fat amount by using the controlled attenuation parameter in a longitudinal setting}
+      \field{volume}{97}
+      \field{year}{2018}
+      \field{pages}{e13636}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1097/MD.0000000000013636
+      \endverb
+    \endentry
+    \entry{kotronen2009prediction}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{5}{}{%
+        {{hash=b2452027bf26b24f701e8f8bba2ba6ca}{%
+           family={Kotronen},
+           familyi={K\bibinitperiod},
+           given={Anna},
+           giveni={A\bibinitperiod}}}%
+        {{hash=1ba5b4f616474cecc174ed9247c42cf4}{%
+           family={Peltonen},
+           familyi={P\bibinitperiod},
+           given={Markku},
+           giveni={M\bibinitperiod}}}%
+        {{hash=099340c4423cac65d305e351a9189c78}{%
+           family={Hakkarainen},
+           familyi={H\bibinitperiod},
+           given={Antti},
+           giveni={A\bibinitperiod}}}%
+        {{hash=efd9250b4be3a02523d462a5d6b754a8}{%
+           family={Sevastianova},
+           familyi={S\bibinitperiod},
+           given={Ksenia},
+           giveni={K\bibinitperiod}}}%
+        {{hash=896905200a385c6f2f199d98947a6dc0}{%
+           family={Bergholm},
+           familyi={B\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{0c8f17021f8fa1c8733c71bd9327084d}
+      \strng{fullhash}{f5cd806cdb7053575edea8a7c87c0c04}
+      \strng{fullhashraw}{f5cd806cdb7053575edea8a7c87c0c04}
+      \strng{bibnamehash}{f5cd806cdb7053575edea8a7c87c0c04}
+      \strng{authorbibnamehash}{f5cd806cdb7053575edea8a7c87c0c04}
+      \strng{authornamehash}{0c8f17021f8fa1c8733c71bd9327084d}
+      \strng{authorfullhash}{f5cd806cdb7053575edea8a7c87c0c04}
+      \strng{authorfullhashraw}{f5cd806cdb7053575edea8a7c87c0c04}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Gastroenterology}
+      \field{number}{3}
+      \field{title}{Prediction of non-alcoholic fatty liver disease and liver fat using metabolic and genetic factors}
+      \field{volume}{137}
+      \field{year}{2009}
+      \field{pages}{865\bibrangedash 872}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1053/j.gastro.2009.06.005
+      \endverb
+    \endentry
+    \entry{zhu2026nonobese}{article}{}{}
+      \name{author}{10}{}{%
+        {{hash=05bea7d45dffcabbfbd34f9422cb0e0f}{%
+           family={Zhu},
+           familyi={Z\bibinitperiod},
+           given={Yitong},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=df45acd933ec9101eeab9f07e9a6fdc7}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Yongshuai},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=f29c376e99ba904afa90c2ce9061e4d5}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Shenyu},
+           giveni={S\bibinitperiod}}}%
+        {{hash=5a1cb92dc789e714fb5aaf67809119a6}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={Jian},
+           giveni={J\bibinitperiod}}}%
+        {{hash=65afd11c8e50cacdbd6ae4f35d03e308}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Feng},
+           giveni={F\bibinitperiod}}}%
+        {{hash=92f7474e36f4f2b59a14e85c0e738e40}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Yan},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=df8c0ac5b08b8696e367397f0a92815a}{%
+           family={Shang},
+           familyi={S\bibinitperiod},
+           given={Jun},
+           giveni={J\bibinitperiod}}}%
+        {{hash=3320858ae802be2ffddf3248559df0b9}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Yongliang},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=adaa7bedfee485b213889071a759e87c}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Jizhou},
+           giveni={J\bibinitperiod}}}%
+        {{hash=dfbcfa414bf15501db8c9f885a36ec47}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Lianxin},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{44e6c80ed40de823d6fb87b719c49928}
+      \strng{fullhash}{286d700f2596c15a7c4f22f8ad663395}
+      \strng{fullhashraw}{286d700f2596c15a7c4f22f8ad663395}
+      \strng{bibnamehash}{44e6c80ed40de823d6fb87b719c49928}
+      \strng{authorbibnamehash}{44e6c80ed40de823d6fb87b719c49928}
+      \strng{authornamehash}{44e6c80ed40de823d6fb87b719c49928}
+      \strng{authorfullhash}{286d700f2596c15a7c4f22f8ad663395}
+      \strng{authorfullhashraw}{286d700f2596c15a7c4f22f8ad663395}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Medical Internet Research}
+      \field{title}{Hepatic steatosis severity prediction in nonobese individuals: machine learning model development and validation}
+      \field{volume}{28}
+      \field{year}{2026}
+      \field{pages}{e82529}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.2196/82529
+      \endverb
+    \endentry
+    \entry{asaturyan2022fli}{article}{}{}
+      \name{author}{6}{}{%
+        {{hash=7907e24f0bce9bdd20f873090a0a7d9c}{%
+           family={Asaturyan},
+           familyi={A\bibinitperiod},
+           given={Hykoush\bibnamedelima A.},
+           giveni={H\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=f24469b1f3ccd063ca59be3402895c7f}{%
+           family={Basty},
+           familyi={B\bibinitperiod},
+           given={Nicolas},
+           giveni={N\bibinitperiod}}}%
+        {{hash=c212310aadece17708f0810e5bc1cfe7}{%
+           family={Thanaj},
+           familyi={T\bibinitperiod},
+           given={Marjola},
+           giveni={M\bibinitperiod}}}%
+        {{hash=23ae7a43db498aace3ec804d8c30d2e5}{%
+           family={Whitcher},
+           familyi={W\bibinitperiod},
+           given={Brandon},
+           giveni={B\bibinitperiod}}}%
+        {{hash=1f53afb53e41d84384742915ad0717a1}{%
+           family={Thomas},
+           familyi={T\bibinitperiod},
+           given={E.\bibnamedelimi Louise},
+           giveni={E\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+        {{hash=aa4d7e1521241500a4780945e7ae6b48}{%
+           family={Bell},
+           familyi={B\bibinitperiod},
+           given={Jimmy\bibnamedelima D.},
+           giveni={J\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+      }
+      \strng{namehash}{86560691079eb51301f508a4bf35e025}
+      \strng{fullhash}{d668038cdac2413c6c142dbd3bc3d02e}
+      \strng{fullhashraw}{d668038cdac2413c6c142dbd3bc3d02e}
+      \strng{bibnamehash}{d668038cdac2413c6c142dbd3bc3d02e}
+      \strng{authorbibnamehash}{d668038cdac2413c6c142dbd3bc3d02e}
+      \strng{authornamehash}{86560691079eb51301f508a4bf35e025}
+      \strng{authorfullhash}{d668038cdac2413c6c142dbd3bc3d02e}
+      \strng{authorfullhashraw}{d668038cdac2413c6c142dbd3bc3d02e}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{PLoS ONE}
+      \field{number}{9}
+      \field{title}{Improving the accuracy of fatty liver index to reflect liver fat content with predictive regression modelling}
+      \field{volume}{17}
+      \field{year}{2022}
+      \field{pages}{e0273171}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1371/journal.pone.0273171
+      \endverb
+    \endentry
+    \entry{insitro2024ukb}{misc}{}{}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{medRxiv preprint}
+      \field{title}{Machine learning across multiple imaging and biomarker modalities in the {UK Biobank} improves genetic discovery for liver fat accumulation}
+      \field{year}{2024}
+      \verb{doi}
+      \verb 10.1101/2024.01.06.24300923
+      \endverb
+    \endentry
+    \entry{haas2021liverfat}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{3}{}{%
+        {{hash=7e22cc4f1786ae925ffc428a206ee705}{%
+           family={Haas},
+           familyi={H\bibinitperiod},
+           given={Mary\bibnamedelima E.},
+           giveni={M\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+        {{hash=19b80bc6dab65ca846264955d7b4f417}{%
+           family={Pirruccello},
+           familyi={P\bibinitperiod},
+           given={James\bibnamedelima P.},
+           giveni={J\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=f6662723f67cdf72c2d713d067d3dcd7}{%
+           family={Friedman},
+           familyi={F\bibinitperiod},
+           given={Samuel\bibnamedelima N.},
+           giveni={S\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+      }
+      \strng{namehash}{5050f95fd8bc18f7ec0636cabcf5bf28}
+      \strng{fullhash}{1ff4351861bf49eae81e380a3447b515}
+      \strng{fullhashraw}{1ff4351861bf49eae81e380a3447b515}
+      \strng{bibnamehash}{1ff4351861bf49eae81e380a3447b515}
+      \strng{authorbibnamehash}{1ff4351861bf49eae81e380a3447b515}
+      \strng{authornamehash}{5050f95fd8bc18f7ec0636cabcf5bf28}
+      \strng{authorfullhash}{1ff4351861bf49eae81e380a3447b515}
+      \strng{authorfullhashraw}{1ff4351861bf49eae81e380a3447b515}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Cell Genomics}
+      \field{number}{3}
+      \field{title}{Machine learning enables new insights into genetic contributions to liver fat accumulation}
+      \field{volume}{1}
+      \field{year}{2021}
+      \field{pages}{100066}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1016/j.xgen.2021.100066
+      \endverb
+    \endentry
+    \entry{petaja2016igfbp}{article}{}{}
+      \name{author}{7}{}{%
+        {{hash=92988767cebe9180aa5d7a23c10ad0f4}{%
+           family={Petäjä},
+           familyi={P\bibinitperiod},
+           given={Elina\bibnamedelima M.},
+           giveni={E\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=ad851c51964acd854d7726504a303608}{%
+           family={Zhou},
+           familyi={Z\bibinitperiod},
+           given={You},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=dc6b0458713128c62b213ee3ad8fca3b}{%
+           family={Havana},
+           familyi={H\bibinitperiod},
+           given={Marjo},
+           giveni={M\bibinitperiod}}}%
+        {{hash=099340c4423cac65d305e351a9189c78}{%
+           family={Hakkarainen},
+           familyi={H\bibinitperiod},
+           given={Antti},
+           giveni={A\bibinitperiod}}}%
+        {{hash=5a30eb7245205d0b22ac722a9ed9892c}{%
+           family={Lundbom},
+           familyi={L\bibinitperiod},
+           given={Nina},
+           giveni={N\bibinitperiod}}}%
+        {{hash=9175d6e14b9ae0168342785d0bcd59a4}{%
+           family={Ihalainen},
+           familyi={I\bibinitperiod},
+           given={Jari},
+           giveni={J\bibinitperiod}}}%
+        {{hash=f4cc2428dc30390e3f9f4f59f152a63d}{%
+           family={Yki-Järvinen},
+           familyi={Y\bibinithyphendelim J\bibinitperiod},
+           given={Hannele},
+           giveni={H\bibinitperiod}}}%
+      }
+      \strng{namehash}{662e597c8cfa242585c2fc581b41ff0c}
+      \strng{fullhash}{2798200a750c0e15f326f1b662b478c8}
+      \strng{fullhashraw}{2798200a750c0e15f326f1b662b478c8}
+      \strng{bibnamehash}{662e597c8cfa242585c2fc581b41ff0c}
+      \strng{authorbibnamehash}{662e597c8cfa242585c2fc581b41ff0c}
+      \strng{authornamehash}{662e597c8cfa242585c2fc581b41ff0c}
+      \strng{authorfullhash}{2798200a750c0e15f326f1b662b478c8}
+      \strng{authorfullhashraw}{2798200a750c0e15f326f1b662b478c8}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Scientific Reports}
+      \field{title}{Phosphorylated {IGFBP-1} as a non-invasive predictor of liver fat in {NAFLD}}
+      \field{volume}{6}
+      \field{year}{2016}
+      \field{pages}{24740}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1038/srep24740
+      \endverb
+    \endentry
+    \entry{chen2023shsi}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{3}{}{%
+        {{hash=38241eaee18102cab15a125b0654c7da}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=30bfa420d9d2563efbb8b447ec343834}{%
+           family={Yue},
+           familyi={Y\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=4d93961f7243e8dff5e3d5cbc19c1a2d}{%
+           family={Fu},
+           familyi={F\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{009ae0939de2e2902cbc6c9fa114de64}
+      \strng{fullhash}{76849fd150cc18e0a04f829dded9a082}
+      \strng{fullhashraw}{76849fd150cc18e0a04f829dded9a082}
+      \strng{bibnamehash}{76849fd150cc18e0a04f829dded9a082}
+      \strng{authorbibnamehash}{76849fd150cc18e0a04f829dded9a082}
+      \strng{authornamehash}{009ae0939de2e2902cbc6c9fa114de64}
+      \strng{authorfullhash}{76849fd150cc18e0a04f829dded9a082}
+      \strng{authorfullhashraw}{76849fd150cc18e0a04f829dded9a082}
+      \field{extraname}{2}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Endocrine Journal}
+      \field{title}{A prediction model of liver fat fraction and presence of non-alcoholic fatty liver disease ({NAFLD}) among patients with overweight or obesity}
+      \field{volume}{70}
+      \field{year}{2023}
+      \field{pages}{977\bibrangedash 985}
+      \range{pages}{9}
+      \verb{doi}
+      \verb 10.1507/endocrj.EJ23-0227
+      \endverb
+    \endentry
+    \entry{loomba2015heritability}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{3}{}{%
+        {{hash=322348b4200c8e079c115b92217adf2d}{%
+           family={Loomba},
+           familyi={L\bibinitperiod},
+           given={Rohit},
+           giveni={R\bibinitperiod}}}%
+        {{hash=d6245a65a4f74f475397ef4824731b70}{%
+           family={Schork},
+           familyi={S\bibinitperiod},
+           given={Nicholas},
+           giveni={N\bibinitperiod}}}%
+        {{hash=abbf38f827ae4c89b516c8eb24e26015}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Chi-Hua},
+           giveni={C\bibinithyphendelim H\bibinitperiod}}}%
+      }
+      \strng{namehash}{9495aab48dda694a498f8545a511862f}
+      \strng{fullhash}{6ac48df90994faf9e7344b6a537b10cc}
+      \strng{fullhashraw}{6ac48df90994faf9e7344b6a537b10cc}
+      \strng{bibnamehash}{6ac48df90994faf9e7344b6a537b10cc}
+      \strng{authorbibnamehash}{6ac48df90994faf9e7344b6a537b10cc}
+      \strng{authornamehash}{9495aab48dda694a498f8545a511862f}
+      \strng{authorfullhash}{6ac48df90994faf9e7344b6a537b10cc}
+      \strng{authorfullhashraw}{6ac48df90994faf9e7344b6a537b10cc}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Gastroenterology}
+      \field{number}{7}
+      \field{title}{Heritability of hepatic fibrosis and steatosis based on a prospective twin study}
+      \field{volume}{149}
+      \field{year}{2015}
+      \field{pages}{1784\bibrangedash 1793}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.1053/j.gastro.2015.08.011
+      \endverb
+    \endentry
+    \entry{shamswhite2023hei}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{4}{}{%
+        {{hash=c6f1f1ca0620acd901405ac4739a56b2}{%
+           family={Shams-White},
+           familyi={S\bibinithyphendelim W\bibinitperiod},
+           given={Marissa\bibnamedelima M.},
+           giveni={M\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=e186f48ee7728988c6d56b1fb96254b6}{%
+           family={Pannucci},
+           familyi={P\bibinitperiod},
+           given={TusaRebecca\bibnamedelima E.},
+           giveni={T\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+        {{hash=1074ff7ca78e4f243936c2611f978174}{%
+           family={Lerman},
+           familyi={L\bibinitperiod},
+           given={Jennifer\bibnamedelima L.},
+           giveni={J\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+        {{hash=bc946835d85cc695f962d1856edebd49}{%
+           family={Herrick},
+           familyi={H\bibinitperiod},
+           given={Kirsten\bibnamedelima A.},
+           giveni={K\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{1ed915cbb62aafaedcf3b1cc6f18a8ae}
+      \strng{fullhash}{f23b6a5cc2bfe6146b2b9eaac96edd42}
+      \strng{fullhashraw}{f23b6a5cc2bfe6146b2b9eaac96edd42}
+      \strng{bibnamehash}{f23b6a5cc2bfe6146b2b9eaac96edd42}
+      \strng{authorbibnamehash}{f23b6a5cc2bfe6146b2b9eaac96edd42}
+      \strng{authornamehash}{1ed915cbb62aafaedcf3b1cc6f18a8ae}
+      \strng{authorfullhash}{f23b6a5cc2bfe6146b2b9eaac96edd42}
+      \strng{authorfullhashraw}{f23b6a5cc2bfe6146b2b9eaac96edd42}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of the Academy of Nutrition and Dietetics}
+      \field{number}{9}
+      \field{title}{Healthy Eating Index-2020: review and update process to reflect the Dietary Guidelines for Americans, 2020--2025}
+      \field{volume}{123}
+      \field{year}{2023}
+      \field{pages}{1280\bibrangedash 1288}
+      \range{pages}{9}
+      \verb{doi}
+      \verb 10.1016/j.jand.2023.05.015
+      \endverb
+    \endentry
+    \entry{nitschke2026design}{article}{}{}
+      \name{author}{6}{}{%
+        {{hash=d90e2567c45bfac9c86dc52acfb0a633}{%
+           family={Nitschke},
+           familyi={N\bibinitperiod},
+           given={Anna-Katharina},
+           giveni={A\bibinithyphendelim K\bibinitperiod}}}%
+        {{hash=59e39e191880b18fcaaa147004c11c25}{%
+           family={Brandl},
+           familyi={B\bibinitperiod},
+           given={Carlos},
+           giveni={C\bibinitperiod}}}%
+        {{hash=c407f772b356c23279a271644d728cd2}{%
+           family={Egersdörfer},
+           familyi={E\bibinitperiod},
+           given={Fabian},
+           giveni={F\bibinitperiod}}}%
+        {{hash=43c37e1469649f117161b0cc14c5481a}{%
+           family={Görtz},
+           familyi={G\bibinitperiod},
+           given={Magdalena},
+           giveni={M\bibinitperiod}}}%
+        {{hash=920e3a9f85073b932e59c9dd69a27302}{%
+           family={Hohenfellner},
+           familyi={H\bibinitperiod},
+           given={Markus},
+           giveni={M\bibinitperiod}}}%
+        {{hash=604ca347b0838576e0972c83aad2ec33}{%
+           family={Weidemüller},
+           familyi={W\bibinitperiod},
+           given={Matthias},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{0fd920eff11ca3c0cf4948a3ba6d9a24}
+      \strng{fullhash}{424874924303bb0d1fd4c63789064d05}
+      \strng{fullhashraw}{424874924303bb0d1fd4c63789064d05}
+      \strng{bibnamehash}{424874924303bb0d1fd4c63789064d05}
+      \strng{authorbibnamehash}{424874924303bb0d1fd4c63789064d05}
+      \strng{authornamehash}{0fd920eff11ca3c0cf4948a3ba6d9a24}
+      \strng{authorfullhash}{424874924303bb0d1fd4c63789064d05}
+      \strng{authorfullhashraw}{424874924303bb0d1fd4c63789064d05}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{npj Health Systems}
+      \field{title}{Design for a digital twin in clinical patient care}
+      \field{volume}{3}
+      \field{year}{2026}
+      \field{pages}{11}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1038/s44401-025-00060-1
+      \endverb
+    \endentry
+    \entry{nye2023knowledge}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=d327310689ae9660b21faded0e122d42}{%
+           family={Nye},
+           familyi={N\bibinitperiod},
+           given={Logan},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{d327310689ae9660b21faded0e122d42}
+      \strng{fullhash}{d327310689ae9660b21faded0e122d42}
+      \strng{fullhashraw}{d327310689ae9660b21faded0e122d42}
+      \strng{bibnamehash}{d327310689ae9660b21faded0e122d42}
+      \strng{authorbibnamehash}{d327310689ae9660b21faded0e122d42}
+      \strng{authornamehash}{d327310689ae9660b21faded0e122d42}
+      \strng{authorfullhash}{d327310689ae9660b21faded0e122d42}
+      \strng{authorfullhashraw}{d327310689ae9660b21faded0e122d42}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{arXiv preprint arXiv:2307.04772}
+      \field{title}{Digital twins for patient care via knowledge graphs and closed-form continuous-time liquid neural networks}
+      \field{year}{2023}
+    \endentry
+    \entry{freeman2026traps}{misc}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{4}{}{%
+        {{hash=ff0f9c55443004350c1643914602f86b}{%
+           family={Freeman},
+           familyi={F\bibinitperiod},
+           given={Nikki\bibnamedelimb L.\bibnamedelimi B.},
+           giveni={N\bibinitperiod\bibinitdelim L\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=ea337ceece812153360cd90f41bbb7f2}{%
+           family={Zou},
+           familyi={Z\bibinitperiod},
+           given={Yating},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=1c5349cfebaf0047239b1f9461e05b7e}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={Kyungbok},
+           giveni={K\bibinitperiod}}}%
+        {{hash=2408c2f62587a453d5e2c174f7c82cb1}{%
+           family={Yu},
+           familyi={Y\bibinitperiod},
+           given={Chenyao},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{20a930c234a18a10e12817938a5ace4d}
+      \strng{fullhash}{20d16daf0fefa7c28ed677d34d476825}
+      \strng{fullhashraw}{20d16daf0fefa7c28ed677d34d476825}
+      \strng{bibnamehash}{20d16daf0fefa7c28ed677d34d476825}
+      \strng{authorbibnamehash}{20d16daf0fefa7c28ed677d34d476825}
+      \strng{authornamehash}{20a930c234a18a10e12817938a5ace4d}
+      \strng{authorfullhash}{20d16daf0fefa7c28ed677d34d476825}
+      \strng{authorfullhashraw}{20d16daf0fefa7c28ed677d34d476825}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{arXiv preprint arXiv:2607.27192}
+      \field{title}{The fidelity and feedback traps: the case for health digital twins as modular evolving causal systems}
+      \field{year}{2026}
+    \endentry
+    \entry{laudy2026counterfactual}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=73536f49cb6660a5e38a2d0dc36b4aa7}{%
+           family={Laudy},
+           familyi={L\bibinitperiod},
+           given={Olav},
+           giveni={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{73536f49cb6660a5e38a2d0dc36b4aa7}
+      \strng{fullhash}{73536f49cb6660a5e38a2d0dc36b4aa7}
+      \strng{fullhashraw}{73536f49cb6660a5e38a2d0dc36b4aa7}
+      \strng{bibnamehash}{73536f49cb6660a5e38a2d0dc36b4aa7}
+      \strng{authorbibnamehash}{73536f49cb6660a5e38a2d0dc36b4aa7}
+      \strng{authornamehash}{73536f49cb6660a5e38a2d0dc36b4aa7}
+      \strng{authorfullhash}{73536f49cb6660a5e38a2d0dc36b4aa7}
+      \strng{authorfullhashraw}{73536f49cb6660a5e38a2d0dc36b4aa7}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{arXiv preprint arXiv:2604.01325}
+      \field{title}{The digital twin counterfactual framework: a validation architecture for simulated potential outcomes}
+      \field{year}{2026}
+    \endentry
+    \entry{loesch2022substitution}{inproceedings}{}{}
+      \name{author}{6}{}{%
+        {{hash=008c292806a34f4c189372f66d3c5110}{%
+           family={Loesch},
+           familyi={L\bibinitperiod},
+           given={Jana},
+           giveni={J\bibinitperiod}}}%
+        {{hash=771041b5af437946a3d565f4cee4593f}{%
+           family={Meeckers},
+           familyi={M\bibinitperiod},
+           given={Louis},
+           giveni={L\bibinitperiod}}}%
+        {{hash=4e6371d9fed4d57fe2c2ac1b339bb741}{%
+           family={Lier},
+           familyi={L\bibinitperiod},
+           given={Ilse},
+           giveni={I\bibinitperiod},
+           prefix={van},
+           prefixi={v\bibinitperiod}}}%
+        {{hash=a1c5a012cac19eef48b488bd450af93c}{%
+           family={Boer},
+           familyi={B\bibinitperiod},
+           given={Alie},
+           giveni={A\bibinitperiod},
+           prefix={de},
+           prefixi={d\bibinitperiod}}}%
+        {{hash=93badcbcd9ff0747849763affb474199}{%
+           family={Dumontier},
+           familyi={D\bibinitperiod},
+           given={Michel},
+           giveni={M\bibinitperiod}}}%
+        {{hash=af2bfe6b44dbcd48fc758336f5b2e419}{%
+           family={Celebi},
+           familyi={C\bibinitperiod},
+           given={Remzi},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{add35ac90035af947acd1f167b258186}
+      \strng{fullhash}{aaf93626ec01c02ff7eb20e3183500e0}
+      \strng{fullhashraw}{aaf93626ec01c02ff7eb20e3183500e0}
+      \strng{bibnamehash}{aaf93626ec01c02ff7eb20e3183500e0}
+      \strng{authorbibnamehash}{aaf93626ec01c02ff7eb20e3183500e0}
+      \strng{authornamehash}{add35ac90035af947acd1f167b258186}
+      \strng{authorfullhash}{aaf93626ec01c02ff7eb20e3183500e0}
+      \strng{authorfullhashraw}{aaf93626ec01c02ff7eb20e3183500e0}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{CEUR Workshop Proceedings}
+      \field{title}{Automated Identification of Food Substitutions Using Knowledge Graph Embeddings}
+      \field{year}{2022}
+      \field{pages}{19\bibrangedash 28}
+      \range{pages}{10}
+    \endentry
+    \entry{carbonell1998mmr}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=4e523aba9ce388c6b542f2f6e52293c2}{%
+           family={Carbonell},
+           familyi={C\bibinitperiod},
+           given={Jaime},
+           giveni={J\bibinitperiod}}}%
+        {{hash=5a7bdcff9ed8ccf984fb863a5b17c7a0}{%
+           family={Goldstein},
+           familyi={G\bibinitperiod},
+           given={Jade},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{488667490aaee0d602674e7f0ff3fa66}
+      \strng{fullhash}{488667490aaee0d602674e7f0ff3fa66}
+      \strng{fullhashraw}{488667490aaee0d602674e7f0ff3fa66}
+      \strng{bibnamehash}{488667490aaee0d602674e7f0ff3fa66}
+      \strng{authorbibnamehash}{488667490aaee0d602674e7f0ff3fa66}
+      \strng{authornamehash}{488667490aaee0d602674e7f0ff3fa66}
+      \strng{authorfullhash}{488667490aaee0d602674e7f0ff3fa66}
+      \strng{authorfullhashraw}{488667490aaee0d602674e7f0ff3fa66}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 21st Annual International ACM SIGIR Conference on Research and Development in Information Retrieval}
+      \field{title}{The use of {MMR}, diversity-based reranking for reordering documents and producing summaries}
+      \field{year}{1998}
+      \field{pages}{335\bibrangedash 336}
+      \range{pages}{2}
+    \endentry
+    \entry{menichetti2023processing}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=c334c87e3b160f87dd550eedaeb2f14d}{%
+           family={Menichetti},
+           familyi={M\bibinitperiod},
+           given={Giulia},
+           giveni={G\bibinitperiod}}}%
+        {{hash=57ecaef9843e681a16bb1c048b310c5a}{%
+           family={Ravandi},
+           familyi={R\bibinitperiod},
+           given={Babak},
+           giveni={B\bibinitperiod}}}%
+        {{hash=d0d2ff2ac0c35065d5b7401063caebe1}{%
+           family={Mozaffarian},
+           familyi={M\bibinitperiod},
+           given={Dariush},
+           giveni={D\bibinitperiod}}}%
+        {{hash=15bacd7ddfc866c5dd96976d4b0244d5}{%
+           family={Barabási},
+           familyi={B\bibinitperiod},
+           given={Albert-László},
+           giveni={A\bibinithyphendelim L\bibinitperiod}}}%
+      }
+      \strng{namehash}{34a71b2f85f9b58b1defb5ee263e2cab}
+      \strng{fullhash}{87605ad589626713d71b7a84b940fb47}
+      \strng{fullhashraw}{87605ad589626713d71b7a84b940fb47}
+      \strng{bibnamehash}{87605ad589626713d71b7a84b940fb47}
+      \strng{authorbibnamehash}{87605ad589626713d71b7a84b940fb47}
+      \strng{authornamehash}{34a71b2f85f9b58b1defb5ee263e2cab}
+      \strng{authorfullhash}{87605ad589626713d71b7a84b940fb47}
+      \strng{authorfullhashraw}{87605ad589626713d71b7a84b940fb47}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Nature Communications}
+      \field{number}{1}
+      \field{title}{Machine learning prediction of the degree of food processing}
+      \field{volume}{14}
+      \field{year}{2023}
+      \field{pages}{2312}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1038/s41467-023-37457-1
+      \endverb
+    \endentry
+    \entry{atkinson2021gi}{article}{}{}
+      \name{author}{5}{}{%
+        {{hash=26e1cde399e5e94d8b8fc70c079c859b}{%
+           family={Atkinson},
+           familyi={A\bibinitperiod},
+           given={Fiona\bibnamedelima S.},
+           giveni={F\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=ee9a99f92a14a5a07b6032c92169cbae}{%
+           family={Brand-Miller},
+           familyi={B\bibinithyphendelim M\bibinitperiod},
+           given={Jennie\bibnamedelima C.},
+           giveni={J\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=e801fc00fc3993dfad80320f48cca8db}{%
+           family={Foster-Powell},
+           familyi={F\bibinithyphendelim P\bibinitperiod},
+           given={Kaye},
+           giveni={K\bibinitperiod}}}%
+        {{hash=5495a3de7dc49322584db5e913ca69de}{%
+           family={Buyken},
+           familyi={B\bibinitperiod},
+           given={Anette\bibnamedelima E.},
+           giveni={A\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+        {{hash=4817402a14335b633f89fa5f76715b6a}{%
+           family={Goletzke},
+           familyi={G\bibinitperiod},
+           given={Janina},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{8e6c644640fcaea4729bd3f4a72f9fe6}
+      \strng{fullhash}{94b0f51b6d0dd4e8a7679b81feceb6c6}
+      \strng{fullhashraw}{94b0f51b6d0dd4e8a7679b81feceb6c6}
+      \strng{bibnamehash}{94b0f51b6d0dd4e8a7679b81feceb6c6}
+      \strng{authorbibnamehash}{94b0f51b6d0dd4e8a7679b81feceb6c6}
+      \strng{authornamehash}{8e6c644640fcaea4729bd3f4a72f9fe6}
+      \strng{authorfullhash}{94b0f51b6d0dd4e8a7679b81feceb6c6}
+      \strng{authorfullhashraw}{94b0f51b6d0dd4e8a7679b81feceb6c6}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{American Journal of Clinical Nutrition}
+      \field{number}{5}
+      \field{title}{International tables of glycemic index and glycemic load values 2021: a systematic review}
+      \field{volume}{114}
+      \field{year}{2021}
+      \field{pages}{1625\bibrangedash 1632}
+      \range{pages}{8}
+    \endentry
+    \entry{dallaman2014simulator}{article}{}{}
+      \name{author}{6}{}{%
+        {{hash=ce572645e60dba9acb86cb57af51fa76}{%
+           family={Dalla\bibnamedelima Man},
+           familyi={D\bibinitperiod\bibinitdelim M\bibinitperiod},
+           given={Chiara},
+           giveni={C\bibinitperiod}}}%
+        {{hash=62f8e75370141f024caeb03ce8c99cf4}{%
+           family={Micheletto},
+           familyi={M\bibinitperiod},
+           given={Francesco},
+           giveni={F\bibinitperiod}}}%
+        {{hash=1fa9da126dd480188ac4129ee3ab77b3}{%
+           family={Lv},
+           familyi={L\bibinitperiod},
+           given={Dayu},
+           giveni={D\bibinitperiod}}}%
+        {{hash=0d1885d7d1b52fbd0491fdb0a2e83ff8}{%
+           family={Breton},
+           familyi={B\bibinitperiod},
+           given={Marc},
+           giveni={M\bibinitperiod}}}%
+        {{hash=0fa5c2c45c0b0db0fc0590053f24e956}{%
+           family={Kovatchev},
+           familyi={K\bibinitperiod},
+           given={Boris},
+           giveni={B\bibinitperiod}}}%
+        {{hash=eab96912d48c787987a3349c328f916a}{%
+           family={Cobelli},
+           familyi={C\bibinitperiod},
+           given={Claudio},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{5d50929966f3db00ed87c918a80aef58}
+      \strng{fullhash}{75da28a740a698e2034526fed2d94bd7}
+      \strng{fullhashraw}{75da28a740a698e2034526fed2d94bd7}
+      \strng{bibnamehash}{75da28a740a698e2034526fed2d94bd7}
+      \strng{authorbibnamehash}{75da28a740a698e2034526fed2d94bd7}
+      \strng{authornamehash}{5d50929966f3db00ed87c918a80aef58}
+      \strng{authorfullhash}{75da28a740a698e2034526fed2d94bd7}
+      \strng{authorfullhashraw}{75da28a740a698e2034526fed2d94bd7}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Diabetes Science and Technology}
+      \field{number}{1}
+      \field{title}{The {UVA/PADOVA} type 1 diabetes simulator: new features}
+      \field{volume}{8}
+      \field{year}{2014}
+      \field{pages}{26\bibrangedash 34}
+      \range{pages}{9}
+      \verb{doi}
+      \verb 10.1177/1932296813514502
+      \endverb
+    \endentry
+    \entry{hall2011energy}{article}{}{}
+      \name{author}{7}{}{%
+        {{hash=573030c022a50cad121797946087a9d6}{%
+           family={Hall},
+           familyi={H\bibinitperiod},
+           given={Kevin\bibnamedelima D.},
+           giveni={K\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=0536cb72c652f90de0ac5a0f9ff285e8}{%
+           family={Sacks},
+           familyi={S\bibinitperiod},
+           given={Gary},
+           giveni={G\bibinitperiod}}}%
+        {{hash=0a1c85fa03d23612ce58798fb224059d}{%
+           family={Chandramohan},
+           familyi={C\bibinitperiod},
+           given={Dhruva},
+           giveni={D\bibinitperiod}}}%
+        {{hash=dda9f79e830cc5d5a03f06a693c9824f}{%
+           family={Chow},
+           familyi={C\bibinitperiod},
+           given={Carson\bibnamedelima C.},
+           giveni={C\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=af4dd7ced67b798260302a20ffaa6567}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Y.\bibnamedelimi Claire},
+           giveni={Y\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=f7bb453a7bc592abeeb77978cce553b1}{%
+           family={Gortmaker},
+           familyi={G\bibinitperiod},
+           given={Steven\bibnamedelima L.},
+           giveni={S\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+        {{hash=06f8acd41178ab2e1e1c961884c57922}{%
+           family={Swinburn},
+           familyi={S\bibinitperiod},
+           given={Boyd\bibnamedelima A.},
+           giveni={B\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{151d12df695040233977fbd65f7b5a14}
+      \strng{fullhash}{b55a5ce59052e36d5ce3c793c37e874e}
+      \strng{fullhashraw}{b55a5ce59052e36d5ce3c793c37e874e}
+      \strng{bibnamehash}{151d12df695040233977fbd65f7b5a14}
+      \strng{authorbibnamehash}{151d12df695040233977fbd65f7b5a14}
+      \strng{authornamehash}{151d12df695040233977fbd65f7b5a14}
+      \strng{authorfullhash}{b55a5ce59052e36d5ce3c793c37e874e}
+      \strng{authorfullhashraw}{b55a5ce59052e36d5ce3c793c37e874e}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Lancet}
+      \field{number}{9793}
+      \field{title}{Quantification of the effect of energy imbalance on bodyweight}
+      \field{volume}{378}
+      \field{year}{2011}
+      \field{pages}{826\bibrangedash 837}
+      \range{pages}{12}
+    \endentry
+    \entry{lookahead2014eightyear}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=09584793654895f8010c1f57139df3c9}{%
+           family={{Look AHEAD Research Group}},
+           familyi={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{09584793654895f8010c1f57139df3c9}
+      \strng{fullhash}{09584793654895f8010c1f57139df3c9}
+      \strng{fullhashraw}{09584793654895f8010c1f57139df3c9}
+      \strng{bibnamehash}{09584793654895f8010c1f57139df3c9}
+      \strng{authorbibnamehash}{09584793654895f8010c1f57139df3c9}
+      \strng{authornamehash}{09584793654895f8010c1f57139df3c9}
+      \strng{authorfullhash}{09584793654895f8010c1f57139df3c9}
+      \strng{authorfullhashraw}{09584793654895f8010c1f57139df3c9}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Obesity}
+      \field{number}{1}
+      \field{title}{Eight-year weight losses with an intensive lifestyle intervention: the {Look AHEAD} study}
+      \field{volume}{22}
+      \field{year}{2014}
+      \field{pages}{5\bibrangedash 13}
+      \range{pages}{9}
+    \endentry
+    \entry{dpp2002}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=3b62c405b3bd38c15fc5d3e51e7e33ae}{%
+           family={{Diabetes Prevention Program Research Group}},
+           familyi={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{3b62c405b3bd38c15fc5d3e51e7e33ae}
+      \strng{fullhash}{3b62c405b3bd38c15fc5d3e51e7e33ae}
+      \strng{fullhashraw}{3b62c405b3bd38c15fc5d3e51e7e33ae}
+      \strng{bibnamehash}{3b62c405b3bd38c15fc5d3e51e7e33ae}
+      \strng{authorbibnamehash}{3b62c405b3bd38c15fc5d3e51e7e33ae}
+      \strng{authornamehash}{3b62c405b3bd38c15fc5d3e51e7e33ae}
+      \strng{authorfullhash}{3b62c405b3bd38c15fc5d3e51e7e33ae}
+      \strng{authorfullhashraw}{3b62c405b3bd38c15fc5d3e51e7e33ae}
+      \field{extraname}{1}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{New England Journal of Medicine}
+      \field{number}{6}
+      \field{title}{Reduction in the incidence of type 2 diabetes with lifestyle intervention or metformin}
+      \field{volume}{346}
+      \field{year}{2002}
+      \field{pages}{393\bibrangedash 403}
+      \range{pages}{11}
+    \endentry
+    \entry{wing2011modest}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{6}{}{%
+        {{hash=68ee1ecb2dd4474f771ad188788b7d2c}{%
+           family={Wing},
+           familyi={W\bibinitperiod},
+           given={Rena\bibnamedelima R.},
+           giveni={R\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=20216f801cd00c862193e83e159ba753}{%
+           family={Lang},
+           familyi={L\bibinitperiod},
+           given={Wei},
+           giveni={W\bibinitperiod}}}%
+        {{hash=89c9ff57329218e3184eb7fa4bb9f478}{%
+           family={Wadden},
+           familyi={W\bibinitperiod},
+           given={Thomas\bibnamedelima A.},
+           giveni={T\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=f89815764ce888a2fe5e59485764c68e}{%
+           family={Safford},
+           familyi={S\bibinitperiod},
+           given={Monika},
+           giveni={M\bibinitperiod}}}%
+        {{hash=017ecb13c3359fa4d9f0a6f3db50dada}{%
+           family={Knowler},
+           familyi={K\bibinitperiod},
+           given={William\bibnamedelima C.},
+           giveni={W\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=c768cf0c62548b0b1e55dd3298c3f4c4}{%
+           family={Bertoni},
+           familyi={B\bibinitperiod},
+           given={Alain\bibnamedelima G.},
+           giveni={A\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+      }
+      \strng{namehash}{a372a83d22d66967fa1bb73f0fee3c18}
+      \strng{fullhash}{81fe20fef8eb34fd2b4eef25a94e4bd8}
+      \strng{fullhashraw}{81fe20fef8eb34fd2b4eef25a94e4bd8}
+      \strng{bibnamehash}{81fe20fef8eb34fd2b4eef25a94e4bd8}
+      \strng{authorbibnamehash}{81fe20fef8eb34fd2b4eef25a94e4bd8}
+      \strng{authornamehash}{a372a83d22d66967fa1bb73f0fee3c18}
+      \strng{authorfullhash}{81fe20fef8eb34fd2b4eef25a94e4bd8}
+      \strng{authorfullhashraw}{81fe20fef8eb34fd2b4eef25a94e4bd8}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Diabetes Care}
+      \field{number}{7}
+      \field{title}{Benefits of modest weight loss in improving cardiovascular risk factors in overweight and obese individuals with type 2 diabetes}
+      \field{volume}{34}
+      \field{year}{2011}
+      \field{pages}{1481\bibrangedash 1486}
+      \range{pages}{6}
+    \endentry
+    \entry{eflm_bv}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=b551d0282b506ee050d0fd604dd5d85a}{%
+           family={{European Federation of Clinical Chemistry and Laboratory Medicine}},
+           familyi={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{b551d0282b506ee050d0fd604dd5d85a}
+      \strng{fullhash}{b551d0282b506ee050d0fd604dd5d85a}
+      \strng{fullhashraw}{b551d0282b506ee050d0fd604dd5d85a}
+      \strng{bibnamehash}{b551d0282b506ee050d0fd604dd5d85a}
+      \strng{authorbibnamehash}{b551d0282b506ee050d0fd604dd5d85a}
+      \strng{authornamehash}{b551d0282b506ee050d0fd604dd5d85a}
+      \strng{authorfullhash}{b551d0282b506ee050d0fd604dd5d85a}
+      \strng{authorfullhashraw}{b551d0282b506ee050d0fd604dd5d85a}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{https://biologicalvariation.eu}
+      \field{title}{{EFLM} Biological Variation Database}
+      \field{year}{2026}
+    \endentry
+    \entry{dpp2002lifestyle}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=3b62c405b3bd38c15fc5d3e51e7e33ae}{%
+           family={{Diabetes Prevention Program Research Group}},
+           familyi={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{3b62c405b3bd38c15fc5d3e51e7e33ae}
+      \strng{fullhash}{3b62c405b3bd38c15fc5d3e51e7e33ae}
+      \strng{fullhashraw}{3b62c405b3bd38c15fc5d3e51e7e33ae}
+      \strng{bibnamehash}{3b62c405b3bd38c15fc5d3e51e7e33ae}
+      \strng{authorbibnamehash}{3b62c405b3bd38c15fc5d3e51e7e33ae}
+      \strng{authornamehash}{3b62c405b3bd38c15fc5d3e51e7e33ae}
+      \strng{authorfullhash}{3b62c405b3bd38c15fc5d3e51e7e33ae}
+      \strng{authorfullhashraw}{3b62c405b3bd38c15fc5d3e51e7e33ae}
+      \field{extraname}{2}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Diabetes Care}
+      \field{number}{12}
+      \field{title}{The {Diabetes Prevention Program} ({DPP}): description of lifestyle intervention}
+      \field{volume}{25}
+      \field{year}{2002}
+      \field{pages}{2165\bibrangedash 2171}
+      \range{pages}{7}
+      \verb{doi}
+      \verb 10.2337/diacare.25.12.2165
+      \endverb
+    \endentry
+    \entry{lookahead2006intervention}{article}{}{}
+      \name{author}{12}{}{%
+        {{hash=09584793654895f8010c1f57139df3c9}{%
+           family={{Look AHEAD Research Group}},
+           familyi={L\bibinitperiod}}}%
+        {{hash=89c9ff57329218e3184eb7fa4bb9f478}{%
+           family={Wadden},
+           familyi={W\bibinitperiod},
+           given={Thomas\bibnamedelima A.},
+           giveni={T\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=7317715764f1b4a224d8d8d335ad2911}{%
+           family={West},
+           familyi={W\bibinitperiod},
+           given={Delia\bibnamedelima Smith},
+           giveni={D\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=b94b1e83f7642dff051a8d9d20e7dba0}{%
+           family={Delahanty},
+           familyi={D\bibinitperiod},
+           given={Linda},
+           giveni={L\bibinitperiod}}}%
+        {{hash=9b6d122ba84021f468a7fbd51b3c76a8}{%
+           family={Jakicic},
+           familyi={J\bibinitperiod},
+           given={John},
+           giveni={J\bibinitperiod}}}%
+        {{hash=b896a400a95bcad95751cc0be6b89bf9}{%
+           family={Rejeski},
+           familyi={R\bibinitperiod},
+           given={Jack},
+           giveni={J\bibinitperiod}}}%
+        {{hash=3a54ac7676c5797a61c3aca90955914b}{%
+           family={Williamson},
+           familyi={W\bibinitperiod},
+           given={Don},
+           giveni={D\bibinitperiod}}}%
+        {{hash=ebf6fce195360b3fb949364566910b4e}{%
+           family={Berkowitz},
+           familyi={B\bibinitperiod},
+           given={R.\bibnamedelimi I.},
+           giveni={R\bibinitperiod\bibinitdelim I\bibinitperiod}}}%
+        {{hash=77dfa7ffe9f2481ac3f3909cbddd836a}{%
+           family={Kelley},
+           familyi={K\bibinitperiod},
+           given={D.\bibnamedelimi E.},
+           giveni={D\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+        {{hash=b7edbce622633865c1267bc7a954cafb}{%
+           family={Tomchee},
+           familyi={T\bibinitperiod},
+           given={C.},
+           giveni={C\bibinitperiod}}}%
+        {{hash=e3eed2f6e70b5be0322552f3d0e9466e}{%
+           family={Hill},
+           familyi={H\bibinitperiod},
+           given={J.\bibnamedelimi O.},
+           giveni={J\bibinitperiod\bibinitdelim O\bibinitperiod}}}%
+        {{hash=0e7f0fed9ef8d523d97a42f580f61eb6}{%
+           family={Kumanyika},
+           familyi={K\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{d8bcad980216b8fa67e58dc1c334395f}
+      \strng{fullhash}{3a51326e8387a548da923475fbcb6c37}
+      \strng{fullhashraw}{3a51326e8387a548da923475fbcb6c37}
+      \strng{bibnamehash}{d8bcad980216b8fa67e58dc1c334395f}
+      \strng{authorbibnamehash}{d8bcad980216b8fa67e58dc1c334395f}
+      \strng{authornamehash}{d8bcad980216b8fa67e58dc1c334395f}
+      \strng{authorfullhash}{3a51326e8387a548da923475fbcb6c37}
+      \strng{authorfullhashraw}{3a51326e8387a548da923475fbcb6c37}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Obesity}
+      \field{number}{5}
+      \field{title}{The {Look AHEAD} study: a description of the lifestyle intervention and the evidence supporting it}
+      \field{volume}{14}
+      \field{year}{2006}
+      \field{pages}{737\bibrangedash 752}
+      \range{pages}{16}
+      \verb{doi}
+      \verb 10.1038/oby.2006.84
+      \endverb
+    \endentry
+  \enddatalist
+  \missing{dga2020}
+  \missing{flesch1948readability}
+  \missing{nchs2022mortality}
+  \missing{neiberg2012patterns}
+  \missing{nhanes3_ultrasound}
+  \missing{phe2018calories}
+  \missing{sterling2006fib4}
+  \missing{vovk2005conformal}
+  \missing{who2015sugars}
+  \missing{who2023satfat}
+  \missing{wong2013community}
+\endrefsection
+\endinput
+

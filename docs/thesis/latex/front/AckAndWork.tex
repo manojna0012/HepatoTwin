@@ -1,0 +1,21 @@
+
+\vbox{
+    \begin{minipage}[t][0.5\textheight][t]{\textwidth}
+        \chapter*{\huge Acknowledgment}
+        \addcontentsline{toc}{chapter}{Acknowledgment}
+
+        \lipsum[1]
+
+    \end{minipage}
+
+    % If you don't want a work distribution section, comment out the following lines
+    % and change the height of the minipage above to 1\textheight
+    \nointerlineskip
+    \begin{minipage}[b][0.5\textheight][t]{\textwidth}
+        {\let\clearpage\relax\chapter*{\huge Work Distribution}}
+
+
+        \lipsum[2]
+
+    \end{minipage}
+}
