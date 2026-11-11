@@ -7,6 +7,8 @@ import sys
 if __package__ in (None, ''):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+from functools import lru_cache
+
 import joblib
 import numpy as np
 import pandas as pd
@@ -33,15 +35,21 @@ def _validated_inputs(patients, model):
     return X
 
 
+@lru_cache(maxsize=8)
+def _load(path):
+    """A saved model, read from disk once per process (the files do not change while it runs)."""
+    return joblib.load(path)
+
+
 def predict_patients(patients, model_file=MODEL_FILE):
-    model = joblib.load(model_file)
+    model = _load(str(model_file))
     X = _validated_inputs(patients, model)
     return pd.Series(model.predict(X), index=patients.index, name='Predicted_CAP')
 
 
 def predict_steatosis(patients, classifier_file):
     """Calibrated probability that CAP reaches the classifier's cutoff."""
-    classifier = joblib.load(classifier_file)
+    classifier = _load(str(classifier_file))
     X = _validated_inputs(patients, classifier)
     return pd.Series(classifier.predict_proba(X), index=patients.index,
                      name=f'P_CAP_ge_{classifier.cutoff:g}')

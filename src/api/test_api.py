@@ -120,3 +120,26 @@ def test_current_inputs_and_json_helpers():
     assert without_cap({'p_cap248': 0.9, 'predicted_cap': 300, 'cap_interval_90': [1, 2],
                         'nested': [{'grade': 'S3', 'direction': 'down'}]}) == \
         {'p_cap248': 0.9, 'nested': [{'direction': 'down'}]}
+
+
+def test_saved_twin_is_returned_until_a_newer_visit(client, baseline):
+    pid = client.post('/patients', json={'label': 's', 'visit_date': '2026-09-12', 'measurements': baseline}).json()['id']
+    first = client.get(f'/patients/{pid}/twin').json()                    # no run yet: runs the twin
+    again = client.get(f'/patients/{pid}/twin').json()                    # saved: same run, no rerun
+    assert again['run_id'] == first['run_id'] and 'chance_a_lot_of_fat_pct' in again['twin']
+    client.post(f'/patients/{pid}/visits', json={'visit_date': '2026-10-12', 'measurements': {'BMXWT': baseline['BMXWT'] - 2}})
+    newer = client.get(f'/patients/{pid}/twin').json()                    # a newer visit: runs again
+    assert newer['run_id'] != first['run_id'] and newer['visit_date'] == '2026-10-12'
+
+
+def test_clinician_page_has_the_full_twin_but_not_the_whole_ranking(client, baseline):
+    pid = client.post('/patients', json={'label': 'c', 'visit_date': '2026-09-12', 'measurements': baseline}).json()['id']
+    page = client.get(f'/patients/{pid}/clinical').json()
+    twin = page['twin']
+    assert twin['current_state']['predicted_grade'] in ('S0', 'S1', 'S2', 'S3')
+    assert twin['cap_explanation']['raising'] and len(twin['scenarios']) == 2
+    assert 'ranked_recipes' not in twin and 0 < len(twin['top_recipes']) <= 10
+    assert page['timeline']['visits'][0]['predicted_cap'] > 0 and 'alerts' in page
+    patient = dict(app.dependency_overrides[current_user](), role='patient')
+    app.dependency_overrides[current_user] = lambda: patient                 # patients cannot open it
+    assert client.get(f'/patients/{pid}/clinical').status_code == 403

@@ -77,6 +77,8 @@ CREATE TABLE IF NOT EXISTS sessions (
 );
 CREATE INDEX IF NOT EXISTS visits_by_patient ON visits(patient_id, visit_date);
 CREATE INDEX IF NOT EXISTS runs_by_patient ON twin_runs(patient_id, visit_id);
+-- holds created_at too, so finding the latest run never reads the large result stored before it
+CREATE INDEX IF NOT EXISTS runs_latest ON twin_runs(patient_id, visit_id, id, created_at);
 """
 # Columns added after the first version: (table, column, definition).
 ADDED_COLUMNS = [
@@ -214,8 +216,21 @@ class Store:
                  'result': json.loads(r['result'])} for r in rows]
 
     def latest_run(self, patient_id):
-        runs = self.runs(patient_id)
-        return runs[-1] if runs else None
+        """The latest run of the latest visit that has one. Only that row is read, and its decoded result is
+        kept (runs never change once saved), because a run holds every ranked recipe and takes ~0.2 s to decode."""
+        row = self.conn.execute(
+            'SELECT r.id, r.visit_id, r.created_at FROM twin_runs r JOIN visits v ON v.id = r.visit_id '
+            'WHERE r.patient_id = ? ORDER BY v.visit_date DESC, v.id DESC, r.id DESC LIMIT 1', (patient_id,)).fetchone()
+        if row is None:
+            return None
+        # keyed by id, patient and time: SQLite reuses the ids of deleted runs
+        cache, key = self.__dict__.setdefault('_run_cache', {}), (row['id'], patient_id, row['created_at'])
+        if key not in cache:
+            text = self.conn.execute('SELECT result FROM twin_runs WHERE id = ?', (row['id'],)).fetchone()['result']
+            if len(cache) > 64:
+                cache.clear()
+            cache[key] = json.loads(text)
+        return {'id': row['id'], 'visit_id': row['visit_id'], 'created_at': row['created_at'], 'result': cache[key]}
 
     # ---------------- clinics and users ----------------
     def add_clinic(self, name, code):

@@ -13,6 +13,9 @@ The supplied R² 0.535 reproduces on its stratified split; the selected adapted
 candidate reaches 0.515 on the original split. Those scores are not directly
 comparable. The demo now always selects a held-out participant.
 
+**Dashboard:** to run the patient and clinician dashboard and give the demo, see
+[docs/RUN_AND_DEMO.md](docs/RUN_AND_DEMO.md) and [Dashboard](#dashboard-frontend) below.
+
 ## Combined 2017-2023 model
 
 **Scope.** The model is intended for patients aged 12-59. Its performance is
@@ -321,8 +324,9 @@ techniques and special equipment read from the instructions.
 
 `src/api/app.py` (FastAPI, SQLite in `src/api/db.py`) serves the journey:
 
-1. **Sign-in** without passwords (`src/api/auth.py`): a one-time code (shown in the response in this
-   prototype), then a bearer token. Patients see only their own record; clinicians see their clinic's
+1. **Sign-in** without passwords (`src/api/auth.py`): a one-time code, emailed when SMTP is set in `.env`
+   (`src/api/mailer.py`; reserved test domains such as example.org are never emailed and get the code in the
+   response), then a bearer token. Patients see only their own record; clinicians see their clinic's
    patients. Patients join a clinic with its code.
 2. **Sign-up** (`POST /patients`): measurements, cuisine and favourite dishes picked from
    `GET /dishes?cuisine=`, and food answers (`GET /food/questions`, `src/recipe_scoring/food_preferences.py`):
@@ -354,9 +358,45 @@ techniques and special equipment read from the instructions.
 7. **Clinician** (`GET /patients`, `GET /alerts`): patients sorted by alerts (plan awaiting approval,
    scarring risk, no progress at two check-ins despite reported effort (with what to check: a 3-day food
    diary, ordinary weight drift, medicines or thyroid), check-in overdue, no plan, no scarring check).
+   `GET /patients/{id}/clinical` gives the clinician's patient page in one call: the record, plans over time,
+   alerts, the full twin result for the latest visit (CAP estimate, grade and 90% interval, SHAP drivers,
+   scarring, label, notices, priorities, both scenarios, recipe explanations; the top 10 recipes instead of the
+   whole ranking) and the timeline with CAP values.
+8. **Saved runs and speed.** `GET /patients/{id}/twin` returns the saved run and reruns the twin only after a
+   newer visit (a run ranks every recipe and takes several seconds). The liver-fat model, the chances for given
+   inputs, the ingredient links and decoded runs are kept in memory, and the backend loads the recipes, model
+   and links in the background when it starts (`HEPATOTWIN_NO_WARMUP=1` turns this off).
+9. **Recipes for the pages** (`GET /recipes?ids=`): title, time, servings, nutrients per serving, ingredients,
+   method, the original link and a photo. RecipeDB has a food.com photo link for each recipe that the
+   collection did not keep; it is looked up the first time a recipe is shown and saved in
+   `data/app/recipe_images.json` (`src/api/recipe_images.py`).
 
 Limit found while building it: the 20,000-recipe sample has few main meals in some cuisines (Indian 13,
 against European 1,152, Asian 637, Mexican 308), so a seven-day plan cannot be filled for those cuisines.
+
+Demo accounts: `src/api/seed_demo.py` (a clinic, Dr. Rao and five held-out NHANES participants; `--reset`
+starts the patients again from sign-up). `src/api/remove_test_accounts.py --yes` removes accounts made by the
+browser tests.
+
+## Dashboard (frontend)
+
+`frontend/` is a React + TypeScript app (Vite) that talks to the backend through `/api`. Start both as in
+[docs/RUN_AND_DEMO.md](docs/RUN_AND_DEMO.md) and open http://localhost:5173.
+
+- **Patient:** sign-in with an emailed code; an eight-screen sign-up (measurements in NHANES units, cuisine,
+  favourite dishes, food rules); **Today** (next step, body measures, goals, the predict-measure-adjust band,
+  a My liver summary and today's meals with photos); **My liver** (a 3D liver beside the liver at 3, 6 or 12
+  months on the plan, coloured by the chance of a lot of fat, then the full results); choosing a pace and a
+  recipe style; **Meals** (the week and the shopping list, with a recipe panel); **My plan**; **Progress**
+  (weight against the expected range and the 12-month projection, chances over time, check-ins); **Check-in**.
+- **Clinician:** the patient list sorted by alerts, plan review and approval with a note, and the patient
+  page (CAP estimate and grade, SHAP drivers, scarring, label and notices, priorities, Scenario A vs B,
+  knowledge-graph explanations of the top recipes, plans and what the patient reads).
+- Patients see chances of liver fat, never the CAP point estimate or grade (R² 0.56 is too weak for a single
+  number); the clinician page shows both. Projections are labelled as simulations, not forecasts, and the 3D
+  liver as a drawing, not a scan.
+- Browser checks: `frontend/e2e/step3.mjs` (plan approval), `step4.mjs` (patient journey), `step5.mjs`
+  (3D liver), `step6.mjs` (clinician page), run with both servers up (headless Edge over CDP).
 
 ## NHANES III (Proposal 17.9)
 

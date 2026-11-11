@@ -103,7 +103,9 @@ def shopping_list(meals):
             if grams and fdc is not None and fdc == fdc:
                 kcal += grams / 100 * (food.kcal_100g.get(int(fdc)) or 0)
         stated = (meal.get('nutrition') or {}).get('calories')
-        share = stated / kcal if stated and kcal > 0 else 1 / (meal.get('servings') or 1)
+        share = stated / kcal if stated and kcal > 0 else 0
+        if not 0 < share <= 1:   # few ingredients linked: a serving can never need more than the whole recipe
+            share = 1 / (meal.get('servings') or 1)
         for name, grams, group in lines:
             groups.setdefault(name, group)
             if grams:

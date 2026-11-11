@@ -194,6 +194,7 @@ def _candidates():
     return list(zip(c.index, c.description, c.w))
 
 
+@lru_cache(maxsize=None)
 def auto_link(name):
     """(fdc_id, score) of the generic SR food that best shares the ingredient's words, or (None, score).
 
@@ -218,6 +219,7 @@ def auto_link(name):
     return (best, best_score) if best_score >= AUTO_MIN_SCORE else (None, best_score)
 
 
+@lru_cache(maxsize=4)          # 650 regex searches over SR Legacy; the file does not change while running
 def manual_links(path=MANUAL_FILE):
     """Hand-made links: ingredient name -> fdc_id (None for names deliberately left unlinked)."""
     food = sr_foods()
@@ -244,4 +246,5 @@ def link_table(names, path=MANUAL_FILE):
             how = 'automatic' if fdc_id else 'no match'
         rows.append({'ingredient': name, 'fdc_id': fdc_id, 'how': how, 'score': score,
                      'usda_description': food.description.get(fdc_id) if fdc_id else None})
-    return pd.DataFrame(rows).set_index('ingredient')
+    columns = ['ingredient', 'fdc_id', 'how', 'score', 'usda_description']   # no names: an empty table, not an error
+    return pd.DataFrame(rows, columns=columns).set_index('ingredient')

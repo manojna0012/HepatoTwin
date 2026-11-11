@@ -21,7 +21,9 @@ Two views of one twin run:
     .venv/Scripts/python.exe -m uvicorn src.api.app:app --reload
 """
 import math
+import os
 import re
+import threading
 from datetime import date
 from functools import lru_cache
 from typing import Literal, Optional
@@ -31,7 +33,7 @@ import pandas as pd
 from fastapi import Depends, FastAPI, Header, HTTPException
 from pydantic import BaseModel, Field, field_validator
 
-from src.api import auth, care
+from src.api import auth, care, mailer, recipe_images
 from src.api.db import DEFAULT_DB, Store, current_inputs
 from src.care_plan import PACES, MEAL_ANSWERS, WALK_ANSWERS, needs_approval, suggest
 from src.reassessment import WeightRule, projected_inputs
@@ -56,6 +58,8 @@ def known_measurements():
     columns = set(pd.read_csv(DATA_FILE, nrows=0).columns)
     if DIET_FILE.exists():
         columns |= set(pd.read_csv(DIET_FILE, nrows=0).columns)
+    # read by the safety notices, not the model: pregnancy (src/liver_labels.py guardrails)
+    columns |= {'RIDEXPRG'}
     return frozenset(columns) - ID_COLUMNS
 
 
@@ -230,6 +234,24 @@ app = FastAPI(title='HepatoTwin', version='0.2.0',
               description='Digital twin of liver fat with evidence-ranked recipes (research prototype).')
 
 
+def warm_up():
+    """Load the recipes, the liver-fat model and the ingredient links once, so the first visitor after a
+    restart does not wait for them (about a minute in all, done in the background)."""
+    from src.recipe_scoring.ingredient_amounts import link_table
+    try:
+        recipes = recipes_by_id()
+        layer2(full_inputs({}))
+        link_table(sorted({i.get('name_lc', '') for r in recipes.values() for i in r.get('ingredients') or []}))
+    except Exception as error:   # warming is only a speed-up; a failure here must never stop the server
+        print(f'warm-up skipped: {error}')
+
+
+@app.on_event('startup')
+def start_warm_up():
+    if os.environ.get('HEPATOTWIN_NO_WARMUP') != '1':
+        threading.Thread(target=warm_up, daemon=True).start()
+
+
 @lru_cache(maxsize=1)
 def default_store():
     return Store(DEFAULT_DB)
@@ -265,9 +287,17 @@ def health():
 
 @app.post('/auth/code')
 def request_code(body: Email, store: Store = Depends(get_store)):
+    """A one-time code: emailed when SMTP is set up in .env (src/api/mailer.py), otherwise returned here, as it
+    always is for reserved test addresses such as name@example.org."""
     code = auth.request_code(store, body.email)
-    return {'sent_to': body.email, 'code': code,
-            'delivery': 'Prototype: the code is shown here; a deployed service would email it.'}
+    if mailer.configured() and not mailer.is_test_address(body.email):
+        try:
+            mailer.send_code(body.email, code, auth.CODE_MINUTES)
+        except RuntimeError as error:
+            raise HTTPException(502, str(error))
+        return {'sent_to': body.email, 'delivery': 'email', 'expires_in_minutes': auth.CODE_MINUTES}
+    return {'sent_to': body.email, 'code': code, 'delivery': 'screen', 'expires_in_minutes': auth.CODE_MINUTES,
+            'note': 'Prototype: email is not set up, so the code is shown here.'}
 
 
 @app.post('/auth/session')
@@ -307,6 +337,26 @@ def dishes(cuisine: str, diet: str = 'anything', allergies: str = '', avoid: str
     split = lambda text: [x for x in text.split(',') if x.strip()]
     prefs = checked_food({'diet': diet, 'allergies': split(allergies), 'avoid': split(avoid)})
     return favourite_choices(list(_allowed(FoodPreferences.from_dict(prefs))), cuisine)
+
+
+@app.get('/recipes')
+def recipe_details(ids: str, user=Depends(current_user)):
+    """Details of recipes (comma-separated ids) for the recipe page: time, energy and nutrients per serving,
+    ingredients, steps and a link to the original."""
+    out, wanted = [], [x.strip() for x in ids.split(',') if x.strip()][:40]
+    images = recipe_images.image_urls([i for i in wanted if i in recipes_by_id()])
+    for rid in wanted:
+        r = recipes_by_id().get(rid)
+        if r is None:
+            continue
+        n = r.get('nutrition') or {}
+        out.append({'recipe_id': rid, 'title': r.get('title'), 'cuisine': r.get('cuisine'), 'total_time': r.get('total_time'),
+                    'servings': r.get('servings'), 'url': r.get('url'), 'image_url': images.get(rid) or None,
+                    'per_serving': {k: n.get(k) for k in ('calories', 'protein', 'carbohydrates', 'fat', 'saturated_fat',
+                                                          'sugar', 'fiber', 'sodium') if n.get(k) is not None},
+                    'ingredients': [i.get('ingredient_phrase') or i.get('name') for i in r.get('ingredients') or []],
+                    'instructions': r.get('instructions') or []})
+    return plain(out)
 
 
 # ---------------- patients and visits ----------------
@@ -465,12 +515,21 @@ def full_inputs(inputs):
     return dict.fromkeys(known_measurements(), float('nan')) | inputs
 
 
+@lru_cache(maxsize=2048)
+def _chances(key):
+    state = layer2(full_inputs(dict(key)))
+    return (round(100 * state['probabilities']['cap248']), round(100 * state['probabilities']['cap280']),
+            round(state['predicted_cap'], 1))
+
+
 def liver_chances(inputs, clinician):
-    state = layer2(full_inputs(inputs))
-    out = {'chance_some_fat_pct': round(100 * state['probabilities']['cap248']),
-           'chance_a_lot_of_fat_pct': round(100 * state['probabilities']['cap280'])}
+    """Chances of liver fat for these inputs. Remembered by input values, because the Progress and Today pages
+    ask for the same visits and projections each time and one model call takes about half a second."""
+    key = tuple(sorted((k, float(v)) for k, v in inputs.items() if v is not None and v == v))
+    some, a_lot, cap = _chances(key)
+    out = {'chance_some_fat_pct': some, 'chance_a_lot_of_fat_pct': a_lot}
     if clinician:
-        out['predicted_cap'] = round(state['predicted_cap'], 1)
+        out['predicted_cap'] = cap
     return out
 
 
@@ -529,6 +588,53 @@ def run_for_visit(patient_id: int, view: Literal['patient', 'clinician'] = 'pati
     body = twin if clinician else patient_view(twin)
     return {'run_id': run_id, 'visit_id': visit['id'], 'visit_date': visit['visit_date'], 'view': view,
             'inputs_last_measured': measured if clinician else None, 'twin': body}
+
+
+@app.get('/patients/{patient_id}/twin')
+def latest_twin(patient_id: int, view: Literal['patient', 'clinician'] = 'patient',
+                store: Store = Depends(get_store), user=Depends(current_user)):
+    """The saved twin run for the latest visit (instant); the twin runs again only when there is a newer visit
+    or no run yet, because a run takes several seconds (it ranks every recipe)."""
+    require_patient(store, patient_id, user)
+    clinician = check_view(view, user)
+    visits = store.visits(patient_id)
+    if not visits:
+        raise HTTPException(400, 'No visits yet.')
+    latest = max(visits, key=lambda v: (v['visit_date'], v['id']))
+    run = store.latest_run(patient_id)
+    if run is None or run['visit_id'] != latest['id']:
+        return run_for_visit(patient_id, view, None, store, user)
+    twin = run['result']
+    return {'run_id': run['id'], 'visit_id': latest['id'], 'visit_date': latest['visit_date'], 'view': view,
+            'inputs_last_measured': None, 'twin': twin if clinician else patient_view(twin)}
+
+
+CLINICAL_PARTS = ('layer2', 'current_state', 'uncertainty', 'cap_explanation', 'clinical', 'patient_state',
+                  'nutritional_priorities', 'scenarios', 'recipe_explanations', 'summary', 'recipes_withheld', 'scoring_status')
+
+
+@app.get('/patients/{patient_id}/clinical')
+def clinical_page(patient_id: int, store: Store = Depends(get_store), user=Depends(current_user)):
+    """Everything the clinician's patient page shows, in one call: the record, plans over time, alerts, the twin's
+    full result for the latest visit (CAP estimate and grade, its 90% interval, what raised or lowered it,
+    scarring, label, notices, priorities, both scenarios, recipe explanations) without the full recipe ranking
+    (the top 10 only), and the timeline with CAP values."""
+    auth.require_clinician(user)
+    patient = require_patient(store, patient_id, user)
+    if not store.visits(patient_id):
+        raise HTTPException(400, 'No visits yet.')
+    latest_twin(patient_id, 'clinician', store, user)            # runs the twin only if there is a newer visit
+    run = store.latest_run(patient_id)
+    twin = run['result']
+    _, _, measured = twin_inputs(store, patient_id)
+    top = [{k: r.get(k) for k in ('recipe_id', 'title', 'cuisine', 'overall', 'rank', 'meets_all_references', 'health_coverage')}
+           for r in twin.get('ranked_recipes', [])[:10]]
+    return plain({'patient': {**patient, 'visits': store.visits(patient_id)}, 'plan': store.plan(patient_id),
+                  'plans': store.plans(patient_id), **patient_status(store, patient_id),
+                  'run': {'id': run['id'], 'visit_id': run['visit_id'], 'created_at': run['created_at'],
+                          'inputs_last_measured': measured},
+                  'twin': {**{k: twin.get(k) for k in CLINICAL_PARTS}, 'top_recipes': top},
+                  'timeline': get_timeline(patient_id, 'clinician', store, user)})
 
 
 def week_for(store, patient_id):
