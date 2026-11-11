@@ -1,6 +1,6 @@
 """Causal knowledge graph of MASLD (Proposal section 5.3).
 
-A small, hand-written directed graph (data/evidence/causal_graph.csv, 14 links) of the well-known
+A small, hand-written directed graph (data/evidence/causal_graph.csv, 16 links) of the well-known
 causal direction of MASLD biology: diet and activity levers act on weight, insulin resistance and
 liver fat; liver fat drives injury and fibrosis; CAP, ALT and stiffness only measure them. Each link
 names its evidence rows (data/evidence/intervention_evidence.csv) or, where the evidence table has no
@@ -21,6 +21,7 @@ GRAPH_FILE = ROOT / 'data' / 'evidence' / 'causal_graph.csv'
 NODE_TYPES = {
     'energy_intake': 'lever', 'saturated_fat_intake': 'lever', 'added_sugar_intake': 'lever',
     'diet_quality': 'lever', 'physical_activity': 'lever', 'alcohol_intake': 'lever',
+    'ultra_processed_intake': 'lever', 'glycaemic_load': 'lever',
     'body_weight': 'mediator', 'insulin_resistance': 'mediator',
     'liver_fat': 'outcome', 'liver_injury': 'outcome', 'fibrosis': 'outcome',
     'CAP': 'measurement', 'ALT': 'measurement', 'liver_stiffness': 'measurement',
@@ -29,12 +30,14 @@ NODE_LABELS = {
     'energy_intake': 'energy intake', 'saturated_fat_intake': 'saturated fat intake',
     'added_sugar_intake': 'added sugar intake', 'diet_quality': 'Mediterranean-style diet quality',
     'physical_activity': 'physical activity', 'alcohol_intake': 'alcohol intake', 'body_weight': 'body weight',
+    'ultra_processed_intake': 'ultra-processed food', 'glycaemic_load': 'glycaemic load',
     'insulin_resistance': 'insulin resistance', 'liver_fat': 'liver fat', 'liver_injury': 'liver injury',
     'fibrosis': 'liver scarring (fibrosis)', 'CAP': 'CAP', 'ALT': 'ALT', 'liver_stiffness': 'liver stiffness',
 }
 # The Layer 3 priorities (src/recipe_scoring/evidence_rules.py) and the lever each one acts on.
 PRIORITY_LEVER = {'weight_management': 'energy_intake', 'limit_saturated_fat': 'saturated_fat_intake',
-                  'limit_excess_sugar': 'added_sugar_intake', 'diet_quality': 'diet_quality'}
+                  'limit_excess_sugar': 'added_sugar_intake', 'diet_quality': 'diet_quality',
+                  'limit_ultra_processed': 'ultra_processed_intake', 'lower_glycaemic_load': 'glycaemic_load'}
 STRENGTH_ORDER = ('STRONG', 'MODERATE', 'GUIDELINE RECOMMENDATION', 'WEAK / INCONCLUSIVE',
                   'OBSERVATIONAL ASSOCIATION')
 

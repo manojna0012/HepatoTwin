@@ -1,0 +1,63 @@
+{
+  "quit_cap": 0.4,
+  "calibration": {
+    "pattern_shares": {
+      "steady": 0.009813893436317,
+      "slipping": 0.676346266253465,
+      "regaining": 0.23183984031021806,
+      "dropping_out": 0.08199999999999999
+    },
+    "adherence_mean": 0.7,
+    "adherence_sd": 0.0018174024574839007,
+    "slip_months": 4.242789811518632,
+    "slip_floor": 0.0028651655116434197,
+    "regain_month_range": [
+      4,
+      9
+    ],
+    "dropout_month_range": [
+      2,
+      10
+    ],
+    "weight_response_sd": 0.3521108653032513,
+    "weight_drift_sd": 1.517151085566148,
+    "marker_response_sd": 0.5,
+    "shared_response_corr": 0.5,
+    "liver_response_sd": 0.5,
+    "max_liver_fat_fall": 0.9,
+    "min_pdff": 1.0
+  },
+  "adherence_by_trial": {
+    "look_ahead": 0.9981071124146021,
+    "dpp": 0.9976225161173158,
+    "vilar_gomez": 0.242567968075527
+  },
+  "loss": 25.15025880321232,
+  "evaluations": 10920,
+  "seed": 42,
+  "cohort_sizes": {
+    "look_ahead": 1159,
+    "dpp": 2229,
+    "vilar_gomez": 3059
+  },
+  "cohort_summary": {
+    "look_ahead": {
+      "age": 62.3,
+      "bmi": 33.7,
+      "weight_kg": 93.3,
+      "women_pct": 48.7
+    },
+    "dpp": {
+      "age": 53.4,
+      "bmi": 31.1,
+      "weight_kg": 87.3,
+      "women_pct": 49.2
+    },
+    "vilar_gomez": {
+      "age": 53.1,
+      "bmi": 31.3,
+      "weight_kg": 87.8,
+      "women_pct": 46.6
+    }
+  }
+}

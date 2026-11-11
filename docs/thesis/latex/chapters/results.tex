@@ -1,2 +1,587 @@
+<<<<<<< HEAD
 \chapter{Results}{\label{ch:results}}
 
+=======
+\chapter{Results}
+\label{chap:results}
+
+This chapter reports the evaluation of each component of HepatoTwin, in the
+order set out in Section~\ref{sec:m_eval}. Section~\ref{sec:r_layer2} covers
+the liver-state model, its uncertainty and the fibrosis triage;
+Section~\ref{sec:r_fairness} the fairness audit; Section~\ref{sec:r_nhanes3}
+the external and long-term validation on NHANES~III;
+Sections~\ref{sec:r_priorities}--\ref{sec:r_summary} the evidence engine, the
+recipe ranking engine and the plain-language summaries; and
+Sections~\ref{sec:r_calibration}--\ref{sec:r_insilico} the calibration of the
+simulator and the in-silico evaluation of the updating twin.
+Section~\ref{sec:r_overview} brings the results together. Unless stated,
+results are on held-out participants inside the model's scope (ages 12--59,
+reliable examination), intervals are 95\% bootstrap intervals, and figures are
+unweighted.
+
+% ======================================================================
+\section{Liver-State Model, Uncertainty and Fibrosis Triage}
+\label{sec:r_layer2}
+
+\subsection{Discrimination and calibration}
+
+The development of the model is reported in Chapter~\ref{chap:experiments};
+Table~\ref{tab:r_layer2} summarises the selected model on the 1{,}236 in-scope
+test participants. Both classifiers rank participants well (AUC 0.881 for CAP
+$\geq$ 248 and 0.879 for CAP $\geq$ 280) and are well calibrated: the expected
+calibration error is 0.018 and 0.022, so a stated probability of 30\% means
+about 30\% of such patients have that much liver fat. On the 1{,}100
+participants with every input to both scores, the CAP $\geq$ 248 classifier
+outperformed the Fatty Liver Index (0.861) and the Hepatic Steatosis Index
+(0.836), with paired differences that exclude zero
+(Chapter~\ref{chap:experiments}).
+
+\begin{table}[htbp]
+\centering
+\caption{Selected liver-state model on the in-scope test participants ($n = 1{,}236$).}
+\label{tab:r_layer2}
+\begin{tabular}{p{6.2cm}p{3.6cm}p{3.6cm}}
+\toprule
+Measure & CAP $\geq$ 248~dB/m & CAP $\geq$ 280~dB/m \\
+\midrule
+Prevalence & 0.506 & 0.340 \\
+ROC-AUC (95\% CI) & 0.881 (0.863--0.899) & 0.879 (0.860--0.898) \\
+Brier score & 0.140 & 0.132 \\
+Expected calibration error & 0.018 & 0.022 \\
+F1 at the decision threshold & 0.806 (threshold 0.432) & 0.713 (threshold 0.365) \\
+\midrule
+CAP $R^2$ (95\% CI) & \multicolumn{2}{l}{0.562 (0.517--0.601)} \\
+CAP RMSE (dB/m) & \multicolumn{2}{l}{41.4 (39.3--43.6)} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Uncertainty}
+
+The 90\% conformal interval for CAP is the estimate $\pm$66.6~dB/m. It
+contained the measured CAP for 90.9\% of in-scope test participants (target
+90\%): 93.8\% at ages 12--17, 90.8\% at 18--39 and 89.7\% at 40--59. The 80\%
+and 95\% intervals covered 80.1\% and 95.6\%. The interval is wide---it spans
+more than the distance between the S1 and S3 cut-offs---which is why patients
+are shown the calibrated probabilities instead of a CAP estimate. The
+bootstrap bands around the calibrated probabilities had a mean width of 0.054
+(CAP $\geq$ 248) and 0.051 (CAP $\geq$ 280), so the calibration step adds
+little uncertainty.
+
+\subsection{Fibrosis triage}
+
+Table~\ref{tab:r_fib4} compares FIB-4 with liver stiffness measured in the
+same FibroScan examination, for the 7{,}586 in-scope adults with a reliable
+reading. FIB-4 discriminates poorly in this young, community population (AUC
+0.59 for stiffness $\geq$ 8~kPa and 0.67 for $\geq$ 12~kPa), and its low
+cut-off misses most raised stiffness (sensitivity 20\% at 8~kPa). Its value is
+in ruling out: 92\% of adults with FIB-4 below 1.3 had stiffness below
+8~kPa, and 98\% below 12~kPa. The high cut-off is specific (99.6\%) but rare:
+0.9\% of adults were classed as high risk and 8.3\% as indeterminate. This is
+why the twin uses a reliable measured stiffness in place of FIB-4 whenever one
+is available, and why the summary tells young adults with probable liver fat
+that a low FIB-4 does not fully rule out scarring.
+
+\begin{table}[htbp]
+\centering
+\caption{FIB-4 against measured liver stiffness, in-scope adults with a reliable reading ($n = 7{,}586$; test partition alone, $n = 1{,}513$, in brackets).}
+\label{tab:r_fib4}
+\begin{tabular}{p{3.6cm}p{1.9cm}p{1.9cm}p{1.9cm}p{1.9cm}p{1.9cm}}
+\toprule
+Stiffness, rule & AUC & Sensitivity & Specificity & PPV & NPV \\
+\midrule
+$\geq$ 8~kPa, FIB-4 $\geq$ 1.3 & 0.59 (0.62) & 0.20 & 0.92 & 0.19 & 0.92 \\
+$\geq$ 8~kPa, FIB-4 $>$ 2.67 & & 0.05 & 0.996 & 0.54 & 0.92 \\
+$\geq$ 12~kPa, FIB-4 $\geq$ 1.3 & 0.67 (0.72) & 0.33 & 0.92 & 0.11 & 0.98 \\
+$\geq$ 12~kPa, FIB-4 $>$ 2.67 & & 0.12 & 0.994 & 0.39 & 0.97 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ======================================================================
+\section{Fairness Audit}
+\label{sec:r_fairness}
+
+Table~\ref{tab:r_fairness} reports the CAP $\geq$ 280 classifier by sex, race
+and ethnicity, and age. Discrimination is similar in every group: AUC ranges
+from 0.840 to 0.894 across sexes and ethnic groups, and every interval
+overlaps every other. It is highest at ages 12--17 (0.931) and lowest at
+40--59 (0.841), where liver fat is most common and harder to separate.
+
+Calibration differs by ethnicity. The mean probability was too high for
+non-Hispanic Black participants (0.337 against an observed share of 0.290; the
+interval of the difference, 0.002 to 0.093, excludes zero) and too low for
+non-Hispanic Asian participants (0.251 against 0.313; interval $-0.129$ to
+0.002, borderline). The pattern for Asian participants agrees with the known
+tendency to more liver fat at a lower BMI. The CAP $\geq$ 248 classifier showed
+the same direction for both groups, with intervals that included zero.
+
+\begin{table}[htbp]
+\centering
+\caption{CAP $\geq$ 280 classifier by group, in-scope test participants.}
+\label{tab:r_fairness}
+\begin{tabular}{p{4.2cm}rp{3cm}rr}
+\toprule
+Group & $n$ & AUC (95\% CI) & Mean probability & Observed share \\
+\midrule
+All in scope & 1{,}236 & 0.879 (0.859--0.896) & 0.336 & 0.340 \\
+Men & 583 & 0.889 (0.861--0.915) & 0.379 & 0.376 \\
+Women & 653 & 0.869 (0.838--0.894) & 0.299 & 0.308 \\
+Mexican American & 174 & 0.884 (0.831--0.930) & 0.435 & 0.477 \\
+Other Hispanic & 141 & 0.869 (0.809--0.921) & 0.291 & 0.291 \\
+Non-Hispanic White & 461 & 0.894 (0.866--0.920) & 0.337 & 0.343 \\
+Non-Hispanic Black & 241 & 0.876 (0.828--0.920) & 0.337 & 0.290 \\
+Non-Hispanic Asian & 134 & 0.840 (0.768--0.900) & 0.251 & 0.313 \\
+Other or multiracial & 85 & 0.859 (0.759--0.936) & 0.337 & 0.306 \\
+Ages 12--17 & 209 & 0.931 (0.887--0.969) & 0.142 & 0.144 \\
+Ages 18--39 & 512 & 0.872 (0.841--0.902) & 0.290 & 0.285 \\
+Ages 40--59 & 515 & 0.841 (0.804--0.875) & 0.461 & 0.474 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The recipe ranking treated groups alike. The share of top-ten recipes meeting
+all three criteria was 0.810 for men and 0.839 for women, between 0.800 and
+0.846 across the three ethnic groups with at least 30 patients, and between
+0.793 and 0.827 across age groups, with overlapping intervals; every top-ten
+recipe met every health reference in every group.
+
+% ======================================================================
+\section{External and Long-Term Validation on NHANES III}
+\label{sec:r_nhanes3}
+
+\subsection{Discrimination against ultrasound}
+
+On 10{,}682 adults examined 30 years before the training data, with a
+different reference standard and 30 of the 81 inputs missing, the model ranked
+moderate-to-severe steatosis on ultrasound better than the established scores
+computed from the same records (Table~\ref{tab:r_nhanes3}). Its AUC of 0.771 is
+lower than the 0.879 achieved against CAP in the training survey, as expected
+when the reference standard, the era and the available inputs all change, but
+it is above the Hepatic Steatosis Index (0.725) and, on the participants with
+GGT, the Fatty Liver Index (0.744 against 0.766 for the model). The AUC was
+0.783 in men and 0.755 in women, 0.787 in Mexican American and 0.790 in
+non-Hispanic White participants, and 0.690 in non-Hispanic Black participants,
+in whom moderate-to-severe steatosis was also least common (16\%). The mean
+probability (0.255) was close to the ultrasound share (0.207), and the share
+rose in every tenth of the probability from the fourth upwards.
+
+\begin{table}[htbp]
+\centering
+\caption{Moderate-to-severe steatosis on ultrasound, NHANES~III adults aged 20--59.}
+\label{tab:r_nhanes3}
+\begin{tabular}{p{7cm}rp{3.5cm}}
+\toprule
+Score & $n$ & AUC (95\% CI) \\
+\midrule
+HepatoTwin: probability of CAP $\geq$ 280 & 10{,}682 & 0.771 (0.759--0.782) \\
+Hepatic Steatosis Index & 10{,}055 & 0.725 (0.712--0.738) \\
+Waist circumference & 10{,}374 & 0.716 (0.703--0.728) \\
+BMI & 10{,}668 & 0.698 (0.686--0.712) \\
+\midrule
+\emph{Participants with GGT:} Fatty Liver Index & 7{,}649 & 0.744 (0.730--0.758) \\
+\emph{Participants with GGT:} HepatoTwin & 7{,}649 & 0.766 (0.752--0.780) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Long-term mortality}
+
+Over a median of 27.3 years, 2{,}173 of 10{,}671 linked participants died. The
+death rate rose with the model's probability: 4.0, 6.8, 7.9 and 13.8 deaths
+per 1{,}000 person-years from the lowest to the highest quarter.
+Table~\ref{tab:r_mortality} gives rate ratios adjusted for age and sex.
+Participants in the highest quarter had a 58\% higher all-cause death rate and
+more than twice the cardiovascular death rate of those in the lowest; cancer
+deaths did not differ. The model's probability separated cardiovascular
+mortality more strongly than the ultrasound grade itself, plausibly because it
+also carries metabolic risk from waist, glucose and triglycerides. A high FIB-4
+was associated with three times the all-cause death rate. These ratios are
+adjusted for age and sex only: smoking, alcohol and income were not mapped,
+and the public mortality file has no liver-related cause of death.
+
+\begin{table}[htbp]
+\centering
+\caption{Age- and sex-adjusted death rate ratios, NHANES~III (median follow-up 27.3 years).}
+\label{tab:r_mortality}
+\begin{tabular}{p{2.6cm}p{3.6cm}p{3.6cm}p{3.6cm}}
+\toprule
+Deaths & Highest vs lowest quarter of the probability & Ultrasound moderate--severe vs not & FIB-4 high vs low \\
+\midrule
+All-cause & 1.58 (1.38--1.81) & 1.29 (1.17--1.41) & 3.23 (2.47--4.23) \\
+Cardiovascular & 2.15 (1.64--2.81) & 1.35 (1.13--1.61) & 1.89 (1.01--3.54) \\
+Cancer & 1.00 (0.79--1.28) & 1.05 (0.88--1.26) & 2.63 (1.57--4.41) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ======================================================================
+\section{Evidence Engine}
+\label{sec:r_priorities}
+
+Among the 300 test participants of the ranking evaluation, the evidence engine
+produced 44 distinct priority profiles when the 24-hour recall was used, and
+the most common profile covered 8\% of patients. Without the recall, the same
+patients fell into 9 profiles and the most common covered 43\%: the patient's
+own intake is what makes the priorities personal.
+
+The priority levels change the recipes in the intended direction
+(Table~\ref{tab:r_response}). With a high saturated-fat priority the top ten
+averaged 3.87\% of energy from saturated fat, against 4.86\% with a low one;
+with a high sugar priority, 4.39\% from sugars against 4.62\%. Fibre did not
+follow the level, because almost every recommended recipe already exceeds the
+fibre reference by more than the margin counts.
+
+\begin{table}[htbp]
+\centering
+\caption{Mean composition of the top-ten recipes by priority level (300 patients).}
+\label{tab:r_response}
+\begin{tabular}{p{5cm}rrr}
+\toprule
+Measure (priority) & Low & Medium & High \\
+\midrule
+Saturated fat, \% of energy (limit saturated fat) & 4.86 & 3.78 & 3.87 \\
+Sugars, \% of energy (limit excess sugar) & 4.62 & 4.37 & 4.39 \\
+Fibre, g per 1{,}000~kcal (diet quality) & 24.9 & 35.3 & 32.3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ======================================================================
+\section{Recipe Evaluation and Ranking Engine}
+\label{sec:r_ranking}
+
+\subsection{Comparison with alternative rankings}
+
+Table~\ref{tab:r_methods} compares the proposed ranking with the alternatives
+on 300 held-out patients. The health-gated ranking with personal fit met all
+three criteria at once for 82.3\% of top-ten recipes, and every recommended
+recipe met every one of the patient's health references. Weighted scoring
+without the gate reached a higher share for cuisine and feasibility but met
+the health references for only 27.8\% of recipes, so only 27.2\% met all
+three: without the gate, convenient and familiar recipes displace healthy
+ones. Ranking on health alone met the references but rarely the patient's
+cuisine or the practical limits (2.2\%), and random selection almost never met
+all three (0.3\%). Diversity re-ranking raised the diversity of the list only
+slightly (0.963 against 0.949) at a small cost in practicality, so it is not
+the default.
+
+\begin{table}[htbp]
+\centering
+\caption{Share of top-ten recipes meeting each criterion, 300 held-out patients.}
+\label{tab:r_methods}
+\begin{tabular}{p{6.4cm}rrrrr}
+\toprule
+Method & Health & Cuisine & Feasibility & All three & Diversity \\
+\midrule
+Health-gated with personal fit (proposed) & 1.000 & 0.976 & 0.832 & \textbf{0.823} & 0.949 \\
+Health-gated without personal fit & 1.000 & 0.975 & 0.831 & 0.826 & 0.952 \\
+Health-gated with diversity re-ranking & 1.000 & 0.972 & 0.820 & 0.804 & 0.963 \\
+Health-gated without acceptability & 1.000 & 0.980 & 0.807 & 0.803 & 0.945 \\
+Weighted scoring, no gate & 0.278 & 0.998 & 0.957 & 0.272 & 0.948 \\
+Health score only & 1.000 & 0.068 & 0.300 & 0.022 & 0.963 \\
+Nutrition only (not personalised) & 1.000 & 0.074 & 0.300 & 0.022 & 0.968 \\
+Random & 0.057 & 0.053 & 0.596 & 0.003 & 0.962 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Across 36 combinations of the health, cuisine and feasibility weights, the
+median overlap of the top ten with the default was 0.78; it fell most when the
+cuisine weight was reduced to 0.1. The ranking is therefore not fragile to the
+exact weights, except that cuisine needs a meaningful share.
+
+\subsection{Personalisation}
+
+A review of sample summaries by the project team found that patients without
+food answers were offered almost the same dishes. Before personal fit, two
+patients of the same cuisine shared 93\% of their top-ten recipes, and 300
+patients received only 28 distinct lists (Table~\ref{tab:r_personal}). Adding
+personal fit, applied only to recipes that pass the health gate, made the
+lists clearly personal---124 distinct lists and 71\% overlap at weight
+0.4---while every recipe still met every health reference and the share
+meeting all three criteria barely changed (82.3\% against 82.6\%). The 120
+patients without a reliable recall keep the gated order, as nothing is known
+about their food; in use, every patient also gives favourite dishes and liked
+ingredients at sign-up.
+
+\begin{table}[htbp]
+\centering
+\caption{Personalisation of the top ten, 300 held-out patients.}
+\label{tab:r_personal}
+\begin{tabular}{p{5.2cm}rrrr}
+\toprule
+ & Without recall & With recall & Personal fit 0.2 & Personal fit 0.4 \\
+\midrule
+Distinct top-ten lists & 15 & 28 & 81 & \textbf{124} \\
+Overlap between patients of the same cuisine & 0.95 & 0.93 & 0.85 & \textbf{0.71} \\
+Top ten meeting all three criteria & -- & 0.826 & 0.834 & 0.823 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Weekly meal plans}
+
+Every one of the 300 seven-day plans was complete and met every weekly
+constraint: every meal and every day met the patient's references, no recipe
+was repeated beyond the limits, the two meals of each day had different
+protein families (six families a week on average), and every meal was in the
+patient's cuisine or a declared similar one. The requested cuisine alone
+filled 58\% of weeks; allowing a favourite to appear twice raised this to 80\%,
+and borrowing from similar cuisines completed the rest, with 0.2 borrowed
+meals per plan on average. Borrowing was needed almost only for Canadian
+recipes (98\% of those weeks), the smallest cuisine with too few qualifying
+meals. On average 81\% of planned meals met the practical limits.
+
+% ======================================================================
+\section{Plain-Language Summaries}
+\label{sec:r_summary}
+
+Every one of 300 summaries was faithful: each number and evidence citation
+appeared in the twin's facts (Table~\ref{tab:r_summaries}). The check caught
+every planted error that changed or added a number or invented a citation, and
+never flagged a harmless rewording. It cannot catch a wrong word that carries
+no number (``low'' written for ``high''), which it never caught; such errors
+are prevented by writing the summary from a template, and would need a
+separate check if a language model wrote the text.
+
+\begin{table}[htbp]
+\centering
+\caption{Plain-language summaries, 300 in-scope test patients, before and after the team's review.}
+\label{tab:r_summaries}
+\begin{tabular}{p{7.4cm}p{3cm}p{3cm}}
+\toprule
+Check & Before & After \\
+\midrule
+Faithful summaries & 100\% & 100\% \\
+Planted number changed, number added, citation invented: caught & 100\% & 100\% \\
+Planted harmless rewording: flagged & 0\% & 0\% \\
+Planted wrong word with no number: caught & 0\% & 0\% \\
+Flesch Reading Ease, median & 43 & 56.5 \\
+Flesch--Kincaid grade, median & 12.5 & 9.8 \\
+Evidence codes shown to the patient & Yes & No \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The team's review of ten summaries found that every statement matched the
+twin's output, but that the text was hard for a patient to use: evidence codes
+meant nothing to a lay reader, liver scarring and glycaemic load were not
+explained, scores were given without the published ranges, and two notices
+were shown where they did not apply (a teenager without liver fat told to see
+a doctor before changing diet, and a young adult without liver fat advised to
+ask about elastography). After the changes described in
+Section~\ref{sec:m_summary} the median reading grade fell from 12.5 to 9.8,
+while faithfulness was unchanged.
+
+% ======================================================================
+\section{Simulator Calibration}
+\label{sec:r_calibration}
+
+Table~\ref{tab:r_calibration} compares the tuned simulator with the published
+outcomes. The calibration targets were reproduced closely: Look AHEAD's
+one-year mean loss ($-8.4\%$ against $-8.6\%$), its spread and the shares
+losing 5\% and 10\%; the DPP's share reaching the 7\% goal at 24 weeks (49.9\%
+against 50\%); and the shape of the weight course and the weight-loss groups
+of Vilar-Gomez et al. The held-back targets show where the simulator is
+weaker: virtual Look AHEAD participants had kept off less weight at eight
+years than the real ones ($-1.9\%$ against $-4.7\%$), and DPP participants less
+at about three years (3.3~kg against 5.6~kg). The simulator therefore
+represents long-term maintenance pessimistically. For the twelve months
+evaluated here the first-year targets matter most, and these were met.
+
+\begin{table}[htbp]
+\centering
+\caption{Simulator outcomes against published trial results.}
+\label{tab:r_calibration}
+\begin{tabular}{p{7.6cm}p{1.6cm}rr}
+\toprule
+Outcome & Use & Published & Simulated \\
+\midrule
+Look AHEAD year 1, mean change, intensive (\% of weight) & Tuned & $-8.6$ & $-8.4$ \\
+Look AHEAD year 1, mean change, usual care (\%) & Tuned & $-0.6$ & $+0.1$ \\
+Look AHEAD year 1, lost $\geq$ 5\% / $\geq$ 10\%, intensive (\%) & Tuned & 68.0 / 37.7 & 66.9 / 39.7 \\
+DPP, reached the 7\% goal at 24 weeks (\%) & Tuned & 50.0 & 49.9 \\
+Vilar-Gomez, mean change at 52 weeks (\%) & Tuned & $-3.8$ & $-3.0$ \\
+Vilar-Gomez, lost $<$5 / 5--7 / 7--10 / $\geq$10\% (\%) & Tuned & 70 / 12 / 9 / 10 & 66 / 11 / 11 / 12 \\
+Vilar-Gomez, lost $\geq$ 5\% (\%) & Check & 30.0 & 33.8 \\
+Look AHEAD year-1 regain, third regaining most (points) & Selection & 1.5 & 2.0 \\
+\midrule
+Look AHEAD year 8, mean change, intensive (\%) & Held back & $-4.7$ & $-1.9$ \\
+Look AHEAD year 8, lost $\geq$ 5\% / $\geq$ 10\% (\%) & Held back & 50.3 / 26.9 & 40.9 / 29.4 \\
+DPP, met the goal at the last visit (\%) & Held back & 38.0 & 33.7 \\
+DPP, mean loss at about 3 years (kg) & Held back & 5.6 & 3.3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+With the adherence of routine advice to patients with fatty liver, the virtual
+cohort lost 1.7\% of its weight by month 3 on Scenario~A ($-500$~kcal a day)
+and 0.8\% by month 12, as most patients eased off; at month 12, 25.7\% were at
+least 5\% below their starting weight, against 15.6\% on usual diet, whose mean
+weight drifted up by 1.3\%. Mean CAP fell by 3.7~dB/m on Scenario~A and 2.2~dB/m on Scenario~B.
+
+% ======================================================================
+\section{In-Silico Evaluation of the Updating Twin}
+\label{sec:r_insilico}
+
+\subsection{Weight forecasts}
+
+Table~\ref{tab:r_forecasts} reports the twin's weight forecasts for adults on
+the two diet scenarios. The twin's error was 1.9~kg three months ahead and
+2.8~kg six months ahead, against 2.9 and 4.7~kg for the textbook curve that
+does not learn, and its 90\% ranges contained the true weight 91\% of the
+time, as a 90\% range should. Carrying the last weight forward was as accurate
+as the twin (1.9 and 2.7~kg), because in the calibrated simulator most
+patients ease off within months and their weight flattens; a flat forecast is
+hard to beat when weight truly is flat. Unlike the last weight, the twin also
+gives a calibrated range and a projection under each scenario. Without the
+patient's answers about what they followed, the six-month error rose from 2.77
+to 3.03~kg, so the check-in answers add information.
+
+\begin{table}[htbp]
+\centering
+\caption{Weight forecast error for adults (mean absolute error, kg) and coverage of the 90\% range.}
+\label{tab:r_forecasts}
+\begin{tabular}{p{3.4cm}rrrrrr}
+\toprule
+Forecast & $n$ & Twin & Textbook & Last weight & Twin coverage & Twin, no answers \\
+\midrule
+Month 3 $\to$ 6 & 1{,}996 & 1.92 & 2.89 & 1.88 & 0.916 & 2.08 \\
+Month 6 $\to$ 9 & 1{,}916 & 1.97 & 3.91 & 1.97 & 0.907 & 2.09 \\
+Month 6 $\to$ 12 & 1{,}916 & 2.77 & 4.70 & 2.71 & 0.907 & 3.03 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Learning.} The twin's three-month-ahead error stayed at about 1.9~kg
+from month 1 (1.98~kg) to month 9 (1.88~kg), while the textbook curve's error
+grew from 2.25 to 4.75~kg as patients drifted away from the textbook path; the
+twin's 90\% coverage stayed between 91\% and 93\%. Learning each patient's
+course therefore keeps the forecast accurate as the textbook assumption
+becomes less true, rather than reducing an already small error.
+
+\textbf{Robustness.} The six-month forecast error was 2.77~kg with honest
+answers, 2.81~kg with 30\% more missed visits, 2.91~kg with a scale reading
+within about 1~kg, 2.77~kg with answers inflated by each person's
+under-reporting, and 3.03~kg with no answers; coverage stayed between 0.89 and
+0.91. The twin degrades gracefully with noisier, biased or missing inputs.
+
+\subsection{Causes of slow progress and clinician alerts}
+
+When the twin judged a patient behind plan and named the plan as not followed,
+the patient's true adherence was below 0.4 every time (12{,}811 check-ins).
+When it named no progress despite effort, true adherence was 0.6 or more every
+time with honest answers, and 83.5\% of the time with over-reported answers.
+
+The twin could not, however, learn whether a patient's body responds slowly.
+The learned body response correlated only 0.03 to 0.06 with the true one:
+within twelve monthly weights, ordinary weight drift (about 1.3~kg per
+square-root month) is larger than the true difference between bodies (about
+20\%). An alert designed to flag slow bodies found them no better than chance
+(precision 0.26 against a base rate of 0.20; recall 0.02). This result changed
+the product: the alert now reports only what the twin observes---no progress
+at two check-ins despite reported effort---and lists what the clinician should
+check. Judged on that claim, 78\% of alerted patients were still behind plan at
+month 12, against 63\% of all patients. Behind the alerts lay ordinary weight
+drift (74\%) and a slow body (26\%), and, when answers were over-reported, also
+intake higher than reported (8\%), which the suggested food diary would reveal.
+
+\subsection{Detecting change}
+
+A patient who was truly behind plan was flagged at the same check-in in 96.5\%
+of cases and within a month in 99.4\%; 51 of 1{,}659 were never flagged, and
+no patient was flagged without truly being behind. Because the observed weight
+is the true weight in this simulation, detection here is limited only by the
+check-in schedule and missed visits; real scales add noise. Liver fat falling below 280~dB/m was harder to detect. Of 277
+patients on Scenario~A who started above it and were flagged at sign-up, 51
+truly fell below it within the year; the twin's probability fell below 0.5 for
+29 of them (median one month before the truth), but also for 46 patients whose
+CAP stayed above 280. Close to the threshold, a calibrated probability cannot
+place a person on one side.
+
+\subsection{Tracking liver fat}
+
+The probability of CAP $\geq$ 280, recomputed from the record the twin holds
+at each time, stayed accurate and calibrated over the year
+(Table~\ref{tab:r_liver}): its AUC was 0.88 at months 0, 6 and 12 on every
+scenario, and its mean stayed close to the true share as liver fat fell (0.31
+against 0.29 at month 12 on Scenario~A). At month 6, the twin's forecast of
+month 12 was better than reusing the sign-up probability (AUC 0.875 against
+0.868, Brier score 0.126 against 0.133) and its mean was right (0.294 against
+a true share of 0.291, where the sign-up probability gave 0.337). Across
+patients, the change in the probability from month 0 to month 12 followed the
+true change in CAP (Spearman correlation 0.79). Without follow-up blood tests,
+the month-12 AUC was unchanged (0.88), because in the simulator liver fat
+changes through weight and waist.
+
+\begin{table}[htbp]
+\centering
+\caption{Probability of CAP $\geq$ 280 against the simulated truth, Scenario~A ($n = 1{,}236$).}
+\label{tab:r_liver}
+\begin{tabular}{p{6.2cm}rrrr}
+\toprule
+Time & True share & Mean probability & AUC & Brier \\
+\midrule
+Month 0 & 0.338 & 0.336 & 0.879 & 0.132 \\
+Month 6 & 0.294 & 0.302 & 0.891 & 0.119 \\
+Month 12 & 0.290 & 0.310 & 0.880 & 0.124 \\
+Month 12, forecast at month 6 ($n = 1{,}149$) & 0.291 & 0.294 & 0.875 & 0.126 \\
+Month 12, sign-up probability reused ($n = 1{,}149$) & 0.291 & 0.337 & 0.868 & 0.133 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Ordering the scenarios}
+
+At sign-up the twin projects Scenario~A below Scenario~B below usual diet for
+every patient, and the simulated truth agreed for 95.6\% of adults. At month
+6, its forecasts of month-12 weight ordered Scenario~A and Scenario~B as the
+truth did for 95.6\% of patients. For liver fat the month-6 forecasts agreed
+with the true order for only 54\% of patients: the true difference in CAP
+between a 500 and a 250~kcal deficit after a year is small next to the
+variation between people, so the twin can rank the scenarios on average but not
+reliably for each person.
+
+% ======================================================================
+\section{Overview}
+\label{sec:r_overview}
+
+Table~\ref{tab:r_overview} brings the main results together. The liver-state
+model is accurate and calibrated on held-out patients, carries to a cohort 30
+years older with a different reference standard, and its probability
+predicts long-term cardiovascular death. The ranking engine is the only method
+whose recommendations always met the patient's health references, and personal
+fit made its lists personal without giving up any health rule. In simulation,
+the updating twin forecasts weight better than the textbook curve with
+calibrated ranges, notices when a patient falls behind, tracks liver fat over a
+year and degrades gracefully with poor data. The evaluation also exposed limits
+that shaped the system: a body's response to diet cannot be identified within a
+year, so the twin reports lack of progress rather than its cause; FIB-4 is weak
+in young community patients, so measured stiffness is preferred; the model is
+less well calibrated for some ethnic groups; and the first summaries were
+faithful but hard to read.
+
+\begin{table}[htbp]
+\centering
+\caption{Main results.}
+\label{tab:r_overview}
+\begin{tabular}{p{4.2cm}p{9.8cm}}
+\toprule
+Component & Result \\
+\midrule
+Liver-state model & AUC 0.881 / 0.879 (CAP $\geq$ 248 / 280), calibration error $\leq$ 0.022; above FLI and HSI \\
+Uncertainty & 90\% conformal interval covered 90.9\% \\
+Fairness & AUC 0.84--0.93 in every group; probability too high for non-Hispanic Black participants \\
+NHANES III & AUC 0.771 against ultrasound (HSI 0.725, FLI 0.744); highest quarter: 1.58$\times$ all-cause and 2.15$\times$ cardiovascular death \\
+Recipe ranking & 82.3\% of top-ten recipes meet all three criteria, 100\% meet every health reference; weighted scoring without the gate 27.2\% \\
+Personalisation & 124 distinct top-ten lists (28 without personal fit); same-cuisine overlap 71\% (93\%) \\
+Weekly plans & 100\% complete and meeting every constraint \\
+Summaries & 100\% faithful; reading grade 12.5 $\to$ 9.8 after review \\
+Twin forecasts (in silico) & 1.9 / 2.8~kg error three / six months ahead (textbook 2.9 / 4.7); 91\% coverage \\
+Twin causes and alerts & ``Plan not followed'' always correct; body response not identifiable (correlation 0.03--0.06) \\
+Liver tracking (in silico) & AUC 0.88 at months 0, 6 and 12; month-6 forecast beats the sign-up probability \\
+\bottomrule
+\end{tabular}
+\end{table}
+>>>>>>> c07f45ec22f6707d048f989b3f56b5180ae12beb

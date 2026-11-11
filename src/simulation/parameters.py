@@ -3,9 +3,11 @@ calibration will tune.
 
 Literature values are read from data/evidence/simulator_parameters.csv by their param_id, so
 every number in the simulation can be traced to a source row. Settings that no paper gives
-(adherence patterns, person-to-person spread) live in Calibration; their defaults are starting
-guesses, to be tuned against data/evidence/calibration_targets.csv (Weekly Plan, meeting 11).
+(adherence patterns, person-to-person spread) live in Calibration; its defaults are neutral starting
+guesses, and Calibration.tuned() gives the values chosen by calibration against
+data/evidence/calibration_targets.csv (Weekly Plan, meeting 11).
 """
+import json
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -16,6 +18,7 @@ from scipy.optimize import minimize_scalar
 ROOT = Path(__file__).resolve().parents[2]
 PARAMETER_FILE = ROOT / 'data' / 'evidence' / 'simulator_parameters.csv'
 TARGET_FILE = ROOT / 'data' / 'evidence' / 'calibration_targets.csv'
+CHOSEN_FILE = ROOT / 'data' / 'results' / 'simulation' / 'calibration' / 'chosen.json'
 KJ_PER_KCAL = 4.184
 
 
@@ -134,11 +137,22 @@ class Calibration:
     adherence_mean: float = 0.7        # starting adherence, the share of the prescribed change achieved
     adherence_sd: float = 0.15
     slip_months: float = 6.0           # time constant of the decline for 'slipping'
+    slip_floor: float = 0.0            # share of starting adherence a 'slipping' patient keeps (WT-ADH)
+    contact_months: float = 0.0        # intensive-contact phase before slipping starts (RX-CONTACT-*; 0 for
+                                       # routine advice and HepatoTwin's own scenarios); set per trial, not tuned
     regain_month_range: tuple = (4, 9)   # month adherence stops for 'regaining'
     dropout_month_range: tuple = (2, 10)  # month a 'dropping_out' patient stops (and stops reporting)
     weight_response_sd: float = 0.2    # person-to-person spread of the weight response (log scale)
+    weight_drift_sd: float = 0.0       # kg per sqrt(month): weight change unrelated to the prescribed diet
     marker_response_sd: float = 0.5    # spread of each marker's response around the published slope
     shared_response_corr: float = 0.5  # correlation of a person's responses across markers
     liver_response_sd: float = 0.5     # liver fat is only loosely tied to weight (LF-UNCOUPLED)
     max_liver_fat_fall: float = 0.9    # liver fat cannot fall by more than 90%
     min_pdff: float = 1.0              # % PDFF floor for the baseline liver-fat estimate
+
+    @classmethod
+    def tuned(cls, path=CHOSEN_FILE):
+        """The settings chosen by calibration (src/simulation/calibrate.py), with the starting adherence
+        of routine clinical advice (Vilar-Gomez) for HepatoTwin's own scenarios."""
+        settings = json.loads(Path(path).read_text())['calibration']
+        return cls(**{k: tuple(v) if isinstance(v, list) else v for k, v in settings.items()})

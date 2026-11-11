@@ -117,4 +117,37 @@ EVIDENCE_RULES = [
             "recipe_fields": ["sugar", "carbohydrates", "calories"],
         },
     },
+    {
+        "condition": _is("steatosis_likely"),
+        "candidate": {
+            "id": "limit_ultra_processed",
+            "title": "Prefer recipes made from less processed ingredients",
+            "priority": "low",
+            "reason": (
+                "The guideline advises limiting ultra-processed foods; in an inpatient "
+                "trial an ultra-processed diet led people to eat about 500 kcal a day "
+                "more. The link to liver fat runs through energy and weight, so the "
+                "priority is low."
+            ),
+            "evidence_id": "EASL-EASD-EASO-2024",
+            "evidence_ids": ["EASL2024-DIET", "HAL2019-UPF"],
+            "recipe_fields": ["ingredients"],
+        },
+    },
+    {
+        "conditions": [_is("steatosis_likely"), _is("elevated_glycaemia")],
+        "candidate": {
+            "id": "lower_glycaemic_load",
+            "title": "Prefer recipes with a lower glycaemic load",
+            "priority": "low",
+            "reason": (
+                "For raised blood sugar. One small trial in healthy men found more "
+                "liver fat after a week of high-GI food; the evidence is weak, so "
+                "the priority is low."
+            ),
+            "evidence_id": "Bawden-2017",
+            "evidence_ids": ["BAW2017-GI"],
+            "recipe_fields": ["ingredients", "carbohydrates"],
+        },
+    },
 ]

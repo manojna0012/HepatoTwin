@@ -47,7 +47,8 @@
     "health": 0.6,
     "cuisine": 0.2,
     "feasibility": 0.2,
-    "acceptability": 0.1
+    "acceptability": 0.1,
+    "personal_fit": 0.4
   },
   "simulated_cuisines": [
     "American",
@@ -64,11 +65,16 @@
     "steps": 12
   },
   "personalisation": {
-    "mean_pairwise_top10_overlap_same_cuisine": 0.9223067457209979,
-    "distinct_priority_profiles": 29,
-    "share_with_most_common_profile": 0.15666666666666668,
-    "distinct_top10_lists": 27,
-    "uses_24h_recall": true
+    "mean_pairwise_top10_overlap_same_cuisine": 0.7104374091061639,
+    "distinct_priority_profiles": 44,
+    "share_with_most_common_profile": 0.08333333333333333,
+    "distinct_top10_lists": 124,
+    "uses_24h_recall": true,
+    "patients_with_personal_fit": 180,
+    "without_personal_fit": {
+      "mean_pairwise_top10_overlap_same_cuisine": 0.9255173956818437,
+      "distinct_top10_lists": 28
+    }
   },
   "note": "Cuisine preferences are simulated; NHANES does not record them."
 }

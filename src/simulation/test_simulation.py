@@ -127,6 +127,10 @@ def test_adherence_patterns():
             assert np.allclose(path, 0.8)
         elif pattern == 'slipping':
             assert np.all(np.diff(path) < 0)
+            floored = adherence_path(traits, Calibration(slip_floor=0.5), months=60)
+            assert floored[-1] == pytest.approx(0.4, abs=1e-3) and np.all(floored >= 0.4)
+            held = adherence_path(traits, Calibration(contact_months=3))     # weekly sessions hold effort
+            assert np.allclose(held[:4], 0.8) and np.all(np.diff(held[3:]) < 0)
         else:
             assert np.all(path[:5] == 0.8) and np.all(path[5:] == 0)
 

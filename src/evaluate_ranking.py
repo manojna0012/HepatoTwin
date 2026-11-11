@@ -57,6 +57,7 @@ from src.recipe_scoring.practical_feasibility import techniques_and_equipment
 from src.recipe_scoring.multi_criteria import (DEFAULT_WEIGHTS, gated_health, is_candidate, rank_recipes,
                                                score_components)
 from src.recipe_scoring.patient_objective_generator import generate_patient_objectives
+from src.recipe_scoring.personal_fit import fit_scores, recipe_metrics
 from src.recipe_scoring.patient_state import derive_patient_state
 from src.recipe_scoring.recipe_criteria import CRITERIA, criteria_for, derived_metrics
 from src.twin_pipeline import CLASSIFIERS, _classifier, load_recipes
@@ -109,9 +110,11 @@ def components_table(candidates, objectives, cuisine):
         meets_health.append(item['meets_all_references'])
         margin.append(np.nan if item['health_margin'] is None else item['health_margin'])
         accept.append(item['scores'].get('acceptability', np.nan))
-    return {k: np.array(v) for k, v in dict(health=health, cuisine=cuisine_score, feasibility=feasibility,
-                                             meets_health=meets_health, ranked=ranked,
-                                             margin=margin, acceptability=accept).items()}
+    out = {k: np.array(v) for k, v in dict(health=health, cuisine=cuisine_score, feasibility=feasibility,
+                                            meets_health=meets_health, ranked=ranked,
+                                            margin=margin, acceptability=accept).items()}
+    out['personal_fit'] = np.full(len(candidates), np.nan)     # set per patient (personal_fit.py)
+    return out
 
 
 def weighted(table, weights):
@@ -192,10 +195,14 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--patients', type=int, default=300, help='Test participants to evaluate')
     parser.add_argument('--no-diet', action='store_true', help='Ignore the 24-hour recall (before run)')
+    parser.add_argument('--fit-weight', type=float, default=None, help='personal-fit weight to try (own output folder)')
     args = parser.parse_args()
     global OUTPUT_DIR
     if args.no_diet:
         OUTPUT_DIR = BEFORE_DIET_DIR
+    if args.fit_weight is not None:
+        DEFAULT_WEIGHTS['personal_fit'] = args.fit_weight
+        OUTPUT_DIR = OUTPUT_DIR.parent / f'{OUTPUT_DIR.name}_fit{round(100 * args.fit_weight):02d}'
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     rng = np.random.default_rng(SEED)
     plt.rcParams.update({'font.family': 'serif', 'font.serif': ['Times New Roman', 'DejaVu Serif'],
@@ -233,9 +240,11 @@ def main():
     accept = DEFAULT_WEIGHTS.get('acceptability', 0)   # held fixed across the grid
     profiles = cuisine_profiles(load_recipes())
     similar = {c: similar_cuisines(c, profiles) for c in cuisines}
-    method_rows, sensitivity_rows, assignments, top_lists, plan_rows = [], [], [], [], []
+    method_rows, sensitivity_rows, assignments, top_lists, plan_rows, plain_lists = [], [], [], [], [], []
     position = {rid: j for j, rid in enumerate(ids)}
     mmr_cache, plan_cache = {}, {}
+    metrics = recipe_metrics(candidates)
+    personalised = 0
 
     for n, i in enumerate(chosen, 1):
         cuisine = cuisines[rng.integers(len(cuisines))]
@@ -266,9 +275,18 @@ def main():
                                     cuisine_typicality=np.nanmean(typicality[cuisine][picks]),
                                     demanding_technique=demanding[picks].mean()))
 
+        plain = top_k(gated(table, DEFAULT_WEIGHTS), table['health'], ids)
+        fit = fit_scores(candidates, priorities[i], test.iloc[i].to_dict(), metrics=metrics)
+        if fit is not None:
+            personalised += 1
+            # personal fit counts only for recipes that pass every reference, as in personal_fit.personalise
+            table = dict(table, personal_fit=np.where(table['meets_health'], fit, np.nan))
+            key = key + (int(test.SEQN[i]),)
         base = top_k(gated(table, DEFAULT_WEIGHTS), table['health'], ids)
         record('Multi-criteria, health-gated (proposed)', base)
+        record('Multi-criteria, health-gated, without personal fit', plain)
         top_lists.append(list(ids[base]))
+        plain_lists.append(list(ids[plain]))
         assignments[-1]['top10'] = ';'.join(ids[base])
         if key not in mmr_cache:
             # Every recipe that meets the references can enter a plan (about 565).
@@ -302,7 +320,7 @@ def main():
         for _ in range(RANDOM_REPEATS):
             record('Random', rng.choice(pool, size=TOP_K, replace=False))
 
-        base_set = set(base)
+        base_set = set(plain)              # the weight grid varies the gated scoring without personal fit
         for weights in grid:
             picks = top_k(gated(table, {**weights, 'acceptability': accept}), table['health'], ids)
             sensitivity_rows.append(dict(SEQN=int(test.SEQN[i]), **weights,
@@ -340,7 +358,12 @@ def main():
                     distinct_priority_profiles=int(profiles.nunique()),
                     share_with_most_common_profile=float(profiles.value_counts(normalize=True).iloc[0]),
                     distinct_top10_lists=len({tuple(sorted(t)) for t in top_lists}),
-                    uses_24h_recall=not args.no_diet)
+                    uses_24h_recall=not args.no_diet,
+                    patients_with_personal_fit=personalised,
+                    without_personal_fit=dict(
+                        mean_pairwise_top10_overlap_same_cuisine=personalisation(
+                            plain_lists, [a['cuisine'] for a in assignments]),
+                        distinct_top10_lists=len({tuple(sorted(t)) for t in plain_lists})))
     profiles.value_counts().rename_axis('priorities').rename('participants').to_csv(
         OUTPUT_DIR / 'priority_profiles.csv')
     plans = pd.DataFrame(plan_rows)

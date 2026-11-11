@@ -1,0 +1,37 @@
+{
+  "chosen_from": "quit_cap_10",
+  "reason": "Of the quit caps 0.1-0.4, the one whose Look AHEAD third with the most regain regained closest to Neiberg 2012 Figure 1b (about 1.5 points): 1.29 at cap 0.1, 1.94 at 0.2, 2.58 at 0.3, 2.77 at 0.4. Fit to the calibration targets is similar for all caps (loss 25.2-27.9).",
+  "scenario_adherence_from": "vilar_gomez (routine clinical advice to patients with fatty liver)",
+  "calibration": {
+    "pattern_shares": {
+      "steady": 0.0038540511440307013,
+      "slipping": 0.8965688617196705,
+      "regaining": 0.017577087136298818,
+      "dropping_out": 0.08199999999999999
+    },
+    "adherence_mean": 0.34002953033640393,
+    "adherence_sd": 0.002098756139972421,
+    "slip_months": 4.414539293650707,
+    "slip_floor": 0.0011136364520445605,
+    "regain_month_range": [
+      4,
+      9
+    ],
+    "dropout_month_range": [
+      2,
+      10
+    ],
+    "weight_response_sd": 0.5117847648326863,
+    "weight_drift_sd": 1.4827736993607141,
+    "marker_response_sd": 0.5,
+    "shared_response_corr": 0.5,
+    "liver_response_sd": 0.5,
+    "max_liver_fat_fall": 0.9,
+    "min_pdff": 1.0
+  },
+  "adherence_by_trial": {
+    "look_ahead": 0.9994367390156514,
+    "dpp": 0.9990631700363364,
+    "vilar_gomez": 0.34002953033640393
+  }
+}

@@ -4,16 +4,29 @@
 This chapter describes how HepatoTwin is built and how it is evaluated.
 Section~\ref{sec:m_data} introduces the data: the NHANES FibroScan cohort,
 the patients' 24-hour dietary recalls, the recipe corpus and the external
+<<<<<<< HEAD
 NHANES~III cohort. Sections~\ref{sec:m_layer2} to \ref{sec:m_summary} mirror the different levels in
 Figure~\ref{fig:hepatotwin_overview} namely the model of liver state and its safety criteria (Layer~2), 
 the evidence engine (Layer~3), the recipe evaluation and prioritization engine (Layer~4), the scenario engine (Layer~5), 
 the loop for updating the twin based on incoming data, and the layperson's report. Section~\ref{sec:m_system} describes the software
+=======
+NHANES~III cohort. Sections~\ref{sec:m_layer2}--\ref{sec:m_summary} follow
+the layers of Figure~\ref{fig:hepatotwin_overview}: the liver-state model and
+its clinical safety checks (Layer~2), the evidence engine (Layer~3), the
+recipe evaluation and ranking engine (Layer~4), the scenario engine
+(Layer~5), the loop that updates the twin as new measurements arrive, and the
+plain-language summary. Section~\ref{sec:m_system} describes the software
+>>>>>>> c07f45ec22f6707d048f989b3f56b5180ae12beb
 system and the patient and clinician interfaces (Layers~6 and~7).
 Section~\ref{sec:m_eval} sets out how each component is evaluated, including
 the in-silico evaluation of the twin on virtual patients. The experiments
 behind the liver-state model are reported separately in
 Chapter~\ref{chap:experiments}; the results of every evaluation are given in
+<<<<<<< HEAD
 Chapter~ef{chap:results}.
+=======
+Chapter~ef{chap:results}.
+>>>>>>> c07f45ec22f6707d048f989b3f56b5180ae12beb
 
 % ======================================================================
 \section{Data}
@@ -54,10 +67,17 @@ Eating Index 2020 \cite{shamswhite2023hei}.
 
 A single day is a noisy measure of an individual's usual diet
 \cite{dodd2006usual}, and people under-report what they eat
+<<<<<<< HEAD
 \cite{subar2003open}. It is only in the event of NHANES judging the recall as reliable, 
 and also if the participant indicates that the day was normal, 
 that the recall may be considered (500--3{,}500~kcal for females, 800--4{,}000~kcal for males). Even in this case, 
 the recall can affect the ranking of diet by not more than one level 
+=======
+\cite{subar2003open}. A recall is therefore used only when NHANES marks it
+reliable, the participant reports that the day was about usual, and energy is
+plausible (500--3{,}500~kcal for women and 800--4{,}000~kcal for men). Even
+then the recall can move a dietary priority by at most one level
+>>>>>>> c07f45ec22f6707d048f989b3f56b5180ae12beb
 (Section~\ref{sec:m_layer3}). New users who are not NHANES participants type
 what they ate yesterday in plain words; each item is linked to a USDA SR
 Legacy food, converted to grams and summed into the same totals.
@@ -151,11 +171,21 @@ patient has had a clinical assessment.
 cardiometabolic risk factor is labelled MASLD; with an alcohol intake of
 140--350~g a week (women) or 210--420~g (men) MetALD; above that range
 alcohol-related liver disease; and without a risk factor cryptogenic.
+<<<<<<< HEAD
 Adolescents are checked against the nomenclature's paediatric criteria. This is simply a 
 research label that is used in the explanations and not a diagnosis. 
 \textbf{Safety notices.} Those below 18 years of age, patients who have consumed alcohol at or above the MetALD
  level, on glucose lowering drugs, or those who are pregnant will get a note asking to 
 consult a doctor before making any changes to the diet (Section~\ref{sec:m_update}).
+=======
+Adolescents are checked against the nomenclature's paediatric criteria. The
+label is a research label used in explanations, not a diagnosis.
+
+\textbf{Safety notices.} Patients under 18, with alcohol intake in the MetALD
+range or above, taking glucose-lowering medicine, or pregnant receive a notice
+to discuss diet changes with a clinician, and any plan they choose waits for a
+clinician's approval (Section~\ref{sec:m_update}).
+>>>>>>> c07f45ec22f6707d048f989b3f56b5180ae12beb
 
 % ======================================================================
 \section{Layer 3: Evidence Engine}
@@ -217,9 +247,15 @@ A small hand-written causal graph of 16 links encodes the well-established
 direction of MASLD biology: dietary and activity levers act on body weight,
 insulin resistance and liver fat; liver fat drives liver injury and fibrosis;
 CAP, ALT and liver stiffness only measure them. Each link names its evidence
+<<<<<<< HEAD
 rows. The graph confines the prioritization to the levers having a causal pathway 
 towards liver fat, and therefore the criteria of any recipe never focuses on any downstream 
 measurement such as ALT, and it provides the chain for every recommendation for the 
+=======
+rows. The graph restricts the priorities to levers with a causal path to
+liver fat, so no recipe criterion ever targets a downstream measurement such
+as ALT, and it supplies the chain behind each recommendation for the
+>>>>>>> c07f45ec22f6707d048f989b3f56b5180ae12beb
 explanations (Section~\ref{sec:m_layer4}).
 
 % ======================================================================
@@ -289,6 +325,7 @@ the recipe from the patient's 24-hour recall on the patient's own priorities
 (meal energy, saturated fat, sugar and fibre, each in units of the
 criterion's tolerance, capped at 1), and one minus the largest ingredient
 overlap (Jaccard index) with a favourite dish or the liked ingredients.
+<<<<<<< HEAD
 The personal fit is equal to 100 times (one minus this distance); 
 if there is no reliable recall or favorites then it is unknown. 
 \subsection{Health-gated ranking}
@@ -300,6 +337,20 @@ The weighted scoring alone allows such a trade-off. The ranking is, in this case
 rank above the rest, and the weight score ranks recipes within these categories. Both 
 processing and glycaemic load determine the score but are not 
 health gated since the evidence behind them is less conclusive.
+=======
+Personal fit is 100 times one minus this distance; without a reliable recall
+or favourites it is unknown.
+
+\subsection{Health-gated ranking}
+
+The overall score is the weighted mean of the criteria a recipe has, with
+weights renormalised over those present (Table~\ref{tab:m_weights}). Weighted
+scoring alone lets a recipe trade health for convenience or cuisine. The
+ranking is therefore \emph{health-gated}: recipes that meet every
+evidence-linked reference value rank ahead of all others, and the weighted
+score orders recipes within each group. Processing and glycaemic load shape
+the score but are not part of the gate, because their evidence is weaker.
+>>>>>>> c07f45ec22f6707d048f989b3f56b5180ae12beb
 
 Inside the gated group every health score would be 100 and the patient's
 priority levels would no longer matter. There, half of the health component
@@ -329,7 +380,11 @@ Personal fit & 0.4 & 0.267 \\
 The personal-fit weight was chosen on the evaluation of
 Section~\ref{sec:m_eval}: 0.4 made the top-ten lists of different patients
 clearly different while every recommended recipe still met every reference
+<<<<<<< HEAD
 value (Chapter~ef{chap:results}). The other weights were set in the proposal and tested for
+=======
+value (Chapter~ef{chap:results}). The other weights were set in the proposal and tested for
+>>>>>>> c07f45ec22f6707d048f989b3f56b5180ae12beb
 sensitivity over a grid of 36 combinations.
 
 \subsection{Explanations, diversity and weekly plans}
@@ -343,11 +398,19 @@ own output.
 A seven-day plan of two main meals a day is drawn greedily from the gated
 recipes, practical ones first, after re-ranking by maximal marginal relevance
 \cite{carbonell1998mmr} ($\lambda = 0.9$) so that near-duplicates do not fill
+<<<<<<< HEAD
 the list. The solution needs to meet the constraints on a weekly basis. This involves 
 meeting the requirements of each meal and each pair of daily meals based on the reference 
 values of the patient, the recipe appearing twice or not at all in the week and not consecutively, 
 there being a difference in protein families in daily meals, 
 and the absence of a dominant protein family in the week. If the cuisine
+=======
+the list. The plan must satisfy weekly constraints: every meal and every
+day's pair of meals meets the patient's reference values; a recipe appears at
+most twice and never on consecutive days; the two meals of a day have
+different main protein families, and no family dominates the week; and every
+meal is in the requested cuisine or a declared similar one. If the cuisine
+>>>>>>> c07f45ec22f6707d048f989b3f56b5180ae12beb
 cannot fill the week, a favourite may appear twice, and then recipes from the
 most similar cuisines (by ingredient profile) are borrowed and labelled as
 such. A shopping list adds up one serving of each planned meal.
@@ -414,11 +477,21 @@ $k$ with ordinary weight drift, set from the spread of weight change in Look
 AHEAD usual care and assumed to grow like a random walk. Progress is also
 judged against the plan from the start: from month 1.5, a patient who has
 lost less than half of the loss the plan typically gives is \emph{behind
+<<<<<<< HEAD
 plan}. It can be seen from the patient's responses that if the adherence level is low, 
 then the adherence to the regimen has not taken place, and vice versa. 
 \emph{Adjust.} Response variable $r$ is reassessed by Bayesian linear regression using the changes 
 in weight between visits from a weakly informative prior ($r = 1.0 \pm 0.7$), with 
 older values discounted due to adherence drift. The projection at 3, 6 and 12 months uses what has been learned, and
+=======
+plan}. The patient's answers give the cause: low adherence means the plan was
+not followed; good adherence means no progress despite effort.
+
+\emph{Adjust.} The response $r$ is re-estimated by Bayesian linear regression
+on the weight changes between visits, from a weakly informative prior
+($r = 1.0 \pm 0.7$), with older changes down-weighted because adherence
+drifts. The projection at 3, 6 and 12 months uses what has been learned, and
+>>>>>>> c07f45ec22f6707d048f989b3f56b5180ae12beb
 the liver projection re-runs Layer~2 with the projected weight, BMI and waist.
 A plan changed by the clinician part-way through is handled as a dated
 schedule of energy changes, so each month is judged against the plan in force
@@ -426,6 +499,7 @@ at that time.
 
 \subsection{Tips and alerts}
 
+<<<<<<< HEAD
 Every message follows from one rule on the twin's output. The patient that did not adhere 
 to the plan will be provided with more familiar recipes, while the one that adhered to 
 the plan will be advised to continue following it. After two consecutive follow-ups of 
@@ -434,6 +508,16 @@ intake greater than stated, regular fluctuations in weight, and medical issues l
 prescribed medication or hyperthyroidism. The alert does not claim the
 patient's body is slow: the in-silico evaluation showed that this cannot be
 told apart from weight drift within a year (Chapter~ef{chap:results}). A patient on plan
+=======
+Every message follows from one rule on the twin's output. A patient behind
+plan who did not follow it is offered recipes closer to their usual food; one
+who followed it is told to keep going, and after two such check-ins in a row
+the clinician receives an alert listing what to check: intake higher than
+reported (with a three-day food diary), ordinary weight drift, and medical
+causes such as new medicines or thyroid disease. The alert does not claim the
+patient's body is slow: the in-silico evaluation showed that this cannot be
+told apart from weight drift within a year (Chapter~ef{chap:results}). A patient on plan
+>>>>>>> c07f45ec22f6707d048f989b3f56b5180ae12beb
 with good adherence at two check-ins in a row is offered one step towards the
 healthiest recipes. Clinicians also see alerts for plans awaiting approval,
 indeterminate or high fibrosis risk, overdue check-ins and missing blood
@@ -443,6 +527,7 @@ tests.
 \section{Plain-Language Summary}
 \label{sec:m_summary}
 
+<<<<<<< HEAD
 The patient reads a short summary of the twin's output. It is produced solely 
 based on the facts computed by the twin, with all numbers being rounded up as 
 indicated: the probabilities of a few and a high amount of fat in the liver 
@@ -452,6 +537,16 @@ and the sources for those thresholds (with an indication where the score falls
 within 10\% of the threshold), any warnings about risks, and the importance of 
 criteria in clear language with the number of studies supporting each, and the 
 top recipes. Evidence codes, the CAP estimate and its interval are kept for the clinician's view.
+=======
+The patient reads a short summary of the twin's output. It is written only
+from a set of facts the twin computed, with every number rounded as shown: the
+chances of some and of a lot of liver fat (never shown as 0\% or 100\%), a
+plain verdict from the twin's yes/no decisions, the liver label, the fibrosis
+result with the published cut-offs and their source (and a note when a score
+lies within 10\% of a cut-off), any safety notices, the priorities in plain
+words with the number of studies behind each, and the top recipes. Evidence
+codes, the CAP estimate and its interval are kept for the clinician's view.
+>>>>>>> c07f45ec22f6707d048f989b3f56b5180ae12beb
 Notices about changing diet appear only when a diet change is suggested.
 
 A template writes the summary, and a language model can be plugged in
@@ -606,12 +701,21 @@ Vilar-Gomez et al., routine advice to patients with fatty liver.
 \textbf{Measures.} The twin runs month by month on the observed data with the
 patient's answers derived from the true adherence (honest answers) and, as a
 robustness check, inflated by each person's under-reporting share, or absent.
+<<<<<<< HEAD
 The performance of the model is judged by: predictions of the weight at months 3 
 and 6, 3 and 6 months ahead, compared to the textbook pattern without learning 
 and to the last carried forward weight (mean absolute error and coverage of the 
 90\% range); how the prediction error varies with the learning process from month 
 1 to month 9; the reasons given for the slow learning and warnings, compared to actual 
 adherence and body reaction; how many months it takes to detect a patient falling
+=======
+It is graded on: weight forecasts from months 3 and 6, 3 and 6 months ahead,
+against the textbook curve without learning and against the last weight
+carried forward (mean absolute error and coverage of the 90\% range); how
+forecast error changes as the twin learns, from month 1 to month 9; the
+causes it names for slow progress and its alerts, against the true adherence
+and body response; how many months it takes to detect a patient falling
+>>>>>>> c07f45ec22f6707d048f989b3f56b5180ae12beb
 behind and liver fat falling below 280~dB/m; the probability of CAP $\geq$
 280 at months 0, 6 and 12 against the true CAP (AUC, Brier score,
 calibration), and its month-6 forecast of month 12; robustness to more missed
@@ -619,4 +723,8 @@ visits, scale noise, over-reported answers and missing answers; and whether
 its projections order Scenario~A, Scenario~B and usual diet as the truth does.
 These results verify that the twin can update, track and adapt; they do not
 show that it predicts real patients, and almost all calibration trials were in
+<<<<<<< HEAD
 adults.
+=======
+adults.
+>>>>>>> c07f45ec22f6707d048f989b3f56b5180ae12beb

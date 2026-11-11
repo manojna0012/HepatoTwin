@@ -13,3 +13,5 @@ CG11,liver_injury,fibrosis,+,causes,VG2015-WL10-FIB,"Vilar-Gomez et al. 2015; EA
 CG12,liver_fat,CAP,+,is measured by,,"Wang et al., Dig Dis Sci 2020",CAP rises about 5 dB/m per point of MRI-PDFF
 CG13,liver_injury,ALT,+,is measured by,,"Koutoukidis et al. 2019",ALT is a marker of liver injury
 CG14,fibrosis,liver_stiffness,+,is measured by,,"EASL-EASD-EASO 2024 (8 and 12 kPa thresholds); Sterling et al. 2006 (FIB-4)",Stiffness and FIB-4 estimate fibrosis
+CG15,ultra_processed_intake,energy_intake,+,causes,HAL2019-UPF;EASL2024-DIET,"Hall et al., Cell Metabolism 2019; EASL-EASD-EASO 2024",An ultra-processed diet led people to eat about 500 kcal/day more
+CG16,glycaemic_load,liver_fat,+,causes,BAW2017-GI,"Bawden et al., Diabetes Obes Metab 2017","A week of high-GI food raised liver fat compared with low-GI food (small trial, healthy men)"

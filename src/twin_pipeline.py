@@ -30,6 +30,7 @@ from src.predict_cap import MODEL_FILE, predict_patients, predict_steatosis
 from src.recipe_scoring.recipe_explanation import explain_recipe
 from src.twin_summary import summarise
 from src.recipe_scoring.multi_criteria import DEFAULT_WEIGHTS
+from src.recipe_scoring.personal_fit import personalise
 from src.recipe_scoring.patient_state import derive_patient_state
 from src.recipe_scoring.patient_workflow import run_patient_workflow
 from src.recipe_scoring.scenario_engine import compare_scenarios, current_state, timeline
@@ -74,8 +75,9 @@ def layer2_uncertainty(state_model):
 
 
 def run_twin(patient, recipes=None, model_file=MODEL_FILE, weights=DEFAULT_WEIGHTS, preferences=None,
-             summary_generator=None):
-    """Run Layers 2-5 for one patient and return every intermediate result."""
+             summary_generator=None, favourites=()):
+    """Run Layers 2-5 for one patient and return every intermediate result. favourites: recipes the
+    patient picked as dishes they cook often, used to make Scenario B familiar."""
     patient = dict(patient)
     state_model = layer2(patient, model_file)
     state = derive_patient_state(patient, state_model['probabilities'], state_model['thresholds'])
@@ -86,11 +88,14 @@ def run_twin(patient, recipes=None, model_file=MODEL_FILE, weights=DEFAULT_WEIGH
                 'guardrails': guardrails(patient, fibrosis)}
     recipes = load_recipes() if recipes is None else recipes
     workflow = run_patient_workflow(state, recipes, weights=weights, preferences=preferences)
+    # recipes that pass every health reference are re-ordered by closeness to what the patient eats now
+    workflow['ranked_recipes'] = personalise(workflow['ranked_recipes'], recipes, workflow['nutritional_priorities'],
+                                             patient, favourites, weights)
     now = current_state(state_model)
     scenarios = []
     if workflow['ranked_recipes']:
         scenarios = compare_scenarios(workflow['ranked_recipes'], recipes,
-                                      workflow['nutritional_priorities'], patient)
+                                      workflow['nutritional_priorities'], patient, favourites=favourites)
         for scenario in scenarios:
             scenario['timeline'] = timeline(now, scenario)
     by_id = {str(r.get('recipe_id')): r for r in recipes}

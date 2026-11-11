@@ -7,6 +7,8 @@ scenarios (Weekly Plan, meeting 12). Outputs go to data/results/simulation/:
 - truth.csv.gz: one row per patient, scenario and month (the simulator's hidden truth)
 - traits.csv: one row per patient (adherence pattern and response multipliers)
 - summary.csv: cohort means by scenario and month, for checking against the trials
+- observed.csv.gz: what the twin sees (noisy, scheduled, under-reported, with missed visits)
+- reporting.csv: each person's food-log under-reporting shares
 
     .venv/Scripts/python.exe -m src.simulation.run_simulation
 """
@@ -17,6 +19,7 @@ from pathlib import Path
 import pandas as pd
 
 from src.simulation.cohort import month_zero
+from src.simulation.observe import ObservationDesign, observe_cohort
 from src.simulation.parameters import ROOT, Calibration, Evidence
 from src.simulation.simulator import simulate_cohort
 
@@ -51,7 +54,7 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
 
     cohort = month_zero()
-    ev, cal = Evidence.from_table(), Calibration()
+    ev, cal = Evidence.from_table(), Calibration.tuned()
     print(f'Month 0: {len(cohort)} in-scope test patients; weight time constant '
           f'{ev.weight_tau_months:.1f} months', flush=True)
     truth, traits = simulate_cohort(cohort, SCENARIOS, args.seed, ev, cal)
@@ -59,10 +62,15 @@ def main():
     traits.to_csv(out / 'traits.csv', index=False)
     summary = summarise(truth, cohort)
     summary.to_csv(out / 'summary.csv', index=False)
+    design = ObservationDesign()
+    observed, reporting, cap_sd = observe_cohort(truth, cohort, args.seed, design=design)
+    observed.to_csv(out / 'observed.csv.gz', index=False)
+    reporting.to_csv(out / 'reporting.csv', index=False)
     (out / 'run_info.json').write_text(json.dumps({
         'seed': args.seed, 'patients': len(cohort), 'scenarios': SCENARIOS,
         'weight_tau_months': ev.weight_tau_months, 'calibration': cal.__dict__,
-        'note': 'Calibration settings are starting guesses, not yet tuned to the trial targets.'},
+        'observation_design': design.__dict__, 'cap_error_sd': cap_sd,
+        'note': 'Calibration settings from data/results/simulation/calibration/chosen.json.'},
         indent=2, default=str))
     print(summary[summary.month.isin([0, 6, 12])].round(2).to_string(index=False))
 

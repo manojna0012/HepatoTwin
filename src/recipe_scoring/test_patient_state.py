@@ -17,12 +17,13 @@ def test_high_risk_patient_gets_graded_priorities():
                     "LBXGH": 6.1, "LBXSTR": 210, "LBDHDD": 35}
     found = priorities_for(measurements, {"cap248": 0.92, "cap280": 0.81})
 
-    assert set(found) == {"weight_management", "diet_quality",
-                          "limit_saturated_fat", "limit_excess_sugar"}
+    assert set(found) == {"weight_management", "diet_quality", "limit_saturated_fat", "limit_excess_sugar",
+                          "limit_ultra_processed", "lower_glycaemic_load"}
     assert found["weight_management"]["priority"] == "high"
     assert found["diet_quality"]["priority"] == "high"
     assert found["limit_saturated_fat"]["priority"] == "high"
     assert found["limit_excess_sugar"]["priority"] == "medium"
+    assert found["limit_ultra_processed"]["priority"] == found["lower_glycaemic_load"]["priority"] == "low"
     assert all(item["numeric_target"] is None for item in found.values())
 
 
@@ -35,6 +36,8 @@ def test_lean_patient_with_steatosis_gets_diet_but_not_weight_priorities():
     assert found["diet_quality"]["priority"] == "medium"
     assert found["limit_saturated_fat"]["priority"] == "medium"
     assert found["limit_excess_sugar"]["priority"] == "low"
+    assert found["limit_ultra_processed"]["priority"] == "low"
+    assert "lower_glycaemic_load" not in found                 # HbA1c 5.2%: blood sugar not raised
 
 
 def test_unlikely_steatosis_gives_no_liver_priorities():

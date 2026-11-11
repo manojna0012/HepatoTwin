@@ -7,7 +7,9 @@ For each month-0 patient and diet scenario the simulator generates months 0-12:
 2. Weight: Hall et al. (2011): each sustained 100 kJ/day changes weight by about 1 kg in the end,
    approached as a single exponential fitted to "half in a year, 95% in three years". Each person's
    eventual change and speed are scaled by their body fat (Hall's web appendix; body fat from BMI,
-   Deurenberg 1991): people with more fat lose more in the end, but more slowly.
+   Deurenberg 1991): people with more fat lose more in the end, but more slowly. On top of this,
+   weight drifts as a random walk unrelated to the prescribed diet (Calibration.weight_drift_sd),
+   as it did in the usual-care arm of Look AHEAD; the drift is the same in every scenario.
 3. Growth: patients aged 12-17 also grow along their own CDC weight and height centiles.
 4. Body and blood markers: waist, hip and arm change per kg; HbA1c, glucose, insulin, HDL,
    triglycerides and blood pressure change by a share of the patient's own baseline per 1% weight
@@ -67,49 +69,82 @@ def has_diabetes(row):
     return row.get('DIQ010') == 1 or (pd.notna(row.get('LBXGH')) and row['LBXGH'] >= DIABETES_HBA1C)
 
 
-def person_traits(seqn, seed, cal):
-    """Adherence pattern and response multipliers of one person, fixed across scenarios."""
+def trait_draws(seqn, seed, cal):
+    """The random numbers behind one person's traits, which do not depend on the tuned settings
+    (only on the stop-month ranges), so calibration can draw them once and reuse them."""
     rng = np.random.default_rng([seed, int(seqn)])
-    shares = np.array([cal.pattern_shares[p] for p in PATTERNS], dtype=float)
-    pattern = PATTERNS[rng.choice(len(PATTERNS), p=shares / shares.sum())]
+    pattern_u = rng.random()      # the uniform number Generator.choice(p=...) would use
     stop = {'regaining': int(rng.integers(cal.regain_month_range[0], cal.regain_month_range[1] + 1)),
             'dropping_out': int(rng.integers(cal.dropout_month_range[0], cal.dropout_month_range[1] + 1))}
-
-    def lognormal(sd, z):
-        return float(np.exp(sd * z - sd ** 2 / 2))   # mean 1
-
     shared = rng.standard_normal()
+    marker_z = {m: rng.standard_normal() for m in RESPONSES}
+    return {'pattern_u': pattern_u, 'stop': stop, 'shared': shared, 'marker_z': marker_z,
+            'adherence_z': rng.standard_normal(), 'weight_z': rng.standard_normal(),
+            'liver_z': rng.standard_normal()}
+
+
+def pattern_of(u, shares):
+    """Adherence pattern for a uniform number u, given the shares of each pattern."""
+    cdf = np.cumsum(shares, dtype=float)
+    return np.searchsorted(cdf / cdf[-1], u, side='right')
+
+
+def lognormal(sd, z):
+    return np.exp(sd * z - sd ** 2 / 2)       # mean 1
+
+
+def person_traits(seqn, seed, cal):
+    """Adherence pattern and response multipliers of one person, fixed across scenarios."""
+    d = trait_draws(seqn, seed, cal)
+    pattern = PATTERNS[pattern_of(d['pattern_u'], [cal.pattern_shares[p] for p in PATTERNS])]
     rho = cal.shared_response_corr
-    markers = {m: lognormal(cal.marker_response_sd, rho * shared + np.sqrt(1 - rho ** 2) * rng.standard_normal())
-               for m in RESPONSES}
+    markers = {m: float(lognormal(cal.marker_response_sd, rho * d['shared'] + np.sqrt(1 - rho ** 2) * z))
+               for m, z in d['marker_z'].items()}
     return {'pattern': pattern,
-            'adherence0': float(np.clip(rng.normal(cal.adherence_mean, cal.adherence_sd), 0, 1)),
-            'stop_month': stop.get(pattern),
-            'weight_response': lognormal(cal.weight_response_sd, rng.standard_normal()),
-            'liver_response': lognormal(cal.liver_response_sd, rng.standard_normal()),
+            'adherence0': float(np.clip(cal.adherence_mean + cal.adherence_sd * d['adherence_z'], 0, 1)),
+            'stop_month': d['stop'].get(pattern),
+            'weight_response': float(lognormal(cal.weight_response_sd, d['weight_z'])),
+            'liver_response': float(lognormal(cal.liver_response_sd, d['liver_z'])),
             'markers': markers}
 
 
-def adherence_path(traits, cal):
-    """Adherence during each month 0..MONTHS-1 (the month after each visit)."""
-    t = np.arange(MONTHS, dtype=float)
+def slipping_adherence(a0, t, cal):
+    """Effort of a 'slipping' patient in months t: full during a programme's intensive-contact phase
+    (cal.contact_months: weekly sessions in DPP and Look AHEAD; none for routine advice or an app),
+    then relaxing towards a lower, lasting effort."""
+    after = np.maximum(np.asarray(t, dtype=float) - cal.contact_months, 0.0)
+    return a0 * (cal.slip_floor + (1 - cal.slip_floor) * np.exp(-after / cal.slip_months))
+
+
+def adherence_path(traits, cal, months=MONTHS):
+    """Adherence during each month 0..months-1 (the month after each visit)."""
+    t = np.arange(months, dtype=float)
     a0, pattern = traits['adherence0'], traits['pattern']
-    if pattern == 'slipping':
-        return a0 * np.exp(-t / cal.slip_months)
+    if pattern == 'slipping':      # relaxes towards a lower, lasting effort (Hall 2011, Figure 4B)
+        return slipping_adherence(a0, t, cal)
     if pattern in ('regaining', 'dropping_out'):
         return np.where(t < traits['stop_month'], a0, 0.0)
-    return np.full(MONTHS, a0)
+    return np.full(months, a0)
 
 
 def weight_path(energy_change_kcal, adherence, response, ev, tau_months=None):
-    """Diet-driven weight change (kg) at months 0..MONTHS from Hall's rule, adherence varying by month.
-    `response` scales the eventual change; `tau_months` is the person's time constant."""
+    """Diet-driven weight change (kg) at months 0..len(adherence) from Hall's rule, adherence varying
+    by month. `energy_change_kcal` is one value or one per month; `response` scales the eventual
+    change; `tau_months` is the person's time constant."""
     decay = np.exp(-1 / (ev.weight_tau_months if tau_months is None else tau_months))
-    change = np.zeros(MONTHS + 1)
-    for month in range(MONTHS):
-        eventual = ev.kg_per_100kj * energy_change_kcal * adherence[month] * KJ_PER_KCAL / 100 * response
+    energy = np.broadcast_to(np.asarray(energy_change_kcal, dtype=float), (len(adherence),))
+    change = np.zeros(len(adherence) + 1)
+    for month in range(len(adherence)):
+        eventual = ev.kg_per_100kj * energy[month] * adherence[month] * KJ_PER_KCAL / 100 * response
         change[month + 1] = eventual + (change[month] - eventual) * decay
     return change
+
+
+def drift_path(seqn, seed, cal, months=MONTHS):
+    """Weight drift (kg) at months 0..months: a random walk drawn once per person, from its own
+    random stream so that it leaves the person's other traits unchanged."""
+    steps = np.random.default_rng([seed, 3, int(seqn)]).standard_normal(months)
+    return np.concatenate([[0.0], np.cumsum(cal.weight_drift_sd * steps)])
 
 
 def baseline_pdff(cap, ev, cal):
@@ -129,7 +164,7 @@ def simulate_patient(row, scenario, ev, cal, bounds, seed=0, growth=None):
     w0, h0, age, male = float(row.BMXWT), float(row.BMXHT), float(row.RIDAGEYR), row.RIAGENDR == 1
     fat = body_fat_kg(w0, float(row.BMXBMI), age, male)
     eventual, tau = personal_weight_response(fat, ev)
-    diet_kg = weight_path(energy, adherence, traits['weight_response'] * eventual, ev, tau)
+    diet_kg = weight_path(energy, adherence, traits['weight_response'] * eventual, ev, tau)         + drift_path(row.SEQN, seed, cal)
     diet_pct = 100 * diet_kg / w0
     growth = Growth() if growth is None else growth
     grow_kg = growth.weight_path(w0, row.RIAGENDR, age, months)
@@ -148,7 +183,7 @@ def simulate_patient(row, scenario, ev, cal, bounds, seed=0, growth=None):
         out = {'SEQN': int(row.SEQN), 'scenario': scenario['name'], 'month': int(month),
                'pattern': traits['pattern'], 'adherence': float(adherence[month - 1]) if month else 0.0,
                'dropped_out': traits['pattern'] == 'dropping_out' and month > traits['stop_month'],
-               'BMXWT': w0 + total_kg[month], 'BMXHT': h0 + grow_cm[month]}
+               'BMXWT': w0 + total_kg[month], 'BMXHT': h0 + grow_cm[month], 'diet_weight_kg': diet_kg[month]}
         out['BMXBMI'] = out['BMXWT'] / (out['BMXHT'] / 100) ** 2
         for col in CIRCUMFERENCES:
             out[col] = float(row[col]) + ev.circumference_cm_per_kg[col] * total_kg[month]

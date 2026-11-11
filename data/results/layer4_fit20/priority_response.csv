@@ -1,0 +1,12 @@
+priority,measure,level,participants,mean_top10
+diet_quality,fiber_per_1000kcal,high,252,34.26924142974154
+diet_quality,fiber_per_1000kcal,low,5,31.92201860927592
+diet_quality,fiber_per_1000kcal,medium,43,35.692977801462014
+limit_excess_sugar,sugar_pct_energy,high,91,4.41129184208443
+limit_excess_sugar,sugar_pct_energy,low,88,4.585057581863315
+limit_excess_sugar,sugar_pct_energy,medium,121,4.381076313076049
+limit_saturated_fat,saturated_fat_pct_energy,high,175,3.480720511125324
+limit_saturated_fat,saturated_fat_pct_energy,low,32,4.063513335942215
+limit_saturated_fat,saturated_fat_pct_energy,medium,93,3.607243418774863
+limit_ultra_processed,fpro,low,300,0.33432477777777775
+lower_glycaemic_load,glycaemic_load,low,117,20.500634920634923

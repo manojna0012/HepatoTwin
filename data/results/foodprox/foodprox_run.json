@@ -1,0 +1,19 @@
+{
+  "training_foods": 14088,
+  "folds": 5,
+  "trees": 300,
+  "seed": 42,
+  "out_of_fold_auc": {
+    "NOVA 1": 0.996,
+    "NOVA 2": 0.99,
+    "NOVA 3": 0.993,
+    "NOVA 4": 0.994
+  },
+  "sr_legacy_foods": 7793,
+  "sr_foods_out_of_fold": 3399,
+  "published_comparison": {
+    "foods": 3997,
+    "spearman": 0.979,
+    "mean_absolute_difference": 0.051
+  }
+}

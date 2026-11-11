@@ -10,3 +10,11 @@ venv/
 
 # Environment variables and secrets
 .env
+
+# Local twin database (patients and visits entered through the API)
+data/app/
+
+# Downloaded food tables (FoodProX training data, USDA SR Legacy, GI table PDFs); see the module docstrings
+data/raw_foodprox/
+data/raw_usda/
+data/raw_gi/*.pdf

@@ -1,0 +1,380 @@
+{
+  "patients": 1236,
+  "scenarios": {
+    "scenario A": -500.0,
+    "scenario B": -250.0
+  },
+  "honest answers": {
+    "forecasts_adults": {
+      "month 3 -> month 6": {
+        "n": 1996,
+        "twin_mae_kg": 1.92,
+        "textbook_mae_kg": 2.89,
+        "last_weight_mae_kg": 1.88,
+        "twin_coverage_90": 0.916,
+        "textbook_coverage_90": 0.928,
+        "twin_range_width_kg": 8.4
+      },
+      "month 6 -> month 9": {
+        "n": 1916,
+        "twin_mae_kg": 1.97,
+        "textbook_mae_kg": 3.91,
+        "last_weight_mae_kg": 1.97,
+        "twin_coverage_90": 0.907,
+        "textbook_coverage_90": 0.905,
+        "twin_range_width_kg": 8.3
+      },
+      "month 6 -> month 12": {
+        "n": 1916,
+        "twin_mae_kg": 2.77,
+        "textbook_mae_kg": 4.7,
+        "last_weight_mae_kg": 2.71,
+        "twin_coverage_90": 0.907,
+        "textbook_coverage_90": 0.904,
+        "twin_range_width_kg": 11.8
+      }
+    },
+    "forecasts_all_ages": {
+      "month 3 -> month 6": {
+        "n": 2404,
+        "twin_mae_kg": 2.0,
+        "textbook_mae_kg": 3.14,
+        "last_weight_mae_kg": 1.92,
+        "twin_coverage_90": 0.903,
+        "textbook_coverage_90": 0.901,
+        "twin_range_width_kg": 8.4
+      },
+      "month 6 -> month 9": {
+        "n": 2298,
+        "twin_mae_kg": 1.99,
+        "textbook_mae_kg": 4.27,
+        "last_weight_mae_kg": 1.97,
+        "twin_coverage_90": 0.904,
+        "textbook_coverage_90": 0.876,
+        "twin_range_width_kg": 8.3
+      },
+      "month 6 -> month 12": {
+        "n": 2298,
+        "twin_mae_kg": 2.89,
+        "textbook_mae_kg": 5.22,
+        "last_weight_mae_kg": 2.79,
+        "twin_coverage_90": 0.895,
+        "textbook_coverage_90": 0.861,
+        "twin_range_width_kg": 11.8
+      }
+    },
+    "causes": {
+      "checkins": 27601,
+      "behind_plan_share": 0.507,
+      "no progress despite effort": {
+        "n": 254,
+        "true_adherence_below_0_4": 0.0,
+        "true_adherence_0_6_or_more": 1.0,
+        "body_response_below_textbook": 0.638,
+        "in_slowest_fifth": 0.228
+      },
+      "partly followed": {
+        "n": 927,
+        "true_adherence_below_0_4": 0.263,
+        "true_adherence_0_6_or_more": 0.148,
+        "body_response_below_textbook": 0.606,
+        "in_slowest_fifth": 0.218
+      },
+      "plan not followed": {
+        "n": 12811,
+        "true_adherence_below_0_4": 1.0,
+        "true_adherence_0_6_or_more": 0.0,
+        "body_response_below_textbook": 0.625,
+        "in_slowest_fifth": 0.21
+      }
+    },
+    "alerts": {
+      "patients": 2464,
+      "alerted": 46,
+      "reasons_behind_alerts": {
+        "ordinary weight drift": 0.739,
+        "slow body": 0.261
+      },
+      "still_behind_at_month_12": {
+        "alerted": 0.783,
+        "all_patients": 0.628
+      },
+      "as_a_slow_body_detector": {
+        "precision": 0.261,
+        "recall": 0.024,
+        "base_rate": 0.2
+      }
+    }
+  },
+  "over-reported answers": {
+    "forecasts_adults": {
+      "month 3 -> month 6": {
+        "n": 1996,
+        "twin_mae_kg": 1.95,
+        "textbook_mae_kg": 2.89,
+        "last_weight_mae_kg": 1.88,
+        "twin_coverage_90": 0.913,
+        "textbook_coverage_90": 0.928,
+        "twin_range_width_kg": 8.4
+      },
+      "month 6 -> month 9": {
+        "n": 1916,
+        "twin_mae_kg": 1.97,
+        "textbook_mae_kg": 3.91,
+        "last_weight_mae_kg": 1.97,
+        "twin_coverage_90": 0.906,
+        "textbook_coverage_90": 0.905,
+        "twin_range_width_kg": 8.3
+      },
+      "month 6 -> month 12": {
+        "n": 1916,
+        "twin_mae_kg": 2.77,
+        "textbook_mae_kg": 4.7,
+        "last_weight_mae_kg": 2.71,
+        "twin_coverage_90": 0.907,
+        "textbook_coverage_90": 0.904,
+        "twin_range_width_kg": 11.8
+      }
+    },
+    "forecasts_all_ages": {
+      "month 3 -> month 6": {
+        "n": 2404,
+        "twin_mae_kg": 2.02,
+        "textbook_mae_kg": 3.14,
+        "last_weight_mae_kg": 1.92,
+        "twin_coverage_90": 0.901,
+        "textbook_coverage_90": 0.901,
+        "twin_range_width_kg": 8.4
+      },
+      "month 6 -> month 9": {
+        "n": 2298,
+        "twin_mae_kg": 1.99,
+        "textbook_mae_kg": 4.27,
+        "last_weight_mae_kg": 1.97,
+        "twin_coverage_90": 0.903,
+        "textbook_coverage_90": 0.876,
+        "twin_range_width_kg": 8.3
+      },
+      "month 6 -> month 12": {
+        "n": 2298,
+        "twin_mae_kg": 2.9,
+        "textbook_mae_kg": 5.22,
+        "last_weight_mae_kg": 2.79,
+        "twin_coverage_90": 0.894,
+        "textbook_coverage_90": 0.861,
+        "twin_range_width_kg": 11.8
+      }
+    },
+    "causes": {
+      "checkins": 27601,
+      "behind_plan_share": 0.507,
+      "no progress despite effort": {
+        "n": 472,
+        "true_adherence_below_0_4": 0.0,
+        "true_adherence_0_6_or_more": 0.835,
+        "body_response_below_textbook": 0.593,
+        "in_slowest_fifth": 0.178
+      },
+      "partly followed": {
+        "n": 990,
+        "true_adherence_below_0_4": 0.527,
+        "true_adherence_0_6_or_more": 0.0,
+        "body_response_below_textbook": 0.626,
+        "in_slowest_fifth": 0.219
+      },
+      "plan not followed": {
+        "n": 12534,
+        "true_adherence_below_0_4": 1.0,
+        "true_adherence_0_6_or_more": 0.0,
+        "body_response_below_textbook": 0.625,
+        "in_slowest_fifth": 0.211
+      }
+    },
+    "alerts": {
+      "patients": 2464,
+      "alerted": 73,
+      "reasons_behind_alerts": {
+        "ordinary weight drift": 0.671,
+        "slow body": 0.247,
+        "intake higher than reported": 0.082
+      },
+      "still_behind_at_month_12": {
+        "alerted": 0.767,
+        "all_patients": 0.628
+      },
+      "as_a_slow_body_detector": {
+        "precision": 0.247,
+        "recall": 0.036,
+        "base_rate": 0.2
+      }
+    }
+  },
+  "no answers": {
+    "forecasts_adults": {
+      "month 3 -> month 6": {
+        "n": 1996,
+        "twin_mae_kg": 2.08,
+        "textbook_mae_kg": 2.89,
+        "last_weight_mae_kg": 1.88,
+        "twin_coverage_90": 0.904,
+        "textbook_coverage_90": 0.928,
+        "twin_range_width_kg": 8.6
+      },
+      "month 6 -> month 9": {
+        "n": 1916,
+        "twin_mae_kg": 2.09,
+        "textbook_mae_kg": 3.91,
+        "last_weight_mae_kg": 1.97,
+        "twin_coverage_90": 0.895,
+        "textbook_coverage_90": 0.905,
+        "twin_range_width_kg": 8.5
+      },
+      "month 6 -> month 12": {
+        "n": 1916,
+        "twin_mae_kg": 3.03,
+        "textbook_mae_kg": 4.7,
+        "last_weight_mae_kg": 2.71,
+        "twin_coverage_90": 0.888,
+        "textbook_coverage_90": 0.904,
+        "twin_range_width_kg": 12.2
+      }
+    },
+    "forecasts_all_ages": {
+      "month 3 -> month 6": {
+        "n": 2404,
+        "twin_mae_kg": 2.17,
+        "textbook_mae_kg": 3.14,
+        "last_weight_mae_kg": 1.92,
+        "twin_coverage_90": 0.889,
+        "textbook_coverage_90": 0.901,
+        "twin_range_width_kg": 8.6
+      },
+      "month 6 -> month 9": {
+        "n": 2298,
+        "twin_mae_kg": 2.12,
+        "textbook_mae_kg": 4.27,
+        "last_weight_mae_kg": 1.97,
+        "twin_coverage_90": 0.89,
+        "textbook_coverage_90": 0.876,
+        "twin_range_width_kg": 8.5
+      },
+      "month 6 -> month 12": {
+        "n": 2298,
+        "twin_mae_kg": 3.19,
+        "textbook_mae_kg": 5.22,
+        "last_weight_mae_kg": 2.79,
+        "twin_coverage_90": 0.873,
+        "textbook_coverage_90": 0.861,
+        "twin_range_width_kg": 12.2
+      }
+    }
+  },
+  "liver": {
+    "scenario A, month 0": {
+      "n": 1236,
+      "true_share": 0.338,
+      "mean_chance": 0.336,
+      "auc": 0.879,
+      "brier": 0.132
+    },
+    "scenario A, month 6": {
+      "n": 1236,
+      "true_share": 0.294,
+      "mean_chance": 0.302,
+      "auc": 0.891,
+      "brier": 0.119
+    },
+    "scenario A, month 12": {
+      "n": 1236,
+      "true_share": 0.29,
+      "mean_chance": 0.31,
+      "auc": 0.88,
+      "brier": 0.124
+    },
+    "scenario B, month 0": {
+      "n": 1236,
+      "true_share": 0.338,
+      "mean_chance": 0.336,
+      "auc": 0.879,
+      "brier": 0.132
+    },
+    "scenario B, month 6": {
+      "n": 1236,
+      "true_share": 0.312,
+      "mean_chance": 0.317,
+      "auc": 0.882,
+      "brier": 0.127
+    },
+    "scenario B, month 12": {
+      "n": 1236,
+      "true_share": 0.306,
+      "mean_chance": 0.323,
+      "auc": 0.875,
+      "brier": 0.129
+    },
+    "usual diet, month 0": {
+      "n": 1236,
+      "true_share": 0.338,
+      "mean_chance": 0.336,
+      "auc": 0.879,
+      "brier": 0.132
+    },
+    "usual diet, month 6": {
+      "n": 1236,
+      "true_share": 0.327,
+      "mean_chance": 0.333,
+      "auc": 0.88,
+      "brier": 0.129
+    },
+    "usual diet, month 12": {
+      "n": 1236,
+      "true_share": 0.329,
+      "mean_chance": 0.338,
+      "auc": 0.874,
+      "brier": 0.133
+    },
+    "scenario A, forecast at month 6 of month 12": {
+      "n": 1149,
+      "true_share": 0.291,
+      "mean_chance": 0.294,
+      "auc": 0.875,
+      "brier": 0.126
+    },
+    "scenario A, month-0 chance reused for month 12": {
+      "n": 1149,
+      "true_share": 0.291,
+      "mean_chance": 0.337,
+      "auc": 0.868,
+      "brier": 0.133
+    },
+    "scenario B, forecast at month 6 of month 12": {
+      "n": 1149,
+      "true_share": 0.307,
+      "mean_chance": 0.313,
+      "auc": 0.872,
+      "brier": 0.13
+    },
+    "scenario B, month-0 chance reused for month 12": {
+      "n": 1149,
+      "true_share": 0.307,
+      "mean_chance": 0.337,
+      "auc": 0.867,
+      "brier": 0.135
+    },
+    "usual diet, forecast at month 6 of month 12": {
+      "n": 1150,
+      "true_share": 0.33,
+      "mean_chance": 0.333,
+      "auc": 0.872,
+      "brier": 0.134
+    },
+    "usual diet, month-0 chance reused for month 12": {
+      "n": 1150,
+      "true_share": 0.33,
+      "mean_chance": 0.337,
+      "auc": 0.867,
+      "brier": 0.137
+    },
+    "change_month0_to_12_spearman": 0.793
+  }
+}

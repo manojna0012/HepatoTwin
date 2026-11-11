@@ -1,0 +1,474 @@
+{
+  "participants": 10682,
+  "moderate_severe_share": 0.207,
+  "mean_chance_cap280": 0.255,
+  "discrimination": {
+    "model: chance of CAP >= 280": {
+      "n": 10682,
+      "auc": 0.771,
+      "ci95": [
+        0.759,
+        0.782
+      ]
+    },
+    "model: chance of CAP >= 248": {
+      "n": 10682,
+      "auc": 0.77,
+      "ci95": [
+        0.758,
+        0.782
+      ]
+    },
+    "model: estimated CAP": {
+      "n": 10682,
+      "auc": 0.77,
+      "ci95": [
+        0.758,
+        0.782
+      ]
+    },
+    "Hepatic Steatosis Index": {
+      "n": 10055,
+      "auc": 0.725,
+      "ci95": [
+        0.712,
+        0.738
+      ]
+    },
+    "BMI": {
+      "n": 10668,
+      "auc": 0.698,
+      "ci95": [
+        0.686,
+        0.712
+      ]
+    },
+    "waist": {
+      "n": 10374,
+      "auc": 0.716,
+      "ci95": [
+        0.703,
+        0.728
+      ]
+    },
+    "with GGT (FLI subset)": {
+      "Fatty Liver Index": {
+        "n": 7649,
+        "auc": 0.744,
+        "ci95": [
+          0.73,
+          0.758
+        ]
+      },
+      "model: chance of CAP >= 280": {
+        "n": 7649,
+        "auc": 0.766,
+        "ci95": [
+          0.752,
+          0.78
+        ]
+      }
+    }
+  },
+  "subgroups": {
+    "sex": {
+      "men": {
+        "n": 4898,
+        "auc": 0.783,
+        "ci95": [
+          0.764,
+          0.798
+        ],
+        "moderate_severe_share": 0.229
+      },
+      "women": {
+        "n": 5784,
+        "auc": 0.755,
+        "ci95": [
+          0.735,
+          0.773
+        ],
+        "moderate_severe_share": 0.188
+      }
+    },
+    "race and ethnicity": {
+      "Mexican American": {
+        "n": 3357,
+        "auc": 0.787,
+        "ci95": [
+          0.768,
+          0.805
+        ],
+        "moderate_severe_share": 0.279
+      },
+      "Non-Hispanic White": {
+        "n": 3497,
+        "auc": 0.79,
+        "ci95": [
+          0.769,
+          0.816
+        ],
+        "moderate_severe_share": 0.183
+      },
+      "Non-Hispanic Black": {
+        "n": 3352,
+        "auc": 0.69,
+        "ci95": [
+          0.662,
+          0.717
+        ],
+        "moderate_severe_share": 0.161
+      },
+      "Other": {
+        "n": 476,
+        "auc": 0.79,
+        "ci95": [
+          0.722,
+          0.846
+        ],
+        "moderate_severe_share": 0.202
+      }
+    }
+  },
+  "calibration_by_tenth": [
+    {
+      "tenth": 1,
+      "mean_chance_cap280": 0.014,
+      "moderate_severe_share": 0.088,
+      "n": 1092
+    },
+    {
+      "tenth": 2,
+      "mean_chance_cap280": 0.021,
+      "moderate_severe_share": 0.076,
+      "n": 1192
+    },
+    {
+      "tenth": 3,
+      "mean_chance_cap280": 0.04,
+      "moderate_severe_share": 0.081,
+      "n": 1265
+    },
+    {
+      "tenth": 4,
+      "mean_chance_cap280": 0.07,
+      "moderate_severe_share": 0.083,
+      "n": 807
+    },
+    {
+      "tenth": 5,
+      "mean_chance_cap280": 0.127,
+      "moderate_severe_share": 0.093,
+      "n": 1006
+    },
+    {
+      "tenth": 6,
+      "mean_chance_cap280": 0.211,
+      "moderate_severe_share": 0.131,
+      "n": 1259
+    },
+    {
+      "tenth": 7,
+      "mean_chance_cap280": 0.332,
+      "moderate_severe_share": 0.205,
+      "n": 975
+    },
+    {
+      "tenth": 8,
+      "mean_chance_cap280": 0.45,
+      "moderate_severe_share": 0.29,
+      "n": 1161
+    },
+    {
+      "tenth": 9,
+      "mean_chance_cap280": 0.585,
+      "moderate_severe_share": 0.416,
+      "n": 918
+    },
+    {
+      "tenth": 10,
+      "mean_chance_cap280": 0.795,
+      "moderate_severe_share": 0.672,
+      "n": 1007
+    }
+  ],
+  "mortality": {
+    "participants": 10671,
+    "median_follow_up_years": 27.3,
+    "deaths": 2173,
+    "quarter_bounds_chance_cap280": [
+      0.0,
+      0.033,
+      0.15,
+      0.439,
+      1.0
+    ],
+    "all-cause": {
+      "by_quarter": [
+        {
+          "quarter": 1,
+          "deaths": 334,
+          "person_years": 83215,
+          "per_1000_person_years": 4.01
+        },
+        {
+          "quarter": 2,
+          "deaths": 403,
+          "person_years": 59388,
+          "per_1000_person_years": 6.79
+        },
+        {
+          "quarter": 3,
+          "deaths": 550,
+          "person_years": 69383,
+          "per_1000_person_years": 7.93
+        },
+        {
+          "quarter": 4,
+          "deaths": 886,
+          "person_years": 64356,
+          "per_1000_person_years": 13.77
+        }
+      ],
+      "adjusted_rate_ratio_vs_lowest_quarter": {
+        "2": {
+          "rate_ratio": 1.13,
+          "ci95": [
+            0.98,
+            1.31
+          ]
+        },
+        "3": {
+          "rate_ratio": 1.1,
+          "ci95": [
+            0.96,
+            1.27
+          ]
+        },
+        "4": {
+          "rate_ratio": 1.58,
+          "ci95": [
+            1.38,
+            1.81
+          ]
+        }
+      },
+      "ultrasound_moderate_severe_vs_not": {
+        "rate_ratio": 1.29,
+        "ci95": [
+          1.17,
+          1.41
+        ]
+      }
+    },
+    "cardiovascular": {
+      "by_quarter": [
+        {
+          "quarter": 1,
+          "deaths": 75,
+          "person_years": 83215,
+          "per_1000_person_years": 0.9
+        },
+        {
+          "quarter": 2,
+          "deaths": 77,
+          "person_years": 59388,
+          "per_1000_person_years": 1.3
+        },
+        {
+          "quarter": 3,
+          "deaths": 157,
+          "person_years": 69383,
+          "per_1000_person_years": 2.26
+        },
+        {
+          "quarter": 4,
+          "deaths": 283,
+          "person_years": 64356,
+          "per_1000_person_years": 4.4
+        }
+      ],
+      "adjusted_rate_ratio_vs_lowest_quarter": {
+        "2": {
+          "rate_ratio": 0.94,
+          "ci95": [
+            0.68,
+            1.3
+          ]
+        },
+        "3": {
+          "rate_ratio": 1.35,
+          "ci95": [
+            1.02,
+            1.8
+          ]
+        },
+        "4": {
+          "rate_ratio": 2.15,
+          "ci95": [
+            1.64,
+            2.81
+          ]
+        }
+      },
+      "ultrasound_moderate_severe_vs_not": {
+        "rate_ratio": 1.35,
+        "ci95": [
+          1.13,
+          1.61
+        ]
+      }
+    },
+    "cancer": {
+      "by_quarter": [
+        {
+          "quarter": 1,
+          "deaths": 113,
+          "person_years": 83215,
+          "per_1000_person_years": 1.36
+        },
+        {
+          "quarter": 2,
+          "deaths": 139,
+          "person_years": 59388,
+          "per_1000_person_years": 2.34
+        },
+        {
+          "quarter": 3,
+          "deaths": 163,
+          "person_years": 69383,
+          "per_1000_person_years": 2.35
+        },
+        {
+          "quarter": 4,
+          "deaths": 216,
+          "person_years": 64356,
+          "per_1000_person_years": 3.36
+        }
+      ],
+      "adjusted_rate_ratio_vs_lowest_quarter": {
+        "2": {
+          "rate_ratio": 1.08,
+          "ci95": [
+            0.84,
+            1.39
+          ]
+        },
+        "3": {
+          "rate_ratio": 0.87,
+          "ci95": [
+            0.68,
+            1.12
+          ]
+        },
+        "4": {
+          "rate_ratio": 1.0,
+          "ci95": [
+            0.79,
+            1.28
+          ]
+        }
+      },
+      "ultrasound_moderate_severe_vs_not": {
+        "rate_ratio": 1.05,
+        "ci95": [
+          0.88,
+          1.26
+        ]
+      }
+    },
+    "fib4": {
+      "participants": 9967,
+      "share_by_category": {
+        "low": 0.922,
+        "indeterminate": 0.071,
+        "high": 0.008
+      },
+      "all-cause": {
+        "per_1000_person_years": {
+          "low": 6.9,
+          "indeterminate": 19.2,
+          "high": 44.86
+        },
+        "deaths_by_category": {
+          "low": 1659,
+          "indeterminate": 312,
+          "high": 56
+        },
+        "adjusted_rate_ratio_vs_low": {
+          "indeterminate": {
+            "rate_ratio": 1.25,
+            "ci95": [
+              1.1,
+              1.42
+            ]
+          },
+          "high": {
+            "rate_ratio": 3.23,
+            "ci95": [
+              2.47,
+              4.23
+            ]
+          }
+        }
+      },
+      "cardiovascular": {
+        "per_1000_person_years": {
+          "low": 1.91,
+          "indeterminate": 5.17,
+          "high": 8.01
+        },
+        "deaths_by_category": {
+          "low": 460,
+          "indeterminate": 84,
+          "high": 10
+        },
+        "adjusted_rate_ratio_vs_low": {
+          "indeterminate": {
+            "rate_ratio": 1.09,
+            "ci95": [
+              0.86,
+              1.39
+            ]
+          },
+          "high": {
+            "rate_ratio": 1.89,
+            "ci95": [
+              1.01,
+              3.54
+            ]
+          }
+        }
+      },
+      "cancer": {
+        "per_1000_person_years": {
+          "low": 2.06,
+          "indeterminate": 4.98,
+          "high": 12.02
+        },
+        "deaths_by_category": {
+          "low": 495,
+          "indeterminate": 81,
+          "high": 15
+        },
+        "adjusted_rate_ratio_vs_low": {
+          "indeterminate": {
+            "rate_ratio": 0.98,
+            "ci95": [
+              0.77,
+              1.25
+            ]
+          },
+          "high": {
+            "rate_ratio": 2.63,
+            "ci95": [
+              1.57,
+              4.41
+            ]
+          }
+        }
+      },
+      "liver_related": "not available: the public-use mortality file has no liver-disease cause category"
+    }
+  }
+}
