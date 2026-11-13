@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.11.5)  11 NOV 2026 19:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.11.5)  12 NOV 2026 16:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -856,8 +856,7 @@ File: pgflibraryarrows.meta.code.tex 2026-08-01 v3.1.12 (3.1.12)
 ))
 \@quotelevel=\count480
 \@quotereset=\count481
-
-No file main.aux.
+ (main.aux)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 6.
@@ -881,7 +880,7 @@ LaTeX Font Info:    ... okay on input line 6.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-(C:\Users\24aks\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
+ (C:\Users\24aks\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count482
 \scratchdimen=\dimen340
@@ -901,6 +900,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 Package hyperref Info: Link coloring ON on input line 6.
+ (main.out) (main.out)
 \@outlinefile=\write5
 \openout5 = `main.out'.
 
@@ -916,85 +916,7 @@ Package biblatex Info: Automatic encoding selection.
 
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'main.bbl' found.
- (main.bbl
-
-Package biblatex Warning: The following entry could not be found
-(biblatex)                in the database:
-(biblatex)                dga2020
-(biblatex)                Please verify the spelling and rerun
-(biblatex)                LaTeX afterwards.
-
-
-Package biblatex Warning: The following entry could not be found
-(biblatex)                in the database:
-(biblatex)                flesch1948readability
-(biblatex)                Please verify the spelling and rerun
-(biblatex)                LaTeX afterwards.
-
-
-Package biblatex Warning: The following entry could not be found
-(biblatex)                in the database:
-(biblatex)                nchs2022mortality
-(biblatex)                Please verify the spelling and rerun
-(biblatex)                LaTeX afterwards.
-
-
-Package biblatex Warning: The following entry could not be found
-(biblatex)                in the database:
-(biblatex)                neiberg2012patterns
-(biblatex)                Please verify the spelling and rerun
-(biblatex)                LaTeX afterwards.
-
-
-Package biblatex Warning: The following entry could not be found
-(biblatex)                in the database:
-(biblatex)                nhanes3_ultrasound
-(biblatex)                Please verify the spelling and rerun
-(biblatex)                LaTeX afterwards.
-
-
-Package biblatex Warning: The following entry could not be found
-(biblatex)                in the database:
-(biblatex)                phe2018calories
-(biblatex)                Please verify the spelling and rerun
-(biblatex)                LaTeX afterwards.
-
-
-Package biblatex Warning: The following entry could not be found
-(biblatex)                in the database:
-(biblatex)                sterling2006fib4
-(biblatex)                Please verify the spelling and rerun
-(biblatex)                LaTeX afterwards.
-
-
-Package biblatex Warning: The following entry could not be found
-(biblatex)                in the database:
-(biblatex)                vovk2005conformal
-(biblatex)                Please verify the spelling and rerun
-(biblatex)                LaTeX afterwards.
-
-
-Package biblatex Warning: The following entry could not be found
-(biblatex)                in the database:
-(biblatex)                who2015sugars
-(biblatex)                Please verify the spelling and rerun
-(biblatex)                LaTeX afterwards.
-
-
-Package biblatex Warning: The following entry could not be found
-(biblatex)                in the database:
-(biblatex)                who2023satfat
-(biblatex)                Please verify the spelling and rerun
-(biblatex)                LaTeX afterwards.
-
-
-Package biblatex Warning: The following entry could not be found
-(biblatex)                in the database:
-(biblatex)                wong2013community
-(biblatex)                Please verify the spelling and rerun
-(biblatex)                LaTeX afterwards.
-
-)
+ (main.bbl)
 Package biblatex Info: Reference section=0 on input line 6.
 Package biblatex Info: Reference segment=0 on input line 6.
 
@@ -1055,161 +977,31 @@ Overfull \vbox (4.71455pt too high) has occurred while \output is active []
 
  [3
 
-]
-No file main.toc.
+] (main.toc [4
+
+] [5] [6])
 \tf@toc=\write6
 \openout6 = `main.toc'.
 
-[4
-
-] (chapters/introduction.tex
+ [7] (chapters/introduction.tex
 Chapter 1.
 [1
 
 ] [2] [3]
-
-LaTeX Warning: Reference `fig:hepatotwin_overview' on page 4 undefined on input line 159.
-
-<figures/hepatotwin_overview.pdf, id=154, 574.54652pt x 259.30476pt>
+<figures/hepatotwin_overview.pdf, id=679, 574.54652pt x 259.30476pt>
 File: figures/hepatotwin_overview.pdf Graphic file (type pdf)
 <use figures/hepatotwin_overview.pdf>
 Package pdftex.def Info: figures/hepatotwin_overview.pdf  used on input line 186.
 (pdftex.def)             Requested size: 472.03123pt x 213.0388pt.
-[4] [5 <./figures/hepatotwin_overview.pdf>]) (chapters/lit_review.tex [6]
+ [4] [5 <./figures/hepatotwin_overview.pdf>]) (chapters/lit_review.tex [6]
 Chapter 2.
-
-LaTeX Warning: Reference `sec:lr-masld' on page 7 undefined on input line 4.
-
-
-LaTeX Warning: Reference `sec:lr-noninv' on page 7 undefined on input line 4.
-
-
-LaTeX Warning: Reference `sec:lr-ml' on page 7 undefined on input line 4.
-
-
-LaTeX Warning: Reference `sec:lr-diet' on page 7 undefined on input line 4.
-
-
-LaTeX Warning: Reference `sec:lr-dt' on page 7 undefined on input line 4.
-
-
-LaTeX Warning: Reference `sec:lr-gastro' on page 7 undefined on input line 4.
-
-
-LaTeX Warning: Reference `sec:lr-insilico' on page 7 undefined on input line 4.
-
-
-LaTeX Warning: Reference `sec:lr-gap' on page 7 undefined on input line 4.
-
 [7
 
-]
-
-LaTeX Warning: Reference `sec:lr-bound' on page 8 undefined on input line 30.
-
-[8]
-
-LaTeX Warning: Reference `tab:nhanes-clf' on page 9 undefined on input line 40.
-
-[9]
-
-LaTeX Warning: Reference `tab:cont' on page 10 undefined on input line 66.
-
-
-LaTeX Warning: Reference `sec:lr-noninv' on page 10 undefined on input line 91.
-
-
-LaTeX Warning: Reference `tab:nhanes-clf' on page 10 undefined on input line 91.
-
-
-LaTeX Warning: Reference `tab:cont' on page 10 undefined on input line 91.
-
-[10] [11] [12]
-
-LaTeX Warning: Reference `sec:lr-insilico' on page 13 undefined on input line 123.
-
-[13] [14] [15]
-
-LaTeX Warning: Reference `sec:lr-masld' on page 16 undefined on input line 159.
-
-
-LaTeX Warning: Reference `tab:gap' on page 16 undefined on input line 167.
-
-[16]
-
-LaTeX Warning: Reference `sec:lr-masld' on page 17 undefined on input line 187.
-
-
-LaTeX Warning: Reference `sec:lr-ml' on page 17 undefined on input line 187.
-
-
-LaTeX Warning: Reference `sec:lr-diet' on page 17 undefined on input line 187.
-
-
-LaTeX Warning: Reference `sec:lr-dt' on page 17 undefined on input line 187.
-
-
-LaTeX Warning: Reference `sec:lr-gastro' on page 17 undefined on input line 187.
-
-
-LaTeX Warning: Reference `sec:lr-insilico' on page 17 undefined on input line 187.
-
-) (chapters/experiments.tex [17]
+] [8] [9] [10] [11] [12] [13] [14] [15] [16]) (chapters/experiments.tex [17]
 Chapter 3.
-
-LaTeX Warning: Reference `sec:exp-protocols' on page 18 undefined on input line 4.
-
-
-LaTeX Warning: Reference `sec:exp-list' on page 18 undefined on input line 4.
-
-
-LaTeX Warning: Reference `sec:exp-final' on page 18 undefined on input line 4.
-
-
-LaTeX Warning: Reference `sec:exp-plateau' on page 18 undefined on input line 4.
-
-
-LaTeX Warning: Reference `sec:exp-compare' on page 18 undefined on input line 4.
-
-
-LaTeX Warning: Reference `sec:exp-summary' on page 18 undefined on input line 4.
-
-
-LaTeX Warning: Reference `tab:protocols' on page 18 undefined on input line 10.
-
-
-LaTeX Warning: Reference `tab:phase12' on page 18 undefined on input line 38.
-
 [18
 
-]
-
-LaTeX Warning: Reference `tab:phase3' on page 19 undefined on input line 63.
-
-[19]
-
-LaTeX Warning: Reference `tab:phase4a' on page 20 undefined on input line 88.
-
-
-LaTeX Warning: Reference `tab:phase4b' on page 20 undefined on input line 88.
-
-
-LaTeX Warning: Reference `tab:phase5' on page 20 undefined on input line 140.
-
-[20]
-
-LaTeX Warning: Reference `tab:phase6' on page 21 undefined on input line 170.
-
-
-LaTeX Warning: Reference `sec:exp-final' on page 21 undefined on input line 194.
-
-[21]
-
-LaTeX Warning: Reference `tab:final-test' on page 22 undefined on input line 226.
-
-
-LaTeX Warning: Reference `tab:final-ci' on page 22 undefined on input line 226.
-
+] [19] [20] [21]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 248.
@@ -1222,431 +1014,222 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 248.
 
-[22]
-
-LaTeX Warning: Reference `fig:learning-curve' on page 23 undefined on input line 256.
-
-[23] [24]
-
-LaTeX Warning: Reference `tab:cmp-r2' on page 25 undefined on input line 369.
-
-
-LaTeX Warning: Reference `tab:cmp-auc' on page 25 undefined on input line 369.
-
-[25]) (chapters/methodology.tex [26]
+[22] [23] [24] [25]) (chapters/methodology.tex [26]
 Chapter 4.
 
-LaTeX Warning: Reference `sec:m_data' on page 27 undefined on input line 5.
+LaTeX Warning: Reference `chap:experiments' on page 27 undefined on input line 15.
 
 
-LaTeX Warning: Reference `sec:m_layer2' on page 27 undefined on input line 8.
-
-
-LaTeX Warning: Reference `sec:m_summary' on page 27 undefined on input line 8.
-
-
-LaTeX Warning: Reference `fig:hepatotwin_overview' on page 27 undefined on input line 9.
-
-
-LaTeX Warning: Reference `sec:m_system' on page 27 undefined on input line 11.
-
-
-LaTeX Warning: Reference `sec:m_layer2' on page 27 undefined on input line 13.
-
-
-LaTeX Warning: Reference `sec:m_summary' on page 27 undefined on input line 13.
-
-
-LaTeX Warning: Reference `fig:hepatotwin_overview' on page 27 undefined on input line 14.
-
-
-LaTeX Warning: Reference `sec:m_system' on page 27 undefined on input line 18.
-
-
-LaTeX Warning: Reference `sec:m_eval' on page 27 undefined on input line 21.
-
-
-LaTeX Warning: Reference `chap:experiments' on page 27 undefined on input line 24.
+LaTeX Warning: Reference `chap:experiments' on page 27 undefined on input line 38.
 
 [27
 
-]
+] [28]
 
-LaTeX Warning: Reference `chap:experiments' on page 28 undefined on input line 52.
-
-
-LaTeX Warning: Reference `sec:m_layer3' on page 28 undefined on input line 82.
-
-
-LaTeX Warning: Reference `sec:m_layer4' on page 28 undefined on input line 101.
-
-
-LaTeX Warning: Citation 'nhanes3_ultrasound' on page 28 undefined on input line 107.
-
-
-LaTeX Warning: Citation 'nchs2022mortality' on page 28 undefined on input line 114.
-
-[28]
-
-LaTeX Warning: Reference `chap:experiments' on page 29 undefined on input line 131.
-
-
-LaTeX Warning: Citation 'vovk2005conformal' on page 29 undefined on input line 144.
+LaTeX Warning: Reference `chap:experiments' on page 29 undefined on input line 110.
 
 [29]
-
-LaTeX Warning: Citation 'sterling2006fib4' on page 30 undefined on input line 160.
-
-
-LaTeX Warning: Reference `sec:m_update' on page 30 undefined on input line 180.
-
-
-LaTeX Warning: Reference `sec:m_update' on page 30 undefined on input line 188.
-
-
-Overfull \hbox (85.07094pt too wide) in paragraph at lines 185--190
-\OT1/cmr/m/n/10.95 any plan they choose waits for a clin-i-cian's ap-proval (Sec-tion []). >>>>>>> c07f45ec22f6707d048f989b3f56b5180ae12beb 
- []
-
-
-LaTeX Warning: Reference `tab:m_priorities' on page 30 undefined on input line 217.
-
-[30]
-Underfull \hbox (badness 10000) in paragraph at lines 231--231
+Underfull \hbox (badness 10000) in paragraph at lines 200--200
 []|\OT1/cmr/m/n/10.95 Weight man-
  []
 
 
-Overfull \hbox (2.2489pt too wide) in paragraph at lines 231--231
+Overfull \hbox (2.2489pt too wide) in paragraph at lines 200--200
 []|\OT1/cmr/m/n/10.95 Medium| 
  []
 
 
-Overfull \hbox (2.2489pt too wide) in paragraph at lines 232--232
+Overfull \hbox (2.2489pt too wide) in paragraph at lines 201--201
 []|\OT1/cmr/m/n/10.95 Medium| 
  []
 
 
-Underfull \hbox (badness 2698) in paragraph at lines 232--233
+Underfull \hbox (badness 2698) in paragraph at lines 201--202
 []|\OT1/cmr/m/n/10.95 Fibre $\OMS/cmsy/m/n/10.95 ^^U$ \OT1/cmr/m/n/10.95 14 g per
  []
 
 
-Overfull \hbox (2.2489pt too wide) in paragraph at lines 233--233
+Overfull \hbox (2.2489pt too wide) in paragraph at lines 202--202
 []|\OT1/cmr/m/n/10.95 Medium| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 234--234
+Underfull \hbox (badness 10000) in paragraph at lines 203--203
 []|\OT1/cmr/m/n/10.95 Limit ex-cess
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 234--234
+Underfull \hbox (badness 10000) in paragraph at lines 203--203
 \OT1/cmr/m/n/10.95 caemia or ex-cess
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 235--235
+Underfull \hbox (badness 10000) in paragraph at lines 204--204
 []|\OT1/cmr/m/n/10.95 Limit ultra-
  []
 
 
-Underfull \hbox (badness 3333) in paragraph at lines 235--236
+Underfull \hbox (badness 3333) in paragraph at lines 204--205
 []|\OT1/cmr/m/n/10.95 Processing FPro $\OMS/cmsy/m/n/10.95 ^^T$
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 236--236
+Underfull \hbox (badness 10000) in paragraph at lines 205--205
 []|\OT1/cmr/m/n/10.95 Lower gly-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 236--236
+Underfull \hbox (badness 10000) in paragraph at lines 205--205
 []|\OT1/cmr/m/n/10.95 Raised gly-
  []
 
+[30] [31] [32] [33] [34] [35]
 
-LaTeX Warning: Reference `sec:m_layer4' on page 31 undefined on input line 260.
+LaTeX Warning: Reference `chap:experiments' on page 36 undefined on input line 500.
 
-[31]
-
-LaTeX Warning: Reference `tab:m_priorities' on page 32 undefined on input line 286.
-
-
-LaTeX Warning: Citation 'phe2018calories' on page 32 undefined on input line 286.
-
-
-LaTeX Warning: Citation 'who2023satfat' on page 32 undefined on input line 287.
-
-
-LaTeX Warning: Citation 'dga2020' on page 32 undefined on input line 287.
-
-
-LaTeX Warning: Citation 'who2015sugars' on page 32 undefined on input line 287.
-
-
-LaTeX Warning: Citation 'dga2020' on page 32 undefined on input line 288.
-
-[32]
-
-LaTeX Warning: Reference `tab:m_weights' on page 33 undefined on input line 335.
-
-
-LaTeX Warning: Reference `tab:m_weights' on page 33 undefined on input line 348.
-
-
-LaTeX Warning: Reference `sec:m_eval' on page 33 undefined on input line 382.
-
-[33]
-
-LaTeX Warning: Reference `sec:m_update' on page 34 undefined on input line 446.
-
-[34]
-chapters/methodology.tex:489: Too many }'s.
-l.489 plan}
-           . The patient's answers give the cause: low adherence means the p...
-You've closed more groups than you opened.
-Such booboos are generally harmless, so keep going.
-
-[35] [36]
-
-LaTeX Warning: Reference `chap:experiments' on page 37 undefined on input line 598.
-
-[37]
-
-LaTeX Warning: Citation 'flesch1948readability' on page 38 undefined on input line 652.
-
-[38]
-
-LaTeX Warning: Citation 'wong2013community' on page 39 undefined on input line 678.
-
-
-LaTeX Warning: Citation 'neiberg2012patterns' on page 39 undefined on input line 700.
-
-) (chapters/results.tex [39] [40]
+[36] [37]) (chapters/results.tex [38]
 Chapter 5.
-[41
 
-]
-Chapter 6.
-
-LaTeX Warning: Reference `sec:m_eval' on page 42 undefined on input line 9.
+LaTeX Warning: Reference `chap:experiments' on page 39 undefined on input line 24.
 
 
-LaTeX Warning: Reference `sec:r_layer2' on page 42 undefined on input line 9.
+LaTeX Warning: Reference `chap:experiments' on page 39 undefined on input line 33.
 
 
-LaTeX Warning: Reference `sec:r_fairness' on page 42 undefined on input line 11.
-
-
-LaTeX Warning: Reference `sec:r_nhanes3' on page 42 undefined on input line 11.
-
-
-LaTeX Warning: Reference `sec:r_priorities' on page 42 undefined on input line 13.
-
-
-LaTeX Warning: Reference `sec:r_summary' on page 42 undefined on input line 13.
-
-
-LaTeX Warning: Reference `sec:r_calibration' on page 42 undefined on input line 15.
-
-
-LaTeX Warning: Reference `sec:r_insilico' on page 42 undefined on input line 15.
-
-
-LaTeX Warning: Reference `sec:r_overview' on page 42 undefined on input line 17.
-
-
-LaTeX Warning: Reference `chap:experiments' on page 42 undefined on input line 28.
-
-
-LaTeX Warning: Reference `tab:r_layer2' on page 42 undefined on input line 29.
-
-
-LaTeX Warning: Reference `chap:experiments' on page 42 undefined on input line 37.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
+Underfull \hbox (badness 10000) in paragraph at lines 47--47
 []|\OT1/cmr/m/n/10.95 0.806 (thresh-old
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 51--52
+Underfull \hbox (badness 10000) in paragraph at lines 47--48
 []|\OT1/cmr/m/n/10.95 0.713 (thresh-old
  []
 
-[42
+[39
 
-]
-
-LaTeX Warning: Reference `tab:r_fib4' on page 43 undefined on input line 73.
-
-
-LaTeX Warning: Reference `tab:r_fairness' on page 43 undefined on input line 105.
-
-[43]
-Underfull \hbox (badness 10000) in paragraph at lines 127--127
+] [40]
+Underfull \hbox (badness 10000) in paragraph at lines 123--123
 []|\OT1/cmr/m/n/10.95 0.879 (0.859--
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 128--128
+Underfull \hbox (badness 10000) in paragraph at lines 124--124
 []|\OT1/cmr/m/n/10.95 0.889 (0.861--
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 129--129
+Underfull \hbox (badness 10000) in paragraph at lines 125--125
 []|\OT1/cmr/m/n/10.95 0.869 (0.838--
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 130--130
+Underfull \hbox (badness 10000) in paragraph at lines 126--126
 []|\OT1/cmr/m/n/10.95 0.884 (0.831--
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 131--131
+Underfull \hbox (badness 10000) in paragraph at lines 127--127
 []|\OT1/cmr/m/n/10.95 0.869 (0.809--
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 132--132
+Underfull \hbox (badness 10000) in paragraph at lines 128--128
 []|\OT1/cmr/m/n/10.95 0.894 (0.866--
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 133--133
+Underfull \hbox (badness 10000) in paragraph at lines 129--129
 []|\OT1/cmr/m/n/10.95 0.876 (0.828--
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 134--134
+Underfull \hbox (badness 10000) in paragraph at lines 130--130
 []|\OT1/cmr/m/n/10.95 0.840 (0.768--
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 135--135
+Underfull \hbox (badness 10000) in paragraph at lines 131--131
 []|\OT1/cmr/m/n/10.95 0.859 (0.759--
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 136--136
+Underfull \hbox (badness 10000) in paragraph at lines 132--132
 []|\OT1/cmr/m/n/10.95 0.931 (0.887--
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 137--137
+Underfull \hbox (badness 10000) in paragraph at lines 133--133
 []|\OT1/cmr/m/n/10.95 0.872 (0.841--
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 138--138
+Underfull \hbox (badness 10000) in paragraph at lines 134--134
 []|\OT1/cmr/m/n/10.95 0.841 (0.804--
  []
 
-
-LaTeX Warning: Reference `tab:r_nhanes3' on page 44 undefined on input line 158.
-
-[44]
-
-LaTeX Warning: Reference `tab:r_mortality' on page 45 undefined on input line 193.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 209--209
+[41]
+Underfull \hbox (badness 10000) in paragraph at lines 205--205
 []|\OT1/cmr/m/n/10.95 Highest vs low-est
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 209--209
+Underfull \hbox (badness 10000) in paragraph at lines 205--205
 []|\OT1/cmr/m/n/10.95 Ultrasound
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 209--209
+Underfull \hbox (badness 10000) in paragraph at lines 205--205
 \OT1/cmr/m/n/10.95 moderate--severe
  []
 
-[45]
-
-LaTeX Warning: Reference `tab:r_response' on page 46 undefined on input line 229.
-
-
-LaTeX Warning: Reference `tab:r_methods' on page 46 undefined on input line 256.
-
-[46]
-
-LaTeX Warning: Reference `tab:r_personal' on page 47 undefined on input line 299.
-
-
-Underfull \hbox (badness 1571) in paragraph at lines 317--317
+[42] [43]
+Underfull \hbox (badness 1571) in paragraph at lines 313--313
 []|\OT1/cmr/m/n/10.95 Overlap be-tween pa-tients of
  []
 
 
-Overfull \hbox (4.1375pt too wide) in paragraph at lines 312--321
+Overfull \hbox (4.1375pt too wide) in paragraph at lines 308--317
  [][] 
  []
 
-[47]
-
-LaTeX Warning: Reference `tab:r_summaries' on page 48 undefined on input line 341.
-
-
-LaTeX Warning: Reference `sec:m_summary' on page 48 undefined on input line 374.
-
-
-LaTeX Warning: Reference `tab:r_calibration' on page 48 undefined on input line 381.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 410--410
+[44]
+Underfull \hbox (badness 10000) in paragraph at lines 406--406
 []|\OT1/cmr/m/n/10.95 Held
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 411--411
+Underfull \hbox (badness 10000) in paragraph at lines 407--407
 []|\OT1/cmr/m/n/10.95 Held
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 412--412
+Underfull \hbox (badness 10000) in paragraph at lines 408--408
 []|\OT1/cmr/m/n/10.95 Held
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 413--413
+Underfull \hbox (badness 10000) in paragraph at lines 409--409
 []|\OT1/cmr/m/n/10.95 Held
  []
 
-[48]
-
-LaTeX Warning: Reference `tab:r_forecasts' on page 49 undefined on input line 430.
-
-
-Overfull \hbox (12.3579pt too wide) in paragraph at lines 446--455
+[45]
+Overfull \hbox (12.3579pt too wide) in paragraph at lines 442--451
  [][] 
  []
 
-[49] [50]
+[46] [47] [48]) [49] [50
 
-LaTeX Warning: Reference `tab:r_liver' on page 51 undefined on input line 507.
-
-
-LaTeX Warning: Reference `tab:r_overview' on page 51 undefined on input line 550.
-
-[51]) [52] [53
-
-] [54] [55] [56]
+] [51] [52] [53]
 Overfull \hbox (3.67609pt too wide) in paragraph at lines 29--29
 \OT1/cmr/m/n/10.95 ables: A cross-sectional study in US pop-u-la-tion,'' \OT1/cmr/m/it/10.95 In-ter-na-tional Jour-nal of Hep-a-tol-ogy\OT1/cmr/m/n/10.95 , vol. 2026,
  []
 
-[57] [58]
+[54] [55]
 Overfull \hbox (22.00302pt too wide) in paragraph at lines 29--29
 []\OT1/cmr/m/n/10.95 C. Dalla Man, F. Micheletto, D. Lv, M. Bre-ton, B. Ko-vatchev, and C. Co-belli, ``The UVA/PADOVA
  []
 
-[59] (main.aux)
+[56] [57] (main.aux)
  ***********
 LaTeX2e <2026-06-01>
 L3 programming layer <2026-09-09>
@@ -1655,38 +1238,24 @@ L3 programming layer <2026-09-09>
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  804ECBBBEBD00048D78D9DA48C966860;21296.
-
-Package biblatex Warning: Please (re)run Biber on the file:
-(biblatex)                main
-(biblatex)                and rerun LaTeX afterwards.
-
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 8922AE680A10477E8E31F0BF8B2CB0E5;21050.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 42816 strings out of 467392
- 989889 string characters out of 5405639
- 1961610 words of memory out of 5000000
- 71231 multiletter control sequences out of 15000+600000
- 638834 words of font info for 76 fonts, out of 8000000 for 9000
+ 42971 strings out of 467392
+ 993730 string characters out of 5405639
+ 1974973 words of memory out of 5000000
+ 71369 multiletter control sequences out of 15000+600000
+ 638526 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  107i,13n,118p,1891b,2412s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\24aks\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1095.pk><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy9.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (64 pages, 607590 bytes).
+ <C:\Users\24aks\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1095.pk><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy9.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/24aks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on main.pdf (65 pages, 679384 bytes).
 PDF statistics:
- 1147 PDF objects out of 1200 (max. 8388607)
- 308 named destinations out of 1000 (max. 500000)
- 18 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1677 PDF objects out of 1728 (max. 8388607)
+ 318 named destinations out of 1000 (max. 500000)
+ 850 words of extra memory for PDF output out of 10000 (max. 10000000)
 

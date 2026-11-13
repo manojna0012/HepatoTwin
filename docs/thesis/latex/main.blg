@@ -1,0 +1,22 @@
+[0] Config.pm:329> INFO - This is Biber 2.22
+[0] Config.pm:332> INFO - Logfile is 'main.blg'
+[216] biber-MSWIN64:342> INFO - === 
+[329] Biber.pm:421> INFO - Reading 'main.bcf'
+[617] Biber.pm:1002> INFO - Found 97 citekeys in bib section 0
+[666] Biber.pm:4487> INFO - Processing section 0
+[708] Biber.pm:4680> INFO - Looking for bibtex file 'references.bib' for section 0
+[865] bibtex.pm:1713> INFO - LaTeX decoding ...
+[1172] bibtex.pm:1519> INFO - Found BibTeX data source 'references.bib'
+[2080] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[2081] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[2081] Biber.pm:4307> INFO - Sorting list 'none/global//global/global/global' of type 'entry' with template 'none' and locale 'en-US'
+[2081] Biber.pm:4313> INFO - No sort tailoring available for locale 'en-US'
+[2164] bbl.pm:676> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[2370] bbl.pm:779> INFO - Output to main.bbl
+[2371] Biber.pm:132> WARN - Duplicate entry key: 'nhanes3' in file 'references.bib', skipping ...
+[2371] Biber.pm:132> WARN - Duplicate entry key: 'platt1999' in file 'references.bib', skipping ...
+[2371] Biber.pm:132> WARN - Duplicate entry key: 'vovk2005' in file 'references.bib', skipping ...
+[2371] Biber.pm:132> WARN - Duplicate entry key: 'idtdiet' in file 'references.bib', skipping ...
+[2371] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\24aks\AppData\Local\Temp\biber_tmp_l16e\33e59b5ca9ec342068223d604c3f8d55_23056.utf8, line 864, warning: 11 characters of junk seen at toplevel
+[2371] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\24aks\AppData\Local\Temp\biber_tmp_l16e\33e59b5ca9ec342068223d604c3f8d55_23056.utf8, line 1227, warning: 7 characters of junk seen at toplevel
+[2371] Biber.pm:134> INFO - WARNINGS: 6
