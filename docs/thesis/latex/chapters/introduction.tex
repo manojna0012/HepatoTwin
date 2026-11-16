@@ -164,7 +164,7 @@ classifiers \cite{zadrozny2002calibration} that give the probability of CAP at
 or above 248 and 280~dB/m, explained per feature with SHAP values
 \cite{lundberg2017shap}. Layer~3, the evidence engine, converts this state into
 nutritional priorities such as weight management or limiting saturated fat;
-each priority cites rows of a curated table of 23 intervention--outcome
+each priority cites rows of a curated table of 25 intervention--outcome
 findings drawn from trials, meta-analyses and guidelines
 \cite{vilargomez2015weight,sangouni2022mediterranean,haigh2022mediterranean,xiong2024mediterranean,stine2023exercise,stern2026dietary,easl2024masld}
 with explicit evidence-strength labels, and is adjusted by the patient's own
@@ -252,10 +252,13 @@ outputs: they support, and do not replace, clinical care.
 Chapter~2 reviews related work on MASLD and its dietary treatment,
 non-invasive liver fat assessment, machine-learning prediction of steatosis,
 dietary assessment, digital twins, computational gastronomy and the
-evaluation of twins without longitudinal data. Chapter~3 describes the
+evaluation of twins without longitudinal data. Chapter~3 reports the
+experiments carried out to improve the prediction of CAP, and explains why
+its performance reaches a plateau. Chapter~4 describes the
 methodology: the NHANES cohort and the recipe corpus, the liver-state model,
 the evidence engine, the recipe evaluation and ranking engine, and the
-scenario and updating components of the twin. Chapter~4 reports the
-experiments carried out to improve the prediction of CAP, and explains why
-its performance reaches a plateau. Chapter~5 presents the results of each
-component against its baselines.
+scenario and updating components of the twin. Chapter~5 presents the results of each
+component against its baselines. Chapter~6 concludes with the answer to the
+research question, the limitations and future work. Appendix~A lists the
+evidence, rules and reference values the twin uses, and Appendix~B documents
+the software and how to reproduce the results.

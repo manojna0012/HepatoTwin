@@ -58,48 +58,76 @@
 \contentsline {subsection}{\numberline {4.2.3}Fibrosis risk, liver label and safety notices}{29}{subsection.4.2.3}%
 \contentsline {section}{\numberline {4.3}Layer 3: Evidence Engine}{30}{section.4.3}%
 \contentsline {subsection}{\numberline {4.3.1}Intervention evidence table}{30}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}From patient state to dietary priorities}{30}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Causal knowledge graph}{30}{subsection.4.3.3}%
-\contentsline {section}{\numberline {4.4}Layer 4: Recipe Evaluation and Ranking Engine}{31}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Food preferences}{31}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}Criteria}{31}{subsection.4.4.2}%
-\contentsline {subsection}{\numberline {4.4.3}Health-gated ranking}{32}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.3.2}From patient state to dietary priorities}{31}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Causal knowledge graph}{31}{subsection.4.3.3}%
+\contentsline {section}{\numberline {4.4}Layer 4: Recipe Evaluation and Ranking Engine}{32}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Food preferences}{32}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Criteria}{32}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Health-gated ranking}{33}{subsection.4.4.3}%
 \contentsline {subsection}{\numberline {4.4.4}Explanations, diversity and weekly plans}{33}{subsection.4.4.4}%
-\contentsline {section}{\numberline {4.5}Layer 5: Scenario Engine}{33}{section.4.5}%
+\contentsline {section}{\numberline {4.5}Layer 5: Scenario Engine}{34}{section.4.5}%
 \contentsline {section}{\numberline {4.6}Updating the Twin: Plan, Check-ins and Re-assessment}{34}{section.4.6}%
 \contentsline {subsection}{\numberline {4.6.1}The plan}{34}{subsection.4.6.1}%
-\contentsline {subsection}{\numberline {4.6.2}Predict, observe, compare, adjust}{34}{subsection.4.6.2}%
+\contentsline {subsection}{\numberline {4.6.2}Predict, observe, compare, adjust}{35}{subsection.4.6.2}%
 \contentsline {subsection}{\numberline {4.6.3}Tips and alerts}{35}{subsection.4.6.3}%
 \contentsline {section}{\numberline {4.7}Plain-Language Summary}{35}{section.4.7}%
-\contentsline {section}{\numberline {4.8}System and Interfaces}{35}{section.4.8}%
+\contentsline {section}{\numberline {4.8}System and Interfaces}{36}{section.4.8}%
 \contentsline {section}{\numberline {4.9}Evaluation Design}{36}{section.4.9}%
 \contentsline {subsection}{\numberline {4.9.1}Liver-state model and safety checks}{36}{subsection.4.9.1}%
-\contentsline {subsection}{\numberline {4.9.2}Fairness audit}{36}{subsection.4.9.2}%
-\contentsline {subsection}{\numberline {4.9.3}External and long-term validation on NHANES III}{36}{subsection.4.9.3}%
-\contentsline {subsection}{\numberline {4.9.4}Recipe ranking}{37}{subsection.4.9.4}%
-\contentsline {subsection}{\numberline {4.9.5}Plain-language summaries}{37}{subsection.4.9.5}%
-\contentsline {subsection}{\numberline {4.9.6}In-silico evaluation of the updating twin}{37}{subsection.4.9.6}%
-\contentsline {chapter}{\numberline {5}Results}{39}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Liver-State Model, Uncertainty and Fibrosis Triage}{39}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Discrimination and calibration}{39}{subsection.5.1.1}%
-\contentsline {subsection}{\numberline {5.1.2}Uncertainty}{39}{subsection.5.1.2}%
-\contentsline {subsection}{\numberline {5.1.3}Fibrosis triage}{40}{subsection.5.1.3}%
-\contentsline {section}{\numberline {5.2}Fairness Audit}{40}{section.5.2}%
-\contentsline {section}{\numberline {5.3}External and Long-Term Validation on NHANES III}{42}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Discrimination against ultrasound}{42}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Long-term mortality}{42}{subsection.5.3.2}%
-\contentsline {section}{\numberline {5.4}Evidence Engine}{42}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Recipe Evaluation and Ranking Engine}{43}{section.5.5}%
-\contentsline {subsection}{\numberline {5.5.1}Comparison with alternative rankings}{43}{subsection.5.5.1}%
-\contentsline {subsection}{\numberline {5.5.2}Personalisation}{44}{subsection.5.5.2}%
-\contentsline {subsection}{\numberline {5.5.3}Weekly meal plans}{44}{subsection.5.5.3}%
-\contentsline {section}{\numberline {5.6}Plain-Language Summaries}{45}{section.5.6}%
-\contentsline {section}{\numberline {5.7}Simulator Calibration}{45}{section.5.7}%
-\contentsline {section}{\numberline {5.8}In-Silico Evaluation of the Updating Twin}{46}{section.5.8}%
-\contentsline {subsection}{\numberline {5.8.1}Weight forecasts}{46}{subsection.5.8.1}%
-\contentsline {subsection}{\numberline {5.8.2}Causes of slow progress and clinician alerts}{47}{subsection.5.8.2}%
-\contentsline {subsection}{\numberline {5.8.3}Detecting change}{47}{subsection.5.8.3}%
-\contentsline {subsection}{\numberline {5.8.4}Tracking liver fat}{48}{subsection.5.8.4}%
-\contentsline {subsection}{\numberline {5.8.5}Ordering the scenarios}{48}{subsection.5.8.5}%
-\contentsline {section}{\numberline {5.9}Overview}{48}{section.5.9}%
-\contentsline {chapter}{Bibliography}{50}{chapter*.38}%
+\contentsline {subsection}{\numberline {4.9.2}Fairness audit}{39}{subsection.4.9.2}%
+\contentsline {subsection}{\numberline {4.9.3}External and long-term validation on NHANES III}{39}{subsection.4.9.3}%
+\contentsline {subsection}{\numberline {4.9.4}Recipe ranking}{39}{subsection.4.9.4}%
+\contentsline {subsection}{\numberline {4.9.5}Plain-language summaries}{39}{subsection.4.9.5}%
+\contentsline {subsection}{\numberline {4.9.6}In-silico evaluation of the updating twin}{40}{subsection.4.9.6}%
+\contentsline {chapter}{\numberline {5}Results}{42}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Liver-State Model, Uncertainty and Fibrosis Triage}{42}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Discrimination and calibration}{42}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Uncertainty}{42}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Fibrosis triage}{44}{subsection.5.1.3}%
+\contentsline {section}{\numberline {5.2}Fairness Audit}{44}{section.5.2}%
+\contentsline {section}{\numberline {5.3}External and Long-Term Validation on NHANES III}{45}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Discrimination against ultrasound}{45}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Long-term mortality}{45}{subsection.5.3.2}%
+\contentsline {section}{\numberline {5.4}Evidence Engine}{47}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Recipe Evaluation and Ranking Engine}{48}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Comparison with alternative rankings}{48}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Personalisation}{48}{subsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.5.3}Weekly meal plans}{49}{subsection.5.5.3}%
+\contentsline {section}{\numberline {5.6}Plain-Language Summaries}{49}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Simulator Calibration}{50}{section.5.7}%
+\contentsline {section}{\numberline {5.8}In-Silico Evaluation of the Updating Twin}{51}{section.5.8}%
+\contentsline {subsection}{\numberline {5.8.1}Weight forecasts}{51}{subsection.5.8.1}%
+\contentsline {subsection}{\numberline {5.8.2}Causes of slow progress and clinician alerts}{51}{subsection.5.8.2}%
+\contentsline {subsection}{\numberline {5.8.3}Detecting change}{52}{subsection.5.8.3}%
+\contentsline {subsection}{\numberline {5.8.4}Tracking liver fat}{52}{subsection.5.8.4}%
+\contentsline {subsection}{\numberline {5.8.5}Ordering the scenarios}{53}{subsection.5.8.5}%
+\contentsline {section}{\numberline {5.9}Overview}{53}{section.5.9}%
+\contentsline {chapter}{\numberline {6}Conclusion}{55}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Summary of Findings}{55}{section.6.1}%
+\contentsline {paragraph}{Liver state from routine data (Objective 1).}{55}{section*.44}%
+\contentsline {paragraph}{Evidence-graded priorities (Objective 2).}{55}{section*.45}%
+\contentsline {paragraph}{Recipe evaluation and ranking (Objective 3).}{55}{section*.46}%
+\contentsline {paragraph}{Scenarios and updating (Objective 4).}{56}{section*.47}%
+\contentsline {paragraph}{Honest evaluation (Objective 5).}{56}{section*.48}%
+\contentsline {section}{\numberline {6.2}Limitations}{56}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Future Work}{57}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Closing Remarks}{57}{section.6.4}%
+\contentsline {chapter}{\numberline {A}Evidence, Rules and Reference Values}{58}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Intervention Evidence Table}{58}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Causal Knowledge Graph}{58}{section.A.2}%
+\contentsline {section}{\numberline {A.3}Patient State, Fibrosis Check, Liver Label and Safety Notices}{58}{section.A.3}%
+\contentsline {paragraph}{Fibrosis check}{58}{section*.53}%
+\contentsline {paragraph}{Liver label}{62}{section*.54}%
+\contentsline {paragraph}{Safety notices.}{62}{section*.55}%
+\contentsline {section}{\numberline {A.4}Nutritional Priority Rules}{62}{section.A.4}%
+\contentsline {section}{\numberline {A.5}Recipe Criteria and Ranking Weights}{63}{section.A.5}%
+\contentsline {section}{\numberline {A.6}Plan Paces}{63}{section.A.6}%
+\contentsline {chapter}{\numberline {B}System, Reproducibility and Tests}{64}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Architecture}{64}{section.B.1}%
+\contentsline {section}{\numberline {B.2}API}{64}{section.B.2}%
+\contentsline {section}{\numberline {B.3}Stored Data}{64}{section.B.3}%
+\contentsline {section}{\numberline {B.4}Dashboard Screens}{64}{section.B.4}%
+\contentsline {section}{\numberline {B.5}Reproducing the Results}{66}{section.B.5}%
+\contentsline {section}{\numberline {B.6}Tests}{66}{section.B.6}%
+\contentsline {section}{\numberline {B.7}Demo Accounts}{66}{section.B.7}%
+\contentsline {chapter}{Bibliography}{67}{appendix*.62}%

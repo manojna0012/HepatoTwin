@@ -1,18 +1,31 @@
 \chapter*{\centering Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
 
-HepatoTwin is a patient-specific digital twin framework for metabolic 
-dysfunction-associated steatotic liver disease (MASLD) that integrates clinical, 
-metabolic, and dietary data to model an individual's health state. The framework 
-connects the patient's predicted risk profile with personalized, evidence-based dietary recommendations.
-Using an evidence-informed intervention layer, HepatoTwin identifies patient-specific
- nutritional priorities and evaluates existing recipes based on their alignment with
-  these objectives. Recipes are ranked using a multi-criteria approach that considers 
-  health relevance, cuisine compatibility, and practical feasibility. The system also 
-  provides transparent explanations of how patient characteristics and evidence-supported 
-  nutritional priorities influence recommendations.
-The framework will be evaluated using NHANES data for patient-state modeling and food 
-and recipe knowledge resources for personalized dietary recommendation.
+Metabolic dysfunction-associated steatotic liver disease (MASLD) is managed
+mainly through diet and weight loss, yet routine care offers neither a
+personal estimate of liver fat nor recipes chosen for the individual.
+HepatoTwin is a patient-specific digital twin that estimates liver fat from
+routine check-up data, turns that estimate into evidence-linked nutritional
+priorities, and ranks real recipes against them. A calibrated model trained on
+15,300 NHANES participants with FibroScan measurements predicts the chance of
+steatosis (AUC 0.881 for CAP $\geq$ 248~dB/m and 0.879 for CAP $\geq$
+280~dB/m, calibration error $\leq$ 0.022), with conformal intervals that
+covered 90.9\% of held-out cases. On NHANES III, it reached an AUC of 0.771
+against ultrasound and identified a group with 1.58 times the all-cause and
+2.15 times the cardiovascular mortality. An evidence engine links each
+priority to a graded evidence table and a causal knowledge graph. A
+health-gated, multi-criteria ranking of RecipeDB recipes placed recipes
+meeting all three criteria in 82.3\% of top-ten lists, against 27.2\% for
+weighted scoring without the gate, and produced complete seven-day plans for
+every test patient. At each monthly check-in, the twin compares observed
+weight with its own forecast and adjusts the plan. In a simulation calibrated
+to published trials, its forecasts erred by 1.9~kg at three months, against
+2.9~kg for a standard textbook rule. Patient summaries were fully faithful to
+the model output. A web dashboard serves patients and clinicians, with plan
+approval for safety concerns and a three-dimensional view of projected liver
+change.
 
-\vspace{2in}
-% \textbf{Keywords}: (e.g.Mobile computing, security, complexity, algorithms, image analysis, machine learning, information retrieval)
+\vspace{0.4in}
+\noindent\textbf{Keywords}: digital twin, MASLD, liver fat, NHANES,
+personalised nutrition, recipe recommendation, explainable AI
+\par

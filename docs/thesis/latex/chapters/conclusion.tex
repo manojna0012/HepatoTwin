@@ -1,0 +1,134 @@
+\chapter{Conclusion}
+\label{chap:conclusion}
+
+This thesis asked whether a patient-specific liver digital twin, built from
+clinical data and graded intervention evidence, can support the
+evidence-grounded evaluation and ranking of existing recipes for an individual
+patient (Section~\ref{sec:research_question}). The answer is yes, within the
+limits set out below: HepatoTwin estimates a patient's liver state from
+routine data with calibrated probabilities, links that state to graded
+evidence, and ranks real recipes so that the top of every list meets the
+patient's nutritional references, cuisine and practical limits far more often
+than the alternatives. This chapter summarises what each objective achieved,
+states the limitations, and sets out future work.
+
+% ======================================================================
+\section{Summary of Findings}
+\label{sec:c_findings}
+
+\paragraph{Liver state from routine data (Objective 1).} The liver-state model
+detects steatosis with an AUC of 0.881 for CAP $\geq$ 248~dB/m and 0.879 for
+CAP $\geq$ 280~dB/m on held-out participants, with an expected calibration
+error of at most 0.022, and outperforms the Fatty Liver Index and the Hepatic
+Steatosis Index on the same patients. Its 90\% conformal interval covered
+90.9\% of test participants. On NHANES~III, collected in 1988--1994 and
+assessed by ultrasound, it reached an AUC of 0.771, and the quarter of
+participants with the highest predicted probability had 1.58 times the
+all-cause and 2.15 times the cardiovascular mortality. The point estimate of
+CAP, in contrast, explains only 56\% of its variance (Chapter~\ref{chap:cap-experiments}),
+so the twin shows patients calibrated chances rather than a single number.
+
+\paragraph{Evidence-graded priorities (Objective 2).} Every priority cites
+rows of a table of 25 findings, each linking an intervention to an outcome
+with an explicit strength label, and a causal knowledge graph of 16 links, and none carries an invented
+numeric target. The patient's own 24-hour recall moves a priority by at most
+one level, which keeps a noisy single recall from dominating.
+
+\paragraph{Recipe evaluation and ranking (Objective 3).} The health-gated
+ranking placed recipes that meet every nutritional reference, the patient's
+cuisine and the practical limits in 82.3\% of top-ten lists, against 27.2\%
+for weighted scoring without the gate, and every recommended recipe met every
+health reference. Personal fit raised the number of distinct top-ten lists
+from 28 to 124 while that share barely changed (82.3\% against 82.6\%), and
+every seven-day plan was
+complete and met every constraint.
+
+\paragraph{Scenarios and updating (Objective 4).} In a simulation calibrated
+to published weight-loss trials, the twin's weight forecasts erred by 1.9~kg
+three months ahead and 2.8~kg six months ahead, against 2.9 and 4.7~kg for a
+standard textbook rule, with 91\% of outcomes inside its stated ranges. When
+it named ``plan not followed'' as the cause of slow progress it was always
+correct, and it tracked liver fat with
+an AUC of 0.88 at months 0, 6 and 12.
+
+\paragraph{Honest evaluation (Objective 5).} The evaluation also exposed what
+the twin cannot do, and the system was changed in response. A patient's body
+response to diet cannot be told apart from ordinary weight drift within a
+year (correlation 0.03--0.06), so the twin reports a lack of progress rather
+than its cause and asks a clinician to review. The model is less well
+calibrated for some ethnic groups; FIB-4 is weak in young community patients,
+so a measured liver stiffness is preferred when available; and the first
+plain-language summaries were faithful but hard to read, which led to a
+rewrite that lowered the reading grade from 12.5 to 9.8 while keeping every
+statement faithful to the model output.
+
+% ======================================================================
+\section{Limitations}
+\label{sec:c_limitations}
+
+\begin{itemize}
+    \item \textbf{No real follow-up data.} NHANES examines each participant
+          once. The current-state estimate is validated on held-out patients,
+          but the twin's projections and its updating were evaluated only on
+          virtual patients. They are labelled as simulated projections, not
+          clinical forecasts, and remain unvalidated against repeat
+          measurements in real patients.
+    \item \textbf{A ceiling on prediction from routine data.} Liver fat
+          measured by CAP is only partly explained by routine measurements;
+          no model tried exceeded an $R^2$ of about 0.56
+          (Chapter~\ref{chap:cap-experiments}).
+    \item \textbf{Calibration differs between groups.} Discrimination was good
+          in every group (AUC 0.84--0.93), but the predicted probability was
+          too high for non-Hispanic Black participants and, at the borderline
+          of significance, too low for non-Hispanic Asian participants.
+    \item \textbf{Evidence is at the level of diets, not recipes.} The
+          evidence table describes the effects of weight loss and dietary
+          patterns; no single recipe can claim those effects, which is why the
+          twin ranks recipes against reference values rather than predicting
+          their effect on the liver.
+    \item \textbf{Recipe data.} RecipeDB reports total rather than free sugars,
+          some diet labels do not match the ingredients (so recipes must pass
+          both the label and an ingredient check), and main meals are unevenly
+          spread across cuisines, which limits weekly plans for some cuisines.
+    \item \textbf{Narrow external validation.} The NHANES~III analysis is
+          unweighted and adjusted for age and sex only, because smoking,
+          alcohol and income are not mapped.
+    \item \textbf{No user study.} The planned pilot evaluation with patients
+          and clinicians was not carried out within the project's time, so the
+          usability and acceptability of the dashboard and its recommendations
+          have not been tested with real users.
+\end{itemize}
+
+% ======================================================================
+\section{Future Work}
+\label{sec:c_future}
+
+\begin{itemize}
+    \item \textbf{A pilot with patients and clinicians}, to test whether the
+          recommendations are acceptable and cookable, whether the summaries
+          and the liver visualisation are understood, and whether clinicians
+          find the patient page useful when approving plans.
+    \item \textbf{Longitudinal deployment}, in which patients enter their own
+          measurements over months, with repeat FibroScan examinations, so that
+          the twin's projections and its re-assessment loop can be validated on
+          real data.
+    \item \textbf{Recalibration by group}, refitting the calibrators where the
+          fairness audit found the probabilities too high or too low.
+    \item \textbf{A broader recipe corpus}, with more main meals in
+          under-represented cuisines, and recipe modification by ingredient
+          substitution, so that a familiar dish can be made to meet the
+          references rather than replaced.
+    \item \textbf{Objective adherence data}, such as step counts from a phone
+          or wearable, in place of self-reported walking at check-ins.
+\end{itemize}
+
+% ======================================================================
+\section{Closing Remarks}
+\label{sec:c_closing}
+
+HepatoTwin shows that a digital twin for MASLD can be built from data
+collected in a routine check-up and linked, step by step, to the evidence
+behind each dietary recommendation. Its estimates are calibrated, its
+recommendations are traceable to graded evidence, and its limits are stated
+rather than hidden. Validating its projections on real patients over time is
+the step that would turn it from a research prototype into a tool for care.

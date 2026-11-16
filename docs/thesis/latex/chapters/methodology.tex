@@ -12,7 +12,7 @@ system and the patient and clinician interfaces (Layers~6 and~7).
 Section~\ref{sec:m_eval} sets out how each component is evaluated, including
 the in-silico evaluation of the twin on virtual patients. The experiments
 behind the liver-state model are reported separately in
-Chapter~\ref{chap:experiments}; the results of every evaluation are given in
+Chapter~\ref{chap:cap-experiments}; the results of every evaluation are given in
 Chapter~ef{chap:results}.
 
 % ======================================================================
@@ -35,7 +35,7 @@ same test participants are never seen in training anywhere in the system.
 
 The liver-state model is intended for people aged 12 to 59, evaluated against
 reliable examinations (CAP interquartile range below 40~dB/m); this is the
-model's \emph{scope} (Chapter~\ref{chap:experiments}). The test set holds
+model's \emph{scope} (Chapter~\ref{chap:cap-experiments}). The test set holds
 1{,}236 in-scope participants, who are the held-out patients for every
 evaluation in this thesis.
 
@@ -107,7 +107,7 @@ Two classifiers estimate the probability that CAP is at least 248~dB/m
 (``some liver fat'', steatosis grade S1 or above) and at least 280~dB/m
 (``a lot of liver fat'', grade S3) \cite{karlas2017cap}; both are calibrated
 with isotonic regression \cite{zadrozny2002calibration}. The experiments that
-led to this model are reported in Chapter~\ref{chap:experiments}.
+led to this model are reported in Chapter~\ref{chap:cap-experiments}.
 
 The calibrated probabilities, not the CAP estimate, are the twin's primary
 state: with a held-out $R^2$ of 0.56 the individual CAP error (RMSE about
@@ -129,6 +129,17 @@ bootstrap resamples. SHAP values \cite{lundberg2017shap}, computed with
 XGBoost's built-in TreeSHAP, split each patient's CAP estimate into the
 average prediction plus one contribution per input; they describe what drives
 the model's estimate, not causes that diet can change.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/shap_cap248.png}
+    \caption{SHAP summary for the CAP $\geq$ 248~dB/m classifier on the test
+             participants. Each point is one participant; its position shows how
+             much that input moved the predicted log-odds, and its colour the
+             input's value. Body-size measures dominate; the contributions explain
+             the model, not causes that diet can change.}
+    \label{fig:m_shap}
+\end{figure}
 
 \subsection{Fibrosis risk, liver label and safety notices}
 
@@ -483,6 +494,36 @@ by the steatosis state from the calibrated probabilities, with a timeline
 slider for today and three, six and twelve months, and labels every future
 state as a simulated projection, not a clinical forecast.
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{figures/dashboard_today.png}
+    \caption{The patient's Today screen: the next step, the next check-in, the
+             chance of a lot of liver fat, the twin's suggestion from the last
+             check-in, body measures, goals and what is coming up.}
+    \label{fig:m_today}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{figures/dashboard_liver.png}
+    \caption{The liver visualisation (Layer~6). Today's liver is shown beside the
+             liver at a chosen time on the plan (here six months); colour follows
+             the chance of a lot of fat, from blue (none) to red (a lot). It is a
+             drawing, not a scan, and the future state is labelled as a simulated
+             projection.}
+    \label{fig:m_liver}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{figures/dashboard_clinician.png}
+    \caption{The clinician's patient page: the CAP estimate with its 90\% interval
+             and grade, the calibrated probabilities, the fibrosis check, the liver
+             label and safety notice, and the SHAP contributions that moved the
+             estimate. Patients see only the calibrated chances.}
+    \label{fig:m_clinician}
+\end{figure}
+
 % ======================================================================
 \section{Evaluation Design}
 \label{sec:m_eval}
@@ -497,7 +538,7 @@ The model is evaluated on the in-scope test participants by $R^2$ and RMSE
 for CAP, and by ROC-AUC, Brier score and calibration for the two
 classifiers, against the Fatty Liver Index \cite{bedogni2006fli} and the
 Hepatic Steatosis Index \cite{lee2010hsi} on the same participants
-(Chapter~\ref{chap:experiments}). The conformal intervals are checked by their
+(Chapter~\ref{chap:cap-experiments}). The conformal intervals are checked by their
 empirical coverage on the test set (target 90\%). FIB-4 is evaluated against
 liver stiffness measured in the same FibroScan examination, with 8~kPa to rule
 out and 12~kPa to rule in advanced fibrosis.

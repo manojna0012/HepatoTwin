@@ -1,0 +1,392 @@
+% Appendices (after \appendix in main.tex): A = evidence, rules and reference values; B = system, reproducibility, tests.
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
+\chapter{Evidence, Rules and Reference Values}
+\label{app:evidence}
+
+This appendix lists the evidence, rules and reference values that the
+Methodology chapter summarises. Every value is taken from the project file
+named in each section.
+
+\section{Intervention Evidence Table}
+\label{app:a_evidence}
+
+Every nutritional priority, recipe criterion and scenario claim in HepatoTwin
+cites rows of this table (\nolinkurl{data/evidence/intervention_evidence.csv};
+Tables~\ref{tab:a_evidence1} and~\ref{tab:a_evidence2}). Null and conflicting
+findings are kept so that the twin does not overstate any effect;
+observational associations are recorded but never used as effects.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Intervention evidence table, part 1 (weight loss, dietary patterns and exercise).}
+\label{tab:a_evidence1}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.3cm}LLLp{1.95cm}L}
+\toprule
+ID & Intervention & Outcome & Design and size & Strength & Source \\
+\midrule
+VG2015-WL5 & Weight loss $\geq$ 5\% & NASH resolution, NAS & Lifestyle intervention, paired biopsies; 261 of 293 & STRONG & Vilar-Gomez et al. 2015 \\
+VG2015-WL7-10 & Weight loss 7--10\% & Liver inflammation (NAS) & Same cohort, 7--10\% subgroup & STRONG & Vilar-Gomez et al. 2015 \\
+VG2015-WL10-NASH & Weight loss $\geq$ 10\% & NASH resolution (90\%) & Same cohort, $\geq$ 10\% subgroup & STRONG & Vilar-Gomez et al. 2015 \\
+VG2015-WL10-FIB & Weight loss $\geq$ 10\% & Fibrosis regression (45\%) & Same cohort, $\geq$ 10\% subgroup & STRONG & Vilar-Gomez et al. 2015 \\
+SAN2021-AST-GGT & Mediterranean diet & AST and GGT (reduced) & Meta-analysis, 10 RCTs, 705 people & MODERATE & Sangouni et al. 2022 \\
+SAN2021-ALT & Mediterranean diet & ALT (no significant effect) & Same meta-analysis & WEAK / INCON\-CLUSIVE & Sangouni et al. 2022 \\
+STE2026-MEDDIET & Mediterranean diet & ALT, liver stiffness, MRI-PDFF (reduced) & Meta-analysis, 24 RCTs, 4--9 per outcome & MODERATE & Stern et al. 2026 \\
+HAI2022-DIET & Dietary interventions & ALT, AST, FLI, steatosis, stiffness & Meta-analysis, 26 articles, 3,037 people & MODERATE & Haigh et al. 2022 \\
+HAI2022-CR & Calorie restriction & ALT, steatosis, stiffness & 9 studies within the same review & MODERATE & Haigh et al. 2022 \\
+XIO2024-MD-LFD & Mediterranean vs low-fat diet & Liver enzymes and fat (no difference) & Meta-analysis of RCTs & MODERATE & Xiong et al. 2024 \\
+STI2023-EX & Exercise training & $\geq$ 30\% fall in MRI liver fat (OR 3.51) & Meta-analysis, 14 studies, 551 people & MODERATE & Stine et al. 2023 \\
+STI2023-EXDOSE & Exercise $\geq$ 750 MET-min/week & $\geq$ 30\% fall in MRI liver fat (OR 3.73) & Same meta-analysis & MODERATE & Stine et al. 2023 \\
+EASL2024-DIET & Mediterranean-like diet; limit ultra-processed food; avoid sugary drinks & Liver injury & Clinical practice guideline & GUIDELINE & EASL-EASD-EASO 2024 \\
+EASL2024-PA & Physical activity $>$ 150 min/week moderate & Steatosis & Clinical practice guideline & GUIDELINE & EASL-EASD-EASO 2024 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Intervention evidence table, part 2 (nutrients, foods and other interventions).}
+\label{tab:a_evidence2}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.3cm}LLLp{1.95cm}L}
+\toprule
+ID & Intervention & Outcome & Design and size & Strength & Source \\
+\midrule
+LUU2018-SAT & Overfeeding 1,000 kcal/day: saturated vs unsaturated fat vs sugars & Liver fat +55\% / +15\% / +33\% & RCT, 38 people, 3 weeks & MODERATE & Luukkonen et al. 2018 \\
+CHI2014-HYPER & Fructose adding surplus energy & Liver fat and ALT (raised) & Meta-analysis, 6 hypercaloric trials & MODERATE & Chiu et al. 2014 \\
+CHI2014-ISO & Fructose replacing other carbohydrate & Liver fat and ALT (no effect) & Meta-analysis, 7 isocaloric trials & WEAK / INCON\-CLUSIVE & Chiu et al. 2014 \\
+LIU2015-COF-FIB & Coffee drinking & Advanced fibrosis (OR 0.73), cirrhosis (OR 0.61) & Observational meta-analysis, 16 studies & OBSERVA\-TIONAL & Liu et al. 2015 \\
+EBA2021-COF-FIB & Coffee, highest vs lowest & Significant fibrosis in NAFLD (RR 0.65) & Observational meta-analysis, 5 studies & OBSERVA\-TIONAL & Ebadi et al. 2021 \\
+EBA2021-COF-INC & Coffee, highest vs lowest & NAFLD incidence and prevalence (no association) & Observational meta-analysis, 11 studies & OBSERVA\-TIONAL & Ebadi et al. 2021 \\
+STE2026-FAST & Fasting & ALT and liver stiffness (reduced) & Meta-analysis, 4--6 RCTs per outcome & MODERATE & Stern et al. 2026 \\
+STE2026-LCHF & Low-carbohydrate high-fat or ketogenic diet & ALT (no significant effect) & Meta-analysis, 6 RCTs & WEAK / INCON\-CLUSIVE & Stern et al. 2026 \\
+STE2026-OMEGA3 & Omega-3 supplements & ALT (no significant effect) & Meta-analysis, 4 RCTs & WEAK / INCON\-CLUSIVE & Stern et al. 2026 \\
+HAL2019-UPF & Ultra-processed vs unprocessed diet & Energy intake (+508 kcal/day), weight & Inpatient crossover RCT, 20 people & MODERATE & Hall et al. 2019 \\
+BAW2017-GI & High vs low glycaemic-index diet, 7 days & Liver fat (raised) & Crossover RCT, 8 healthy men & WEAK / INCON\-CLUSIVE & Bawden et al. 2017 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Causal Knowledge Graph}
+\label{app:a_graph}
+
+The graph (\nolinkurl{data/evidence/causal_graph.csv}; Table~\ref{tab:a_graph})
+links each dietary lever to liver fat. Recipe explanations show the path, for
+example ``energy intake $\rightarrow$ body weight $\rightarrow$ liver fat''.
+The graph has no cycles and every link cites a source.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Links of the causal knowledge graph.}
+\label{tab:a_graph}
+\begin{tabularx}{\textwidth}{p{0.8cm}>{\raggedright\arraybackslash}p{4.4cm}>{\raggedright\arraybackslash}p{2.0cm}LL}
+\toprule
+Link & From $\rightarrow$ to & Relation & Evidence & Note \\
+\midrule
+CG01 & energy intake $\rightarrow$ body weight & causes (+) & Hall et al. 2011 & About 1 kg per 100 kJ/day \\
+CG02 & body weight $\rightarrow$ liver fat & causes (+) & VG2015-WL5, VG2015-WL7-10, HAI2022-CR & $\geq$ 5\% weight loss reduces steatosis \\
+CG03 & body weight $\rightarrow$ insulin resistance & causes (+) & Appuhamy et al. 2014 & Weight loss lowers fasting insulin and glucose \\
+CG04 & insulin resistance $\rightarrow$ liver fat & causes (+) & Rinella et al. 2023 & Key metabolic driver of MASLD \\
+CG05 & saturated fat intake $\rightarrow$ liver fat & causes (+) & LUU2018-SAT, EASL2024-DIET & Raised liver fat more than unsaturated fat or sugars \\
+CG06 & added sugar intake $\rightarrow$ liver fat & causes (+) in energy surplus & CHI2014-HYPER, CHI2014-ISO & Only when sugar adds surplus energy \\
+CG07 & diet quality $\rightarrow$ liver fat & reduces ($-$) & STE2026-MEDDIET, HAI2022-DIET, EASL2024-DIET & Mediterranean-style diet reduced MRI-PDFF \\
+CG08 & physical activity $\rightarrow$ liver fat & reduces ($-$) & STI2023-EX, STI2023-EXDOSE, EASL2024-PA & Works even without large weight loss \\
+CG09 & alcohol intake $\rightarrow$ liver fat & causes (+) & Rinella et al. 2023 & Defines MetALD and ALD \\
+CG10 & liver fat $\rightarrow$ liver injury & causes (+) & SAN2021-AST-GGT & Enzymes fall as liver fat falls \\
+CG11 & liver injury $\rightarrow$ fibrosis & causes (+) & VG2015-WL10-FIB & 10\% weight loss: fibrosis regression in 45\% \\
+CG12 & liver fat $\rightarrow$ CAP & is measured by & Wang et al. 2020 & About 5 dB/m per point of MRI-PDFF \\
+CG13 & liver injury $\rightarrow$ ALT & is measured by & Koutoukidis et al. 2019 & Marker of injury \\
+CG14 & fibrosis $\rightarrow$ liver stiffness & is measured by & EASL-EASD-EASO 2024; Sterling et al. 2006 & Stiffness and FIB-4 estimate fibrosis \\
+CG15 & ultra-processed intake $\rightarrow$ energy intake & causes (+) & HAL2019-UPF, EASL2024-DIET & About 500 kcal/day more \\
+CG16 & glycaemic load $\rightarrow$ liver fat & causes (+) & BAW2017-GI & Small trial in healthy men \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Patient State, Fibrosis Check, Liver Label and Safety Notices}
+\label{app:a_state}
+
+The evidence rules fire on yes/no flags derived from the Layer~2
+probabilities and routine measurements
+(\nolinkurl{src/recipe_scoring/patient_state.py}; Table~\ref{tab:a_flags}).
+Flags decide which rules apply; they are not diagnoses.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Patient-state flags and their thresholds.}
+\label{tab:a_flags}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{3.4cm}L>{\raggedright\arraybackslash}p{3.6cm}}
+\toprule
+Flag & Definition & Source \\
+\midrule
+Steatosis likely & P(CAP $\geq$ 248) $\geq$ 0.432 (F1-selected threshold) & Layer~2 model \\
+Moderate--severe steatosis likely & P(CAP $\geq$ 280) $\geq$ 0.365 & Layer~2 model \\
+Overweight / obesity & BMI $\geq$ 25 / $\geq$ 30~kg/m$^2$ ($\geq$ 23 / $\geq$ 27.5 for Asian participants) & WHO; WHO Expert Consultation 2004 \\
+Central obesity & Waist $>$ 102~cm (men), $>$ 88~cm (women) & NCEP ATP III \\
+Elevated glycaemia & HbA1c $\geq$ 5.7\% & ADA prediabetes threshold \\
+Dyslipidaemia & Triglycerides $\geq$ 150~mg/dL fasting or $\geq$ 175 non-fasting, or HDL $<$ 40 (men) / $<$ 50 (women)~mg/dL & NCEP ATP III; EAS/EFLM 2016 \\
+Recall reliable & Day-1 24-hour recall complete (DR1DRSTZ = 1), a usual day (DR1\_300 = 2) and with plausible energy & NHANES dietary recall \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{Fibrosis check} (\nolinkurl{src/fibrosis.py}). FIB-4 below 1.3 is low
+risk, 1.3--2.67 indeterminate and above 2.67 high (Sterling et al.\ 2006;
+EASL-EASD-EASO 2024). No FIB-4 is given under age 18, and a note is added
+under age 35 (AASLD 2023). A reliable FibroScan liver stiffness replaces FIB-4
+when available: below 8~kPa low, 8 to below 12~kPa indeterminate, 12~kPa or
+more high. A high result asks for clinical assessment before any recipes are
+shown.
+
+\paragraph{Liver label} (\nolinkurl{src/liver_labels.py}, Rinella et al.\ 2023
+nomenclature). Steatosis with at least one cardiometabolic risk factor is
+MASLD; with 140--350~g of alcohol a week (women) or 210--420~g (men) it is
+MetALD; above that range, ALD; with no risk factor, cryptogenic. Labels support
+explanations and are not diagnoses.
+
+\paragraph{Safety notices.} Patients under 18, drinking in the MetALD range or
+above, taking glucose-lowering medicine, or pregnant are told to discuss diet
+changes with a clinician, and any plan they choose waits for a clinician's
+approval. A high fibrosis result also requires approval and withholds
+recipes.
+
+\section{Nutritional Priority Rules}
+\label{app:a_rules}
+
+Each rule (\nolinkurl{src/recipe_scoring/evidence_rules.py};
+Table~\ref{tab:a_rules}) gives a priority with a base level, raised when a
+condition holds. When the 24-hour recall is reliable, the level moves up one
+step if the patient's own intake misses the same reference value used for
+recipes, and down one step if it meets it. No priority carries a calorie or
+gram target for the patient: the levels rank which objective matters more, and
+every one is marked as needing clinical review.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Nutritional priority rules.}
+\label{tab:a_rules}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{2.6cm}p{1.2cm}LL>{\raggedright\arraybackslash}p{2.6cm}}
+\toprule
+Priority & Applies when & Base level & Raised to & Intake check & Evidence \\
+\midrule
+Evidence-informed weight management & Steatosis likely, with overweight or central obesity & Medium & High with moderate--severe steatosis likely or obesity & None & VG2015-WL5, VG2015-WL7-10, VG2015-WL10-NASH, HAI2022-CR \\
+Overall dietary quality & Steatosis likely & Medium & High with moderate--severe steatosis likely & Fibre $\geq$ 14~g per 1,000~kcal & EASL2024-DIET, STE2026-MEDDIET, HAI2022-DIET, SAN2021-AST-GGT, SAN2021-ALT, XIO2024-MD-LFD \\
+Recipes lower in saturated fat & Steatosis likely & Medium & High with dyslipidaemia & Saturated fat $\leq$ 10\% of energy & EASL2024-DIET, LUU2018-SAT \\
+Recipes lower in added sugars & Steatosis likely & Low & Medium with elevated glycaemia or excess weight & Added sugars $\leq$ 10\% of energy & EASL2024-DIET, CHI2014-HYPER, CHI2014-ISO \\
+Less processed ingredients & Steatosis likely & Low & -- & None & EASL2024-DIET, HAL2019-UPF \\
+Lower glycaemic load & Steatosis likely and elevated glycaemia & Low & -- & None & BAW2017-GI \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Recipe Criteria and Ranking Weights}
+\label{app:a_criteria}
+
+Each priority maps to one recipe measure with a reference value from public
+guidance (\nolinkurl{src/recipe_scoring/recipe_criteria.py};
+Table~\ref{tab:a_criteria}). A criterion scores 100 at or past the reference
+and falls linearly to 0 over the tolerance. Gating criteria decide whether a
+recipe meets every reference; the two ingredient-derived measures shape the
+score but do not gate, because their evidence is weaker.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Recipe criteria, reference values and tolerances.}
+\label{tab:a_criteria}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.4cm}>{\raggedright\arraybackslash}p{3.0cm}p{1.6cm}p{1.4cm}p{0.8cm}L}
+\toprule
+Priority & Recipe measure & Reference & Tolerance & Gate & Source \\
+\midrule
+Weight management & Energy per serving & $\leq$ 600~kcal & 400~kcal & Yes & Public Health England 400-600-600, 2018 \\
+Saturated fat & Saturated fat, \% of energy & $\leq$ 10\% & 10 points & Yes & WHO 2023; DGA 2020--2025 \\
+Added sugars & Total sugars, \% of energy & $\leq$ 10\% & 15 points & Yes & WHO 2015 (RecipeDB reports total sugars) \\
+Dietary quality & Fibre per 1,000~kcal & $\geq$ 14~g & 14~g & Yes & DGA 2020--2025 \\
+Less processed & FPro (0--1) & $\leq$ 0.5 & 0.5 & No & Design choice; EASL-EASD-EASO 2024 \\
+Glycaemic load & Glycaemic load per serving & $\leq$ 20 & 20 & No & University of Sydney classification \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Criterion weights follow the priority level: low 1, medium 2, high 3. The
+overall score combines health (weight 0.6), cuisine match (0.2), feasibility
+(0.2), acceptability from shrunk RecipeDB ratings (0.1) and personal fit
+(0.4); personal fit applies only to recipes that already pass every health
+gate (\nolinkurl{src/recipe_scoring/multi_criteria.py}).
+
+\section{Plan Paces}
+\label{app:a_paces}
+
+The three paces offered to a patient come from trial prescriptions
+(\nolinkurl{src/care_plan.py}, \nolinkurl{data/evidence/simulator_parameters.csv};
+Table~\ref{tab:a_paces}). The calorie change and walking together give the
+daily energy change; walking is costed at 3.8~MET (2024 Adult Compendium of
+Physical Activities).
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{The three plan paces.}
+\label{tab:a_paces}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.6cm}L>{\raggedright\arraybackslash}p{2.6cm}L}
+\toprule
+Pace & Calorie change & Walking & Source \\
+\midrule
+Gentle & Half the DPP deficit for the weight band & 90 min/week & Derived from DPP \\
+Standard (recommended) & DPP deficit, 500--1,000~kcal/day by weight band & 150 min/week & DPP Research Group 2002 \\
+Ambitious & Look AHEAD goal: 1,200--1,500~kcal/day ($<$ 114~kg) or 1,500--1,800 ($\geq$ 114~kg) & 175 min/week by month 6 & Wadden et al.\ 2006; Neiberg et al.\ 2012 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% ======================================================================
+\chapter{System, Reproducibility and Tests}
+\label{app:system}
+
+\section{Architecture}
+\label{app:b_architecture}
+
+\begin{enumerate}
+    \item \textbf{Layers 2--5} run as Python modules: the liver-state model,
+          the evidence engine, recipe ranking and the scenario engine
+          (\nolinkurl{src/twin_pipeline.py} runs them together).
+    \item \textbf{Backend:} FastAPI with an SQLite database
+          (\nolinkurl{src/api/app.py}, \nolinkurl{src/api/db.py}). It stores each
+          patient's dated visits, plans and twin runs, so that later visits can
+          be compared with what the twin expected.
+    \item \textbf{Dashboard:} React and TypeScript, built with Vite
+          (\nolinkurl{frontend/}). It calls the backend through \nolinkurl{/api};
+          the 3D liver uses three.js.
+    \item \textbf{External resources:} RecipeDB for recipes and photo links,
+          and optionally an SMTP mail server to email sign-in codes.
+\end{enumerate}
+
+\section{API}
+\label{app:b_api}
+
+Table~\ref{tab:b_api} lists the backend's endpoints. Patients only ever see
+their own record, and never the CAP estimate or grade; clinicians see the
+patients of their clinic.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Backend endpoints.}
+\label{tab:b_api}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{5.4cm}>{\raggedright\arraybackslash}p{2.4cm}L}
+\toprule
+Endpoint & Who & What it does \\
+\midrule
+\texttt{POST /auth/code}, \texttt{POST /auth/session} & Anyone & One-time sign-in code by email, then a session token \\
+\texttt{POST /patients} & Patient, clinician & Sign-up: measurements, cuisine, favourite dishes, food rules, clinic code \\
+\texttt{GET /patients}, \texttt{GET /patients/\{id\}} & Both & A clinician's patients sorted by alerts; one patient's record \\
+\texttt{POST /patients/\{id\}/visits} & Both & A visit or check-in; returns what changed (verdict, chances, tip) \\
+\texttt{GET}, \texttt{POST /patients/\{id\}/twin} & Both & The saved twin run for the latest visit, or a new run (patient or clinician view) \\
+\texttt{GET .../plan/suggestion}, \texttt{PUT .../plan}, \texttt{POST .../plan/approve} & Both; approval: clinician & Three paces; the chosen plan; clinician approval \\
+\texttt{PUT .../plan/style} & Both & Recipe style, step 0 (close to usual food) to 3 (healthiest) \\
+\texttt{GET .../today}, \nolinkurl{.../week}, \nolinkurl{.../week/shopping} & Both & Today's next step and meals, the seven-day plan, the shopping list \\
+\texttt{GET .../timeline} & Both & Visits, the re-assessment loop and 3-, 6- and 12-month projections \\
+\texttt{GET .../clinical} & Clinician & The patient page: CAP estimate and grade, SHAP drivers, fibrosis, priorities, scenarios, explanations \\
+\texttt{GET /alerts}, \nolinkurl{/recipes}, \nolinkurl{/dishes}, \nolinkurl{/food/questions} & Mixed & Clinic alerts; recipe details and photos; favourite-dish choices; sign-up food questions \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Stored Data}
+\label{app:b_data}
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Database tables.}
+\label{tab:b_data}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{4.4cm}L}
+\toprule
+Table & Holds \\
+\midrule
+\texttt{clinics} & Name and joining code \\
+\texttt{users}, \texttt{login\_codes}, \texttt{sessions} & Email and role (patient or clinician); hashed one-time codes and session tokens \\
+\texttt{patients} & Reference label, cuisine, favourite dishes, food rules \\
+\texttt{visits} & Dated NHANES-coded measurements and the check-in answers (meals and walking followed) \\
+\texttt{plans} & Start date, pace, calorie change, walking, recipe style, next check-in, status, approver and note \\
+\texttt{twin\_runs} & The full twin result for a visit \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Table~\ref{tab:b_data} lists the database tables. No names are stored:
+patients are known by a label such as P0001 and by their email address.
+
+\section{Dashboard Screens}
+\label{app:b_screens}
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Dashboard screens.}
+\label{tab:b_screens}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{3.8cm}L}
+\toprule
+Screen & Contents \\
+\midrule
+Sign-in and sign-up & Emailed code; eight sign-up screens converting answers to NHANES units \\
+Today & Next step, body measures, goals, the predict--measure--adjust band, liver summary, today's meals with photos \\
+My liver & A 3D liver today beside the liver at 3, 6 or 12 months, coloured by the chance of a lot of fat, then the full results \\
+Plan and recipes & Pace choice, waiting for approval, Scenario A or B with dishes and a comparison with usual intake \\
+Meals, My plan, Progress, Check-in & The week and shopping list; the plan and recipe-style ladder; weight against the expected range; a four-question check-in \\
+Clinician & Patient list by alerts, plan review with a note, and the full patient page \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Table~\ref{tab:b_screens} lists the screens; Figures~\ref{fig:m_today},
+\ref{fig:m_liver} and~\ref{fig:m_clinician} show three of them.
+
+\section{Reproducing the Results}
+\label{app:b_reproduce}
+
+One command rebuilds every result from the raw data:
+\texttt{python -m src.rebuild\_all} (\texttt{--list} shows the stages,
+\texttt{--from <stage>} resumes). The stages run in this order:
+
+\begin{enumerate}
+    \item \textbf{data:} download NHANES 2017--2023 and build the combined
+          dataset and the habitual-diet table; collect and profile the
+          RecipeDB recipes.
+    \item \textbf{model:} train, validate and calibrate the liver-state model;
+          conformal intervals; FIB-4 validation.
+    \item \textbf{ranking:} evaluate the recipe ranking on 300 held-out
+          participants, with and without the 24-hour recall.
+    \item \textbf{calibrate, simulate:} calibrate the virtual-patient
+          simulator against the trials; run the in-silico evaluation.
+    \item \textbf{nhanes3:} download NHANES~III and run the external and
+          mortality validation.
+    \item \textbf{audits:} the fairness audit and the summary evaluation.
+    \item \textbf{figures, tests:} the report figures, then the full test
+          suite.
+\end{enumerate}
+
+\section{Tests}
+\label{app:b_tests}
+
+The Python test suite (\texttt{python -m pytest -q}) covers the model inputs,
+evidence rules, ranking, scenarios, re-assessment, safety checks, summaries
+and the API, including that patients cannot open the clinician page. Browser
+tests in \nolinkurl{frontend/e2e/} drive a headless browser through plan approval,
+the patient journey, the 3D liver and the clinician page.
+
+\section{Demo Accounts}
+\label{app:b_demo}
+
+The demonstration (\texttt{python -m src.api.seed\_demo}; \texttt{--reset}
+restores it) uses a clinic, one clinician and five held-out NHANES
+participants who were never used for training: \texttt{dr.rao@example.org}
+(clinician); \texttt{demo.patient@example.org} (on diabetes medicine, so his
+plan needs approval); and \texttt{patient2}--\texttt{patient5@example.org}
+(Mexican cuisine; European vegetarian; American with a 45-minute cooking
+limit; Asian pescatarian with little sign of liver fat). Running instructions
+are in \nolinkurl{docs/RUN_AND_DEMO.md}.

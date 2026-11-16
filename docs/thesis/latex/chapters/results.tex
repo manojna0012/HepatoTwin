@@ -21,7 +21,7 @@ unweighted.
 
 \subsection{Discrimination and calibration}
 
-The development of the model is reported in Chapter~\ref{chap:experiments};
+The development of the model is reported in Chapter~\ref{chap:cap-experiments};
 Table~\ref{tab:r_layer2} summarises the selected model on the 1{,}236 in-scope
 test participants. Both classifiers rank participants well (AUC 0.881 for CAP
 $\geq$ 248 and 0.879 for CAP $\geq$ 280) and are well calibrated: the expected
@@ -30,7 +30,7 @@ about 30\% of such patients have that much liver fat. On the 1{,}100
 participants with every input to both scores, the CAP $\geq$ 248 classifier
 outperformed the Fatty Liver Index (0.861) and the Hepatic Steatosis Index
 (0.836), with paired differences that exclude zero
-(Chapter~\ref{chap:experiments}).
+(Chapter~\ref{chap:cap-experiments}).
 
 \begin{table}[htbp]
 \centering
@@ -51,6 +51,25 @@ CAP RMSE (dB/m) & \multicolumn{2}{l}{41.4 (39.3--43.6)} \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{figures/roc_curves.png}
+    \caption{ROC curves on the in-scope test participants: (a) the steatosis
+             classifiers; (b) the CAP $\geq$ 248 classifier against the Fatty
+             Liver Index and the Hepatic Steatosis Index on the participants with
+             every input to both scores.}
+    \label{fig:r_roc}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/calibration.png}
+    \caption{Calibration of the two classifiers on the in-scope test
+             participants, with 95\% intervals per bin; the histograms show how
+             many participants received each predicted probability.}
+    \label{fig:r_calibration}
+\end{figure}
 
 \subsection{Uncertainty}
 
@@ -439,7 +458,7 @@ to 3.03~kg, so the check-in answers add information.
 \centering
 \caption{Weight forecast error for adults (mean absolute error, kg) and coverage of the 90\% range.}
 \label{tab:r_forecasts}
-\begin{tabular}{p{3.4cm}rrrrrr}
+\begin{tabular}{p{2.6cm}rrrrrr}
 \toprule
 Forecast & $n$ & Twin & Textbook & Last weight & Twin coverage & Twin, no answers \\
 \midrule
