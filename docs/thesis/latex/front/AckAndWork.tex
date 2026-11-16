@@ -1,21 +1,61 @@
-
 \vbox{
     \begin{minipage}[t][0.5\textheight][t]{\textwidth}
         \chapter*{\huge Acknowledgment}
         \addcontentsline{toc}{chapter}{Acknowledgment}
 
-        \lipsum[1]
+        We would like to express our sincere gratitude to our
+        BTP advisor, \textbf{Dr. Ganesh Bagler}, for his valuable
+        guidance, continuous support, and insightful suggestions
+        throughout the development of our project, \textbf{HepatoTwin}.
+
+        We are also grateful to Indraprastha Institute of Information
+        Technology, Delhi, for providing us with the resources and
+        academic environment necessary to carry out this work.
+
+        Finally, we would like to thank everyone who directly or
+        indirectly contributed to the successful completion of
+        this project.
 
     \end{minipage}
 
-    % If you don't want a work distribution section, comment out the following lines
-    % and change the height of the minipage above to 1\textheight
     \nointerlineskip
     \begin{minipage}[b][0.5\textheight][t]{\textwidth}
-        {\let\clearpage\relax\chapter*{\huge Work Distribution}}
+        {\let\clearpage\relax
+        \chapter*{\huge Work Distribution}
+        \addcontentsline{toc}{chapter}{Work Distribution}}
 
+        \textbf{Akshainie Rawat (2024054):}
 
-        \lipsum[2]
+        Led the development of the patient-specific digital twin
+        framework, including NHANES data acquisition and preprocessing,
+        exploratory data analysis, predictive modeling, model
+        calibration, and explainability. Contributed to clinical
+        evidence integration, patient-state estimation, fibrosis
+        risk assessment, safety guardrails, and scenario-based
+        simulation. Also worked on longitudinal patient monitoring,
+        virtual-patient simulation, external validation, and
+        fairness evaluation.
 
+        \vspace{0.2in}
+
+        \textbf{Manojna Kamaram Reddy (2024334):}
+
+        Led the development of the dietary recommendation framework,
+        including recipe data extraction, parsing, nutritional
+        profiling, and structured recipe representation. Worked on
+        patient-specific recipe scoring, nutritional alignment,
+        cuisine compatibility, feasibility, recommendation diversity,
+        and meal-plan generation. Also contributed to recipe
+        explainability, evidence-grounded recommendations, additional
+        nutritional criteria, and recipe evaluation through pilot
+        testing.
+
+        \vspace{0.2in}
+
+        Both team members collaboratively contributed to the
+        overall system architecture, integration of the patient
+        modeling and dietary recommendation components, backend
+        and dashboard development, evaluation design, literature
+        review, documentation, and final report preparation.
     \end{minipage}
 }
