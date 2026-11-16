@@ -1,6 +1,6 @@
-PWD C:\Users\subas\OneDrive\Desktop\HepatoTwin\docs\thesis\latex
+PWD c:\Users\subas\OneDrive\Desktop\HepatoTwin\docs\thesis\latex
 INPUT C:\Users\subas\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT main.tex
+INPUT c:\Users\subas\OneDrive\Desktop\HepatoTwin\docs\thesis\latex\main.tex
 OUTPUT main.log
 INPUT C:\Users\subas\AppData\Local\Programs\MiKTeX\tex\latex\base\report.cls
 INPUT C:\Users\subas\AppData\Local\Programs\MiKTeX\tex\latex\base\report.cls
